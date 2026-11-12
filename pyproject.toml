@@ -1,0 +1,43 @@
+[project]
+name = "classic-algos"
+version = "0.1.0"
+description = "Parallel research benchmark for modernizing classic algorithms with the e-means recipe"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "datasets>=3.0",
+  "faiss-cpu>=1.9",
+  "gensim>=4.3.3",
+  "h5py>=3.11",
+  "hmmlearn>=0.3.3",
+  "hnswlib>=0.8.0",
+  "huggingface-hub>=0.25",
+  "implicit>=0.7.2",
+  "librosa>=0.10.2",
+  "matplotlib>=3.9",
+  "nltk>=3.9",
+  "numba>=0.60",
+  "numpy>=2.0",
+  "pandas>=2.2",
+  "pyarrow>=17.0",
+  "pytest>=8.0",
+  "requests>=2.32",
+  "rich>=13.7",
+  "scikit-learn>=1.5",
+  "scipy>=1.14",
+  "sentence-transformers>=3.0",
+  "statsmodels>=0.14",
+  "torch>=2.5",
+  "torchvision>=0.20",
+  "tqdm>=4.66",
+  "transformers>=4.45",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-v"
+

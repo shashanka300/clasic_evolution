@@ -1,0 +1,24 @@
+# Note: no trailing slash on data/.venv so symlinks to shared bench dirs are ignored too
+data
+*.npy
+*.npz
+*.fvecs
+*.bvecs
+*.ivecs
+*.fbin
+*.ibin
+*.u8bin
+*.hdf5
+*.h5
+*.parquet
+*.pt
+*.tar.gz
+*.gz
+*.zip
+*.bz2
+__pycache__/
+.pytest_cache/
+.venv
+.DS_Store
+# TASK.md is generated per worktree from RESEARCH_PLAN.md; kept untracked so rebases never conflict on it
+TASK.md
