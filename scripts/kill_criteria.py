@@ -288,6 +288,21 @@ def t07_hmm_best_variant(summary, records):
     return killed_gain or bool(worse), f"{why}; best variant significantly worse: {worse or 'none'}"
 
 
+def t12_universal(summary, records):
+    """Pre-registered 2026-11-13, before any law-sweep data existed. 'Killed' = universal law NOT supported:
+    M1 must beat M0 in LOCO (median lower AND paired Wilcoxon p<0.05) and in LOAO (median lower)."""
+    by = {(r["extra"]["group"], r["method"]): r["extra"]["penalties"] for r in records}
+    need = [("loco", "M0"), ("loco", "M1"), ("loao", "M0"), ("loao", "M1")]
+    if any(k not in by or len(by[k]) < 5 for k in need):
+        return None, "need LOCO and LOAO penalties for M0 and M1 (>=5 cells each)"
+    m0, m1 = np.array(by[("loco", "M0")]), np.array(by[("loco", "M1")])
+    p = float(sps.wilcoxon(m1, m0, alternative="less").pvalue) if len(m0) == len(m1) and np.any(m1 != m0) else 1.0
+    loco_ok = np.median(m1) < np.median(m0) and p < ALPHA
+    loao_ok = np.median(by[("loao", "M1")]) < np.median(by[("loao", "M0")])
+    return not (loco_ok and loao_ok), (f"LOCO median M1 {np.median(m1):.3%} vs M0 {np.median(m0):.3%} (Wilcoxon p={p:.3g}); "
+                                       f"LOAO median M1 {np.median(by[('loao', 'M1')]):.3%} vs M0 {np.median(by[('loao', 'M0')]):.3%}")
+
+
 SECONDARY: dict[str, list[tuple[str, Callable]]] = {
     "hmm-ema": [("[amendment 2026-11-13] gain < 2x or BEST variant has worse optimum", t07_hmm_best_variant)],
 }
@@ -306,4 +321,5 @@ CRITERIA: dict[str, tuple[str, Callable]] = {
     "cheap-seeding": ("nothing beats random init once seeding time is charged", t09_seeding),
     "adaptive-k": ("selected k unstable across seeds (CV > 20%)", t10_adaptive_k),
     "hnsw-scaling-laws": ("law loses to library defaults on held-out datasets", t11_hnsw),
+    "universal-scaling-law": ("UNIVERSAL LAW NOT SUPPORTED: M1 fails to beat per-algorithm-constant null (LOCO+LOAO)", t12_universal),
 }
