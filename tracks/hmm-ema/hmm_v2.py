@@ -148,12 +148,18 @@ def _viterbi_batch(seqs, log_pi, logA, logB):
     return out
 
 
+def _norm_rows(c):
+    """Row-normalise with smoothing RELATIVE to row mass (scale-invariant). An absolute pseudo-count
+    swamps the engine's n0=1e-10 initial statistics and maps a random init to the exactly uniform,
+    symmetric HMM, which is an EM fixed point (bug found on UCI HAR, 2026-11-13)."""
+    c = np.atleast_2d(c)
+    mass = c.sum(1, keepdims=True)
+    c = c + SMOOTH * mass / c.shape[1] + 1e-300
+    return c / c.sum(1, keepdims=True)
+
+
 def params_from(counts, emis, trans, init):
-    S, V = emis.shape
-    B = (emis + SMOOTH) / (emis + SMOOTH).sum(1, keepdims=True)
-    A = (trans + SMOOTH) / (trans + SMOOTH).sum(1, keepdims=True)
-    pi = (init + SMOOTH) / (init + SMOOTH).sum()
-    return np.log(pi), A, B
+    return np.log(_norm_rows(init)[0]), _norm_rows(trans), _norm_rows(emis)
 
 
 def random_init(S, V, seed, emis_prior=None):

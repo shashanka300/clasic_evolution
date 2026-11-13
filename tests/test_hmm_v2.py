@@ -65,3 +65,13 @@ def test_revival_gives_incoming_transitions():
     ev = plug.revive(st, 0, np.random.default_rng(0))
     assert list(ev.dead_indices) == [3]
     assert st.extras["trans"][:, 3].sum() > 0
+
+
+def test_init_params_survive_first_mstep():
+    """Regression: with n0=1e-10 the first params_from_stats must return the random init, not uniform."""
+    _, X = _data()
+    plug = HMMPlugin(4, 12, seed=3)
+    st = plug.init(X)
+    B0, A0 = plug.B.copy(), plug.A.copy()
+    plug.params_from_stats(st)
+    assert np.allclose(plug.B, B0, rtol=1e-4) and np.allclose(plug.A, A0, rtol=1e-4)
