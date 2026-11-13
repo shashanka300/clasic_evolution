@@ -47,6 +47,11 @@ def git_commit() -> str:
         return "unknown"
 
 
+def _hw() -> dict:
+    from core.device import hardware_tag
+    return hardware_tag()
+
+
 def config_hash(config: dict[str, Any]) -> str:
     """Stable 12-hex-digit hash of a JSON-serialisable config dict."""
     blob = json.dumps(config, sort_keys=True, default=str)
@@ -112,6 +117,7 @@ def make_run(
         "metric": metric,
         "reference": bool(reference),
         "git_commit": git_commit(),
+        "hw": _hw(),
         "config_hash": config_hash(cfg),
         "config": cfg,
     }

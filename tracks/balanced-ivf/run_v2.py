@@ -43,7 +43,9 @@ from core.stats import BatchStats  # noqa: E402
 TRACK = "balanced-ivf"
 RUNS = results_path(TRACK)
 NPROBES = (1, 2, 4, 8, 16, 32, 64, 128, 256)
-DEV = "mps" if torch.backends.mps.is_available() else "cpu"
+from core.device import accel  # noqa: E402
+
+DEV = accel()
 
 
 def sinkhorn_labels(x, C, eps=0.05, iters=3):

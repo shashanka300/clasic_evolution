@@ -91,7 +91,7 @@ def run(dsname, split, k, seeds, device, path):
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--device", default="auto", choices=("auto", "cpu", "mps"))
+    ap.add_argument("--device", default="auto", choices=("auto", "cpu", "mps", "cuda"))
     ap.add_argument("--seeds", type=int, default=3)
     ap.add_argument("--quick", action="store_true")
     args = ap.parse_args()

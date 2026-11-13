@@ -188,6 +188,13 @@ def _fmt(v, nd=4):
     return str(v)
 
 
+def _hw_by_group(records):
+    out = defaultdict(set)
+    for r in records:
+        out[r["extra"]["group"]].add((r["extra"].get("hw") or {}).get("host", "untagged"))
+    return out
+
+
 def render_verdict(slug: str, records, summary, verdict) -> str:
     commits = sorted({r["extra"]["git_commit"] for r in records})
     lines = [
@@ -197,6 +204,9 @@ def render_verdict(slug: str, records, summary, verdict) -> str:
         "Do not edit by hand; re-run the evaluator.",
         "",
         f"- Records: {len(records)} (v2 schema). Commits: {', '.join(commits)}",
+        f"- Hardware: {', '.join(sorted({(r['extra'].get('hw') or {}).get('host', 'untagged(mac, pre-hw-tag)') for r in records}))}",
+        *[f"- **WARNING: group `{g}` mixes hardware {sorted(h)}; its wall-clock columns are not comparable.**"
+          for g, h in _hw_by_group(records).items() if len(h) > 1],
         f"- Kill criterion (frozen {FROZEN_AT}): {verdict['criterion']}",
         f"- **Outcome: {verdict['status']}**: {verdict['reason']}",
         *[f"- Secondary {sv['criterion']}: **{sv['status']}**: {sv['reason']}" for sv in verdict.get("secondary", [])],

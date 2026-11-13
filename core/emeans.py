@@ -28,13 +28,14 @@ def _accumulate_counts_and_sums(batch: np.ndarray, labels: np.ndarray, k: int) -
 
 
 def resolve_device(device: str = "auto", n_batch: int = 0, k: int = 0) -> str:
-    """Select ``mps`` or ``cpu``; MPS wins for larger dense matrix multiplies."""
-    if device in ("cpu", "mps"):
-        if device == "mps" and not torch.backends.mps.is_available():
+    """Select ``cuda``/``mps`` or ``cpu``; the accelerator wins for larger dense matrix multiplies."""
+    from core.device import accel
+    if device in ("cpu", "mps", "cuda"):
+        if device != "cpu" and accel() != device:
             return "cpu"
         return device
-    if torch.backends.mps.is_available() and n_batch * k >= 262_144:
-        return "mps"
+    if accel() != "cpu" and n_batch * k >= 262_144:
+        return accel()
     return "cpu"
 
 
@@ -49,14 +50,14 @@ def assign_nearest(
     k = centroids.shape[0]
     backend = resolve_device(device, n, k)
 
-    if backend == "mps":
-        c_t = torch.from_numpy(np.array(centroids, dtype=np.float32, copy=True)).to("mps")
+    if backend in ("mps", "cuda"):
+        c_t = torch.from_numpy(np.array(centroids, dtype=np.float32, copy=True)).to(backend)
         c_norm2 = (c_t * c_t).sum(dim=1)
         labels = np.empty(n, dtype=np.int64)
         min_dists = np.empty(n, dtype=np.float32)
         for start in range(0, n, chunk_size):
             end = min(start + chunk_size, n)
-            x_t = torch.from_numpy(np.array(batch[start:end], dtype=np.float32, copy=True)).to("mps")
+            x_t = torch.from_numpy(np.array(batch[start:end], dtype=np.float32, copy=True)).to(backend)
             x_norm2 = (x_t * x_t).sum(dim=1, keepdim=True)
             dists = x_norm2 + c_norm2.unsqueeze(0) - 2.0 * (x_t @ c_t.T)
             vals, idx = dists.min(dim=1)

@@ -177,7 +177,8 @@ def load_dinov2_cifar100(
         from datasets import load_dataset
         from transformers import AutoImageProcessor, AutoModel
 
-        device = "mps" if torch.backends.mps.is_available() else "cpu"
+        from core.device import accel
+        device = accel()
         processor = AutoImageProcessor.from_pretrained(model_name)
         model = AutoModel.from_pretrained(model_name).to(device).eval()
 
@@ -240,7 +241,8 @@ def load_text_embeddings(
         from datasets import load_dataset
         from sentence_transformers import SentenceTransformer
 
-        device = "mps" if torch.backends.mps.is_available() else "cpu"
+        from core.device import accel
+        device = accel()
         encoder = SentenceTransformer(model_name, device=device)
 
         if dataset_name == "ag_news":
@@ -289,19 +291,22 @@ class Timer:
     """Wall-clock timer that synchronizes Apple Silicon MPS when active."""
 
     def __init__(self, use_mps: bool = False) -> None:
-        self.use_mps = bool(use_mps and torch.backends.mps.is_available())
+        from core.device import accel
+        self.use_mps = bool(use_mps and accel() != "cpu")  # name kept for compatibility: any accelerator
         self.wall_s: float = 0.0
         self._t0: float = 0.0
 
     def __enter__(self) -> Timer:
         if self.use_mps:
-            torch.mps.synchronize()
+            from core.device import sync
+            sync()
         self._t0 = time.perf_counter()
         return self
 
     def __exit__(self, *args: object) -> None:
         if self.use_mps:
-            torch.mps.synchronize()
+            from core.device import sync
+            sync()
         self.wall_s = time.perf_counter() - self._t0
 
 
