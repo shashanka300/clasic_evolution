@@ -98,8 +98,7 @@ def run_single_experiment(
     elif method in ("kmeans_parallel", "kmeans||"):
         c_init, dist_evals_seed = seed_kmeans_parallel(x_train, k, rng, rounds=3)
     elif method in ("afkmc2", "afk_mc2"):
-        m = 200 if n >= 50_000 else 50
-        c_init, dist_evals_seed = seed_afkmc2(x_train, k, rng, m=m)
+        c_init, dist_evals_seed = seed_afkmc2(x_train, k, rng)
     elif method in ("subsampled_kmeanspp", "single_batch_kmeanspp"):
         c_init, dist_evals_seed = seed_subsampled_kmeanspp(x_train, k, rng, sample_ratio=0.05, max_sample=8192)
     elif method == "split_as_you_go":

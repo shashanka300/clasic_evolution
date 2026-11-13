@@ -84,9 +84,14 @@ class SplitAsYouGoPlugin(ClassicAlgoPlugin):
         seed: int = 0,
     ) -> None:
         self.k = int(k)
-        self.k0 = int(k0) if k0 is not None else max(2, min(self.k, 4))
+        if k0 is not None:
+            self.k0 = min(int(k0), self.k)
+        elif self.k <= 2:
+            self.k0 = self.k
+        else:
+            self.k0 = max(2, min(self.k, 4))
         self.k_active = self.k0
-        self.growth_steps = max(int(growth_steps), self.k - self.k0)
+        self.growth_steps = max(int(growth_steps), max(self.k - self.k0, 0))
         self.tau = float(tau)
         self.delta = float(delta)
         self.device = device
@@ -98,15 +103,15 @@ class SplitAsYouGoPlugin(ClassicAlgoPlugin):
     def init(self, x0: np.ndarray) -> EMAStats:
         rng = np.random.default_rng(self.seed)
         n, d = x0.shape
-        self.k_active = min(self.k0, n)
-        idx0 = rng.choice(n, size=self.k_active, replace=False)
+        self.k_active = min(self.k0, n, self.k)
+        idx0 = rng.choice(n, size=self.k_active, replace=self.k_active > n)
 
         # Pre-allocate k centroid slots in float32
         c_full = np.zeros((self.k, d), dtype=np.float32)
         c_full[:self.k_active] = x0[idx0]
         # Inactive slots duplicate random active points
         for i in range(self.k_active, self.k):
-            c_full[i] = c_full[i % self.k_active]
+            c_full[i] = c_full[i % max(1, self.k_active)]
 
         self._centroids = c_full
         stats = EMAStats.from_params(c_full)
@@ -289,7 +294,8 @@ def fit_budgeted_split_as_you_go(
     b = budget_plan.batch_size
     a0 = float(alpha0) if alpha0 is not None else emeans_alpha0(n, k, budget_plan.total_budget_epochs, b)
 
-    growth_steps = max(k - (k0 or 4), int(round(0.1 * budget_plan.clustering_steps)))
+    effective_k0 = min(k, (k0 if k0 is not None else (k if k <= 2 else max(2, min(k, 4)))))
+    growth_steps = max(max(k - effective_k0, 0), int(round(0.1 * budget_plan.clustering_steps)))
 
     plugin = SplitAsYouGoPlugin(
         k=k,

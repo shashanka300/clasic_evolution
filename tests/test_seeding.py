@@ -80,7 +80,8 @@ def test_seeding_output_shapes_and_dist_evals(synthetic_clusters: np.ndarray) ->
     m = 50
     c_afk, ev_afk = seed_afkmc2(x, k, rng, m=m)
     assert c_afk.shape == (k, d)
-    expected_afk = n + (m + 1) * k * (k - 1) // 2
+    n_prop = min(n, max(k, int(0.04 * n * k))) if 1.0 / float(k) >= 0.05 else n
+    expected_afk = n_prop + (m + 1) * k * (k - 1) // 2
     assert ev_afk == expected_afk
 
     # 6. Subsampled k-means++
@@ -197,3 +198,108 @@ def test_loss_ratio_metrics() -> None:
     metrics = compute_loss_ratios(candidate_loss=0.20, random_loss=0.25, unbudgeted_kmpp_loss=0.15)
     assert metrics["ratio_vs_random"] == pytest.approx(0.80)
     assert metrics["recovery_fraction"] == pytest.approx(0.50)
+
+
+def test_split_as_you_go_k1_boundary(synthetic_clusters: np.ndarray) -> None:
+    """Verify SplitAsYouGoPlugin and fit_budgeted_split_as_you_go handle k=1 gracefully."""
+    x = synthetic_clusters
+    n, d = x.shape
+    rng = np.random.default_rng(42)
+
+    # 1. Direct seed_split_as_you_go_init with k=1
+    c_init, ev_init = seed_split_as_you_go_init(x, k=1, rng=rng)
+    assert c_init.shape == (1, d)
+    assert ev_init == 0
+
+    # 2. Plugin directly with k=1
+    plugin = SplitAsYouGoPlugin(k=1, seed=42)
+    stats = plugin.init(x)
+    assert stats.counts.shape == (1,)
+    assert stats.sums.shape == (1, d)
+    c_params = plugin.params_from_stats(stats)
+    assert c_params.shape == (1, d)
+
+    b_stats = plugin.assign(x[:16])
+    assert b_stats.counts.shape == (1,)
+    assert b_stats.sums.shape == (1, d)
+
+    rev = plugin.revive(stats, step=0)
+    assert len(rev.dead_indices) == 0
+
+    loss = plugin.loss(x)
+    assert np.isfinite(loss)
+
+    # 3. fit_budgeted_split_as_you_go with k=1
+    plan = compute_budget_plan(n, 1, total_epochs=1.0, batch_size=64, dist_evals_seed=0)
+    final_c, steps, revivals, dist_evals = fit_budgeted_split_as_you_go(x, 1, plan, seed=42)
+    assert final_c.shape == (1, d)
+    assert steps == plan.clustering_steps
+
+
+def test_kmeans_parallel_k_greater_than_n() -> None:
+    """Verify seed_kmeans_parallel handles k > n without crashing on replace=False."""
+    # Data with fewer points than k and identical coordinates
+    x = np.ones((5, 3), dtype=np.float32)
+    rng = np.random.default_rng(42)
+    c, evals = seed_kmeans_parallel(x, k=8, rng=rng)
+    assert c.shape == (8, 3)
+    assert evals >= 0
+
+    # Test k=1
+    c1, evals1 = seed_kmeans_parallel(x, k=1, rng=rng)
+    assert c1.shape == (1, 3)
+    assert evals1 == 0
+
+
+def test_afkmc2_budget_invariant_across_configurations() -> None:
+    """Verify s <= 0.10 epoch invariant for seed_afkmc2 across diverse (N, k) pairs."""
+    configs = [
+        (50_000, 10),
+        (50_000, 50),
+        (50_000, 100),
+        (100_000, 10),
+        (100_000, 50),
+        (100_000, 100),
+        (1_000_000, 10),
+    ]
+    rng = np.random.default_rng(42)
+
+    for n, k in configs:
+        # Use synthetic dummy points for eval count verification
+        # Fast 1D points to check exact distance accounting and shape
+        x_dummy = rng.standard_normal((n, 2)).astype(np.float32)
+        c, evals = seed_afkmc2(x_dummy, k, rng)
+        assert c.shape == (k, 2)
+        s = float(evals) / float(n * k)
+        assert s <= 0.10, f"AFK-MC2 violated s <= 0.10 on (N={n}, k={k}): s={s:.6f}"
+
+
+def test_afkmc2_k1_boundary() -> None:
+    """Verify seed_afkmc2 handles k=1 boundary without distance evals."""
+    x = np.random.randn(20, 4).astype(np.float32)
+    rng = np.random.default_rng(42)
+    c, evals = seed_afkmc2(x, k=1, rng=rng)
+    assert c.shape == (1, 4)
+    assert evals == 0
+
+
+def test_accounting_floor_guarantees_no_budget_overrun() -> None:
+    """Verify math.floor in accounting prevents budget overrun even in worst-case rounding scenarios."""
+    # Counterexample from adversarial challenge
+    plan = compute_budget_plan(n=1000, k=10, total_epochs=1.0, batch_size=500, dist_evals_seed=900)
+    assert plan.is_within_budget
+    assert plan.dist_evals_total <= plan.dist_evals_budget
+
+    # Fine grid test over diverse configurations
+    for total_epochs in [1.0, 2.0, 3.0]:
+        for n in [1000, 5000, 50000]:
+            for k in [5, 10, 50]:
+                for b in [64, 500, 4096]:
+                    seed_cost_fraction = 0.05
+                    d_seed = int(seed_cost_fraction * n * k)
+                    p = compute_budget_plan(n, k, total_epochs, b, dist_evals_seed=d_seed)
+                    assert p.dist_evals_total <= p.dist_evals_budget, (
+                        f"Overrun: {p.dist_evals_total} > {p.dist_evals_budget} for "
+                        f"n={n}, k={k}, T={total_epochs}, b={b}"
+                    )
+                    assert p.is_within_budget

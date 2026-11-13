@@ -94,12 +94,12 @@ def compute_budget_plan(
     steps_per_epoch = max(n // b, 1)
 
     # If clustering_epochs is 0, no clustering steps are run
-    # If remaining budget is less than 0.5 mini-batch step, round to 0
+    # Use floor to strictly guarantee total evaluations <= total budget (no overrun)
     raw_steps = clustering_epochs * float(steps_per_epoch)
-    if clustering_epochs <= 0.0 or raw_steps < 0.5:
+    if clustering_epochs <= 0.0 or raw_steps < 1.0:
         clustering_steps = 0
     else:
-        clustering_steps = max(1, int(round(raw_steps)))
+        clustering_steps = max(0, int(math.floor(raw_steps)))
 
     dist_evals_clust = clustering_steps * b * k
     dist_evals_total = dist_evals_seed + dist_evals_clust

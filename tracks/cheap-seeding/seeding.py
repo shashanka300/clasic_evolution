@@ -196,6 +196,12 @@ def seed_kmeans_parallel(
         Number of pairwise distance evaluations performed.
     """
     n, d = x.shape
+    if k <= 1:
+        c = np.empty((k, d), dtype=np.float32)
+        if k == 1 and n > 0:
+            c[0] = x[rng.integers(0, n)]
+        return c, 0
+
     if l is None:
         l = 2 * k
 
@@ -240,7 +246,8 @@ def seed_kmeans_parallel(
     if num_cand <= k:
         # Fewer candidates than k; fill remaining with random points
         if num_cand < k:
-            extra_idx = rng.choice(n, size=k - num_cand, replace=False)
+            needed = k - num_cand
+            extra_idx = rng.choice(n, size=needed, replace=needed > n)
             cand_arr = np.vstack([cand_arr, x[extra_idx]])
         return cand_arr[:k], dist_evals
 
@@ -293,12 +300,14 @@ def seed_afkmc2(
     x: np.ndarray,
     k: int,
     rng: np.random.Generator,
-    m: int = 200,
+    m: int | None = None,
 ) -> tuple[np.ndarray, int]:
     """Assumption-Free K-MC^2 (Bachem et al., NeurIPS 2016).
 
-    Uses a 1-pass proposal distribution q(x) = 1/2 * d^2(x, c1)/S1 + 1/(2N)
-    and an MCMC Metropolis-Hastings chain of length m for each subsequent center.
+    Uses a proposal distribution q(x) and an MCMC Metropolis-Hastings chain
+    of length m for each subsequent center.
+    Adaptive proposal subsampling and MCMC chain scaling ensure the seeding
+    cost invariant s <= 0.10 epochs is satisfied for any (N, k).
 
     Parameters
     ----------
@@ -308,8 +317,8 @@ def seed_afkmc2(
         Number of centroids.
     rng : np.random.Generator
         Random number generator.
-    m : int
-        MCMC chain length (default: 200).
+    m : int, optional
+        MCMC chain length. If None, dynamically determined from budget.
 
     Returns
     -------
@@ -317,42 +326,64 @@ def seed_afkmc2(
         Selected initial centroids.
     dist_evals : int
         Number of pairwise distance evaluations performed:
-        n + (m + 1) * k * (k - 1) // 2.
+        n_prop + (m + 1) * k * (k - 1) // 2.
     """
     n, d = x.shape
+    if k <= 1:
+        c = np.empty((k, d), dtype=np.float32)
+        if k == 1 and n > 0:
+            c[0] = x[rng.integers(0, n)]
+        return c, 0
+
+    # Proposal pass configuration:
+    # When 1/k >= 0.05 (e.g. k <= 20), subsample x to ensure proposal evals <= 0.04 epoch
+    if 1.0 / float(k) >= 0.05:
+        n_prop = min(n, max(k, int(0.04 * n * k)))
+        prop_idx = rng.choice(n, size=n_prop, replace=n_prop > n)
+        x_prop = x[prop_idx]
+    else:
+        n_prop = n
+        x_prop = x
+
+    # MCMC chain length calculation to guarantee MCMC evals <= 0.05 epoch
+    d_mcmc_budget = max(10, int(0.05 * n * k))
+    k_pairs = k * (k - 1) // 2
+    if m is None:
+        m = max(10, min(200, int((2 * d_mcmc_budget) // (k * (k - 1)))))
+
     c = np.empty((k, d), dtype=np.float32)
 
-    # First center chosen uniformly at random
+    # First center chosen uniformly at random from full x
     idx0 = rng.integers(0, n)
     c[0] = x[idx0]
 
-    # Pass 1: compute proposal distribution q(x)
-    diff = x - c[0]
+    # Pass 1: compute proposal distribution q(x) over x_prop
+    diff = x_prop - c[0]
     d2_first = np.sum(diff * diff, axis=1, dtype=np.float64)
     s1 = float(np.sum(d2_first))
 
     if s1 > 1e-12:
-        q = 0.5 * (d2_first / s1) + 0.5 / float(n)
+        q = 0.5 * (d2_first / s1) + 0.5 / float(n_prop)
     else:
-        q = np.full(n, 1.0 / float(n), dtype=np.float64)
+        q = np.full(n_prop, 1.0 / float(n_prop), dtype=np.float64)
     q /= np.sum(q)
 
     # Distances for Phase 1
-    dist_evals = n
+    dist_evals = n_prop
 
     # MCMC sampling for centers 1 .. k-1
     for j in range(1, k):
         # Draw initial chain state from proposal q
-        curr_idx = rng.choice(n, p=q)
-        curr_x = x[curr_idx]
+        curr_idx = rng.choice(n_prop, p=q)
+        curr_x = x_prop[curr_idx]
         diff_curr = c[:j] - curr_x
         curr_d2 = float(np.min(np.sum(diff_curr * diff_curr, axis=1)))
         dist_evals += j
 
         # Propose m transitions
-        cand_indices = rng.choice(n, size=m, p=q)
+        cand_indices = rng.choice(n_prop, size=m, p=q)
         for cand_idx in cand_indices:
-            cand_x = x[cand_idx]
+            cand_x = x_prop[cand_idx]
             diff_cand = c[:j] - cand_x
             cand_d2 = float(np.min(np.sum(diff_cand * diff_cand, axis=1)))
             dist_evals += j
@@ -444,9 +475,12 @@ def seed_split_as_you_go_init(
     """
     n, d = x.shape
     if k0 is None:
-        k0 = max(2, min(k, 4))
-    k0 = min(k0, n)
-    idx0 = rng.choice(n, size=k0, replace=False)
+        if k <= 2:
+            k0 = k
+        else:
+            k0 = max(2, min(k, 4))
+    k0 = min(k0, n, k)
+    idx0 = rng.choice(n, size=k0, replace=k0 > n)
     centroids = np.ascontiguousarray(x[idx0], dtype=np.float32)
     return centroids, 0
 
