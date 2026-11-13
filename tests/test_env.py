@@ -9,14 +9,18 @@ import tempfile
 import numpy as np
 
 
-def test_core_and_torch_mps() -> None:
+def test_core_and_torch_accel() -> None:
     import torch
     import torchvision
 
-    assert torch.backends.mps.is_available(), "Expected Apple Silicon MPS backend"
-    x = torch.randn(128, 32, device="mps", dtype=torch.float32)
+    from core.device import accel, sync
+
+    dev = accel()
+    if os.environ.get("CLASSIC_ALGOS_DEVICE") != "cpu":
+        assert dev in ("cuda", "mps"), "Expected a CUDA GPU or the Apple Silicon MPS backend"
+    x = torch.randn(128, 32, device=dev, dtype=torch.float32)
     y = x @ x.T
-    torch.mps.synchronize()
+    sync(dev)
     assert y.shape == (128, 128)
     assert hasattr(torchvision, "__version__")
 

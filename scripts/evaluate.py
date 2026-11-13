@@ -191,7 +191,9 @@ def _fmt(v, nd=4):
 def _hw_by_group(records):
     out = defaultdict(set)
     for r in records:
-        out[r["extra"]["group"]].add((r["extra"].get("hw") or {}).get("host", "untagged"))
+        hw = r["extra"].get("hw") or {}
+        ports = hw.get("gpu_ports") or []
+        out[r["extra"]["group"]].add(hw.get("host", "untagged") + (f"+gpu:{','.join(ports)}" if ports else ""))
     return out
 
 

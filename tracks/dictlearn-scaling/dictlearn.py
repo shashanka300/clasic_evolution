@@ -11,6 +11,44 @@ _track_dir = Path(__file__).resolve().parent
 if str(_track_dir) not in sys.path:
     sys.path.insert(0, str(_track_dir))
 
+from core.device import gpu_port  # noqa: E402
+
+FISTA_GPU_MIN_BATCH = 4096  # measured on the 5090: B=1024 is 0.4x, B=4096 is 3.9-5x vs 4 CPU threads
+
+
+def _fista_torch(x_arr, d_arr, alpha_reg, max_iter, tol, non_negative):
+    """torch CUDA port of the FISTA loop below (CLASSIC_ALGOS_GPU_PORTS=dictlearn): same float64 iterates and the
+    same batch-global stopping rule, so the iteration count matches the numpy path."""
+    import torch
+
+    X = torch.as_tensor(x_arr, device="cuda")
+    D = torch.as_tensor(d_arr, device="cuda")
+    g = D @ D.T
+    c = X @ D.T
+    lipschitz = max(float(torch.linalg.matrix_norm(g, ord=2)), 1e-8)
+    step_size = 1.0 / (lipschitz + 1e-8)
+    reg_step = float(alpha_reg) * step_size
+    alpha = torch.zeros_like(c)
+    y = alpha.clone()
+    t = 1.0
+    for it in range(max(1, int(max_iter))):
+        v = y - step_size * (y @ g - c)
+        if non_negative:
+            alpha_next = torch.clamp(v - reg_step, min=0.0)
+        else:
+            alpha_next = torch.sign(v) * torch.clamp(v.abs() - reg_step, min=0.0)
+        if it > 0:
+            code_norm = float(torch.linalg.vector_norm(alpha_next))
+            diff_norm = float(torch.linalg.vector_norm(alpha_next - alpha))
+            if diff_norm / (code_norm + 1e-10) < tol:
+                alpha = alpha_next
+                break
+        t_next = 0.5 * (1.0 + np.sqrt(1.0 + 4.0 * t * t))
+        y = alpha_next + ((t - 1.0) / t_next) * (alpha_next - alpha)
+        t = t_next
+        alpha = alpha_next
+    return alpha.cpu().numpy().astype(np.float32)
+
 
 def fista_sparse_code(
     x: np.ndarray,
@@ -61,6 +99,10 @@ def fista_sparse_code(
     x_norm = np.linalg.norm(x_arr)
     if x_norm < 1e-12:
         return np.zeros((b, k), dtype=np.float32)
+
+    # small batches stay on the CPU: the per-iteration convergence check (a host sync) costs more than it saves
+    if gpu_port("dictlearn") and b >= FISTA_GPU_MIN_BATCH:
+        return _fista_torch(x_arr, d_arr, alpha_reg, max_iter, tol, non_negative)
 
     # Gram matrix G = D @ D.T in (k, k), cross-correlation C = X @ D.T in (b, k)
     g = d_arr @ d_arr.T

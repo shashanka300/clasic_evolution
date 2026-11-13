@@ -19,10 +19,12 @@ import math
 import numba
 import numpy as np
 
+from core.device import gpu_port
 from core.plugin import ClassicAlgoPlugin
 from core.revival import revive_dead_units
 from core.stats import BatchStats, EMAStats
 
+LDA_GPU_MIN_WORK = 2_000_000  # tokens x topics of one E-step call before the CUDA port pays off
 ALPHA = 0.1  # doc-topic prior (1/K-style priors are set per K below)
 ETA = 0.01
 
@@ -48,8 +50,70 @@ def exp_elog_beta(lam):
     return out
 
 
-@numba.njit(cache=True, parallel=True)
 def e_step(docs, indptr, ids, cts, eeb, alpha, max_iter, tol, want_sstats):
+    """Returns (gamma (n,K), sstats (K,V) premultiplied by eeb). CUDA port when CLASSIC_ALGOS_GPU_PORTS has lda."""
+    # size routing (same results either way): small batches are faster in numba (5090 bench: 20ng 256 docs 0.3x)
+    if gpu_port("lda") and (indptr[docs + 1] - indptr[docs]).sum() * eeb.shape[0] >= LDA_GPU_MIN_WORK:
+        return _e_step_torch(docs, indptr, ids, cts, eeb, alpha, max_iter, tol, want_sstats)
+    return _e_step_numba(docs, indptr, ids, cts, eeb, alpha, max_iter, tol, want_sstats)
+
+
+def _e_step_torch(docs, indptr, ids, cts, eeb, alpha, max_iter, tol, want_sstats, max_tokens=None):
+    """Same per-document fixed-point iteration as the numba kernel, all docs of a chunk at once over their flat
+    token list; a document stops updating after the iteration in which its mean |dgamma| < tol, as on the CPU."""
+    import torch
+
+    dev = "cuda"
+    K, V = eeb.shape
+    docs = np.asarray(docs, dtype=np.int64)
+    n = len(docs)
+    E = torch.as_tensor(np.ascontiguousarray(eeb.T), device=dev)  # (V, K)
+    gamma = np.empty((n, K))
+    sst = torch.zeros((V, K), dtype=torch.float64, device=dev) if want_sstats else None
+    lens = indptr[docs + 1] - indptr[docs]
+    max_tokens = max_tokens or max(1, int(2e8 // (8 * K * 3)))  # (T, K) temporaries ~<= 200 MB
+    q0 = 0
+    while q0 < n:
+        q1, tok = q0, 0
+        while q1 < n and (q1 == q0 or tok + lens[q1] <= max_tokens):
+            tok += lens[q1]
+            q1 += 1
+        dd = docs[q0:q1]
+        sel = np.concatenate([np.arange(indptr[d], indptr[d + 1]) for d in dd]) if tok else np.zeros(0, np.int64)
+        seg = torch.as_tensor(np.repeat(np.arange(q1 - q0), lens[q0:q1]), device=dev)
+        w = torch.as_tensor(ids[sel], device=dev)
+        c = torch.as_tensor(cts[sel], dtype=torch.float64, device=dev)
+        Ew = E[w]  # (T, K)
+        m = q1 - q0
+        g = torch.ones((m, K), dtype=torch.float64, device=dev)
+        active = torch.ones(m, dtype=torch.bool, device=dev)
+
+        def eet_of(gg):
+            return torch.exp(torch.digamma(gg) - torch.digamma(gg.sum(1, keepdim=True)))
+
+        for _ in range(max_iter):
+            eet = eet_of(g)
+            phin = (eet[seg] * Ew).sum(1) + 1e-100
+            acc = torch.zeros((m, K), dtype=torch.float64, device=dev).index_add_(0, seg, (c / phin)[:, None] * Ew)
+            newg = alpha + eet * acc
+            diff = (newg - g).abs().mean(1)
+            g = torch.where(active[:, None], newg, g)
+            active = active & ~(diff < tol)
+            if not bool(active.any()):
+                break
+        gamma[q0:q1] = g.cpu().numpy()
+        if want_sstats:
+            eet = eet_of(g)
+            phin = (eet[seg] * Ew).sum(1) + 1e-100
+            sst.index_add_(0, w, eet[seg] * (c / phin)[:, None])
+        q0 = q1
+    if want_sstats:
+        return gamma, sst.T.cpu().numpy() * eeb
+    return gamma, np.zeros((1, 1))
+
+
+@numba.njit(cache=True, parallel=True)
+def _e_step_numba(docs, indptr, ids, cts, eeb, alpha, max_iter, tol, want_sstats):
     """Returns (gamma (n,K), sstats (K,V) premultiplied by eeb)."""
     K, V = eeb.shape
     n = len(docs)
@@ -63,6 +127,9 @@ def e_step(docs, indptr, ids, cts, eeb, alpha, max_iter, tol, want_sstats):
         c = cts[s:e]
         L = e - s
         g = np.ones(K)
+        # newg is allocated once and copied into g: with parallel=True numba hoisted an in-loop np.empty(K) so
+        # `g = newg` aliased the two, diff read 0 and every doc stopped after 2 iterations (fixed 2026-11-14)
+        newg = np.empty(K)
         eet = np.empty(K)
         phin = np.empty(L)
         for it in range(max_iter):
@@ -74,14 +141,16 @@ def e_step(docs, indptr, ids, cts, eeb, alpha, max_iter, tol, want_sstats):
                 for k in range(K):
                     acc += eet[k] * eeb[k, w[j]]
                 phin[j] = acc
-            newg = np.empty(K)
             for k in range(K):
                 acc = 0.0
                 for j in range(L):
                     acc += c[j] / phin[j] * eeb[k, w[j]]
                 newg[k] = alpha + eet[k] * acc
-            diff = np.abs(newg - g).mean()
-            g = newg
+            diff = 0.0
+            for k in range(K):
+                diff += abs(newg[k] - g[k])
+                g[k] = newg[k]
+            diff /= K
             if diff < tol:
                 break
         gamma[q] = g

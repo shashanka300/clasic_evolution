@@ -17,10 +17,95 @@ import numpy as np
 import scipy.linalg
 from scipy.special import logsumexp
 
+from core.device import gpu_port
 from core.revival import RevivalEvent
 from core.stats import BatchStats, EMAStats
 
 CovarianceType = Literal["diag", "full"]
+GMM_DIAG_GPU_MIN_BATCH = 1024
+
+
+# ------------------------------------------------------------------ torch CUDA port (CLASSIC_ALGOS_GPU_PORTS=gmm)
+# Same math as the numpy path, float64, batched over components; parity in tests/test_gpu_ports.py.
+
+def _gmm_on_gpu(x, cov_type) -> bool:
+    """Size routing (same results either way): diag batches under 1024 rows are faster on the CPU (5090 bench)."""
+    return gpu_port("gmm") and (cov_type == "full" or len(x) >= GMM_DIAG_GPU_MIN_BATCH)
+
+
+def _log_resp_torch(x, weights, means, covars, cov_type, eps_cov):
+    import torch
+
+    dev = "cuda"
+    X = torch.as_tensor(np.asarray(x, dtype=np.float64), device=dev)
+    mu = torch.as_tensor(np.asarray(means, dtype=np.float64), device=dev)
+    b, d = X.shape
+    k = mu.shape[0]
+    w = np.maximum(np.asarray(weights, dtype=np.float64), 1e-30)
+    log_w = torch.as_tensor(np.log(w / w.sum()), device=dev)
+    log_2pi = float(np.log(2.0 * np.pi))
+    if cov_type == "diag":
+        cv = torch.clamp(torch.as_tensor(np.asarray(covars, dtype=np.float64), device=dev), min=eps_cov)
+        log_det = torch.log(cv).sum(1)
+        inv = 1.0 / cv
+        # sum_d (x - mu)^2 / s  =  x^2 . inv - 2 x . (mu inv) + mu^2 . inv
+        quad = (X * X) @ inv.T - 2.0 * (X @ (mu * inv).T) + (mu * mu * inv).sum(1)[None, :]
+        quad = torch.clamp(quad, min=0.0)
+        log_gauss = -0.5 * (d * log_2pi + log_det[None, :] + quad)
+    elif cov_type == "full":
+        C = torch.as_tensor(np.asarray(covars, dtype=np.float64), device=dev)
+        eye = torch.eye(d, dtype=torch.float64, device=dev)
+        C = 0.5 * (C + C.transpose(1, 2)) + eps_cov * eye
+        L, info = torch.linalg.cholesky_ex(C)
+        bad = torch.nonzero(info).flatten().tolist()
+        if bad:  # same eigenvalue-floor fallback as the numpy path
+            ev, V = torch.linalg.eigh(C[bad])
+            C2 = (V * torch.clamp(ev, min=eps_cov)[:, None, :]) @ V.transpose(1, 2)
+            L = L.clone()
+            L[bad] = torch.linalg.cholesky(C2)
+        log_det = 2.0 * torch.log(torch.diagonal(L, dim1=1, dim2=2)).sum(1)  # (K,)
+        log_gauss = torch.empty((b, k), dtype=torch.float64, device=dev)
+        # chunk components so (K, d, B) temporaries stay ~<= 256 MB
+        step = max(1, int(256e6 // (8 * d * b)))
+        for j0 in range(0, k, step):
+            j1 = min(k, j0 + step)
+            diff = (X[None, :, :] - mu[j0:j1, None, :]).transpose(1, 2)  # (kj, d, B)
+            sol = torch.linalg.solve_triangular(L[j0:j1], diff, upper=False)
+            quad = (sol * sol).sum(1)  # (kj, B)
+            log_gauss[:, j0:j1] = (-0.5 * (d * log_2pi + log_det[j0:j1, None] + quad)).T
+    else:
+        raise ValueError(f"Unknown cov_type: {cov_type}")
+    log_joint = log_gauss + log_w[None, :]
+    log_prob_x = torch.logsumexp(log_joint, dim=1)
+    log_resp = log_joint - log_prob_x[:, None]
+    return log_resp.cpu().numpy(), log_prob_x.cpu().numpy()
+
+
+def _batch_stats_torch(x, gamma, cov_type):
+    import torch
+
+    dev = "cuda"
+    X = torch.as_tensor(np.asarray(x, dtype=np.float64), device=dev)
+    G = torch.as_tensor(np.asarray(gamma, dtype=np.float64), device=dev)
+    counts = G.sum(0)
+    sums = G.T @ X
+    extras: dict[str, np.ndarray] = {}
+    if cov_type == "diag":
+        extras["sq_sums"] = (G.T @ (X * X)).cpu().numpy()
+    elif cov_type == "full":
+        # C_k = sum_i g_ik x_i x_i^T  =  (sqrt(g) x)^T (sqrt(g) x), batched over k
+        k, d = G.shape[1], X.shape[1]
+        out = torch.empty((k, d, d), dtype=torch.float64, device=dev)
+        step = max(1, int(256e6 // (8 * d * X.shape[0])))
+        sg = torch.sqrt(torch.clamp(G, min=0.0))
+        for j0 in range(0, k, step):
+            j1 = min(k, j0 + step)
+            xw = sg[:, j0:j1].T[:, :, None] * X[None, :, :]  # (kj, B, d)
+            out[j0:j1] = xw.transpose(1, 2) @ xw
+        extras["cov_sums"] = out.cpu().numpy()
+    else:
+        raise ValueError(f"Unknown cov_type: {cov_type}")
+    return BatchStats(counts=counts.cpu().numpy(), sums=sums.cpu().numpy(), extras=extras)
 
 
 @dataclass
@@ -75,6 +160,8 @@ def compute_log_responsibilities(
     log_prob_x : np.ndarray, shape (B,)
         Log marginal likelihood per sample log p(x_i).
     """
+    if _gmm_on_gpu(x, cov_type):
+        return _log_resp_torch(x, weights, means, covars, cov_type, eps_cov)
     x = np.asarray(x, dtype=np.float64)
     b, d = x.shape
     k = means.shape[0]
@@ -189,6 +276,8 @@ def compute_batch_stats(
     -------
     BatchStats with counts, sums, and extras.
     """
+    if _gmm_on_gpu(x, cov_type):
+        return _batch_stats_torch(x, gamma, cov_type)
     x = np.asarray(x, dtype=np.float64)
     gamma = np.asarray(gamma, dtype=np.float64)
     b, d = x.shape
