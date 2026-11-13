@@ -1,0 +1,392 @@
+
+=== sift1m n=1,000,000 d=128 k=1024 ===
+ seed 0
+  lloyd it= 1 train=53828.31 test=53722.28 wall=2.4s
+  lloyd it= 2 train=52424.03 test=52358.57 wall=5.0s
+  lloyd it= 3 train=51856.44 test=51831.95 wall=7.2s
+  lloyd it= 4 train=51535.23 test=51541.69 wall=9.6s
+  lloyd it= 5 train=51325.99 test=51360.04 wall=12.1s
+  lloyd it= 6 train=51180.90 test=51238.28 wall=15.0s
+  lloyd it= 7 train=51075.50 test=51150.98 wall=17.4s
+  lloyd it= 8 train=50993.73 test=51084.12 wall=19.9s
+  lloyd it= 9 train=50928.21 test=51026.80 wall=22.4s
+  lloyd it=10 train=50875.08 test=50986.93 wall=24.8s
+  lloyd it=11 train=50831.40 test=50958.38 wall=27.3s
+  lloyd it=12 train=50794.31 test=50937.78 wall=29.6s
+  lloyd it=13 train=50762.13 test=50916.72 wall=31.8s
+  lloyd it=14 train=50733.62 test=50898.27 wall=34.1s
+  lloyd it=15 train=50708.38 test=50880.09 wall=36.5s
+  lloyd it=16 train=50685.69 test=50863.05 wall=38.9s
+  lloyd it=17 train=50664.57 test=50846.19 wall=41.4s
+  lloyd it=18 train=50645.33 test=50830.12 wall=43.8s
+  lloyd it=19 train=50628.42 test=50814.97 wall=46.0s
+  lloyd it=20 train=50613.66 test=50801.60 wall=48.2s
+  lloyd it=21 train=50600.66 test=50792.33 wall=50.5s
+  lloyd it=22 train=50589.08 test=50784.22 wall=52.7s
+  lloyd it=23 train=50578.73 test=50775.80 wall=55.3s
+  lloyd it=24 train=50569.36 test=50766.65 wall=57.6s
+  lloyd it=25 train=50560.72 test=50759.84 wall=59.8s
+  e-means T=1.0 B=16384 a0=0.421 train=50878.65 test=50995.01 wall=1.0s
+  e-means T=1.5 B=16384 a0=0.403 train=50634.14 test=50820.83 wall=1.1s
+  e-means T=2.0 B=32768 a0=0.728 train=50551.85 test=50781.01 wall=1.4s
+  e-means T=2.5 B=32768 a0=0.710 train=50515.55 test=50711.53 wall=2.3s
+  e-means T=3.0 B=32768 a0=0.696 train=50449.15 test=50684.60 wall=2.2s
+  e-means T=5.0 B=65536 a0=1.000 train=50416.65 test=50722.62 wall=3.6s
+ seed 1
+  lloyd it= 1 train=53785.25 test=53598.44 wall=2.3s
+  lloyd it= 2 train=52348.47 test=52264.57 wall=4.6s
+  lloyd it= 3 train=51786.22 test=51783.77 wall=7.0s
+  lloyd it= 4 train=51479.54 test=51522.47 wall=9.2s
+  lloyd it= 5 train=51283.72 test=51350.04 wall=11.4s
+  lloyd it= 6 train=51145.93 test=51230.21 wall=13.6s
+  lloyd it= 7 train=51041.21 test=51139.53 wall=15.9s
+  lloyd it= 8 train=50960.78 test=51072.76 wall=18.1s
+  lloyd it= 9 train=50897.61 test=51016.31 wall=20.4s
+  lloyd it=10 train=50846.11 test=50970.18 wall=22.7s
+  lloyd it=11 train=50802.99 test=50933.32 wall=24.9s
+  lloyd it=12 train=50765.54 test=50906.52 wall=27.1s
+  lloyd it=13 train=50733.48 test=50881.15 wall=29.4s
+  lloyd it=14 train=50705.66 test=50858.49 wall=31.7s
+  lloyd it=15 train=50681.58 test=50839.83 wall=33.9s
+  lloyd it=16 train=50660.35 test=50822.09 wall=36.2s
+  lloyd it=17 train=50641.42 test=50806.11 wall=38.3s
+  lloyd it=18 train=50624.45 test=50792.74 wall=40.6s
+  lloyd it=19 train=50608.92 test=50783.10 wall=42.8s
+  lloyd it=20 train=50595.02 test=50772.13 wall=45.1s
+  lloyd it=21 train=50582.54 test=50762.43 wall=47.3s
+  lloyd it=22 train=50571.06 test=50751.60 wall=49.5s
+  lloyd it=23 train=50560.71 test=50743.96 wall=51.7s
+  lloyd it=24 train=50551.09 test=50737.69 wall=54.0s
+  lloyd it=25 train=50542.06 test=50732.69 wall=56.3s
+  e-means T=1.0 B=16384 a0=0.421 train=50857.82 test=50952.08 wall=0.8s
+  e-means T=1.5 B=16384 a0=0.403 train=50627.06 test=50825.03 wall=1.1s
+  e-means T=2.0 B=32768 a0=0.728 train=50536.69 test=50729.40 wall=1.4s
+  e-means T=2.5 B=32768 a0=0.710 train=50512.89 test=50757.31 wall=1.9s
+  e-means T=3.0 B=32768 a0=0.696 train=50453.04 test=50707.24 wall=2.7s
+  e-means T=5.0 B=65536 a0=1.000 train=50411.87 test=50768.52 wall=3.5s
+ seed 2
+  lloyd it= 1 train=53727.53 test=53582.08 wall=2.3s
+  lloyd it= 2 train=52325.86 test=52263.94 wall=4.6s
+  lloyd it= 3 train=51768.68 test=51767.54 wall=6.7s
+  lloyd it= 4 train=51458.65 test=51497.48 wall=8.9s
+  lloyd it= 5 train=51260.49 test=51332.71 wall=11.0s
+  lloyd it= 6 train=51123.97 test=51217.26 wall=13.0s
+  lloyd it= 7 train=51024.07 test=51132.60 wall=15.2s
+  lloyd it= 8 train=50946.94 test=51068.86 wall=17.4s
+  lloyd it= 9 train=50885.32 test=51019.28 wall=19.6s
+  lloyd it=10 train=50835.05 test=50982.75 wall=21.9s
+  lloyd it=11 train=50792.81 test=50955.59 wall=24.1s
+  lloyd it=12 train=50756.96 test=50932.28 wall=26.2s
+  lloyd it=13 train=50726.54 test=50913.29 wall=28.2s
+  lloyd it=14 train=50699.72 test=50898.07 wall=30.1s
+  lloyd it=15 train=50676.16 test=50887.72 wall=32.4s
+  lloyd it=16 train=50655.46 test=50879.35 wall=34.6s
+  lloyd it=17 train=50637.08 test=50868.85 wall=36.6s
+  lloyd it=18 train=50621.00 test=50858.53 wall=38.5s
+  lloyd it=19 train=50606.61 test=50850.90 wall=40.4s
+  lloyd it=20 train=50593.54 test=50844.45 wall=42.4s
+  lloyd it=21 train=50581.42 test=50838.31 wall=44.3s
+  lloyd it=22 train=50570.41 test=50832.59 wall=46.3s
+  lloyd it=23 train=50560.42 test=50828.34 wall=48.2s
+  lloyd it=24 train=50551.14 test=50824.28 wall=50.0s
+  lloyd it=25 train=50542.56 test=50820.31 wall=52.1s
+  e-means T=1.0 B=16384 a0=0.421 train=50852.96 test=50960.78 wall=1.1s
+  e-means T=1.5 B=16384 a0=0.403 train=50615.95 test=50851.23 wall=1.7s
+  e-means T=2.0 B=32768 a0=0.728 train=50540.15 test=50767.48 wall=2.0s
+  e-means T=2.5 B=32768 a0=0.710 train=50501.80 test=50757.68 wall=2.7s
+  e-means T=3.0 B=32768 a0=0.696 train=50450.08 test=50684.64 wall=2.8s
+  e-means T=5.0 B=65536 a0=1.000 train=50398.68 test=50686.97 wall=4.7s
+
+=== sift1m n=1,000,000 d=128 k=4096 ===
+ seed 0
+  lloyd it= 1 train=47404.05 test=47791.78 wall=7.4s
+  lloyd it= 2 train=46135.42 test=46692.05 wall=15.1s
+  lloyd it= 3 train=45608.11 test=46294.37 wall=22.7s
+  lloyd it= 4 train=45311.50 test=46080.08 wall=30.4s
+  lloyd it= 5 train=45117.84 test=45944.42 wall=38.1s
+  lloyd it= 6 train=44981.56 test=45857.58 wall=45.8s
+  lloyd it= 7 train=44879.38 test=45797.17 wall=53.6s
+  lloyd it= 8 train=44800.53 test=45748.49 wall=61.3s
+  lloyd it= 9 train=44738.51 test=45714.01 wall=69.1s
+  lloyd it=10 train=44687.35 test=45683.45 wall=76.9s
+  lloyd it=11 train=44644.48 test=45658.86 wall=84.7s
+  lloyd it=12 train=44608.52 test=45641.95 wall=92.9s
+  lloyd it=13 train=44578.47 test=45622.58 wall=100.7s
+  lloyd it=14 train=44552.52 test=45606.05 wall=108.3s
+  lloyd it=15 train=44530.16 test=45593.48 wall=116.5s
+  lloyd it=16 train=44510.70 test=45581.72 wall=124.6s
+  lloyd it=17 train=44493.19 test=45571.87 wall=132.6s
+  lloyd it=18 train=44477.52 test=45562.64 wall=139.9s
+  lloyd it=19 train=44463.41 test=45556.20 wall=147.3s
+  lloyd it=20 train=44450.64 test=45547.02 wall=155.0s
+  lloyd it=21 train=44439.44 test=45538.47 wall=162.4s
+  lloyd it=22 train=44429.14 test=45530.24 wall=170.0s
+  lloyd it=23 train=44419.61 test=45522.49 wall=177.5s
+  lloyd it=24 train=44410.90 test=45515.55 wall=184.7s
+  lloyd it=25 train=44403.04 test=45512.12 wall=192.2s
+  e-means T=1.0 B=16384 a0=0.222 train=45037.92 test=45853.96 wall=2.1s
+  e-means T=1.5 B=32768 a0=0.397 train=44755.12 test=45706.40 wall=3.0s
+  e-means T=2.0 B=32768 a0=0.385 train=44515.83 test=45550.43 wall=3.9s
+  e-means T=2.5 B=32768 a0=0.375 train=44470.05 test=45627.53 wall=5.0s
+  e-means T=3.0 B=65536 a0=0.686 train=44371.79 test=45517.46 wall=5.8s
+  e-means T=5.0 B=65536 a0=0.649 train=44213.49 test=45484.79 wall=10.0s
+ seed 1
+  lloyd it= 1 train=47387.23 test=47706.58 wall=7.5s
+  lloyd it= 2 train=46107.32 test=46636.71 wall=14.9s
+  lloyd it= 3 train=45580.25 test=46249.66 wall=22.5s
+  lloyd it= 4 train=45286.67 test=46055.28 wall=30.1s
+  lloyd it= 5 train=45098.38 test=45936.56 wall=37.9s
+  lloyd it= 6 train=44965.69 test=45854.02 wall=45.6s
+  lloyd it= 7 train=44867.20 test=45793.81 wall=53.3s
+  lloyd it= 8 train=44790.85 test=45750.59 wall=61.2s
+  lloyd it= 9 train=44730.09 test=45718.96 wall=68.7s
+  lloyd it=10 train=44680.41 test=45695.43 wall=76.4s
+  lloyd it=11 train=44638.87 test=45676.54 wall=84.0s
+  lloyd it=12 train=44603.50 test=45661.30 wall=91.4s
+  lloyd it=13 train=44573.55 test=45650.16 wall=98.8s
+  lloyd it=14 train=44547.70 test=45637.47 wall=106.2s
+  lloyd it=15 train=44525.35 test=45628.03 wall=113.7s
+  lloyd it=16 train=44505.64 test=45621.78 wall=121.1s
+  lloyd it=17 train=44488.18 test=45614.48 wall=128.5s
+  lloyd it=18 train=44472.38 test=45609.35 wall=136.0s
+  lloyd it=19 train=44458.19 test=45601.73 wall=143.3s
+  lloyd it=20 train=44445.12 test=45595.87 wall=150.7s
+  lloyd it=21 train=44433.20 test=45590.27 wall=158.1s
+  lloyd it=22 train=44422.39 test=45585.94 wall=165.5s
+  lloyd it=23 train=44412.24 test=45583.72 wall=172.9s
+  lloyd it=24 train=44402.81 test=45577.28 wall=180.4s
+  lloyd it=25 train=44394.04 test=45567.32 wall=187.9s
+  e-means T=1.0 B=16384 a0=0.222 train=45050.52 test=45805.66 wall=2.2s
+  e-means T=1.5 B=32768 a0=0.397 train=44747.90 test=45731.38 wall=3.0s
+  e-means T=2.0 B=32768 a0=0.385 train=44510.62 test=45556.25 wall=4.3s
+  e-means T=2.5 B=32768 a0=0.375 train=44470.71 test=45607.40 wall=6.1s
+  e-means T=3.0 B=65536 a0=0.686 train=44370.78 test=45565.40 wall=7.1s
+  e-means T=5.0 B=65536 a0=0.649 train=44214.84 test=45438.66 wall=10.5s
+ seed 2
+  lloyd it= 1 train=47412.11 test=47834.83 wall=7.9s
+  lloyd it= 2 train=46119.82 test=46692.36 wall=16.1s
+  lloyd it= 3 train=45590.00 test=46268.04 wall=24.5s
+  lloyd it= 4 train=45293.43 test=46032.94 wall=32.7s
+  lloyd it= 5 train=45104.07 test=45897.31 wall=41.1s
+  lloyd it= 6 train=44972.90 test=45818.31 wall=49.0s
+  lloyd it= 7 train=44874.80 test=45756.64 wall=57.6s
+  lloyd it= 8 train=44797.77 test=45714.22 wall=66.3s
+  lloyd it= 9 train=44735.15 test=45670.47 wall=74.5s
+  lloyd it=10 train=44682.90 test=45637.28 wall=82.9s
+  lloyd it=11 train=44639.61 test=45607.73 wall=91.0s
+  lloyd it=12 train=44603.27 test=45583.42 wall=99.0s
+  lloyd it=13 train=44572.03 test=45568.46 wall=107.0s
+  lloyd it=14 train=44544.86 test=45553.86 wall=115.1s
+  lloyd it=15 train=44520.72 test=45540.28 wall=123.5s
+  lloyd it=16 train=44499.71 test=45529.21 wall=131.9s
+  lloyd it=17 train=44481.15 test=45520.26 wall=140.3s
+  lloyd it=18 train=44464.46 test=45509.36 wall=149.0s
+  lloyd it=19 train=44450.03 test=45501.23 wall=156.9s
+  lloyd it=20 train=44437.24 test=45491.93 wall=164.1s
+  lloyd it=21 train=44425.82 test=45487.48 wall=171.3s
+  lloyd it=22 train=44415.39 test=45484.53 wall=178.6s
+  lloyd it=23 train=44405.97 test=45483.65 wall=185.8s
+  lloyd it=24 train=44397.22 test=45481.00 wall=193.1s
+  lloyd it=25 train=44389.42 test=45476.89 wall=200.6s
+  e-means T=1.0 B=16384 a0=0.222 train=45030.86 test=45826.63 wall=2.4s
+  e-means T=1.5 B=32768 a0=0.397 train=44742.96 test=45656.64 wall=3.4s
+  e-means T=2.0 B=32768 a0=0.385 train=44505.69 test=45578.70 wall=4.4s
+  e-means T=2.5 B=32768 a0=0.375 train=44462.98 test=45596.67 wall=5.6s
+  e-means T=3.0 B=65536 a0=0.686 train=44363.58 test=45484.38 wall=6.6s
+  e-means T=5.0 B=65536 a0=0.649 train=44208.76 test=45457.46 wall=10.9s
+
+=== agnews_minilm n=100,000 d=384 k=1024 ===
+ seed 0
+  lloyd it= 1 train=0.61 test=0.63 wall=0.4s
+  lloyd it= 2 train=0.59 test=0.61 wall=0.6s
+  lloyd it= 3 train=0.58 test=0.60 wall=0.9s
+  lloyd it= 4 train=0.57 test=0.59 wall=1.1s
+  lloyd it= 5 train=0.57 test=0.59 wall=1.4s
+  lloyd it= 6 train=0.57 test=0.59 wall=1.7s
+  lloyd it= 7 train=0.57 test=0.59 wall=1.9s
+  lloyd it= 8 train=0.56 test=0.59 wall=2.2s
+  lloyd it= 9 train=0.56 test=0.58 wall=2.4s
+  lloyd it=10 train=0.56 test=0.58 wall=2.7s
+  lloyd it=11 train=0.56 test=0.58 wall=3.0s
+  lloyd it=12 train=0.56 test=0.58 wall=3.2s
+  lloyd it=13 train=0.56 test=0.58 wall=3.5s
+  lloyd it=14 train=0.56 test=0.58 wall=3.7s
+  lloyd it=15 train=0.56 test=0.58 wall=3.9s
+  lloyd it=16 train=0.56 test=0.58 wall=4.2s
+  lloyd it=17 train=0.56 test=0.58 wall=4.4s
+  lloyd it=18 train=0.56 test=0.58 wall=4.6s
+  lloyd it=19 train=0.56 test=0.58 wall=4.9s
+  lloyd it=20 train=0.56 test=0.58 wall=5.1s
+  lloyd it=21 train=0.56 test=0.58 wall=5.4s
+  lloyd it=22 train=0.56 test=0.58 wall=5.6s
+  lloyd it=23 train=0.56 test=0.58 wall=5.8s
+  lloyd it=24 train=0.56 test=0.58 wall=6.1s
+  lloyd it=25 train=0.56 test=0.58 wall=6.3s
+  e-means T=1.0 B=2048 a0=0.183 train=0.58 test=0.59 wall=0.3s
+  e-means T=1.5 B=4096 a0=0.326 train=0.57 test=0.59 wall=0.4s
+  e-means T=2.0 B=4096 a0=0.316 train=0.56 test=0.58 wall=0.6s
+  e-means T=2.5 B=4096 a0=0.308 train=0.56 test=0.58 wall=0.7s
+  e-means T=3.0 B=4096 a0=0.302 train=0.56 test=0.58 wall=0.9s
+  e-means T=5.0 B=8192 a0=0.533 train=0.56 test=0.58 wall=1.1s
+ seed 1
+  lloyd it= 1 train=0.61 test=0.62 wall=0.2s
+  lloyd it= 2 train=0.59 test=0.60 wall=0.5s
+  lloyd it= 3 train=0.58 test=0.60 wall=0.7s
+  lloyd it= 4 train=0.57 test=0.59 wall=0.9s
+  lloyd it= 5 train=0.57 test=0.59 wall=1.2s
+  lloyd it= 6 train=0.57 test=0.59 wall=1.4s
+  lloyd it= 7 train=0.57 test=0.59 wall=1.7s
+  lloyd it= 8 train=0.56 test=0.58 wall=1.9s
+  lloyd it= 9 train=0.56 test=0.58 wall=2.1s
+  lloyd it=10 train=0.56 test=0.58 wall=2.4s
+  lloyd it=11 train=0.56 test=0.58 wall=2.6s
+  lloyd it=12 train=0.56 test=0.58 wall=2.8s
+  lloyd it=13 train=0.56 test=0.58 wall=3.1s
+  lloyd it=14 train=0.56 test=0.58 wall=3.3s
+  lloyd it=15 train=0.56 test=0.58 wall=3.6s
+  lloyd it=16 train=0.56 test=0.58 wall=3.8s
+  lloyd it=17 train=0.56 test=0.58 wall=4.0s
+  lloyd it=18 train=0.56 test=0.58 wall=4.3s
+  lloyd it=19 train=0.56 test=0.58 wall=4.5s
+  lloyd it=20 train=0.56 test=0.58 wall=4.7s
+  lloyd it=21 train=0.56 test=0.58 wall=5.0s
+  lloyd it=22 train=0.56 test=0.58 wall=5.2s
+  lloyd it=23 train=0.56 test=0.58 wall=5.5s
+  lloyd it=24 train=0.56 test=0.58 wall=5.7s
+  lloyd it=25 train=0.56 test=0.58 wall=5.9s
+  e-means T=1.0 B=2048 a0=0.183 train=0.58 test=0.59 wall=0.4s
+  e-means T=1.5 B=4096 a0=0.326 train=0.57 test=0.59 wall=0.4s
+  e-means T=2.0 B=4096 a0=0.316 train=0.56 test=0.58 wall=0.5s
+  e-means T=2.5 B=4096 a0=0.308 train=0.56 test=0.58 wall=0.6s
+  e-means T=3.0 B=4096 a0=0.302 train=0.56 test=0.58 wall=0.8s
+  e-means T=5.0 B=8192 a0=0.533 train=0.56 test=0.58 wall=0.9s
+ seed 2
+  lloyd it= 1 train=0.61 test=0.63 wall=0.2s
+  lloyd it= 2 train=0.59 test=0.60 wall=0.5s
+  lloyd it= 3 train=0.58 test=0.60 wall=0.7s
+  lloyd it= 4 train=0.57 test=0.59 wall=1.0s
+  lloyd it= 5 train=0.57 test=0.59 wall=1.2s
+  lloyd it= 6 train=0.57 test=0.59 wall=1.4s
+  lloyd it= 7 train=0.56 test=0.59 wall=1.7s
+  lloyd it= 8 train=0.56 test=0.59 wall=1.9s
+  lloyd it= 9 train=0.56 test=0.58 wall=2.1s
+  lloyd it=10 train=0.56 test=0.58 wall=2.4s
+  lloyd it=11 train=0.56 test=0.58 wall=2.6s
+  lloyd it=12 train=0.56 test=0.58 wall=2.8s
+  lloyd it=13 train=0.56 test=0.58 wall=3.1s
+  lloyd it=14 train=0.56 test=0.58 wall=3.3s
+  lloyd it=15 train=0.56 test=0.58 wall=3.6s
+  lloyd it=16 train=0.56 test=0.58 wall=3.8s
+  lloyd it=17 train=0.56 test=0.58 wall=4.0s
+  lloyd it=18 train=0.56 test=0.58 wall=4.3s
+  lloyd it=19 train=0.56 test=0.58 wall=4.5s
+  lloyd it=20 train=0.56 test=0.58 wall=4.8s
+  lloyd it=21 train=0.56 test=0.58 wall=5.0s
+  lloyd it=22 train=0.56 test=0.58 wall=5.2s
+  lloyd it=23 train=0.56 test=0.58 wall=5.5s
+  lloyd it=24 train=0.56 test=0.58 wall=5.7s
+  lloyd it=25 train=0.56 test=0.58 wall=5.9s
+  e-means T=1.0 B=2048 a0=0.183 train=0.58 test=0.60 wall=0.4s
+  e-means T=1.5 B=4096 a0=0.326 train=0.57 test=0.59 wall=0.4s
+  e-means T=2.0 B=4096 a0=0.316 train=0.56 test=0.58 wall=0.5s
+  e-means T=2.5 B=4096 a0=0.308 train=0.56 test=0.58 wall=0.7s
+  e-means T=3.0 B=4096 a0=0.302 train=0.56 test=0.58 wall=0.8s
+  e-means T=5.0 B=8192 a0=0.533 train=0.56 test=0.58 wall=0.9s
+
+=== dinov2s_cifar100 n=50,000 d=384 k=512 ===
+ seed 0
+  lloyd it= 1 train=0.54 test=0.55 wall=0.1s
+  lloyd it= 2 train=0.52 test=0.54 wall=0.2s
+  lloyd it= 3 train=0.52 test=0.53 wall=0.3s
+  lloyd it= 4 train=0.51 test=0.53 wall=0.3s
+  lloyd it= 5 train=0.51 test=0.53 wall=0.4s
+  lloyd it= 6 train=0.51 test=0.53 wall=0.5s
+  lloyd it= 7 train=0.51 test=0.52 wall=0.5s
+  lloyd it= 8 train=0.51 test=0.52 wall=0.6s
+  lloyd it= 9 train=0.51 test=0.52 wall=0.7s
+  lloyd it=10 train=0.51 test=0.52 wall=0.7s
+  lloyd it=11 train=0.51 test=0.52 wall=0.8s
+  lloyd it=12 train=0.51 test=0.52 wall=0.9s
+  lloyd it=13 train=0.51 test=0.52 wall=0.9s
+  lloyd it=14 train=0.51 test=0.52 wall=1.0s
+  lloyd it=15 train=0.51 test=0.52 wall=1.1s
+  lloyd it=16 train=0.51 test=0.52 wall=1.1s
+  lloyd it=17 train=0.51 test=0.52 wall=1.2s
+  lloyd it=18 train=0.51 test=0.52 wall=1.2s
+  lloyd it=19 train=0.51 test=0.52 wall=1.3s
+  lloyd it=20 train=0.51 test=0.52 wall=1.4s
+  lloyd it=21 train=0.51 test=0.52 wall=1.4s
+  lloyd it=22 train=0.51 test=0.52 wall=1.5s
+  lloyd it=23 train=0.51 test=0.52 wall=1.6s
+  lloyd it=24 train=0.51 test=0.52 wall=1.6s
+  lloyd it=25 train=0.51 test=0.52 wall=1.7s
+  e-means T=1.0 B=1024 a0=0.184 train=0.52 test=0.53 wall=0.2s
+  e-means T=1.5 B=2048 a0=0.328 train=0.51 test=0.52 wall=0.2s
+  e-means T=2.0 B=2048 a0=0.318 train=0.51 test=0.52 wall=0.3s
+  e-means T=2.5 B=2048 a0=0.310 train=0.51 test=0.52 wall=0.3s
+  e-means T=3.0 B=2048 a0=0.304 train=0.51 test=0.52 wall=0.4s
+  e-means T=5.0 B=4096 a0=0.536 train=0.50 test=0.52 wall=0.5s
+ seed 1
+  lloyd it= 1 train=0.54 test=0.54 wall=0.1s
+  lloyd it= 2 train=0.52 test=0.53 wall=0.1s
+  lloyd it= 3 train=0.52 test=0.53 wall=0.2s
+  lloyd it= 4 train=0.51 test=0.53 wall=0.3s
+  lloyd it= 5 train=0.51 test=0.53 wall=0.3s
+  lloyd it= 6 train=0.51 test=0.52 wall=0.4s
+  lloyd it= 7 train=0.51 test=0.52 wall=0.5s
+  lloyd it= 8 train=0.51 test=0.52 wall=0.5s
+  lloyd it= 9 train=0.51 test=0.52 wall=0.6s
+  lloyd it=10 train=0.51 test=0.52 wall=0.7s
+  lloyd it=11 train=0.51 test=0.52 wall=0.7s
+  lloyd it=12 train=0.51 test=0.52 wall=0.8s
+  lloyd it=13 train=0.51 test=0.52 wall=0.8s
+  lloyd it=14 train=0.51 test=0.52 wall=0.9s
+  lloyd it=15 train=0.51 test=0.52 wall=1.0s
+  lloyd it=16 train=0.51 test=0.52 wall=1.0s
+  lloyd it=17 train=0.51 test=0.52 wall=1.1s
+  lloyd it=18 train=0.51 test=0.52 wall=1.2s
+  lloyd it=19 train=0.51 test=0.52 wall=1.2s
+  lloyd it=20 train=0.51 test=0.52 wall=1.3s
+  lloyd it=21 train=0.51 test=0.52 wall=1.4s
+  lloyd it=22 train=0.51 test=0.52 wall=1.4s
+  lloyd it=23 train=0.51 test=0.52 wall=1.5s
+  lloyd it=24 train=0.51 test=0.52 wall=1.5s
+  lloyd it=25 train=0.51 test=0.52 wall=1.6s
+  e-means T=1.0 B=1024 a0=0.184 train=0.51 test=0.52 wall=0.2s
+  e-means T=1.5 B=2048 a0=0.328 train=0.51 test=0.52 wall=0.2s
+  e-means T=2.0 B=2048 a0=0.318 train=0.51 test=0.52 wall=0.3s
+  e-means T=2.5 B=2048 a0=0.310 train=0.51 test=0.52 wall=0.3s
+  e-means T=3.0 B=2048 a0=0.304 train=0.50 test=0.52 wall=0.4s
+  e-means T=5.0 B=4096 a0=0.536 train=0.50 test=0.52 wall=0.5s
+ seed 2
+  lloyd it= 1 train=0.54 test=0.55 wall=0.1s
+  lloyd it= 2 train=0.52 test=0.53 wall=0.1s
+  lloyd it= 3 train=0.52 test=0.53 wall=0.2s
+  lloyd it= 4 train=0.51 test=0.53 wall=0.3s
+  lloyd it= 5 train=0.51 test=0.53 wall=0.3s
+  lloyd it= 6 train=0.51 test=0.52 wall=0.4s
+  lloyd it= 7 train=0.51 test=0.52 wall=0.4s
+  lloyd it= 8 train=0.51 test=0.52 wall=0.5s
+  lloyd it= 9 train=0.51 test=0.52 wall=0.6s
+  lloyd it=10 train=0.51 test=0.52 wall=0.6s
+  lloyd it=11 train=0.51 test=0.52 wall=0.7s
+  lloyd it=12 train=0.51 test=0.52 wall=0.8s
+  lloyd it=13 train=0.51 test=0.52 wall=0.8s
+  lloyd it=14 train=0.51 test=0.52 wall=0.9s
+  lloyd it=15 train=0.51 test=0.52 wall=0.9s
+  lloyd it=16 train=0.51 test=0.52 wall=1.0s
+  lloyd it=17 train=0.51 test=0.52 wall=1.1s
+  lloyd it=18 train=0.51 test=0.52 wall=1.1s
+  lloyd it=19 train=0.51 test=0.52 wall=1.2s
+  lloyd it=20 train=0.51 test=0.52 wall=1.3s
+  lloyd it=21 train=0.51 test=0.52 wall=1.3s
+  lloyd it=22 train=0.51 test=0.52 wall=1.4s
+  lloyd it=23 train=0.51 test=0.52 wall=1.5s
+  lloyd it=24 train=0.51 test=0.52 wall=1.5s
+  lloyd it=25 train=0.51 test=0.52 wall=1.6s
+  e-means T=1.0 B=1024 a0=0.184 train=0.52 test=0.53 wall=0.2s
+  e-means T=1.5 B=2048 a0=0.328 train=0.51 test=0.52 wall=0.2s
+  e-means T=2.0 B=2048 a0=0.318 train=0.51 test=0.52 wall=0.2s
+  e-means T=2.5 B=2048 a0=0.310 train=0.51 test=0.52 wall=0.3s
+  e-means T=3.0 B=2048 a0=0.304 train=0.51 test=0.52 wall=0.4s
+  e-means T=5.0 B=4096 a0=0.536 train=0.50 test=0.52 wall=0.5s
