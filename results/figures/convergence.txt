@@ -1,0 +1,17 @@
+Plotted from:
+  results/gmm-ema/runs.jsonl (60 records), group agnews_pca64|k=64|diag
+  results/gmm-ema/runs.jsonl (60 records), group dinov2_pca64|k=64|diag
+  results/gmm-ema/runs.jsonl (60 records), group sift1m_pca64|k=64|diag
+  results/gmm-ema/runs.jsonl (60 records), group synthetic|k=32|diag
+  results/hmm-ema/runs.jsonl (45 records), group brown_pos|k=12
+  results/hmm-ema/runs.jsonl (45 records), group synthetic|k=12
+  results/hmm-ema/runs.jsonl (45 records), group uci_har_vq|k=12
+  results/als-ema/runs.jsonl (24 records), group ml10m|k=32
+  results/als-ema/runs.jsonl (24 records), group ml1m|k=32
+  results/lda-scaling/runs.jsonl (39 records), group 20ng|k=50
+  results/lda-scaling/runs.jsonl (39 records), group enron|k=50
+  results/lda-scaling/runs.jsonl (39 records), group nytimes|k=50
+  results/core/runs.jsonl (48 records), group agnews_minilm|k=1024|train
+  results/core/runs.jsonl (48 records), group dinov2s_cifar100|k=512|train
+  results/core/runs.jsonl (48 records), group sift1m|k=1024|train
+  results/core/runs.jsonl (48 records), group sift1m|k=4096|train
