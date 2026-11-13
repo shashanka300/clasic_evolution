@@ -1,0 +1,2 @@
+2026-11-13 18:06:56 START OMP_NUM_THREADS=4 VECLIB_MAXIMUM_THREADS=4 .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage all > results/dictlearn-scaling/console.log 2>&1
+sh: line 1: 79667 Terminated: 15          OMP_NUM_THREADS=4 VECLIB_MAXIMUM_THREADS=4 .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage all > results/dictlearn-scaling/console.log 2>&1

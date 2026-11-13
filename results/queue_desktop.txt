@@ -1,0 +1,11 @@
+sh scripts/wait_idle.sh && .venv/bin/python -u tracks/balanced-ivf/run_v2.py > results/balanced-ivf/console.log 2>&1
+sh scripts/wait_idle.sh && .venv/bin/python -u tracks/hnsw-scaling-laws/run_v2.py > results/hnsw-scaling-laws/console.log 2>&1
+OMP_NUM_THREADS=${NT} VECLIB_MAXIMUM_THREADS=${NT} .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets synthetic,dinov2_pca64,agnews_pca64 --stage all > results/gmm-ema/console_full.log 2>&1
+OMP_NUM_THREADS=${NT} VECLIB_MAXIMUM_THREADS=${NT} .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs diag --datasets synthetic,sift1m_pca64 --stage law-sweep > results/gmm-ema/console_law.log 2>&1
+NUMBA_NUM_THREADS=${NT} .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic,brown_pos --stage law-sweep > results/hmm-ema/console_law.log 2>&1
+NUMBA_NUM_THREADS=${NT} .venv/bin/python -u tracks/als-ema/run_v2.py --stage law-sweep > results/als-ema/console_law.log 2>&1
+NUMBA_NUM_THREADS=${NT} .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage law-sweep > results/lda-scaling/console_law.log 2>&1
+NUMBA_NUM_THREADS=${NT} .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage cosine-law > results/lda-scaling/console_coslaw.log 2>&1
+OMP_NUM_THREADS=${NT} VECLIB_MAXIMUM_THREADS=${NT} .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8,nmf_20ng --stage law-sweep > results/dictlearn-scaling/console_law.log 2>&1
+.venv/bin/python tracks/universal-scaling-law/fit_v2.py > results/universal-scaling-law/console.log 2>&1
+.venv/bin/python scripts/evaluate.py > results/evaluate_all.log 2>&1 && .venv/bin/python scripts/make_figures.py >> results/evaluate_all.log 2>&1

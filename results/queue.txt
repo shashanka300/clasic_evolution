@@ -1,0 +1,5 @@
+OMP_NUM_THREADS=6 .venv/bin/python -u tracks/opq-joint-rotation/run_v2.py > results/opq-joint-rotation/console.log 2>&1
+OMP_NUM_THREADS=4 .venv/bin/python -u tracks/drift-rewarm/run_v2.py > results/drift-rewarm/console.log 2>&1
+OMP_NUM_THREADS=6 .venv/bin/python -u tracks/adaptive-k/run_v2.py > results/adaptive-k/console.log 2>&1
+OMP_NUM_THREADS=6 .venv/bin/python -u tracks/cheap-seeding/run_v2.py > results/cheap-seeding/console.log 2>&1
+OMP_NUM_THREADS=6 .venv/bin/python -u tracks/drift-balanced-ivf/run_v2.py > results/drift-balanced-ivf/console.log 2>&1

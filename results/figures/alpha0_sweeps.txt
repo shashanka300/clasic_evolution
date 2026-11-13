@@ -1,0 +1,5 @@
+Plotted from:
+  results/gmm-ema/sweep.jsonl (16 cells)
+  results/hmm-ema/sweep.jsonl (12 cells)
+  results/als-ema/sweep.jsonl (8 cells)
+  results/lda-scaling/sweep.jsonl (12 cells)
