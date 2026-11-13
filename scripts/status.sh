@@ -1,13 +1,9 @@
-#!/usr/bin/env bash
-# One-line status per worktree: branch, last commit, latest LOG.md line, number of result rows.
-# Usage: ./scripts/status.sh [WORKTREE_DIR]
-WT="${1:-./classic-algos-wt}"
-printf "%-22s %-10s %-6s %s\n" TRACK COMMIT ROWS "LATEST LOG"
-for dir in "$WT"/*/; do
-  slug="$(basename "$dir")"
-  commit="$(git -C "$dir" log -1 --format=%h 2>/dev/null)"
-  rows="$(cat "$dir"/results/"$slug"/*.jsonl 2>/dev/null | wc -l | tr -d ' ')"
-  log="$(tail -1 "$dir/results/$slug/LOG.md" 2>/dev/null)"
-  [ -f "$dir/results/$slug/NEGATIVE.md" ] && log="[KILLED] $log"
-  printf "%-22s %-10s %-6s %s\n" "$slug" "$commit" "$rows" "$log"
+#!/bin/sh
+# Per-track status from the auto-generated VERDICT.md files + job queue state.
+cd "$(dirname "$0")/.."
+for v in results/*/VERDICT.md; do
+  t=$(basename "$(dirname "$v")")
+  printf "%-24s %s\n" "$t" "$(grep -m1 'Outcome' "$v" | sed 's/^- //')"
 done
+echo; echo "running:"; pgrep -fl "^\.venv/bin/python -u" | cut -c1-100
+echo; echo "queued: $(grep -c . results/queue.txt 2>/dev/null) jobs"; tail -2 results/queue.log 2>/dev/null
