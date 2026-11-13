@@ -263,6 +263,36 @@ def t00_acceptance(summary, records):
     return not (sift_ok and emb_ok), "; ".join(f"{k}: {'<=3 ep' if v else 'NOT <=3 ep'}" for k, v in sorted(ok.items()))
 
 
+# ---------------------------------------------------------------- amendments
+# Amendments never replace a frozen criterion: both are evaluated and reported side by side.
+AMENDMENTS_LOG = [
+    ("2026-11-13", "hmm-ema", "t07 as frozen applies 'worse local optimum' to EVERY ours method incl. the untuned "
+     "k-means-law variant; the plan's intent is the method under test. Added t07_best_variant (gain and optimum "
+     "judged on the best ours method per dataset). Added after seeing partial synthetic results."),
+]
+
+
+def t07_hmm_best_variant(summary, records):
+    """Amendment: gain < 2x, or the BEST ours method per group has a significantly worse final optimum."""
+    killed_gain, why = _gain_criterion(2.0)(summary, records)
+    if killed_gain is None:
+        return None, why
+    worse = []
+    for gname, g in summary["groups"].items():
+        ours = {k: m for k, m in g["methods"].items() if m["role"] == "ours" and m["final_mean"] is not None}
+        if not ours:
+            continue
+        bname, best = min(ours.items(), key=lambda kv: kv[1]["final_mean"])
+        if best.get("final_vs_ref_p") is not None and best["final_vs_ref_diff"] > 0 and best["final_vs_ref_p"] < ALPHA:
+            worse.append(f"{gname}/{bname}")
+    return killed_gain or bool(worse), f"{why}; best variant significantly worse: {worse or 'none'}"
+
+
+SECONDARY: dict[str, list[tuple[str, Callable]]] = {
+    "hmm-ema": [("[amendment 2026-11-13] gain < 2x or BEST variant has worse optimum", t07_hmm_best_variant)],
+}
+
+
 CRITERIA: dict[str, tuple[str, Callable]] = {
     "core": ("REPRODUCTION FAILS: e-means not <=3 epochs to Lloyd@25 train loss on SIFT1M + an embedding set", t00_acceptance),
     "gmm-ema": ("best variant >8 epochs to match EM@25 on 2 of 3 datasets", t01_gmm),

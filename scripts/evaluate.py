@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from core.harness import CURVE_EPOCHS, read_runs  # noqa: E402
-from kill_criteria import ALPHA, CRITERIA, FROZEN_AT, _paired  # noqa: E402
+from kill_criteria import ALPHA, AMENDMENTS_LOG, CRITERIA, FROZEN_AT, SECONDARY, _paired  # noqa: E402
 
 N_BOOT = 2000
 
@@ -199,6 +199,8 @@ def render_verdict(slug: str, records, summary, verdict) -> str:
         f"- Records: {len(records)} (v2 schema). Commits: {', '.join(commits)}",
         f"- Kill criterion (frozen {FROZEN_AT}): {verdict['criterion']}",
         f"- **Outcome: {verdict['status']}**: {verdict['reason']}",
+        *[f"- Secondary {sv['criterion']}: **{sv['status']}**: {sv['reason']}" for sv in verdict.get("secondary", [])],
+        *[f"- Amendment note ({d}): {t}" for d, sl, t in AMENDMENTS_LOG if sl == slug],
         "",
         "Epochs-to-match = first epoch where the seed-mean test curve reaches the seed-mean reference@25,",
         "linearly interpolated; gain = 25 / that. 95% CI from a seed bootstrap (inf = not reached in the",
@@ -243,7 +245,11 @@ def evaluate(slug: str) -> dict[str, Any] | None:
     else:
         killed, reason = fn(summary, records)
     status = "INCOMPLETE" if killed is None else ("KILLED" if killed else "SURVIVES")
-    verdict = {"criterion": crit_name, "status": status, "reason": reason}
+    verdict = {"criterion": crit_name, "status": status, "reason": reason, "secondary": []}
+    for sname, sfn in SECONDARY.get(slug, []):
+        sk, sr = sfn(summary, records)
+        verdict["secondary"].append({"criterion": sname, "status": "INCOMPLETE" if sk is None else ("KILLED" if sk else "SURVIVES"),
+                                     "reason": sr})
     (ROOT / "results" / slug / "VERDICT.md").write_text(render_verdict(slug, records, summary, verdict))
     return {"verdict": verdict, "summary": summary, "n_records": len(records)}
 
@@ -259,6 +265,8 @@ def main(argv: list[str]) -> None:
         allres[s] = res
         v = res["verdict"]
         print(f"{s:24s} {v['status']:10s} {v['reason']}")
+        for sv in v.get("secondary", []):
+            print(f"{'':24s} secondary {sv['status']:10s} {sv['reason']}")
     summ_path = ROOT / "results" / "summary.json"
     prev = json.loads(summ_path.read_text()) if summ_path.exists() else {}
     prev.update(allres)
