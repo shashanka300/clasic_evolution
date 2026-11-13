@@ -244,7 +244,27 @@ def t11_hnsw(summary, records):
     return wins / total < 0.5, f"law wins {wins}/{total} held-out (dataset, target-recall) pairs"
 
 
+def t00_acceptance(summary, records):
+    """T00 done-criterion: e-means beats Lloyd@25 training loss within <=3 epochs on SIFT1M and >=1
+    embedding set (paper: ~1.4-2.6 epochs). 'Killed' here means the reproduction FAILED."""
+    ok = {}
+    for gname, g in summary["groups"].items():
+        if not gname.endswith("|train"):
+            continue
+        m = g["methods"].get("emeans")
+        if m is None:
+            continue
+        e = m["epochs_to_match"]
+        ok[gname] = e is not None and e <= 3.0
+    if not any(k.startswith("sift1m") for k in ok) or not any(not k.startswith("sift1m") for k in ok):
+        return None, f"need SIFT1M and an embedding set; have {sorted(ok)}"
+    sift_ok = all(v for k, v in ok.items() if k.startswith("sift1m"))
+    emb_ok = any(v for k, v in ok.items() if not k.startswith("sift1m"))
+    return not (sift_ok and emb_ok), "; ".join(f"{k}: {'<=3 ep' if v else 'NOT <=3 ep'}" for k, v in sorted(ok.items()))
+
+
 CRITERIA: dict[str, tuple[str, Callable]] = {
+    "core": ("REPRODUCTION FAILS: e-means not <=3 epochs to Lloyd@25 train loss on SIFT1M + an embedding set", t00_acceptance),
     "gmm-ema": ("best variant >8 epochs to match EM@25 on 2 of 3 datasets", t01_gmm),
     "opq-joint-rotation": ("joint rotation no better than e-means PQ + final OPQ refit", t02_opq),
     "balanced-ivf": ("p99 latency at recall 0.9 improves <10% over e-means IVF", t03_balanced_ivf),
