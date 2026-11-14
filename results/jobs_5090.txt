@@ -1,35 +1,109 @@
 # Desktop (RTX 5090 + Ryzen 9 9900X, 24 threads) job list for scripts/pqueue.py.
 # Replaces the sequential results/queue_desktop.txt + the Mac leftovers in results/queue.txt.
-# Order = rough longest-first. Verdicts are epoch/compute-based, so packing jobs side by side is safe;
-# wall_s columns of jobs run concurrently are contention-affected (informational only, as before across hosts).
-# e-means tracks (seeding, adaptive-k, drift-*) run their EMA on CUDA via core/device.py and need few CPU threads.
-# CLASSIC_ALGOS_GPU_PORTS=... turns on the parity-tested torch CUDA hot loops (tests/test_gpu_ports.py) for jobs that
-# had not started when the ports landed; each such job computes whole groups, so no group mixes CPU and port records.
+# Verdicts are epoch/compute-based, so packing jobs side by side is safe; wall_s of concurrent jobs is
+# contention-affected (informational only, as across hosts).
+# e-means tracks (seeding, adaptive-k, drift-*) run their EMA on CUDA via core/device.py.
+# CLASSIC_ALGOS_GPU_PORTS=... turns on the parity-tested torch CUDA hot loops (tests/test_gpu_ports.py).
+# Jobs are split one process per dataset / scenario: each covers disjoint groups (tracks resume per cell and
+# append whole lines), and more independent streams keep both the GPU and all CPU cores busy.
+# Ported / GPU-native jobs get 2 threads (they mostly wait on the GPU); CPU-bound numba/BLAS jobs get 3-6.
+# Run:  python3 scripts/pqueue.py --budget 40 --max-jobs 20
 
-# --- phase A: no external data needed, starts immediately ---
-id=gmm_full_syn threads=6 :: .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets synthetic --stage all >> results/gmm-ema/console_full.log 2>&1
+# --- phase A: no external data needed ---
+id=gmm_full_syn threads=2 :: CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets synthetic --stage all >> results/gmm-ema/console_full.log 2>&1
 id=gmm_law_syn  threads=4 :: .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs diag --datasets synthetic --stage law-sweep >> results/gmm-ema/console_law.log 2>&1
 id=hmm_law_syn  threads=4 :: .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage law-sweep >> results/hmm-ema/console_law.log 2>&1
 id=adaptive_k   threads=3 :: .venv/bin/python -u tracks/adaptive-k/run_v2.py >> results/adaptive-k/console.log 2>&1
 id=seeding_syn  threads=3 :: .venv/bin/python -u tracks/cheap-seeding/run_v2.py --datasets synthetic >> results/cheap-seeding/console.log 2>&1
 
-# --- phase B: needs the dataset copied from the Mac (touch data/.ready when the copy is complete) ---
-id=gmm_full     threads=6 needs=data after=gmm_full_syn :: CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets synthetic,dinov2_pca64,agnews_pca64 --stage all >> results/gmm-ema/console_full.log 2>&1
-id=dictlearn    threads=4 needs=data :: .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage all >> results/dictlearn-scaling/console.log 2>&1
-id=dict_law     threads=4 needs=data :: .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8,nmf_20ng --stage law-sweep >> results/dictlearn-scaling/console_law.log 2>&1
-id=gmm_law      threads=4 needs=data after=gmm_law_syn :: .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs diag --datasets synthetic,sift1m_pca64 --stage law-sweep >> results/gmm-ema/console_law.log 2>&1
-id=hmm_law      threads=4 needs=data after=hmm_law_syn :: .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic,brown_pos --stage law-sweep >> results/hmm-ema/console_law.log 2>&1
-id=als_law      threads=4 needs=data :: CLASSIC_ALGOS_GPU_PORTS=als .venv/bin/python -u tracks/als-ema/run_v2.py --stage law-sweep >> results/als-ema/console_law.log 2>&1
-id=lda_law      threads=4 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage law-sweep >> results/lda-scaling/console_law.log 2>&1
-id=lda_coslaw   threads=4 needs=data after=lda_law :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage cosine-law >> results/lda-scaling/console_coslaw.log 2>&1
+# --- phase B: real data (data/.ready) ---
+# GPU-native e-means jobs
+# T00 acceptance on the 5090's embeddings (one embedding version across all tracks)
+id=core_t00   threads=4 needs=data :: .venv/bin/python -u -m core.acceptance --seeds 3 >> results/core/acceptance_console_5090.log 2>&1
 id=opq          threads=6 needs=data :: .venv/bin/python -u tracks/opq-joint-rotation/run_v2.py >> results/opq-joint-rotation/console.log 2>&1
-id=drift_rewarm threads=3 needs=data :: .venv/bin/python -u tracks/drift-rewarm/run_v2.py >> results/drift-rewarm/console.log 2>&1
-id=drift_ivf    threads=3 needs=data :: .venv/bin/python -u tracks/drift-balanced-ivf/run_v2.py >> results/drift-balanced-ivf/console.log 2>&1
-id=seeding      threads=3 needs=data after=seeding_syn :: .venv/bin/python -u tracks/cheap-seeding/run_v2.py >> results/cheap-seeding/console.log 2>&1
+id=drift_grad   threads=2 needs=data :: .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios gradual >> results/drift-rewarm/console_gradual.log 2>&1
+id=drift_abr    threads=2 needs=data :: .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios abrupt >> results/drift-rewarm/console_abrupt.log 2>&1
+id=drift_seas   threads=2 needs=data :: .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios seasonal >> results/drift-rewarm/console_seasonal.log 2>&1
+id=drift_enc    threads=2 needs=data :: .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios encoder_upgrade >> results/drift-rewarm/console_encoder.log 2>&1
+id=divf_abr     threads=2 needs=data :: .venv/bin/python -u tracks/drift-balanced-ivf/run_v2.py --scenarios abrupt >> results/drift-balanced-ivf/console_abrupt.log 2>&1
+id=divf_grad    threads=2 needs=data :: .venv/bin/python -u tracks/drift-balanced-ivf/run_v2.py --scenarios gradual >> results/drift-balanced-ivf/console_gradual.log 2>&1
+id=seed_dino    threads=2 needs=data after=seeding_syn :: .venv/bin/python -u tracks/cheap-seeding/run_v2.py --datasets dinov2 >> results/cheap-seeding/console_dinov2.log 2>&1
+id=seed_sift    threads=2 needs=data after=seeding_syn :: .venv/bin/python -u tracks/cheap-seeding/run_v2.py --datasets sift1m >> results/cheap-seeding/console_sift1m.log 2>&1
+# GPU-ported jobs
+id=gmm_full_dino threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets dinov2_pca64 --stage all >> results/gmm-ema/console_full_dinov2.log 2>&1
+id=gmm_full_ag  threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets agnews_pca64 --stage all >> results/gmm-ema/console_full_agnews.log 2>&1
+id=gmm_law      threads=2 needs=data after=gmm_law_syn :: CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs diag --datasets synthetic,sift1m_pca64 --stage law-sweep >> results/gmm-ema/console_law.log 2>&1
+id=hmm_law      threads=2 needs=data after=hmm_law_syn :: CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage law-sweep >> results/hmm-ema/console_law.log 2>&1
+id=lda_all_20ng threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets 20ng --stage all >> results/lda-scaling/console_20ng.log 2>&1
+# LDA Enron / NYTimes rerun split by stage (each stage writes its own methods; per-seed reference resume)
+id=lda_ref_enron_s0 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage reference --seed-list 0 >> results/lda-scaling/console_enron_ref0.log 2>&1
+id=lda_ref_enron_s1 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage reference --seed-list 1 >> results/lda-scaling/console_enron_ref1.log 2>&1
+id=lda_ref_enron_s2 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage reference --seed-list 2 >> results/lda-scaling/console_enron_ref2.log 2>&1
+id=lda_sweep_enron_s0 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sweep --seed-list 0 >> results/lda-scaling/console_enron_sweep0.log 2>&1
+id=lda_sweep_enron_s1 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sweep --seed-list 1 >> results/lda-scaling/console_enron_sweep1.log 2>&1
+id=lda_sweep_enron_s2 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sweep --seed-list 2 >> results/lda-scaling/console_enron_sweep2.log 2>&1
+id=lda_online_enron_s0 threads=2 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online --seed-list 0 >> results/lda-scaling/console_enron_online0.log 2>&1
+id=lda_online_enron_s1 threads=2 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online --seed-list 1 >> results/lda-scaling/console_enron_online1.log 2>&1
+id=lda_online_enron_s2 threads=2 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online --seed-list 2 >> results/lda-scaling/console_enron_online2.log 2>&1
+id=lda_online_enron_final threads=1 needs=data after=lda_online_enron_s0,lda_online_enron_s1,lda_online_enron_s2 :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online >> results/lda-scaling/console_enron_online.log 2>&1
+id=lda_kmlaw_enron threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage kmlaw >> results/lda-scaling/console_enron_kmlaw.log 2>&1
+id=lda_hoffman_enron threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage hoffman >> results/lda-scaling/console_enron_hoffman.log 2>&1
+id=lda_sklearn_enron threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sklearn >> results/lda-scaling/console_enron_sklearn.log 2>&1
+id=lda_emit_enron threads=1 needs=data after=lda_sweep_enron_s0,lda_sweep_enron_s1,lda_sweep_enron_s2 :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage emit >> results/lda-scaling/console_enron_emit.log 2>&1
+id=lda_ref_nyt_s0 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage reference --seed-list 0 >> results/lda-scaling/console_nytimes_ref0.log 2>&1
+id=lda_ref_nyt_s1 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage reference --seed-list 1 >> results/lda-scaling/console_nytimes_ref1.log 2>&1
+id=lda_ref_nyt_s2 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage reference --seed-list 2 >> results/lda-scaling/console_nytimes_ref2.log 2>&1
+id=lda_sweep_nyt_s0 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sweep --seed-list 0 >> results/lda-scaling/console_nytimes_sweep0.log 2>&1
+id=lda_sweep_nyt_s1 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sweep --seed-list 1 >> results/lda-scaling/console_nytimes_sweep1.log 2>&1
+id=lda_sweep_nyt_s2 threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sweep --seed-list 2 >> results/lda-scaling/console_nytimes_sweep2.log 2>&1
+id=lda_online_nyt_s0 threads=2 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online --seed-list 0 >> results/lda-scaling/console_nytimes_online0.log 2>&1
+id=lda_online_nyt_s1 threads=2 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online --seed-list 1 >> results/lda-scaling/console_nytimes_online1.log 2>&1
+id=lda_online_nyt_s2 threads=2 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online --seed-list 2 >> results/lda-scaling/console_nytimes_online2.log 2>&1
+id=lda_online_nyt_final threads=1 needs=data after=lda_online_nyt_s0,lda_online_nyt_s1,lda_online_nyt_s2 :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online >> results/lda-scaling/console_nytimes_online.log 2>&1
+id=lda_kmlaw_nyt threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage kmlaw >> results/lda-scaling/console_nytimes_kmlaw.log 2>&1
+id=lda_hoffman_nyt threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage hoffman >> results/lda-scaling/console_nytimes_hoffman.log 2>&1
+id=lda_sklearn_nyt threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sklearn >> results/lda-scaling/console_nytimes_sklearn.log 2>&1
+id=lda_emit_nyt threads=1 needs=data after=lda_sweep_nyt_s0,lda_sweep_nyt_s1,lda_sweep_nyt_s2 :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage emit >> results/lda-scaling/console_nytimes_emit.log 2>&1
+id=lda_law_20ng threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets 20ng --stage law-sweep >> results/lda-scaling/console_law_20ng.log 2>&1
+id=lda_law_enron threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage law-sweep >> results/lda-scaling/console_law_enron.log 2>&1
+id=lda_law_nyt  threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage law-sweep >> results/lda-scaling/console_law_nytimes.log 2>&1
+id=als_law_1m   threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=als .venv/bin/python -u tracks/als-ema/run_v2.py --datasets ml1m --stage law-sweep >> results/als-ema/console_law_ml1m.log 2>&1
+id=als_law_10m  threads=2 needs=data :: CLASSIC_ALGOS_GPU_PORTS=als .venv/bin/python -u tracks/als-ema/run_v2.py --datasets ml10m --stage law-sweep >> results/als-ema/console_law_ml10m.log 2>&1
+# dictlearn: training mini-batches stay on the CPU (FISTA routing), evaluation chunks go to the GPU
+id=dl_p8        threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8 --stage all >> results/dictlearn-scaling/console_p8.log 2>&1
+id=dl_nmf       threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets nmf_20ng --stage all >> results/dictlearn-scaling/console_nmf.log 2>&1
+# dictlearn CIFAR 12x12 split by stage (the longest dictlearn job)
+id=dl_p12_ref_s0 threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage reference --seed-list 0 >> results/dictlearn-scaling/console_p12_ref0.log 2>&1
+id=dl_p12_ref_s1 threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage reference --seed-list 1 >> results/dictlearn-scaling/console_p12_ref1.log 2>&1
+id=dl_p12_ref_s2 threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage reference --seed-list 2 >> results/dictlearn-scaling/console_p12_ref2.log 2>&1
+id=dl_p12_sweep_s0 threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sweep --seed-list 0 >> results/dictlearn-scaling/console_p12_sweep0.log 2>&1
+id=dl_p12_sweep_s1 threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sweep --seed-list 1 >> results/dictlearn-scaling/console_p12_sweep1.log 2>&1
+id=dl_p12_sweep_s2 threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sweep --seed-list 2 >> results/dictlearn-scaling/console_p12_sweep2.log 2>&1
+id=dl_p12_online_s0 threads=3 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online --seed-list 0 >> results/dictlearn-scaling/console_p12_online0.log 2>&1
+id=dl_p12_online_s1 threads=3 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online --seed-list 1 >> results/dictlearn-scaling/console_p12_online1.log 2>&1
+id=dl_p12_online_s2 threads=3 needs=data :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online --seed-list 2 >> results/dictlearn-scaling/console_p12_online2.log 2>&1
+id=dl_p12_online_final threads=1 needs=data after=dl_p12_online_s0,dl_p12_online_s1,dl_p12_online_s2 :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online >> results/dictlearn-scaling/console_p12_online.log 2>&1
+id=dl_p12_kmlaw threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage kmlaw >> results/dictlearn-scaling/console_p12_kmlaw.log 2>&1
+id=dl_p12_sklearn threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sklearn >> results/dictlearn-scaling/console_p12_sklearn.log 2>&1
+id=dl_p12_emit threads=1 needs=data after=dl_p12_sweep_s0,dl_p12_sweep_s1,dl_p12_sweep_s2 :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage emit >> results/dictlearn-scaling/console_p12_emit.log 2>&1
+id=dl_law_p8    threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8 --stage law-sweep >> results/dictlearn-scaling/console_law_p8.log 2>&1
+id=dl_law_nmf   threads=3 needs=data :: CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets nmf_20ng --stage law-sweep >> results/dictlearn-scaling/console_law_nmf.log 2>&1
+# needs every corpus's law-sweep cells (leave-one-corpus-out fit)
+id=lda_coslaw   threads=2 needs=data after=lda_law_20ng,lda_law_enron,lda_law_nyt :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage cosine-law >> results/lda-scaling/console_coslaw.log 2>&1
 
 # --- phase C: latency (T03) and QPS (T11) are measured alone on an idle machine ---
 id=balanced_ivf threads=8 needs=data exclusive :: .venv/bin/python -u tracks/balanced-ivf/run_v2.py >> results/balanced-ivf/console.log 2>&1
 id=hnsw         threads=8 needs=data exclusive :: .venv/bin/python -u tracks/hnsw-scaling-laws/run_v2.py >> results/hnsw-scaling-laws/console.log 2>&1
+
+
+# --- phase C2: isolated timing pass = the paper's wall-clock numbers (alone, CPU only, 12 threads, 3 seeds) ---
+# reference@25 and the untuned law method (kmlaw) per group, into results/_timing/<track>/; evaluate.py reports
+# them in a separate VERDICT section. Library baselines are timed where a track's reference stage runs them.
+id=time_gmm     threads=12 needs=data exclusive :: CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_gmm CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/gmm-ema/run_v2.py --datasets synthetic --stage reference --seeds 1 >> results/timing_gmm.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/gmm-ema/run_v2.py --stage reference >> results/timing_gmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/gmm-ema/run_v2.py --stage kmlaw >> results/timing_gmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py gmm-ema >> results/timing_gmm.log 2>&1
+id=time_dl      threads=12 needs=data exclusive :: CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_dl CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets nmf_20ng --stage reference --seeds 1 >> results/timing_dl.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage reference >> results/timing_dl.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage kmlaw >> results/timing_dl.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py dictlearn-scaling >> results/timing_dl.log 2>&1
+id=time_lda     threads=12 needs=data exclusive :: CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_lda CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets 20ng --stage reference --seeds 1 >> results/timing_lda.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage reference >> results/timing_lda.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage kmlaw >> results/timing_lda.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py lda-scaling >> results/timing_lda.log 2>&1
+id=time_als     threads=12 needs=data exclusive :: CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_als CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/als-ema/run_v2.py --datasets ml1m --stage reference --seeds 1 >> results/timing_als.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/als-ema/run_v2.py --stage reference >> results/timing_als.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/als-ema/run_v2.py --stage kmlaw >> results/timing_als.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py als-ema >> results/timing_als.log 2>&1
+id=time_hmm     threads=12 needs=data exclusive :: CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_hmm CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets uci_har_vq --stage reference --seeds 1 >> results/timing_hmm.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/hmm-ema/run_v2.py --stage reference >> results/timing_hmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/hmm-ema/run_v2.py --stage kmlaw >> results/timing_hmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py hmm-ema >> results/timing_hmm.log 2>&1
 
 # --- phase D: fit + verdicts + figures (read every JSONL above) ---
 id=t12_fit      threads=4 barrier :: .venv/bin/python tracks/universal-scaling-law/fit_v2.py >> results/universal-scaling-law/console.log 2>&1

@@ -1,0 +1,13 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[gradual s=0] static             recall=0.9281 ndis_p99=23544 imb=4.912 compute=3.67e+07 alarms=[]
+[gradual s=0] live_rewarm        recall=0.8507 ndis_p99=19395 imb=4.883 compute=1.74e+08 alarms=[47, 125, 217]
+[gradual s=0] live_rewarm_bal    recall=0.8559 ndis_p99=10178 imb=2.592 compute=1.74e+08 alarms=[46, 123, 220, 231]
+[gradual s=0] periodic_rebuild   recall=0.9250 ndis_p99=5357 imb=1.370 compute=4.5e+08 alarms=[]
+[gradual s=1] static             recall=0.9414 ndis_p99=26811 imb=6.110 compute=3.67e+07 alarms=[]
+[gradual s=1] live_rewarm        recall=0.8949 ndis_p99=19270 imb=4.463 compute=1.74e+08 alarms=[31, 123, 225]
+[gradual s=1] live_rewarm_bal    recall=0.8832 ndis_p99=10977 imb=2.619 compute=1.74e+08 alarms=[31, 124, 225]
+[gradual s=1] periodic_rebuild   recall=0.9253 ndis_p99=5215 imb=1.350 compute=4.5e+08 alarms=[]
+[gradual s=2] static             recall=0.9447 ndis_p99=29589 imb=6.898 compute=3.67e+07 alarms=[]
+[gradual s=2] live_rewarm        recall=0.8583 ndis_p99=18147 imb=4.062 compute=1.74e+08 alarms=[55, 61, 136, 226]
+[gradual s=2] live_rewarm_bal    recall=0.8589 ndis_p99=10785 imb=2.902 compute=1.74e+08 alarms=[55, 137, 226]
+[gradual s=2] periodic_rebuild   recall=0.9258 ndis_p99=5400 imb=1.396 compute=4.5e+08 alarms=[]

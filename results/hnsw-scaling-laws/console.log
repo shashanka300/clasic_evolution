@@ -1,0 +1,245 @@
+[grid] synth_n50k_d32 M=8 efC=50 build=0.2s
+[grid] synth_n50k_d32 M=8 efC=100 build=0.3s
+[grid] synth_n50k_d32 M=8 efC=200 build=0.4s
+[grid] synth_n50k_d32 M=8 efC=400 build=0.7s
+[grid] synth_n50k_d32 M=12 efC=50 build=0.2s
+[grid] synth_n50k_d32 M=12 efC=100 build=0.2s
+[grid] synth_n50k_d32 M=12 efC=200 build=0.4s
+[grid] synth_n50k_d32 M=12 efC=400 build=0.8s
+[grid] synth_n50k_d32 M=16 efC=50 build=0.1s
+[grid] synth_n50k_d32 M=16 efC=100 build=0.2s
+[grid] synth_n50k_d32 M=16 efC=200 build=0.4s
+[grid] synth_n50k_d32 M=16 efC=400 build=0.9s
+[grid] synth_n50k_d32 M=24 efC=50 build=0.1s
+[grid] synth_n50k_d32 M=24 efC=100 build=0.2s
+[grid] synth_n50k_d32 M=24 efC=200 build=0.4s
+[grid] synth_n50k_d32 M=24 efC=400 build=0.8s
+[grid] synth_n50k_d32 M=32 efC=50 build=0.1s
+[grid] synth_n50k_d32 M=32 efC=100 build=0.2s
+[grid] synth_n50k_d32 M=32 efC=200 build=0.4s
+[grid] synth_n50k_d32 M=32 efC=400 build=0.8s
+[grid] synth_n50k_d32 M=48 efC=50 build=0.1s
+[grid] synth_n50k_d32 M=48 efC=100 build=0.3s
+[grid] synth_n50k_d32 M=48 efC=200 build=0.4s
+[grid] synth_n50k_d32 M=48 efC=400 build=0.9s
+[grid] synth_n200k_d32 M=8 efC=50 build=0.7s
+[grid] synth_n200k_d32 M=8 efC=100 build=1.1s
+[grid] synth_n200k_d32 M=8 efC=200 build=1.8s
+[grid] synth_n200k_d32 M=8 efC=400 build=3.1s
+[grid] synth_n200k_d32 M=12 efC=50 build=0.7s
+[grid] synth_n200k_d32 M=12 efC=100 build=1.2s
+[grid] synth_n200k_d32 M=12 efC=200 build=2.0s
+[grid] synth_n200k_d32 M=12 efC=400 build=3.3s
+[grid] synth_n200k_d32 M=16 efC=50 build=0.8s
+[grid] synth_n200k_d32 M=16 efC=100 build=1.3s
+[grid] synth_n200k_d32 M=16 efC=200 build=2.1s
+[grid] synth_n200k_d32 M=16 efC=400 build=3.6s
+[grid] synth_n200k_d32 M=24 efC=50 build=0.8s
+[grid] synth_n200k_d32 M=24 efC=100 build=1.3s
+[grid] synth_n200k_d32 M=24 efC=200 build=2.3s
+[grid] synth_n200k_d32 M=24 efC=400 build=3.9s
+[grid] synth_n200k_d32 M=32 efC=50 build=0.9s
+[grid] synth_n200k_d32 M=32 efC=100 build=1.6s
+[grid] synth_n200k_d32 M=32 efC=200 build=2.4s
+[grid] synth_n200k_d32 M=32 efC=400 build=4.1s
+[grid] synth_n200k_d32 M=48 efC=50 build=1.0s
+[grid] synth_n200k_d32 M=48 efC=100 build=1.5s
+[grid] synth_n200k_d32 M=48 efC=200 build=2.4s
+[grid] synth_n200k_d32 M=48 efC=400 build=4.3s
+[grid] synth_n50k_d128 M=8 efC=50 build=0.2s
+[grid] synth_n50k_d128 M=8 efC=100 build=0.2s
+[grid] synth_n50k_d128 M=8 efC=200 build=0.4s
+[grid] synth_n50k_d128 M=8 efC=400 build=0.8s
+[grid] synth_n50k_d128 M=12 efC=50 build=0.2s
+[grid] synth_n50k_d128 M=12 efC=100 build=0.3s
+[grid] synth_n50k_d128 M=12 efC=200 build=0.4s
+[grid] synth_n50k_d128 M=12 efC=400 build=0.9s
+[grid] synth_n50k_d128 M=16 efC=50 build=0.2s
+[grid] synth_n50k_d128 M=16 efC=100 build=0.3s
+[grid] synth_n50k_d128 M=16 efC=200 build=0.5s
+[grid] synth_n50k_d128 M=16 efC=400 build=0.9s
+[grid] synth_n50k_d128 M=24 efC=50 build=0.2s
+[grid] synth_n50k_d128 M=24 efC=100 build=0.3s
+[grid] synth_n50k_d128 M=24 efC=200 build=0.5s
+[grid] synth_n50k_d128 M=24 efC=400 build=1.0s
+[grid] synth_n50k_d128 M=32 efC=50 build=0.2s
+[grid] synth_n50k_d128 M=32 efC=100 build=0.3s
+[grid] synth_n50k_d128 M=32 efC=200 build=0.5s
+[grid] synth_n50k_d128 M=32 efC=400 build=1.1s
+[grid] synth_n50k_d128 M=48 efC=50 build=0.2s
+[grid] synth_n50k_d128 M=48 efC=100 build=0.3s
+[grid] synth_n50k_d128 M=48 efC=200 build=0.5s
+[grid] synth_n50k_d128 M=48 efC=400 build=1.2s
+[grid] synth_n200k_d128 M=8 efC=50 build=1.2s
+[grid] synth_n200k_d128 M=8 efC=100 build=2.1s
+[grid] synth_n200k_d128 M=8 efC=200 build=3.3s
+[grid] synth_n200k_d128 M=8 efC=400 build=5.1s
+[grid] synth_n200k_d128 M=12 efC=50 build=1.5s
+[grid] synth_n200k_d128 M=12 efC=100 build=2.4s
+[grid] synth_n200k_d128 M=12 efC=200 build=3.6s
+[grid] synth_n200k_d128 M=12 efC=400 build=5.6s
+[grid] synth_n200k_d128 M=16 efC=50 build=1.7s
+[grid] synth_n200k_d128 M=16 efC=100 build=2.6s
+[grid] synth_n200k_d128 M=16 efC=200 build=3.9s
+[grid] synth_n200k_d128 M=16 efC=400 build=5.9s
+[grid] synth_n200k_d128 M=24 efC=50 build=1.9s
+[grid] synth_n200k_d128 M=24 efC=100 build=2.9s
+[grid] synth_n200k_d128 M=24 efC=200 build=4.2s
+[grid] synth_n200k_d128 M=24 efC=400 build=6.3s
+[grid] synth_n200k_d128 M=32 efC=50 build=2.0s
+[grid] synth_n200k_d128 M=32 efC=100 build=3.0s
+[grid] synth_n200k_d128 M=32 efC=200 build=4.4s
+[grid] synth_n200k_d128 M=32 efC=400 build=6.6s
+[grid] synth_n200k_d128 M=48 efC=50 build=2.2s
+[grid] synth_n200k_d128 M=48 efC=100 build=3.2s
+[grid] synth_n200k_d128 M=48 efC=200 build=4.6s
+[grid] synth_n200k_d128 M=48 efC=400 build=7.1s
+[grid] sift_100k M=8 efC=50 build=0.4s
+[grid] sift_100k M=8 efC=100 build=0.7s
+[grid] sift_100k M=8 efC=200 build=1.3s
+[grid] sift_100k M=8 efC=400 build=2.3s
+[grid] sift_100k M=12 efC=50 build=0.5s
+[grid] sift_100k M=12 efC=100 build=0.9s
+[grid] sift_100k M=12 efC=200 build=1.5s
+[grid] sift_100k M=12 efC=400 build=2.7s
+[grid] sift_100k M=16 efC=50 build=0.5s
+[grid] sift_100k M=16 efC=100 build=1.0s
+[grid] sift_100k M=16 efC=200 build=1.7s
+[grid] sift_100k M=16 efC=400 build=3.1s
+[grid] sift_100k M=24 efC=50 build=0.6s
+[grid] sift_100k M=24 efC=100 build=1.1s
+[grid] sift_100k M=24 efC=200 build=2.0s
+[grid] sift_100k M=24 efC=400 build=3.6s
+[grid] sift_100k M=32 efC=50 build=0.6s
+[grid] sift_100k M=32 efC=100 build=1.1s
+[grid] sift_100k M=32 efC=200 build=2.2s
+[grid] sift_100k M=32 efC=400 build=3.9s
+[grid] sift_100k M=48 efC=50 build=0.6s
+[grid] sift_100k M=48 efC=100 build=1.2s
+[grid] sift_100k M=48 efC=200 build=2.3s
+[grid] sift_100k M=48 efC=400 build=4.3s
+[grid] sift_300k M=8 efC=50 build=2.1s
+[grid] sift_300k M=8 efC=100 build=3.8s
+[grid] sift_300k M=8 efC=200 build=6.7s
+[grid] sift_300k M=8 efC=400 build=12.3s
+[grid] sift_300k M=12 efC=50 build=2.6s
+[grid] sift_300k M=12 efC=100 build=4.8s
+[grid] sift_300k M=12 efC=200 build=8.6s
+[grid] sift_300k M=12 efC=400 build=15.4s
+[grid] sift_300k M=16 efC=50 build=2.8s
+[grid] sift_300k M=16 efC=100 build=5.6s
+[grid] sift_300k M=16 efC=200 build=10.0s
+[grid] sift_300k M=16 efC=400 build=18.0s
+[grid] sift_300k M=24 efC=50 build=3.2s
+[grid] sift_300k M=24 efC=100 build=6.2s
+[grid] sift_300k M=24 efC=200 build=11.9s
+[grid] sift_300k M=24 efC=400 build=22.0s
+[grid] sift_300k M=32 efC=50 build=3.2s
+[grid] sift_300k M=32 efC=100 build=6.5s
+[grid] sift_300k M=32 efC=200 build=12.9s
+[grid] sift_300k M=32 efC=400 build=24.3s
+[grid] sift_300k M=48 efC=50 build=3.4s
+[grid] sift_300k M=48 efC=100 build=7.0s
+[grid] sift_300k M=48 efC=200 build=13.8s
+[grid] sift_300k M=48 efC=400 build=26.5s
+[grid] dinov2_50k M=8 efC=50 build=0.3s
+[grid] dinov2_50k M=8 efC=100 build=0.5s
+[grid] dinov2_50k M=8 efC=200 build=0.9s
+[grid] dinov2_50k M=8 efC=400 build=1.6s
+[grid] dinov2_50k M=12 efC=50 build=0.4s
+[grid] dinov2_50k M=12 efC=100 build=0.6s
+[grid] dinov2_50k M=12 efC=200 build=1.1s
+[grid] dinov2_50k M=12 efC=400 build=2.0s
+[grid] dinov2_50k M=16 efC=50 build=0.4s
+[grid] dinov2_50k M=16 efC=100 build=0.7s
+[grid] dinov2_50k M=16 efC=200 build=1.3s
+[grid] dinov2_50k M=16 efC=400 build=2.5s
+[grid] dinov2_50k M=24 efC=50 build=0.4s
+[grid] dinov2_50k M=24 efC=100 build=0.7s
+[grid] dinov2_50k M=24 efC=200 build=1.5s
+[grid] dinov2_50k M=24 efC=400 build=3.0s
+[grid] dinov2_50k M=32 efC=50 build=0.4s
+[grid] dinov2_50k M=32 efC=100 build=0.8s
+[grid] dinov2_50k M=32 efC=200 build=1.7s
+[grid] dinov2_50k M=32 efC=400 build=3.3s
+[grid] dinov2_50k M=48 efC=50 build=0.4s
+[grid] dinov2_50k M=48 efC=100 build=0.8s
+[grid] dinov2_50k M=48 efC=200 build=1.9s
+[grid] dinov2_50k M=48 efC=400 build=3.8s
+[grid] agnews_minilm M=8 efC=50 build=1.0s
+[grid] agnews_minilm M=8 efC=100 build=1.8s
+[grid] agnews_minilm M=8 efC=200 build=3.2s
+[grid] agnews_minilm M=8 efC=400 build=5.9s
+[grid] agnews_minilm M=12 efC=50 build=1.1s
+[grid] agnews_minilm M=12 efC=100 build=2.2s
+[grid] agnews_minilm M=12 efC=200 build=4.3s
+[grid] agnews_minilm M=12 efC=400 build=7.9s
+[grid] agnews_minilm M=16 efC=50 build=1.2s
+[grid] agnews_minilm M=16 efC=100 build=2.5s
+[grid] agnews_minilm M=16 efC=200 build=5.0s
+[grid] agnews_minilm M=16 efC=400 build=9.8s
+[grid] agnews_minilm M=24 efC=50 build=1.2s
+[grid] agnews_minilm M=24 efC=100 build=2.8s
+[grid] agnews_minilm M=24 efC=200 build=6.0s
+[grid] agnews_minilm M=24 efC=400 build=12.7s
+[grid] agnews_minilm M=32 efC=50 build=1.3s
+[grid] agnews_minilm M=32 efC=100 build=2.9s
+[grid] agnews_minilm M=32 efC=200 build=6.6s
+[grid] agnews_minilm M=32 efC=400 build=13.9s
+[grid] agnews_minilm M=48 efC=50 build=1.3s
+[grid] agnews_minilm M=48 efC=100 build=2.9s
+[grid] agnews_minilm M=48 efC=200 build=6.9s
+[grid] agnews_minilm M=48 efC=400 build=15.4s
+[grid] glove100_300k M=8 efC=50 build=2.6s
+[grid] glove100_300k M=8 efC=100 build=4.6s
+[grid] glove100_300k M=8 efC=200 build=8.0s
+[grid] glove100_300k M=8 efC=400 build=14.7s
+[grid] glove100_300k M=12 efC=50 build=3.5s
+[grid] glove100_300k M=12 efC=100 build=6.3s
+[grid] glove100_300k M=12 efC=200 build=11.4s
+[grid] glove100_300k M=12 efC=400 build=20.6s
+[grid] glove100_300k M=16 efC=50 build=4.1s
+[grid] glove100_300k M=16 efC=100 build=7.8s
+[grid] glove100_300k M=16 efC=200 build=15.1s
+[grid] glove100_300k M=16 efC=400 build=26.8s
+[grid] glove100_300k M=24 efC=50 build=4.8s
+[grid] glove100_300k M=24 efC=100 build=10.5s
+[grid] glove100_300k M=24 efC=200 build=20.9s
+[grid] glove100_300k M=24 efC=400 build=39.2s
+[grid] glove100_300k M=32 efC=50 build=5.3s
+[grid] glove100_300k M=32 efC=100 build=11.7s
+[grid] glove100_300k M=32 efC=200 build=26.6s
+[grid] glove100_300k M=32 efC=400 build=49.9s
+[grid] glove100_300k M=48 efC=50 build=5.8s
+[grid] glove100_300k M=48 efC=100 build=13.3s
+[grid] glove100_300k M=48 efC=200 build=31.1s
+[grid] glove100_300k M=48 efC=400 build=65.1s
+[agnews_minilm|R=0.9] law                  M=14 efC=63 efS=23 R@10=0.9350 QPS=27159 frac_oracle=0.791
+[agnews_minilm|R=0.9] default_hnswlib      M=16 efC=200 efS=10 R@10=0.8969 QPS=34728 frac_oracle=None
+[agnews_minilm|R=0.9] default_faiss        M=32 efC=40 efS=16 R@10=0.8942 QPS=33075 frac_oracle=None
+[agnews_minilm|R=0.9] default_hnswlib_efs  M=16 efC=200 efS=16 R@10=0.9384 QPS=26029 frac_oracle=0.758
+[agnews_minilm|R=0.9] grid_oracle          M=16 efC=50 efS=16 R@10=0.9006 QPS=33711 frac_oracle=0.982
+[agnews_minilm|R=0.95] law                  M=15 efC=67 efS=34 R@10=0.9628 QPS=19404 frac_oracle=0.809
+[agnews_minilm|R=0.95] default_hnswlib      M=16 efC=200 efS=10 R@10=0.8969 QPS=34585 frac_oracle=None
+[agnews_minilm|R=0.95] default_faiss        M=32 efC=40 efS=16 R@10=0.8942 QPS=33044 frac_oracle=None
+[agnews_minilm|R=0.95] default_hnswlib_efs  M=16 efC=200 efS=24 R@10=0.9657 QPS=19753 frac_oracle=0.824
+[agnews_minilm|R=0.95] grid_oracle          M=32 efC=100 efS=16 R@10=0.9461 QPS=24045 frac_oracle=None
+[agnews_minilm|R=0.99] law                  M=17 efC=76 efS=61 R@10=0.9818 QPS=11685 frac_oracle=None
+[agnews_minilm|R=0.99] default_hnswlib      M=16 efC=200 efS=10 R@10=0.8969 QPS=34627 frac_oracle=None
+[agnews_minilm|R=0.99] default_faiss        M=32 efC=40 efS=16 R@10=0.8942 QPS=33311 frac_oracle=None
+[agnews_minilm|R=0.99] default_hnswlib_efs  M=16 efC=200 efS=96 R@10=0.9942 QPS=6631 frac_oracle=0.678
+[agnews_minilm|R=0.99] grid_oracle          M=24 efC=200 efS=48 R@10=0.9903 QPS=9581 frac_oracle=0.98
+[glove100_300k|R=0.9] law                  M=28 efC=261 efS=27 R@10=0.7452 QPS=11684 frac_oracle=None
+[glove100_300k|R=0.9] default_hnswlib      M=16 efC=200 efS=10 R@10=0.5105 QPS=36542 frac_oracle=None
+[glove100_300k|R=0.9] default_faiss        M=32 efC=40 efS=16 R@10=0.5790 QPS=24909 frac_oracle=None
+[glove100_300k|R=0.9] default_hnswlib_efs  M=16 efC=200 efS=256 R@10=0.9175 QPS=2818 frac_oracle=0.718
+[glove100_300k|R=0.9] grid_oracle          M=32 efC=200 efS=96 R@10=0.8992 QPS=4003 frac_oracle=None
+[glove100_300k|R=0.95] law                  M=31 efC=281 efS=40 R@10=0.8092 QPS=7954 frac_oracle=None
+[glove100_300k|R=0.95] default_hnswlib      M=16 efC=200 efS=10 R@10=0.5105 QPS=35254 frac_oracle=None
+[glove100_300k|R=0.95] default_faiss        M=32 efC=40 efS=16 R@10=0.5790 QPS=24442 frac_oracle=None
+[glove100_300k|R=0.95] default_hnswlib_efs  M=16 efC=200 efS=512 R@10=0.9568 QPS=1469 frac_oracle=0.716
+[glove100_300k|R=0.95] grid_oracle          M=32 efC=400 efS=192 R@10=0.9535 QPS=1997 frac_oracle=0.974
+[glove100_300k|R=0.99] law                  M=36 efC=317 efS=73 R@10=0.8857 QPS=4436 frac_oracle=None
+[glove100_300k|R=0.99] default_hnswlib      M=16 efC=200 efS=10 R@10=0.5105 QPS=36564 frac_oracle=None
+[glove100_300k|R=0.99] default_faiss        M=32 efC=40 efS=16 R@10=0.5790 QPS=24592 frac_oracle=None
+[glove100_300k|R=0.99] grid_oracle          M=48 efC=400 efS=384 R@10=0.9916 QPS=849 frac_oracle=1.003

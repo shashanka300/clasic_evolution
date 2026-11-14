@@ -1,0 +1,14 @@
+cells: 342 total, 23 censored at grid edge, 319 used; algorithms: ['als-ema', 'dictlearn-scaling', 'gmm-ema', 'hmm-ema', 'lda-scaling']
+loco M0: median penalty 0.2797%  mean 1.4985%  <0.5%: 62%  (n=319)
+loco M1: median penalty 0.0795%  mean 0.6531%  <0.5%: 78%  (n=319)
+loco M2: median penalty 0.0729%  mean 0.4516%  <0.5%: 81%  (n=319)
+loco KM: median penalty 0.1067%  mean 3.6747%  <0.5%: 72%  (n=319)
+loao M0: median penalty 0.3120%  mean 5.1462%  <0.5%: 59%  (n=319)
+loao M1: median penalty 0.2246%  mean 5.5822%  <0.5%: 58%  (n=319)
+cells: 342 total, 3 censored at grid edge, 339 used; algorithms: ['als-ema', 'dictlearn-scaling', 'gmm-ema', 'hmm-ema', 'lda-scaling']
+loco M0: median penalty 0.3298%  mean 1.9272%  <0.5%: 59%  (n=339)
+loco M1: median penalty 0.0896%  mean 0.7506%  <0.5%: 76%  (n=339)
+loco M2: median penalty 0.0846%  mean 0.4856%  <0.5%: 78%  (n=339)
+loco KM: median penalty 0.1549%  mean 4.4432%  <0.5%: 68%  (n=339)
+loao M0: median penalty 0.3951%  mean 8.4051%  <0.5%: 54%  (n=339)
+loao M1: median penalty 0.3019%  mean 7.3928%  <0.5%: 53%  (n=339)

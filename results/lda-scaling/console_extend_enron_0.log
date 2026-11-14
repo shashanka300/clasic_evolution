@@ -1,0 +1,11 @@
+[extend] enron: 2 cells at their lowest alpha (next step ~3 min at alpha=0.01 cost): enron|n=35518|k=20|B=64@T=2<= 0.01, enron|n=35518|k=50|B=64@T=1<= 0.01
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+  [lda-scaling] enron n=35518 k=20 B=64 T=2.0 a0=0.0052 s=0 val=2806.6 test=2635.2 (19.9s)
+  [lda-scaling] enron n=35518 k=20 B=64 T=2.0 a0=0.0052 s=1 val=2734 test=2622 (13.7s)
+  [lda-scaling] enron n=35518 k=50 B=64 T=1.0 a0=0.0052 s=0 val=2665.6 test=2506.1 (16.4s)
+  [lda-scaling] enron n=35518 k=50 B=64 T=1.0 a0=0.0052 s=1 val=2641.7 test=2527 (16.8s)
+[extend] enron: 1 cells at their lowest alpha (next step ~2 min at alpha=0.01 cost): enron|n=35518|k=50|B=64@T=1<= 0.00518
+  [lda-scaling] enron n=35518 k=50 B=64 T=1.0 a0=0.0027 s=0 val=2762.4 test=2692.6 (16.2s)
+  [lda-scaling] enron n=35518 k=50 B=64 T=1.0 a0=0.0027 s=1 val=2683.9 test=2555.5 (16.3s)
+[extend] enron: no cell at its lowest alpha; done

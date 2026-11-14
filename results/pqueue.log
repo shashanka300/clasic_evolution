@@ -1,0 +1,265 @@
+2026-11-13 19:15:36 start: 21 pending / 21 jobs, budget=24 threads, max_jobs=9
+2026-11-13 19:15:36 START gmm_full_syn threads=6 (in use 6/24, 1 jobs): .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets synthetic --stage all >> results/gmm-ema/console_full.log 2>&1
+2026-11-13 19:15:36 START gmm_law_syn threads=4 (in use 10/24, 2 jobs): .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs diag --datasets synthetic --stage law-sweep >> results/gmm-ema/console_law.log 2>&1
+2026-11-13 19:15:36 START hmm_law_syn threads=4 (in use 14/24, 3 jobs): .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage law-sweep >> results/hmm-ema/console_law.log 2>&1
+2026-11-13 19:15:36 START adaptive_k threads=3 (in use 17/24, 4 jobs): .venv/bin/python -u tracks/adaptive-k/run_v2.py >> results/adaptive-k/console.log 2>&1
+2026-11-13 19:15:36 START seeding_syn threads=3 (in use 20/24, 5 jobs): .venv/bin/python -u tracks/cheap-seeding/run_v2.py --datasets synthetic >> results/cheap-seeding/console.log 2>&1
+2026-11-13 19:17:46 END   seeding_syn rc=0 (0.04 h)
+2026-11-13 19:18:56 END   adaptive_k rc=0 (0.06 h)
+2026-11-13 19:19:24 END   hmm_law_syn rc=0 (0.06 h)
+2026-11-13 19:32:49 START dictlearn threads=4 (in use 14/24, 3 jobs): .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage all >> results/dictlearn-scaling/console.log 2>&1
+2026-11-13 19:32:49 START dict_law threads=4 (in use 18/24, 4 jobs): .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8,nmf_20ng --stage law-sweep >> results/dictlearn-scaling/console_law.log 2>&1
+2026-11-13 19:32:49 START hmm_law threads=4 (in use 22/24, 5 jobs): .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic,brown_pos --stage law-sweep >> results/hmm-ema/console_law.log 2>&1
+2026-11-13 19:33:02 END   gmm_law_syn rc=0 (0.29 h)
+2026-11-13 19:33:02 START gmm_law threads=4 (in use 22/24, 5 jobs): .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs diag --datasets synthetic,sift1m_pca64 --stage law-sweep >> results/gmm-ema/console_law.log 2>&1
+2026-11-13 19:49:21 ADOPT gmm_full_syn pid=969 (already running)
+2026-11-13 19:49:21 ADOPT dictlearn pid=3313 (already running)
+2026-11-13 19:49:21 ADOPT dict_law pid=3314 (already running)
+2026-11-13 19:49:21 ADOPT gmm_law pid=3356 (already running)
+2026-11-13 19:49:21 ADOPT hmm_law pid=3312 (already running)
+2026-11-13 19:49:21 start: 12 pending / 21 jobs, budget=24 threads, max_jobs=9
+2026-11-13 19:55:20 start: 17 pending / 21 jobs, budget=36 threads, max_jobs=9
+2026-11-13 19:55:20 START gmm_full_syn threads=6 (in use 6/36, 1 jobs): CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets synthetic --stage all >> results/gmm-ema/console_full.log 2>&1
+2026-11-13 19:55:20 START opq threads=6 (in use 12/36, 2 jobs): .venv/bin/python -u tracks/opq-joint-rotation/run_v2.py >> results/opq-joint-rotation/console.log 2>&1
+2026-11-13 19:55:20 START drift_rewarm threads=3 (in use 15/36, 3 jobs): .venv/bin/python -u tracks/drift-rewarm/run_v2.py >> results/drift-rewarm/console.log 2>&1
+2026-11-13 19:55:20 START drift_ivf threads=3 (in use 18/36, 4 jobs): .venv/bin/python -u tracks/drift-balanced-ivf/run_v2.py >> results/drift-balanced-ivf/console.log 2>&1
+2026-11-13 19:55:20 START seeding threads=3 (in use 21/36, 5 jobs): .venv/bin/python -u tracks/cheap-seeding/run_v2.py >> results/cheap-seeding/console.log 2>&1
+2026-11-13 19:55:20 START dictlearn threads=4 (in use 25/36, 6 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage all >> results/dictlearn-scaling/console.log 2>&1
+2026-11-13 19:55:20 START dict_law threads=4 (in use 29/36, 7 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8,nmf_20ng --stage law-sweep >> results/dictlearn-scaling/console_law.log 2>&1
+2026-11-13 19:55:20 START gmm_law threads=4 (in use 33/36, 8 jobs): CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs diag --datasets synthetic,sift1m_pca64 --stage law-sweep >> results/gmm-ema/console_law.log 2>&1
+2026-11-13 19:58:30 ADOPT gmm_full_syn pid=6548 (already running)
+2026-11-13 19:58:30 ADOPT opq pid=6550 (already running)
+2026-11-13 19:58:30 ADOPT gmm_law pid=6561 (already running)
+2026-11-13 19:58:30 start: 29 pending / 36 jobs, budget=40 threads, max_jobs=20
+2026-11-13 19:58:30 START drift_grad threads=2 (in use 12/40, 4 jobs): .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios gradual >> results/drift-rewarm/console_gradual.log 2>&1
+2026-11-13 19:58:30 START drift_abr threads=2 (in use 14/40, 5 jobs): .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios abrupt >> results/drift-rewarm/console_abrupt.log 2>&1
+2026-11-13 19:58:30 START drift_seas threads=2 (in use 16/40, 6 jobs): .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios seasonal >> results/drift-rewarm/console_seasonal.log 2>&1
+2026-11-13 19:58:30 START drift_enc threads=2 (in use 18/40, 7 jobs): .venv/bin/python -u tracks/drift-rewarm/run_v2.py --scenarios encoder_upgrade >> results/drift-rewarm/console_encoder.log 2>&1
+2026-11-13 19:58:30 START divf_abr threads=2 (in use 20/40, 8 jobs): .venv/bin/python -u tracks/drift-balanced-ivf/run_v2.py --scenarios abrupt >> results/drift-balanced-ivf/console_abrupt.log 2>&1
+2026-11-13 19:58:30 START divf_grad threads=2 (in use 22/40, 9 jobs): .venv/bin/python -u tracks/drift-balanced-ivf/run_v2.py --scenarios gradual >> results/drift-balanced-ivf/console_gradual.log 2>&1
+2026-11-13 19:58:30 START seed_dino threads=2 (in use 24/40, 10 jobs): .venv/bin/python -u tracks/cheap-seeding/run_v2.py --datasets dinov2 >> results/cheap-seeding/console_dinov2.log 2>&1
+2026-11-13 19:58:30 START seed_sift threads=2 (in use 26/40, 11 jobs): .venv/bin/python -u tracks/cheap-seeding/run_v2.py --datasets sift1m >> results/cheap-seeding/console_sift1m.log 2>&1
+2026-11-13 19:58:30 START gmm_full_dino threads=2 (in use 28/40, 12 jobs): CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets dinov2_pca64 --stage all >> results/gmm-ema/console_full_dinov2.log 2>&1
+2026-11-13 19:58:30 START gmm_full_ag threads=2 (in use 30/40, 13 jobs): CLASSIC_ALGOS_GPU_PORTS=gmm .venv/bin/python -u tracks/gmm-ema/run_v2.py --covs full --datasets agnews_pca64 --stage all >> results/gmm-ema/console_full_agnews.log 2>&1
+2026-11-13 19:58:30 START hmm_law threads=2 (in use 32/40, 14 jobs): CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage law-sweep >> results/hmm-ema/console_law.log 2>&1
+2026-11-13 19:58:30 START lda_all_20ng threads=3 (in use 35/40, 15 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets 20ng --stage all >> results/lda-scaling/console_20ng.log 2>&1
+2026-11-13 19:58:30 START lda_all_enron threads=2 (in use 37/40, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage all >> results/lda-scaling/console_enron.log 2>&1
+2026-11-13 19:58:30 START lda_all_nyt threads=2 (in use 39/40, 17 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage all >> results/lda-scaling/console_nytimes.log 2>&1
+2026-11-13 19:58:45 END   drift_grad rc=0 (0.00 h)
+2026-11-13 19:58:45 START lda_law_20ng threads=3 (in use 40/40, 17 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets 20ng --stage law-sweep >> results/lda-scaling/console_law_20ng.log 2>&1
+2026-11-13 20:00:20 END   drift_abr rc=0 (0.03 h)
+2026-11-13 20:00:20 START lda_law_enron threads=2 (in use 40/40, 17 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage law-sweep >> results/lda-scaling/console_law_enron.log 2>&1
+2026-11-13 20:01:58 END   drift_seas rc=0 (0.06 h)
+2026-11-13 20:01:58 END   drift_enc rc=0 (0.06 h)
+2026-11-13 20:01:58 START lda_law_nyt threads=2 (in use 38/40, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage law-sweep >> results/lda-scaling/console_law_nytimes.log 2>&1
+2026-11-13 20:01:58 START als_law_10m threads=2 (in use 40/40, 17 jobs): CLASSIC_ALGOS_GPU_PORTS=als .venv/bin/python -u tracks/als-ema/run_v2.py --datasets ml10m --stage law-sweep >> results/als-ema/console_law_ml10m.log 2>&1
+2026-11-13 20:02:53 END   divf_abr rc=0 (0.07 h)
+2026-11-13 20:08:13 END   lda_all_20ng rc=0 (0.16 h)
+2026-11-13 20:08:13 START als_law_1m threads=3 (in use 38/40, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=als .venv/bin/python -u tracks/als-ema/run_v2.py --datasets ml1m --stage law-sweep >> results/als-ema/console_law_ml1m.log 2>&1
+2026-11-13 20:08:40 END   divf_grad rc=0 (0.17 h)
+2026-11-13 20:08:40 START dl_p8 threads=3 (in use 39/40, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8 --stage all >> results/dictlearn-scaling/console_p8.log 2>&1
+2026-11-13 20:13:18 END   gmm_full_syn rc=0 (0.25 h)
+2026-11-13 20:13:18 START dl_nmf threads=3 (in use 40/40, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets nmf_20ng --stage all >> results/dictlearn-scaling/console_nmf.log 2>&1
+2026-11-13 20:17:13 END   lda_law_20ng rc=0 (0.31 h)
+2026-11-13 20:17:13 START dl_p12 threads=3 (in use 40/40, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage all >> results/dictlearn-scaling/console_p12.log 2>&1
+2026-11-13 20:28:30 END   dl_nmf rc=0 (0.25 h)
+2026-11-13 20:28:30 START dl_law_p8 threads=3 (in use 40/40, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p8 --stage law-sweep >> results/dictlearn-scaling/console_law_p8.log 2>&1
+2026-11-13 20:36:53 END   gmm_law rc=0 (0.64 h)
+2026-11-13 20:39:42 END   als_law_1m rc=0 (0.52 h)
+2026-11-13 20:39:42 START dl_law_nmf threads=3 (in use 38/40, 15 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets nmf_20ng --stage law-sweep >> results/dictlearn-scaling/console_law_nmf.log 2>&1
+2026-11-13 20:42:37 ADOPT opq pid=6550 (already running)
+2026-11-13 20:42:37 ADOPT seed_dino pid=7202 (already running)
+2026-11-13 20:42:37 ADOPT seed_sift pid=7205 (already running)
+2026-11-13 20:42:37 ADOPT gmm_full_dino pid=7206 (already running)
+2026-11-13 20:42:37 ADOPT gmm_full_ag pid=7208 (already running)
+2026-11-13 20:42:37 ADOPT hmm_law pid=7210 (already running)
+2026-11-13 20:42:37 ADOPT lda_law_enron pid=7607 (already running)
+2026-11-13 20:42:37 ADOPT lda_law_nyt pid=8048 (already running)
+2026-11-13 20:42:37 ADOPT als_law_10m pid=8049 (already running)
+2026-11-13 20:42:37 ADOPT dl_p8 pid=8709 (already running)
+2026-11-13 20:42:37 ADOPT dl_p12 pid=9378 (already running)
+2026-11-13 20:42:37 ADOPT dl_law_p8 pid=10219 (already running)
+2026-11-13 20:42:37 ADOPT dl_law_nmf pid=11169 (already running)
+2026-11-13 20:42:37 start: 29 pending / 58 jobs, budget=48 threads, max_jobs=32
+2026-11-13 20:42:37 START core_t00 threads=4 (in use 38/48, 14 jobs): .venv/bin/python -u -m core.acceptance --seeds 3 >> results/core/acceptance_console_5090.log 2>&1
+2026-11-13 20:42:37 START lda_ref_enron_s0 threads=2 (in use 40/48, 15 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage reference --seed-list 0 >> results/lda-scaling/console_enron_ref0.log 2>&1
+2026-11-13 20:42:37 START lda_ref_enron_s1 threads=2 (in use 42/48, 16 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage reference --seed-list 1 >> results/lda-scaling/console_enron_ref1.log 2>&1
+2026-11-13 20:42:37 START lda_ref_enron_s2 threads=2 (in use 44/48, 17 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage reference --seed-list 2 >> results/lda-scaling/console_enron_ref2.log 2>&1
+2026-11-13 20:42:37 START lda_sweep_enron threads=2 (in use 46/48, 18 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sweep >> results/lda-scaling/console_enron_sweep.log 2>&1
+2026-11-13 20:42:37 START lda_online_enron threads=2 (in use 48/48, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online >> results/lda-scaling/console_enron_online.log 2>&1
+2026-11-13 20:42:52 END   lda_ref_enron_s0 rc=0 (0.00 h)
+2026-11-13 20:42:52 END   lda_ref_enron_s1 rc=0 (0.00 h)
+2026-11-13 20:42:52 END   lda_ref_enron_s2 rc=0 (0.00 h)
+2026-11-13 20:42:52 START lda_kmlaw_enron threads=2 (in use 44/48, 17 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage kmlaw >> results/lda-scaling/console_enron_kmlaw.log 2>&1
+2026-11-13 20:42:52 START lda_hoffman_enron threads=2 (in use 46/48, 18 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage hoffman >> results/lda-scaling/console_enron_hoffman.log 2>&1
+2026-11-13 20:42:52 START lda_sklearn_enron threads=2 (in use 48/48, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sklearn >> results/lda-scaling/console_enron_sklearn.log 2>&1
+2026-11-13 20:43:19 END   seed_dino rc=0 (0.01 h)
+2026-11-13 20:43:19 START lda_ref_nyt_s0 threads=2 (in use 48/48, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage reference --seed-list 0 >> results/lda-scaling/console_nytimes_ref0.log 2>&1
+2026-11-13 20:43:32 END   lda_ref_nyt_s0 rc=0 (0.00 h)
+2026-11-13 20:43:32 START lda_ref_nyt_s1 threads=2 (in use 48/48, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage reference --seed-list 1 >> results/lda-scaling/console_nytimes_ref1.log 2>&1
+2026-11-13 20:43:47 END   lda_ref_nyt_s1 rc=0 (0.00 h)
+2026-11-13 20:43:47 START lda_ref_nyt_s2 threads=2 (in use 48/48, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage reference --seed-list 2 >> results/lda-scaling/console_nytimes_ref2.log 2>&1
+2026-11-13 20:43:59 END   lda_ref_nyt_s2 rc=0 (0.00 h)
+2026-11-13 20:44:00 START lda_sweep_nyt threads=2 (in use 48/48, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sweep >> results/lda-scaling/console_nytimes_sweep.log 2>&1
+2026-11-13 20:45:43 ADOPT core_t00 pid=11558 (already running)
+2026-11-13 20:45:43 ADOPT opq pid=6550 (already running)
+2026-11-13 20:45:43 ADOPT seed_sift pid=7205 (already running)
+2026-11-13 20:45:43 ADOPT gmm_full_dino pid=7206 (already running)
+2026-11-13 20:45:43 ADOPT gmm_full_ag pid=7208 (already running)
+2026-11-13 20:45:43 ADOPT hmm_law pid=7210 (already running)
+2026-11-13 20:45:43 ADOPT lda_sweep_enron pid=11565 (already running)
+2026-11-13 20:45:43 ADOPT lda_online_enron pid=11567 (already running)
+2026-11-13 20:45:43 ADOPT lda_kmlaw_enron pid=11633 (already running)
+2026-11-13 20:45:43 ADOPT lda_hoffman_enron pid=11636 (already running)
+2026-11-13 20:45:43 ADOPT lda_sklearn_enron pid=11637 (already running)
+2026-11-13 20:45:43 ADOPT lda_sweep_nyt pid=11785 (already running)
+2026-11-13 20:45:43 ADOPT lda_law_enron pid=7607 (already running)
+2026-11-13 20:45:43 ADOPT lda_law_nyt pid=8048 (already running)
+2026-11-13 20:45:43 ADOPT als_law_10m pid=8049 (already running)
+2026-11-13 20:45:43 ADOPT dl_p8 pid=8709 (already running)
+2026-11-13 20:45:43 ADOPT dl_law_p8 pid=10219 (already running)
+2026-11-13 20:45:43 ADOPT dl_law_nmf pid=11169 (already running)
+2026-11-13 20:45:43 start: 24 pending / 65 jobs, budget=48 threads, max_jobs=32
+2026-11-13 20:45:43 START lda_online_nyt threads=2 (in use 47/48, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online >> results/lda-scaling/console_nytimes_online.log 2>&1
+2026-11-13 20:46:24 ADOPT core_t00 pid=11558 (already running)
+2026-11-13 20:46:24 ADOPT opq pid=6550 (already running)
+2026-11-13 20:46:24 ADOPT seed_sift pid=7205 (already running)
+2026-11-13 20:46:24 ADOPT gmm_full_dino pid=7206 (already running)
+2026-11-13 20:46:24 ADOPT gmm_full_ag pid=7208 (already running)
+2026-11-13 20:46:24 ADOPT hmm_law pid=7210 (already running)
+2026-11-13 20:46:24 ADOPT lda_sweep_enron pid=11565 (already running)
+2026-11-13 20:46:24 ADOPT lda_online_enron pid=11567 (already running)
+2026-11-13 20:46:24 ADOPT lda_hoffman_enron pid=11636 (already running)
+2026-11-13 20:46:24 ADOPT lda_sklearn_enron pid=11637 (already running)
+2026-11-13 20:46:24 ADOPT lda_sweep_nyt pid=11785 (already running)
+2026-11-13 20:46:24 ADOPT lda_online_nyt pid=12037 (already running)
+2026-11-13 20:46:24 ADOPT lda_law_enron pid=7607 (already running)
+2026-11-13 20:46:24 ADOPT lda_law_nyt pid=8048 (already running)
+2026-11-13 20:46:24 ADOPT als_law_10m pid=8049 (already running)
+2026-11-13 20:46:24 ADOPT dl_p8 pid=8709 (already running)
+2026-11-13 20:46:24 ADOPT dl_law_p8 pid=10219 (already running)
+2026-11-13 20:46:24 ADOPT dl_law_nmf pid=11169 (already running)
+2026-11-13 20:46:24 start: 24 pending / 65 jobs, budget=80 threads, max_jobs=40
+2026-11-13 20:46:24 START lda_kmlaw_enron threads=2 (in use 47/80, 19 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage kmlaw >> results/lda-scaling/console_enron_kmlaw.log 2>&1
+2026-11-13 20:46:24 START lda_kmlaw_nyt threads=2 (in use 49/80, 20 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage kmlaw >> results/lda-scaling/console_nytimes_kmlaw.log 2>&1
+2026-11-13 20:46:24 START lda_hoffman_nyt threads=2 (in use 51/80, 21 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage hoffman >> results/lda-scaling/console_nytimes_hoffman.log 2>&1
+2026-11-13 20:46:24 START lda_sklearn_nyt threads=2 (in use 53/80, 22 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sklearn >> results/lda-scaling/console_nytimes_sklearn.log 2>&1
+2026-11-13 20:46:24 START dl_p12_ref_s0 threads=3 (in use 56/80, 23 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage reference --seed-list 0 >> results/dictlearn-scaling/console_p12_ref0.log 2>&1
+2026-11-13 20:46:24 START dl_p12_ref_s1 threads=3 (in use 59/80, 24 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage reference --seed-list 1 >> results/dictlearn-scaling/console_p12_ref1.log 2>&1
+2026-11-13 20:46:24 START dl_p12_ref_s2 threads=3 (in use 62/80, 25 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage reference --seed-list 2 >> results/dictlearn-scaling/console_p12_ref2.log 2>&1
+2026-11-13 20:46:24 START dl_p12_sweep threads=3 (in use 65/80, 26 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sweep >> results/dictlearn-scaling/console_p12_sweep.log 2>&1
+2026-11-13 20:46:24 START dl_p12_online threads=3 (in use 68/80, 27 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online >> results/dictlearn-scaling/console_p12_online.log 2>&1
+2026-11-13 20:46:24 START dl_p12_kmlaw threads=3 (in use 71/80, 28 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage kmlaw >> results/dictlearn-scaling/console_p12_kmlaw.log 2>&1
+2026-11-13 20:46:24 START dl_p12_sklearn threads=3 (in use 74/80, 29 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sklearn >> results/dictlearn-scaling/console_p12_sklearn.log 2>&1
+2026-11-13 20:46:37 END   lda_kmlaw_enron rc=0 (0.00 h)
+2026-11-13 20:46:37 END   dl_p12_ref_s0 rc=0 (0.00 h)
+2026-11-13 20:46:37 END   dl_p12_ref_s1 rc=0 (0.00 h)
+2026-11-13 20:46:37 END   dl_p12_ref_s2 rc=0 (0.00 h)
+2026-11-13 20:48:42 ADOPT core_t00 pid=11558 (already running)
+2026-11-13 20:48:42 ADOPT opq pid=6550 (already running)
+2026-11-13 20:48:42 ADOPT seed_sift pid=7205 (already running)
+2026-11-13 20:48:42 ADOPT gmm_full_dino pid=7206 (already running)
+2026-11-13 20:48:42 ADOPT gmm_full_ag pid=7208 (already running)
+2026-11-13 20:48:42 ADOPT hmm_law pid=7210 (already running)
+2026-11-13 20:48:42 ADOPT lda_hoffman_enron pid=11636 (already running)
+2026-11-13 20:48:42 ADOPT lda_sklearn_enron pid=11637 (already running)
+2026-11-13 20:48:42 ADOPT lda_kmlaw_nyt pid=12140 (already running)
+2026-11-13 20:48:42 ADOPT lda_hoffman_nyt pid=12143 (already running)
+2026-11-13 20:48:42 ADOPT lda_sklearn_nyt pid=12145 (already running)
+2026-11-13 20:48:42 ADOPT lda_law_enron pid=7607 (already running)
+2026-11-13 20:48:42 ADOPT lda_law_nyt pid=8048 (already running)
+2026-11-13 20:48:42 ADOPT als_law_10m pid=8049 (already running)
+2026-11-13 20:48:42 ADOPT dl_p8 pid=8709 (already running)
+2026-11-13 20:48:42 ADOPT dl_p12_kmlaw pid=12158 (already running)
+2026-11-13 20:48:42 ADOPT dl_p12_sklearn pid=12159 (already running)
+2026-11-13 20:48:42 ADOPT dl_law_p8 pid=10219 (already running)
+2026-11-13 20:48:42 ADOPT dl_law_nmf pid=11169 (already running)
+2026-11-13 20:48:42 start: 34 pending / 80 jobs, budget=96 threads, max_jobs=48
+2026-11-13 20:48:42 START lda_sweep_enron_s0 threads=2 (in use 51/96, 20 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sweep --seed-list 0 >> results/lda-scaling/console_enron_sweep0.log 2>&1
+2026-11-13 20:48:42 START lda_sweep_enron_s1 threads=2 (in use 53/96, 21 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sweep --seed-list 1 >> results/lda-scaling/console_enron_sweep1.log 2>&1
+2026-11-13 20:48:42 START lda_sweep_enron_s2 threads=2 (in use 55/96, 22 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage sweep --seed-list 2 >> results/lda-scaling/console_enron_sweep2.log 2>&1
+2026-11-13 20:48:42 START lda_online_enron_s0 threads=2 (in use 57/96, 23 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online --seed-list 0 >> results/lda-scaling/console_enron_online0.log 2>&1
+2026-11-13 20:48:42 START lda_online_enron_s1 threads=2 (in use 59/96, 24 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online --seed-list 1 >> results/lda-scaling/console_enron_online1.log 2>&1
+2026-11-13 20:48:42 START lda_online_enron_s2 threads=2 (in use 61/96, 25 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online --seed-list 2 >> results/lda-scaling/console_enron_online2.log 2>&1
+2026-11-13 20:48:42 START lda_sweep_nyt_s0 threads=2 (in use 63/96, 26 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sweep --seed-list 0 >> results/lda-scaling/console_nytimes_sweep0.log 2>&1
+2026-11-13 20:48:42 START lda_sweep_nyt_s1 threads=2 (in use 65/96, 27 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sweep --seed-list 1 >> results/lda-scaling/console_nytimes_sweep1.log 2>&1
+2026-11-13 20:48:42 START lda_sweep_nyt_s2 threads=2 (in use 67/96, 28 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage sweep --seed-list 2 >> results/lda-scaling/console_nytimes_sweep2.log 2>&1
+2026-11-13 20:48:42 START lda_online_nyt_s0 threads=2 (in use 69/96, 29 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online --seed-list 0 >> results/lda-scaling/console_nytimes_online0.log 2>&1
+2026-11-13 20:48:42 START lda_online_nyt_s1 threads=2 (in use 71/96, 30 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online --seed-list 1 >> results/lda-scaling/console_nytimes_online1.log 2>&1
+2026-11-13 20:48:42 START lda_online_nyt_s2 threads=2 (in use 73/96, 31 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online --seed-list 2 >> results/lda-scaling/console_nytimes_online2.log 2>&1
+2026-11-13 20:48:42 START dl_p12_sweep_s0 threads=3 (in use 76/96, 32 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sweep --seed-list 0 >> results/dictlearn-scaling/console_p12_sweep0.log 2>&1
+2026-11-13 20:48:42 START dl_p12_sweep_s1 threads=3 (in use 79/96, 33 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sweep --seed-list 1 >> results/dictlearn-scaling/console_p12_sweep1.log 2>&1
+2026-11-13 20:48:42 START dl_p12_sweep_s2 threads=3 (in use 82/96, 34 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage sweep --seed-list 2 >> results/dictlearn-scaling/console_p12_sweep2.log 2>&1
+2026-11-13 20:48:42 START dl_p12_online_s0 threads=3 (in use 85/96, 35 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online --seed-list 0 >> results/dictlearn-scaling/console_p12_online0.log 2>&1
+2026-11-13 20:48:42 START dl_p12_online_s1 threads=3 (in use 88/96, 36 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online --seed-list 1 >> results/dictlearn-scaling/console_p12_online1.log 2>&1
+2026-11-13 20:48:42 START dl_p12_online_s2 threads=3 (in use 91/96, 37 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online --seed-list 2 >> results/dictlearn-scaling/console_p12_online2.log 2>&1
+2026-11-13 20:52:52 END   lda_sklearn_enron rc=0 (0.07 h)
+2026-11-13 20:55:37 END   lda_hoffman_enron rc=0 (0.12 h)
+2026-11-13 21:05:18 END   dl_p12_kmlaw rc=0 (0.28 h)
+2026-11-13 21:07:23 END   lda_sweep_enron_s2 rc=0 (0.31 h)
+2026-11-13 21:07:38 END   lda_sweep_enron_s0 rc=0 (0.32 h)
+2026-11-13 21:07:38 END   lda_sweep_enron_s1 rc=0 (0.32 h)
+2026-11-13 21:07:38 START lda_emit_enron threads=1 (in use 79/96, 32 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage emit >> results/lda-scaling/console_enron_emit.log 2>&1
+2026-11-13 21:07:51 END   lda_emit_enron rc=0 (0.00 h)
+2026-11-13 21:08:33 END   lda_kmlaw_nyt rc=0 (0.33 h)
+2026-11-13 21:22:11 END   lda_law_enron rc=0 (0.56 h)
+2026-11-13 21:33:56 END   lda_sklearn_nyt rc=0 (0.75 h)
+2026-11-13 21:42:01 END   lda_hoffman_nyt rc=0 (0.89 h)
+2026-11-13 21:45:28 END   dl_law_nmf rc=0 (0.95 h)
+2026-11-13 22:04:38 END   gmm_full_dino rc=0 (1.27 h)
+2026-11-13 22:05:33 END   lda_online_enron_s2 rc=0 (1.28 h)
+2026-11-13 22:07:23 END   lda_online_enron_s0 rc=0 (1.31 h)
+2026-11-13 22:07:23 END   lda_online_enron_s1 rc=0 (1.31 h)
+2026-11-13 22:07:23 START lda_online_enron_final threads=1 (in use 60/96, 23 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets enron --stage online >> results/lda-scaling/console_enron_online.log 2>&1
+2026-11-13 22:07:38 END   lda_online_enron_final rc=0 (0.00 h)
+2026-11-13 22:35:48 END   lda_sweep_nyt_s1 rc=0 (1.78 h)
+2026-11-13 22:36:58 END   lda_sweep_nyt_s0 rc=0 (1.80 h)
+2026-11-13 22:37:25 END   lda_sweep_nyt_s2 rc=0 (1.81 h)
+2026-11-13 22:37:26 START lda_emit_nyt threads=1 (in use 54/96, 20 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage emit >> results/lda-scaling/console_nytimes_emit.log 2>&1
+2026-11-13 22:37:38 END   lda_emit_nyt rc=0 (0.00 h)
+2026-11-13 23:05:45 END   als_law_10m rc=0 (2.28 h)
+2026-11-13 23:18:15 END   seed_sift rc=0 (2.49 h)
+2026-11-13 23:19:24 END   dl_p12_sklearn rc=0 (2.51 h)
+2026-11-13 23:26:01 END   dl_p12_sweep_s0 rc=0 (2.62 h)
+2026-11-13 23:27:25 END   dl_p12_sweep_s1 rc=0 (2.65 h)
+2026-11-13 23:28:19 END   dl_p12_sweep_s2 rc=0 (2.66 h)
+2026-11-13 23:28:19 START dl_p12_emit threads=1 (in use 38/96, 14 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage emit >> results/dictlearn-scaling/console_p12_emit.log 2>&1
+2026-11-13 23:28:31 END   dl_p12_emit rc=0 (0.00 h)
+2026-11-13 23:36:43 END   core_t00 rc=0 (2.80 h)
+2026-11-13 23:44:28 END   gmm_full_ag rc=0 (2.93 h)
+2026-11-13 23:56:42 END   dl_p12_online_s1 rc=0 (3.13 h)
+2026-11-13 23:57:12 END   dl_p12_online_s2 rc=0 (3.14 h)
+2026-11-13 23:57:39 END   dl_p12_online_s0 rc=0 (3.15 h)
+2026-11-13 23:57:39 START dl_p12_online_final threads=1 (in use 23/96, 9 jobs): CLASSIC_ALGOS_GPU_PORTS=dictlearn .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets cifar_p12 --stage online >> results/dictlearn-scaling/console_p12_online.log 2>&1
+2026-11-13 23:57:51 END   dl_p12_online_final rc=0 (0.00 h)
+2026-11-14 00:04:43 END   lda_law_nyt rc=0 (3.27 h)
+2026-11-14 00:04:43 START lda_coslaw threads=2 (in use 22/96, 8 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage cosine-law >> results/lda-scaling/console_coslaw.log 2>&1
+2026-11-14 00:06:58 END   hmm_law rc=0 (3.30 h)
+2026-11-14 00:07:58 END   opq rc=0 (3.32 h)
+2026-11-14 00:09:43 END   lda_online_nyt_s0 rc=0 (3.35 h)
+2026-11-14 00:09:43 END   lda_online_nyt_s2 rc=0 (3.35 h)
+2026-11-14 00:10:13 END   lda_online_nyt_s1 rc=0 (3.36 h)
+2026-11-14 00:10:13 START lda_online_nyt_final threads=1 (in use 9/96, 4 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets nytimes --stage online >> results/lda-scaling/console_nytimes_online.log 2>&1
+2026-11-14 00:10:28 END   lda_online_nyt_final rc=0 (0.00 h)
+2026-11-14 00:17:28 END   lda_coslaw rc=0 (0.21 h)
+2026-11-14 00:58:58 END   dl_p8 rc=0 (4.17 h)
+2026-11-14 01:00:43 END   dl_law_p8 rc=0 (4.20 h)
+2026-11-14 01:00:43 START balanced_ivf threads=8 (in use 8/96, 1 jobs): .venv/bin/python -u tracks/balanced-ivf/run_v2.py >> results/balanced-ivf/console.log 2>&1
+2026-11-14 01:55:43 END   balanced_ivf rc=0 (0.92 h)
+2026-11-14 01:55:43 START hnsw threads=8 (in use 8/96, 1 jobs): .venv/bin/python -u tracks/hnsw-scaling-laws/run_v2.py >> results/hnsw-scaling-laws/console.log 2>&1
+2026-11-14 02:53:43 END   hnsw rc=0 (0.97 h)
+2026-11-14 02:53:43 START time_gmm threads=12 (in use 12/96, 1 jobs): CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_gmm CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/gmm-ema/run_v2.py --datasets synthetic --stage reference --seeds 1 >> results/timing_gmm.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/gmm-ema/run_v2.py --stage reference >> results/timing_gmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/gmm-ema/run_v2.py --stage kmlaw >> results/timing_gmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py gmm-ema >> results/timing_gmm.log 2>&1
+2026-11-14 03:32:43 END   time_gmm rc=0 (0.65 h)
+2026-11-14 03:32:43 START time_dl threads=12 (in use 12/96, 1 jobs): CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_dl CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --datasets nmf_20ng --stage reference --seeds 1 >> results/timing_dl.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage reference >> results/timing_dl.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/dictlearn-scaling/run_v2.py --stage kmlaw >> results/timing_dl.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py dictlearn-scaling >> results/timing_dl.log 2>&1
+2026-11-14 04:09:58 END   time_dl rc=0 (0.62 h)
+2026-11-14 04:09:58 START time_lda threads=12 (in use 12/96, 1 jobs): CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_lda CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/lda-scaling/run_v2.py --datasets 20ng --stage reference --seeds 1 >> results/timing_lda.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage reference >> results/timing_lda.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage kmlaw >> results/timing_lda.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py lda-scaling >> results/timing_lda.log 2>&1
+2026-11-14 04:32:56 END   time_lda rc=0 (0.38 h)
+2026-11-14 04:32:56 START time_als threads=12 (in use 12/96, 1 jobs): CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_als CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/als-ema/run_v2.py --datasets ml1m --stage reference --seeds 1 >> results/timing_als.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/als-ema/run_v2.py --stage reference >> results/timing_als.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/als-ema/run_v2.py --stage kmlaw >> results/timing_als.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py als-ema >> results/timing_als.log 2>&1
+2026-11-14 04:39:05 END   time_als rc=0 (0.10 h)
+2026-11-14 04:39:05 START time_hmm threads=12 (in use 12/96, 1 jobs): CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_hmm CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets uci_har_vq --stage reference --seeds 1 >> results/timing_hmm.log 2>&1; CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/hmm-ema/run_v2.py --stage reference >> results/timing_hmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u tracks/hmm-ema/run_v2.py --stage kmlaw >> results/timing_hmm.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu .venv/bin/python -u scripts/timing_swept.py hmm-ema >> results/timing_hmm.log 2>&1
+2026-11-14 04:47:43 END   time_hmm rc=0 (0.14 h)
+2026-11-14 04:47:43 START t12_fit threads=4 (in use 4/96, 1 jobs): .venv/bin/python tracks/universal-scaling-law/fit_v2.py >> results/universal-scaling-law/console.log 2>&1
+2026-11-14 04:47:58 END   t12_fit rc=0 (0.00 h)
+2026-11-14 04:47:58 START evaluate threads=4 (in use 4/96, 1 jobs): .venv/bin/python scripts/evaluate.py > results/evaluate_all.log 2>&1 && .venv/bin/python scripts/make_figures.py >> results/evaluate_all.log 2>&1
+2026-11-14 04:48:28 END   evaluate rc=1 (0.01 h)
+2026-11-14 04:48:42 queue empty

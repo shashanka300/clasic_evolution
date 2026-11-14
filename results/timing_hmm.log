@@ -1,0 +1,33 @@
+
+##### uci_har_vq n=6352 S=12 V=64
+[ref] uci_har_vq|k=12 s=0 baum_welch_full_batch@25 test=2.1302 (1s)
+
+##### synthetic n=20000 S=12 V=200
+[ref] synthetic|k=12 s=0 baum_welch_full_batch@25 test=4.0806 (2s)
+[ref] synthetic|k=12 s=1 baum_welch_full_batch@25 test=3.98 (1s)
+[ref] synthetic|k=12 s=2 baum_welch_full_batch@25 test=4.0292 (1s)
+
+##### brown_pos n=47340 S=12 V=5000
+[ref] brown_pos|k=12 s=0 baum_welch_full_batch@25 test=5.3021 (57s)
+[ref] brown_pos|k=12 s=1 baum_welch_full_batch@25 test=5.2641 (58s)
+[ref] brown_pos|k=12 s=2 baum_welch_full_batch@25 test=5.3158 (63s)
+
+##### uci_har_vq n=6352 S=12 V=64
+[ref] uci_har_vq|k=12 s=0 baum_welch_full_batch@25 test=2.1302 (1s)
+[ref] uci_har_vq|k=12 s=1 baum_welch_full_batch@25 test=2.3418 (1s)
+[ref] uci_har_vq|k=12 s=2 baum_welch_full_batch@25 test=2.3884 (1s)
+
+##### synthetic n=20000 S=12 V=200
+
+##### brown_pos n=47340 S=12 V=5000
+
+##### uci_har_vq n=6352 S=12 V=64
+[timing] synthetic|k=12 s=0 hmm_ema_swept walls=[0.08, 0.16, 0.24, 0.41]
+[timing] synthetic|k=12 s=1 hmm_ema_swept walls=[0.08, 0.16, 0.24, 0.41]
+[timing] synthetic|k=12 s=2 hmm_ema_swept walls=[0.08, 0.16, 0.24, 0.4]
+[timing] brown_pos|k=12 s=0 hmm_ema_swept walls=[2.48, 5.02, 7.6, 12.49]
+[timing] brown_pos|k=12 s=1 hmm_ema_swept walls=[2.52, 5.0, 7.54, 12.45]
+[timing] brown_pos|k=12 s=2 hmm_ema_swept walls=[2.49, 4.97, 7.58, 12.61]
+[timing] uci_har_vq|k=12 s=0 hmm_ema_swept walls=[0.04, 0.07, 0.11, 0.18]
+[timing] uci_har_vq|k=12 s=1 hmm_ema_swept walls=[0.04, 0.08, 0.11, 0.19]
+[timing] uci_har_vq|k=12 s=2 hmm_ema_swept walls=[0.03, 0.07, 0.11, 0.19]

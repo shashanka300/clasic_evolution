@@ -1,0 +1,24 @@
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+adaptive-k               SURVIVES   max CV of selected k 1.8% (threshold 20%)
+als-ema                  KILLED     median best gain 0.00x vs required 2.0x (ml10m: 0.00x, ml1m: 0.00x)
+balanced-ivf             SURVIVES   median p99@R0.9 improvement +10.1% vs required +10% (agnews_minilm|nlist=1024: +5.9%, agnews_minilm|nlist=256: +17.1%, dinov2|nlist=256: +7.4%, sift1m|nlist=1024: +18.5%, sift1m|nlist=4096: +10.1%)
+cheap-seeding            SURVIVES   budget-charged wins over random: 15 (synthetic|k=50|T=1/afkmc2, synthetic|k=50|T=1/greedy_kmeanspp, synthetic|k=50|T=1/kmeans_parallel, synthetic|k=50|T=1/kmeanspp, synthetic|k=50|T=1/subsampled_kmeanspp, synthetic|k=50|T=2/afkmc2, synthetic|k=50|T=2/greedy_kmeanspp, synthetic|k=50|T=2/kmeans_parallel...)
+core                     SURVIVES   agnews_minilm|k=1024|train: <=3 ep; dinov2s_cifar100|k=512|train: <=3 ep; sift1m|k=1024|train: <=3 ep; sift1m|k=4096|train: <=3 ep
+dictlearn-scaling        SURVIVES   median best gain 25.00x vs required 2.0x (cifar_p12: 25.00x, cifar_p8: 25.00x, nmf_20ng: 13.91x)
+drift-balanced-ivf       INCOMPLETE no kill criterion defined; descriptive results only
+drift-rewarm             SURVIVES   rewarm beats per-scenario-tuned constant alpha in: ['abrupt (vs const_alpha_0.1)', 'encoder_upgrade (vs const_alpha_0.2)', 'seasonal (vs const_alpha_0.2)'] of 4
+gmm-ema                  SURVIVES   0/4 datasets need >8 epochs (agnews_pca64: 2.16, dinov2_pca64: 1.91, sift1m_pca64: 1.00, synthetic: 1.00)
+hmm-ema                  SURVIVES   median best gain 25.00x vs required 2.0x (brown_pos: 25.00x, synthetic: 25.00x, uci_har_vq: 14.39x); significantly worse final optimum: none
+                         secondary SURVIVES   median best gain 25.00x vs required 2.0x (brown_pos: 25.00x, synthetic: 25.00x, uci_har_vq: 14.39x); best variant significantly worse: none
+hnsw-scaling-laws        KILLED     law wins 1/6 held-out (dataset, target-recall) pairs
+lda-scaling              SURVIVES   law worse than default on 0/3 corpora
+opq-joint-rotation       SURVIVES   joint rotation significantly better in 6/6 groups (agnews_minilm|M=16: win; agnews_minilm|M=8: win; dinov2|M=16: win; dinov2|M=8: win; sift1m|M=16: win; sift1m|M=8: win)
+universal-scaling-law    SURVIVES   LOCO median M1 0.090% vs M0 0.330% (Wilcoxon p=9.31e-18); LOAO median M1 0.302% vs M0 0.395%
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+wrote convergence
+wrote alpha0_sweeps
+wrote ivf_recall_latency
+wrote drift_window_mse
+wrote law_penalties

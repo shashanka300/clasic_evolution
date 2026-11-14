@@ -1,0 +1,46 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[seasonal s=0] frozen_emeans          avgMSE=0.75450 regret=0.04843 alarms=[] pts=153600
+[seasonal s=0] rewarm                 avgMSE=0.72653 regret=0.02046 alarms=[60, 120, 180, 240] pts=153600
+[seasonal s=0] periodic_retrain       avgMSE=0.75180 regret=0.04573 alarms=[] pts=460800
+[seasonal s=0] const_alpha_0.005      avgMSE=0.76536 regret=0.05929 alarms=[] pts=153600
+[seasonal s=0] const_alpha_0.01       avgMSE=0.76249 regret=0.05643 alarms=[] pts=153600
+[seasonal s=0] const_alpha_0.02       avgMSE=0.75688 regret=0.05081 alarms=[] pts=153600
+[seasonal s=0] const_alpha_0.05       avgMSE=0.76164 regret=0.05558 alarms=[] pts=153600
+[seasonal s=0] const_alpha_0.1        avgMSE=0.74945 regret=0.04338 alarms=[] pts=153600
+[seasonal s=0] const_alpha_0.2        avgMSE=0.73699 regret=0.03092 alarms=[] pts=153600
+[seasonal s=0] const_alpha_0.4        avgMSE=0.73999 regret=0.03392 alarms=[] pts=153600
+[seasonal s=0] spark_decay_0.5        avgMSE=0.78278 regret=0.07671 alarms=[] pts=153600
+[seasonal s=0] spark_decay_0.8        avgMSE=0.76786 regret=0.06179 alarms=[] pts=153600
+[seasonal s=0] spark_decay_0.9        avgMSE=0.75382 regret=0.04775 alarms=[] pts=153600
+[seasonal s=0] spark_decay_0.95       avgMSE=0.75679 regret=0.05072 alarms=[] pts=153600
+[seasonal s=0] spark_decay_0.99       avgMSE=0.76361 regret=0.05755 alarms=[] pts=153600
+[seasonal s=1] frozen_emeans          avgMSE=0.75674 regret=0.05068 alarms=[] pts=153600
+[seasonal s=1] rewarm                 avgMSE=0.72993 regret=0.02387 alarms=[60, 120, 180, 240] pts=153600
+[seasonal s=1] periodic_retrain       avgMSE=0.75181 regret=0.04574 alarms=[] pts=460800
+[seasonal s=1] const_alpha_0.005      avgMSE=0.75873 regret=0.05267 alarms=[] pts=153600
+[seasonal s=1] const_alpha_0.01       avgMSE=0.75865 regret=0.05259 alarms=[] pts=153600
+[seasonal s=1] const_alpha_0.02       avgMSE=0.75425 regret=0.04818 alarms=[] pts=153600
+[seasonal s=1] const_alpha_0.05       avgMSE=0.75295 regret=0.04688 alarms=[] pts=153600
+[seasonal s=1] const_alpha_0.1        avgMSE=0.74678 regret=0.04071 alarms=[] pts=153600
+[seasonal s=1] const_alpha_0.2        avgMSE=0.73651 regret=0.03044 alarms=[] pts=153600
+[seasonal s=1] const_alpha_0.4        avgMSE=0.73951 regret=0.03345 alarms=[] pts=153600
+[seasonal s=1] spark_decay_0.5        avgMSE=0.78511 regret=0.07904 alarms=[] pts=153600
+[seasonal s=1] spark_decay_0.8        avgMSE=0.75753 regret=0.05147 alarms=[] pts=153600
+[seasonal s=1] spark_decay_0.9        avgMSE=0.75099 regret=0.04493 alarms=[] pts=153600
+[seasonal s=1] spark_decay_0.95       avgMSE=0.75093 regret=0.04486 alarms=[] pts=153600
+[seasonal s=1] spark_decay_0.99       avgMSE=0.75908 regret=0.05302 alarms=[] pts=153600
+[seasonal s=2] frozen_emeans          avgMSE=0.75775 regret=0.05168 alarms=[] pts=153600
+[seasonal s=2] rewarm                 avgMSE=0.72834 regret=0.02227 alarms=[60, 120, 180, 240] pts=153600
+[seasonal s=2] periodic_retrain       avgMSE=0.75057 regret=0.04450 alarms=[] pts=460800
+[seasonal s=2] const_alpha_0.005      avgMSE=0.76212 regret=0.05606 alarms=[] pts=153600
+[seasonal s=2] const_alpha_0.01       avgMSE=0.76001 regret=0.05394 alarms=[] pts=153600
+[seasonal s=2] const_alpha_0.02       avgMSE=0.75653 regret=0.05047 alarms=[] pts=153600
+[seasonal s=2] const_alpha_0.05       avgMSE=0.75576 regret=0.04969 alarms=[] pts=153600
+[seasonal s=2] const_alpha_0.1        avgMSE=0.74916 regret=0.04309 alarms=[] pts=153600
+[seasonal s=2] const_alpha_0.2        avgMSE=0.73700 regret=0.03093 alarms=[] pts=153600
+[seasonal s=2] const_alpha_0.4        avgMSE=0.73907 regret=0.03300 alarms=[] pts=153600
+[seasonal s=2] spark_decay_0.5        avgMSE=0.78554 regret=0.07947 alarms=[] pts=153600
+[seasonal s=2] spark_decay_0.8        avgMSE=0.75846 regret=0.05240 alarms=[] pts=153600
+[seasonal s=2] spark_decay_0.9        avgMSE=0.75135 regret=0.04529 alarms=[] pts=153600
+[seasonal s=2] spark_decay_0.95       avgMSE=0.75019 regret=0.04413 alarms=[] pts=153600
+[seasonal s=2] spark_decay_0.99       avgMSE=0.76164 regret=0.05557 alarms=[] pts=153600

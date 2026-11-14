@@ -1,0 +1,136 @@
+
+##### synthetic cov=diag n=200000 k=32
+[ref] synthetic|k=32|diag s=0 EM@25 test=48.9537 (9s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### synthetic cov=full n=200000 k=32
+[ref] synthetic|k=32|full s=0 EM@25 test=48.2974 (21s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### synthetic cov=diag n=200000 k=32
+[ref] synthetic|k=32|diag s=0 EM@25 test=48.9537 (8s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] synthetic|k=32|diag s=1 EM@25 test=48.3879 (9s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] synthetic|k=32|diag s=2 EM@25 test=48.3176 (9s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### synthetic cov=full n=200000 k=32
+[ref] synthetic|k=32|full s=0 EM@25 test=48.2974 (21s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] synthetic|k=32|full s=1 EM@25 test=48.1101 (21s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] synthetic|k=32|full s=2 EM@25 test=48.0394 (21s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### sift1m_pca64 cov=diag n=200000 k=64
+[ref] sift1m_pca64|k=64|diag s=0 EM@25 test=59.3057 (25s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] sift1m_pca64|k=64|diag s=1 EM@25 test=59.3984 (25s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] sift1m_pca64|k=64|diag s=2 EM@25 test=59.3779 (25s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### sift1m_pca64 cov=full n=200000 k=64
+[ref] sift1m_pca64|k=64|full s=0 EM@25 test=40.6318 (90s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] sift1m_pca64|k=64|full s=1 EM@25 test=40.7375 (92s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] sift1m_pca64|k=64|full s=2 EM@25 test=40.7161 (92s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### dinov2_pca64 cov=diag n=45000 k=64
+[ref] dinov2_pca64|k=64|diag s=0 EM@25 test=71.4189 (5s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] dinov2_pca64|k=64|diag s=1 EM@25 test=71.5063 (5s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] dinov2_pca64|k=64|diag s=2 EM@25 test=71.7227 (5s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### dinov2_pca64 cov=full n=45000 k=64
+[ref] dinov2_pca64|k=64|full s=0 EM@25 test=54.5745 (20s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] dinov2_pca64|k=64|full s=1 EM@25 test=54.7842 (20s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] dinov2_pca64|k=64|full s=2 EM@25 test=54.9243 (20s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### agnews_pca64 cov=diag n=90000 k=64
+[ref] agnews_pca64|k=64|diag s=0 EM@25 test=78.8872 (11s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] agnews_pca64|k=64|diag s=1 EM@25 test=79.0619 (11s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] agnews_pca64|k=64|diag s=2 EM@25 test=78.7855 (11s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### agnews_pca64 cov=full n=90000 k=64
+[ref] agnews_pca64|k=64|full s=0 EM@25 test=70.6092 (39s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] agnews_pca64|k=64|full s=1 EM@25 test=70.4909 (39s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+[ref] agnews_pca64|k=64|full s=2 EM@25 test=70.3434 (39s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+
+##### synthetic cov=diag n=200000 k=32
+
+##### synthetic cov=full n=200000 k=32
+
+##### sift1m_pca64 cov=diag n=200000 k=64
+
+##### sift1m_pca64 cov=full n=200000 k=64
+
+##### dinov2_pca64 cov=diag n=45000 k=64
+
+##### dinov2_pca64 cov=full n=45000 k=64
+
+##### agnews_pca64 cov=diag n=90000 k=64
+
+##### agnews_pca64 cov=full n=90000 k=64
+[timing] synthetic|k=32|diag s=0 gmm_ema_swept walls=[0.71, 1.08, 1.41, 2.13]
+[timing] synthetic|k=32|diag s=1 gmm_ema_swept walls=[0.7, 1.03, 1.38, 2.07]
+[timing] synthetic|k=32|diag s=2 gmm_ema_swept walls=[0.73, 1.05, 1.43, 2.12]
+[timing] synthetic|k=32|full s=0 gmm_ema_swept walls=[1.98, 3.59, 5.18, 8.36]
+[timing] synthetic|k=32|full s=1 gmm_ema_swept walls=[1.98, 3.44, 5.12, 8.32]
+[timing] synthetic|k=32|full s=2 gmm_ema_swept walls=[2.02, 3.64, 5.21, 8.29]
+[timing] sift1m_pca64|k=64|diag s=0 gmm_ema_swept walls=[2.24, 3.28, 4.32, 6.46]
+[timing] sift1m_pca64|k=64|diag s=1 gmm_ema_swept walls=[2.31, 3.35, 4.36, 6.29]
+[timing] sift1m_pca64|k=64|diag s=2 gmm_ema_swept walls=[2.26, 3.31, 4.33, 6.44]
+[timing] gmm sift1m_pca64|k=64|full: sweep incomplete ([]), skipped
+[timing] dinov2_pca64|k=64|diag s=0 gmm_ema_swept walls=[0.37, 0.6, 0.83, 1.27]
+[timing] dinov2_pca64|k=64|diag s=1 gmm_ema_swept walls=[0.37, 0.59, 0.84, 1.26]
+[timing] dinov2_pca64|k=64|diag s=2 gmm_ema_swept walls=[0.38, 0.6, 0.83, 1.24]
+[timing] dinov2_pca64|k=64|full s=0 gmm_ema_swept walls=[1.98, 3.92, 5.45, 9.0]
+[timing] dinov2_pca64|k=64|full s=1 gmm_ema_swept walls=[2.02, 3.83, 5.44, 9.08]
+[timing] dinov2_pca64|k=64|full s=2 gmm_ema_swept walls=[2.02, 3.88, 5.48, 8.99]
+[timing] agnews_pca64|k=64|diag s=0 gmm_ema_swept walls=[0.98, 1.37, 1.8, 2.7]
+[timing] agnews_pca64|k=64|diag s=1 gmm_ema_swept walls=[0.96, 1.39, 1.87, 2.75]
+[timing] agnews_pca64|k=64|diag s=2 gmm_ema_swept walls=[0.97, 1.41, 1.89, 2.76]
+[timing] agnews_pca64|k=64|full s=0 gmm_ema_swept walls=[4.34, 7.84, 10.98, 18.31]
+[timing] agnews_pca64|k=64|full s=1 gmm_ema_swept walls=[4.16, 7.63, 11.18, 18.21]
+[timing] agnews_pca64|k=64|full s=2 gmm_ema_swept walls=[4.28, 7.87, 11.43, 18.18]

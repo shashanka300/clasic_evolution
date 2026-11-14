@@ -1,0 +1,2 @@
+2026-11-13 19:40:15 start: 1 pending / 1 jobs, budget=4 threads, max_jobs=9
+2026-11-13 19:40:15 START lda_all threads=4 (in use 4/4, 1 jobs): CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage all >> results/lda-scaling/console.log 2>&1

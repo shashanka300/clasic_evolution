@@ -1,0 +1,20 @@
+
+##### 20ng D=12170 V=10000 K=50
+[law] 20ng: LOO coeffs [-4.123 -0.569  0.905 -0.649] from 22 cells; a0(T)=0.107, 0.068, 0.053, 0.038
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+[cosine_law] 20ng s=0 T1=2536.6 T2=2372.7 T3=2349.2 T5=2302.2
+[cosine_law] 20ng s=1 T1=2706.2 T2=2481.9 T3=2377.4 T5=2389.1
+[cosine_law] 20ng s=2 T1=2586.9 T2=2470.4 T3=2390.2 T5=2401.0
+
+##### enron D=35518 V=20000 K=50
+[law] enron: LOO coeffs [-4.935 -0.517  0.976 -0.748] from 26 cells; a0(T)=0.054, 0.032, 0.024, 0.016
+[cosine_law] enron s=0 T1=2474.5 T2=2361.9 T3=2338.9 T5=2309.0
+[cosine_law] enron s=1 T1=2465.1 T2=2353.6 T3=2341.6 T5=2263.4
+[cosine_law] enron s=2 T1=2375.9 T2=2307.6 T3=2291.0 T5=2286.6
+
+##### nytimes D=95543 V=20000 K=50
+[law] nytimes: LOO coeffs [-4.481 -0.561  0.948 -0.758] from 32 cells; a0(T)=0.031, 0.019, 0.014, 0.009
+[cosine_law] nytimes s=0 T1=3248.4 T2=3223.1 T3=3231.6 T5=3227.8
+[cosine_law] nytimes s=1 T1=3267.1 T2=3263.5 T3=3276.0 T5=3232.3
+[cosine_law] nytimes s=2 T1=3296.6 T2=3261.3 T3=3237.6 T5=3209.2
