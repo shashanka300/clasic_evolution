@@ -223,7 +223,7 @@ def fig_law():
             if r:
                 labels.append(f"{ev}\n{m}")
                 data.append(np.maximum(np.array(r["extra"]["penalties"]) * 100, 1e-4))
-    bp = ax.boxplot(data, labels=labels, showfliers=True, patch_artist=True, widths=0.5)
+    bp = ax.boxplot(data, tick_labels=labels, showfliers=True, patch_artist=True, widths=0.5)
     for patch, lab in zip(bp["boxes"], labels):
         patch.set_facecolor(color(lab.split("\n")[1]))
         patch.set_edgecolor(INK2)

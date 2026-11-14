@@ -13,6 +13,7 @@ Comparisons (per dataset x covariance type, same k-means++ init for every method
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import time
 from pathlib import Path
@@ -26,6 +27,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from core.budgets import BUDGETS, LONG_BUDGETS, active, anchor_rows, long_alphas, long_stepwise  # noqa: E402
 from core.bench import load_dinov2_cifar100, load_sift1m, load_text_embeddings  # noqa: E402
 from core.harness import done_hashes, config_hash, make_run, read_runs, results_path, write_run  # noqa: E402
 from core.scaling import emeans_alpha0, emeans_batch_size  # noqa: E402
@@ -39,7 +41,6 @@ TRACK = "gmm-ema"
 RUNS = results_path(TRACK)
 SWEEP = results_path(TRACK, "sweep.jsonl")
 EPS_COV_REL = 1e-6
-BUDGETS = (1.0, 2.0, 3.0, 5.0)
 
 
 # ------------------------------------------------------------------ data
@@ -168,7 +169,7 @@ def stage_reference(name, data, meta, k, cov, seeds):
                       note="sanity check of em_full_batch; final point only"))
 
 
-def stage_sweep(name, data, meta, k, cov, seeds, configs):
+def stage_sweep(name, data, meta, k, cov, seeds, configs, alphas=None):
     n_all, d = data["train"].shape
 
     def fit_eval(x, kk, a0, T, B, s):
@@ -177,7 +178,8 @@ def stage_sweep(name, data, meta, k, cov, seeds, configs):
                 "revivals": res.revivals, "collapsed": collapsed(p), "param_error": param_error(p, meta)}
 
     run_sweep(track=TRACK, method=f"gmm_ema_{cov}", dataset=name, data=data, k=k, d=d, fit_eval=fit_eval,
-              configs=configs, seeds=seeds, path=SWEEP, metric="test_nll", tag=cov, extra_config={"cov": cov})
+              configs=configs, seeds=seeds, path=SWEEP, metric="test_nll", tag=cov, extra_config={"cov": cov},
+              **({"alphas": alphas} if alphas is not None else {}))
 
 
 def stage_online_em(name, data, k, cov, seeds, B):
@@ -187,8 +189,10 @@ def stage_online_em(name, data, k, cov, seeds, B):
     n, d = x.shape
     done = done_hashes(SWEEP)
     grid = [(t0, kp) for t0 in (1.0, 10.0, 100.0, 1000.0) for kp in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0)]
-    for T in BUDGETS:
-        for t0, kp in grid:
+    for T in active(BUDGETS):
+        tgrid = (long_stepwise(SWEEP, f"oem|{group}", anchor_rows(SWEEP, f"oem|{group}", "sweep_oem"))
+                 if T in LONG_BUDGETS else grid)
+        for t0, kp in tgrid:
             cfg = {"method": "online_em", "dataset": name, "cov": cov, "T": T, "B": B, "tau0": t0, "kappa": kp, "n": n}
             h = config_hash(cfg)
             for s in seeds:
@@ -204,6 +208,8 @@ def stage_online_em(name, data, k, cov, seeds, B):
                                val_loss=evaluate_gmm_nll(data["val"], p), tau0=t0, kappa=kp, sweep_oem=True)
                 rec["extra"]["config_hash"] = h
                 write_run(SWEEP, rec)
+    if os.environ.get("CLASSIC_ALGOS_STEPWISE_CELLS_ONLY") or os.environ.get("CLASSIC_ALGOS_BUDGETS"):  # per-seed worker: selection left to a full-seed run
+        return
     # pick (tau0, kappa) per T on val; emit one curve per seed
     rows = [r for r in read_runs(SWEEP) if r["extra"].get("sweep_oem") and r["extra"]["group"] == f"oem|{group}"]
     if any(r["method"] == "online_em_tuned" and r["extra"]["group"] == group for r in read_runs(RUNS)):
@@ -255,9 +261,10 @@ def main():
     ap.add_argument("--datasets", default="synthetic,sift1m_pca64,dinov2_pca64,agnews_pca64")
     ap.add_argument("--covs", default="diag,full")
     ap.add_argument("--seeds", type=int, default=3)
-    ap.add_argument("--stage", default="all", choices=("all", "reference", "sweep", "law-sweep", "online", "kmlaw", "emit"))
+    ap.add_argument("--seed-list", default=None, help="explicit seeds, e.g. 3,4")
+    ap.add_argument("--stage", default="all", choices=("all", "reference", "sweep", "law-sweep", "online", "kmlaw", "emit", "plan"))
     args = ap.parse_args()
-    seeds = list(range(args.seeds))
+    seeds = [int(x) for x in args.seed_list.split(",")] if args.seed_list else list(range(args.seeds))
     for name in args.datasets.split(","):
         data, meta = load(name)
         n = len(data["train"])
@@ -267,7 +274,17 @@ def main():
             if args.stage in ("all", "reference"):
                 stage_reference(name, data, meta, k, cov, seeds)
             if args.stage in ("all", "sweep"):
-                stage_sweep(name, data, meta, k, cov, seeds, [{"n": n, "B": HEAD_B, "T": T} for T in BUDGETS])
+                short = [T for T in active(BUDGETS) if T not in LONG_BUDGETS]
+                if short:
+                    stage_sweep(name, data, meta, k, cov, seeds, [{"n": n, "B": HEAD_B, "T": T} for T in short])
+                long_ = [T for T in active(BUDGETS) if T in LONG_BUDGETS]
+                if long_:
+                    al = long_alphas(SWEEP, f"gmm_ema_{cov}", sweep_group(name, n, k, HEAD_B, cov))
+                    stage_sweep(name, data, meta, k, cov, seeds, [{"n": n, "B": HEAD_B, "T": T} for T in long_], alphas=al)
+            if args.stage == "plan":
+                sg = sweep_group(name, n, k, HEAD_B, cov)
+                print(f"[plan] {sg} alphas={long_alphas(SWEEP, f'gmm_ema_{cov}', sg)} online_em="
+                      f"{long_stepwise(SWEEP, f'oem|{name}|k={k}|{cov}', anchor_rows(SWEEP, f'oem|{name}|k={k}|{cov}', 'sweep_oem'))}", flush=True)
             if args.stage in ("all", "online"):
                 stage_online_em(name, data, k, cov, seeds, HEAD_B)
             if args.stage in ("all", "kmlaw"):

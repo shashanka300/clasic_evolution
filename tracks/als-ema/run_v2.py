@@ -125,9 +125,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--datasets", default="ml1m,ml10m")
     ap.add_argument("--seeds", type=int, default=3)
+    ap.add_argument("--seed-list", default=None, help="explicit seeds, e.g. 3,4 (parallel per-seed workers)")
     ap.add_argument("--stage", default="all")
     args = ap.parse_args()
-    seeds = list(range(args.seeds))
+    seeds = [int(x) for x in args.seed_list.split(",")] if args.seed_list else list(range(args.seeds))
     for name in args.datasets.split(","):
         p = make_problem(name)
         print(f"\n##### {name} users={p.n} items={p.d} lambda={p.config['lambda']}", flush=True)

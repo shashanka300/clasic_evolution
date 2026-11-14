@@ -29,7 +29,7 @@ from core.bench import REQUIRED_RESULT_KEYS, read_results
 SCHEMA_VERSION = 2
 ROLES = ("baseline", "ours", "ablation")
 ALPHA0_SOURCES = ("fixed", "swept", "law", "na")
-CURVE_EPOCHS = (1, 2, 3, 5, 10, 25)
+CURVE_EPOCHS = (0.25, 0.5, 1, 2, 3, 5, 10, 25)
 REQUIRED_EXTRA_KEYS = ("schema", "role", "alpha0_source", "group", "metric", "git_commit", "config_hash")
 
 

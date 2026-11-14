@@ -126,8 +126,10 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--jobs", default="results/jobs_5090.txt")
     ap.add_argument("--done", default="results/pqueue_done.txt")
-    ap.add_argument("--budget", type=int, default=os.cpu_count(), help="total CPU threads to hand out")
-    ap.add_argument("--max-jobs", type=int, default=9, help="cap on concurrent jobs (RAM)")
+    # oversubscribe ~1.7x: GPU-ported / e-means jobs spend much of their time waiting on the GPU (5090 measurement:
+    # 17 jobs at budget 40 -> CPU 100% busy, GPU 67%, 21/54 GB RAM, 13/32 GB VRAM)
+    ap.add_argument("--budget", type=int, default=int(1.7 * os.cpu_count()), help="total CPU threads to hand out")
+    ap.add_argument("--max-jobs", type=int, default=20, help="cap on concurrent jobs (RAM / VRAM)")
     ap.add_argument("--poll", type=float, default=15.0)
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--retry-failed", action="store_true", help="re-run ids whose recorded rc != 0")

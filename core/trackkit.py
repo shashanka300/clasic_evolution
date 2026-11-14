@@ -10,18 +10,19 @@ A track supplies a :class:`Problem`; the stages produce, per comparison group:
 
 from __future__ import annotations
 
+import os
 import time
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
 import numpy as np
 
+from core.budgets import BUDGETS, LONG_BUDGETS, active, anchor_rows, long_alphas, long_stepwise
 from core.harness import config_hash, done_hashes, make_run, read_runs, write_run
 from core.scaling import emeans_alpha0, emeans_batch_size
 from core.schedule import InverseTimeSchedule
 from core.sweep import emit_swept_curves, run_sweep, sweep_group
 
-BUDGETS = (1.0, 2.0, 3.0, 5.0)
 STEPWISE_GRID = tuple((t0, kp) for t0 in (2.0, 10.0, 100.0) for kp in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0))
 
 
@@ -67,22 +68,35 @@ def stage_reference(p: Problem, runs, seeds, ref_method: str, sanity: Callable[[
                       note="library sanity check of the reference; final point only"))
 
 
-def stage_sweep(p: Problem, sweep_path, seeds, method: str, configs: list[dict], k: int | None = None):
+def stage_sweep(p: Problem, sweep_path, seeds, method: str, configs: list[dict], k: int | None = None, alphas=None):
     def fit_eval(x, kk, a0, T, B, s):
         m = p.fit(a0, T, B, s, n=len(x), k=kk)
         return {"val": p.loss(m, "val"), "test": p.loss(m, "test"), **p.extras(m)}
 
     run_sweep(track=p.track, method=method, dataset=p.dataset, data={"train": np.arange(p.n)}, k=k or p.k, d=p.d,
               fit_eval=fit_eval, configs=configs, seeds=seeds, path=sweep_path, metric=p.metric, tag=p.tag,
-              extra_config=p.config)
+              extra_config=p.config, **({"alphas": alphas} if alphas is not None else {}))
+
+
+def stage_head_sweep(p: Problem, sweep_path, seeds, method: str, head_B: int, budgets=BUDGETS):
+    """Head-group sweep: full alpha0 grid at the short budgets, frozen restricted grid at the long ones."""
+    budgets = active(budgets)
+    short = [T for T in budgets if T not in LONG_BUDGETS]
+    if short:
+        stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in short])
+    long_ = [T for T in budgets if T in LONG_BUDGETS]
+    if long_:
+        al = long_alphas(sweep_path, method, sweep_group(p.dataset, p.n, p.k, head_B, p.tag))
+        stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in long_], alphas=al)
 
 
 def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, grid=STEPWISE_GRID):
     """Robbins-Monro / stepwise-EM step (tau0 + t)^-kappa, (tau0, kappa) chosen on val per T. No revival."""
     done = done_hashes(sweep_path)
     sg = f"stepwise|{p.group}"
-    for T in BUDGETS:
-        for t0, kp in grid:
+    for T in active(BUDGETS):
+        tgrid = long_stepwise(sweep_path, sg, anchor_rows(sweep_path, sg, "sweep_stepwise")) if T in LONG_BUDGETS else grid
+        for t0, kp in tgrid:
             cfg = dict(p.config, method=method, dataset=p.dataset, T=T, B=B, tau0=t0, kappa=kp, n=p.n)
             h = config_hash(cfg)
             for s in seeds:
@@ -97,6 +111,10 @@ def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, gri
                                val_loss=p.loss(m, "val"), tau0=t0, kappa=kp, sweep_stepwise=True)
                 rec["extra"]["config_hash"] = h
                 write_run(sweep_path, rec)
+    if os.environ.get("CLASSIC_ALGOS_STEPWISE_CELLS_ONLY") or os.environ.get("CLASSIC_ALGOS_BUDGETS"):
+        # per-seed worker of a split online stage: the (tau0, kappa) choice below averages val over ALL seeds, so it
+        # is left to one final full-seed run of this stage once every worker's cells are in
+        return
     out = f"{method}_tuned"
     if any(r["method"] == out and r["extra"]["group"] == p.group for r in read_runs(runs)):
         return
@@ -146,7 +164,12 @@ def run_all(p: Problem, runs, sweep_path, seeds, *, ref_method, ema_method, step
     if stage in ("all", "reference"):
         stage_reference(p, runs, seeds, ref_method, sanity, sanity_method)
     if stage in ("all", "sweep"):
-        stage_sweep(p, sweep_path, seeds, ema_method, [{"n": p.n, "B": head_B, "T": T} for T in BUDGETS])
+        stage_head_sweep(p, sweep_path, seeds, ema_method, head_B)
+    if stage == "plan":  # freeze the restricted long-budget grids (run once, after the T=5 cells are complete)
+        sg = sweep_group(p.dataset, p.n, p.k, head_B, p.tag)
+        print(f"[plan] {sg} alphas={long_alphas(sweep_path, ema_method, sg)} stepwise="
+              f"{long_stepwise(sweep_path, f'stepwise|{p.group}', anchor_rows(sweep_path, f'stepwise|{p.group}', 'sweep_stepwise'))}",
+              flush=True)
     if stage in ("all", "online"):
         stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method)
     if stage in ("all", "kmlaw"):

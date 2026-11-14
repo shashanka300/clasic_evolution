@@ -52,7 +52,9 @@ def load_cells():
                           "B": float(kv["B"]), "T": float(T), "a_star": c["alpha_star"],
                           # alpha0 <= 1 by definition, so an optimum at the top edge is the constrained optimum;
                           # only the LOWER edge is censored (pre-registered 2026-11-13 before law-sweep data).
-                          "edge": c["at_grid_edge"] and c["alpha_star_grid"] == min(c["val_curve"]),
+                          # Amendment 2026-11-14: the restricted long-budget grids (max < 1) are censored at both edges.
+                          "edge": c["at_grid_edge"] and (c["alpha_star_grid"] == min(c["val_curve"]) or
+                                                   max(c["val_curve"]) < 1.0),  # restricted long-budget grids (core.budgets)
                           "curve": c["val_curve"], "L_star": min(c["val_curve"].values())})
     return cells
 

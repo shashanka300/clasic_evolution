@@ -182,7 +182,7 @@ def stage_sklearn(p, seeds):
     for s in seeds:
         D0 = p.init_D(s)
         curve = []
-        for T in BUDGETS:
+        for T in (T for T in BUDGETS if T >= 1):  # sklearn max_iter counts whole epochs
             t0 = time.perf_counter()
             if nn:
                 W0 = np.full((len(x), p.k), 1e-3, np.float32)
@@ -210,8 +210,9 @@ def main():
     ap.add_argument("--datasets", default="cifar_p8,nmf_20ng,cifar_p12")
     ap.add_argument("--seeds", type=int, default=3)
     ap.add_argument("--stage", default="all")
+    ap.add_argument("--seed-list", default=None, help="explicit seeds, e.g. 1 (lets the per-seed reference run in parallel)")
     args = ap.parse_args()
-    seeds = list(range(args.seeds))
+    seeds = [int(x) for x in args.seed_list.split(",")] if args.seed_list else list(range(args.seeds))
     for name in args.datasets.split(","):
         p = make_problem(name)
         print(f"\n##### {name} n={p.n} d={p.d} K={p.k}", flush=True)

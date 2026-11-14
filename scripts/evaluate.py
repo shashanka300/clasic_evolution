@@ -12,6 +12,7 @@ Reads ``results/<slug>/runs.jsonl`` (v2 records only; legacy rows are ignored), 
 from __future__ import annotations
 
 import json
+import os
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -28,6 +29,9 @@ from core.harness import CURVE_EPOCHS, read_runs  # noqa: E402
 from kill_criteria import ALPHA, AMENDMENTS_LOG, CRITERIA, FROZEN_AT, SECONDARY, _paired  # noqa: E402
 
 N_BOOT = 2000
+# isolated timing pass (results/jobs_5090.txt, phase C): reference + untuned law method re-run alone, fixed threads,
+# CPU only; the only wall-clock numbers meant for the paper. The queue's wall_s is contention-affected.
+TIMING_ROOT = Path(os.environ.get("CLASSIC_ALGOS_TIMING_DIR", ROOT / "results" / "_timing"))
 
 
 def _curve(rec: dict[str, Any], key: str = "test_loss") -> dict[float, float]:
@@ -197,7 +201,48 @@ def _hw_by_group(records):
     return out
 
 
-def render_verdict(slug: str, records, summary, verdict) -> str:
+def timing_summary(slug: str) -> dict[str, Any] | None:
+    """Wall-clock to reach the reference@25 loss, from the isolated timing records only (one host, one backend)."""
+    trecs = read_runs(TIMING_ROOT / slug / "runs.jsonl")
+    if not trecs:
+        return None
+    summ = summarise_track(trecs)
+    out = {}
+    for g, gs in summ["groups"].items():
+        ref = gs["reference"]
+        if not ref:
+            continue
+        rw = [w for r in trecs if r["extra"]["group"] == g and r["extra"].get("reference")
+              for w in [_curve(r, "wall_s").get(25.0)] if w is not None]
+        methods = {m: {"epochs_to_match": v["epochs_to_match"], "wall_to_match": v["wall_to_match"],
+                       "wall_speedup": v["wall_speedup"], "n_seeds": v["n_seeds"]}
+                   for m, v in gs["methods"].items() if m != ref["method"]}
+        hosts = sorted({(r["extra"].get("hw") or {}).get("host", "untagged") for r in trecs if r["extra"]["group"] == g})
+        out[g] = {"reference": ref["method"], "ref_wall25_mean": float(np.mean(rw)) if rw else None,
+                  "ref_wall25_std": float(np.std(rw)) if rw else None, "n_ref_seeds": len(rw), "methods": methods,
+                  "hosts": hosts}
+    return out
+
+
+def render_timing(timing) -> list[str]:
+    if not timing:
+        return ["## Isolated timing", "",
+                "Not run yet (phase C of results/jobs_5090.txt). The wall× (queue) column above comes from the",
+                "concurrent queue (contention, mixed backends) and is not a headline number.", ""]
+    lines = ["## Isolated timing (headline wall-clock)", "",
+             "Reference and untuned law method re-run alone on an idle machine, fixed thread count, CPU only",
+             "(results/_timing). These replace the wall× (queue) column above.", "",
+             "| group | reference@25 wall (s) | method | epochs→ref | wall→ref (s) | wall× | seeds (ref/method) | host |",
+             "|---|---|---|---|---|---|---|---|"]
+    for g, t in timing.items():
+        for m, v in t["methods"].items():
+            lines.append(f"| {g} | {_fmt(t['ref_wall25_mean'], 3)} ± {_fmt(t['ref_wall25_std'], 2)} | {m} | "
+                         f"{_fmt(v['epochs_to_match'], 3)} | {_fmt(v['wall_to_match'], 3)} | {_fmt(v['wall_speedup'], 3)} | "
+                         f"{t['n_ref_seeds']}/{v['n_seeds']} | {', '.join(t['hosts'])} |")
+    return lines + [""]
+
+
+def render_verdict(slug: str, records, summary, verdict, timing=None) -> str:
     commits = sorted({r["extra"]["git_commit"] for r in records})
     lines = [
         f"# {slug} — VERDICT (auto-generated)",
@@ -229,7 +274,7 @@ def render_verdict(slug: str, records, summary, verdict) -> str:
         eps = sorted({e for m in g["methods"].values() for e in m["curve_mean"]})
         show = [e for e in eps if e in CURVE_EPOCHS] or eps[:8]
         hdr = "| method | role | α0 (src) | seeds | " + " | ".join(f"@{_fmt(e, 3)}" for e in show) + \
-              " | final | epochs→ref | CI95 | gain | wall× | p(final vs ref) |"
+              " | final | epochs→ref | CI95 | gain | wall× (queue) | p(final vs ref) |"
         lines += [hdr, "|" + "---|" * (hdr.count("|") - 1)]
         for mname, m in g["methods"].items():
             cells = [_fmt(m["curve_mean"].get(e)) for e in show]
@@ -242,6 +287,7 @@ def render_verdict(slug: str, records, summary, verdict) -> str:
                 f"{_fmt(m['wall_speedup'], 3)} | {_fmt(m['final_vs_ref_p'], 2)} |"
             )
         lines.append("")
+    lines += render_timing(timing)
     return "\n".join(lines) + "\n"
 
 
@@ -262,8 +308,10 @@ def evaluate(slug: str) -> dict[str, Any] | None:
         sk, sr = sfn(summary, records)
         verdict["secondary"].append({"criterion": sname, "status": "INCOMPLETE" if sk is None else ("KILLED" if sk else "SURVIVES"),
                                      "reason": sr})
-    (ROOT / "results" / slug / "VERDICT.md").write_text(render_verdict(slug, records, summary, verdict))
-    return {"verdict": verdict, "summary": summary, "n_records": len(records)}
+    timing = timing_summary(slug)
+    (ROOT / "results" / slug / "VERDICT.md").write_text(render_verdict(slug, records, summary, verdict, timing),
+                                                       encoding="utf-8")
+    return {"verdict": verdict, "summary": summary, "n_records": len(records), "timing": timing}
 
 
 def main(argv: list[str]) -> None:

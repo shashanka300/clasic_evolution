@@ -71,7 +71,7 @@ roughly 12-20 h for the queue as-is, before any GPU porting.
   `needs=data` jobs wait for `data/.ready`, T03/T11 run `exclusive` (alone, for latency/QPS), T12 fit and
   evaluate run behind a `barrier`. Restart-safe: finished ids are kept in `results/pqueue_done.txt`.
   ```sh
-  cd ~/clasic_evolution && python3 scripts/pqueue.py 2>&1 | tee -a results/pqueue.log   # start / resume
+  cd ~/clasic_evolution && python3 scripts/pqueue.py 2>&1 | tee -a results/pqueue.log   # start / resume (adopts running jobs)
   python3 scripts/pqueue.py --status                                                     # progress
   ```
 - Data: downloaded fresh with `.venv/bin/python scripts/fetch_data.py` (parallel downloads -> DINOv2 / MiniLM / BGE
@@ -83,6 +83,23 @@ roughly 12-20 h for the queue as-is, before any GPU porting.
   the two; raw downloads (SIFT, GloVe, MovieLens, UCI, 20NG, CIFAR pixels, Brown) are byte-identical.
 - `wall_s` of jobs that ran side by side includes contention. Verdicts are epoch/compute-based (T09 charges
   seeding in distance evaluations), so no kill criterion depends on it; T03 latency and T11 QPS run alone.
+- Utilisation: jobs are split one process per dataset / scenario and the budget is ~1.7x the thread count
+  (ported jobs wait on the GPU), giving CPU 100% / GPU ~67% with 17 concurrent jobs. Beyond that the remaining
+  limit is the 12-core CPU, not the GPU: the experiments' mini-batches (B = 64-2048) are a studied parameter.
+- **Wall-clock for the paper comes only from the isolated timing pass** (phase C2 of `results/jobs_5090.txt`):
+  per track, the full-batch reference@25, the untuned law method (`*_kmlaw`) and the val-selected swept method
+  (`scripts/timing_swept.py`) re-run alone, CPU only (`CLASSIC_ALGOS_DEVICE=cpu`, no GPU ports), 12 threads, 3 seeds,
+  after an untimed warm-up (numba compile). Records go to `results/_timing/<track>/`; `evaluate.py` adds an
+  "Isolated timing" section to each VERDICT and labels the main table's column `wall× (queue)`.
+- T00 re-run here (`core_t00`) so all tracks share one embedding version; the Mac's T00 records are in
+  `results/core/mac_mps_embeddings/`.
+- T03 recall@10 is computed with all threads (exact, thread-independent; tested), the timed per-query loops of T03
+  and T11 run pinned to one CPU (`CLASSIC_ALGOS_PIN_CPU`, default 2). For the systems paper report scanned codes per
+  query (`ndis`) beside p99 latency; T03's frozen kill criterion stays on p99. Close heavy apps before phase C.
+- LDA Enron / NYTimes and dictlearn CIFAR-12 are split by stage and, for the big sweep / online stages, by seed
+  (`--seed-list`, added to both runners; LDA also gained a standalone `kmlaw` stage). Online workers run with
+  `CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1` (cells only); one final full-seed `online` job then picks (tau0, kappa)
+  from all seeds' val loss, exactly as the unsplit stage does. `emit` runs after all sweep seeds.
 - `queue.sh` now pops lines portably (BSD `sed -i ''` would re-run line 1 forever on GNU sed).
 
 ## 4. Rules that must hold across machines

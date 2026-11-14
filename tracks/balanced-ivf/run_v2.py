@@ -21,6 +21,7 @@ NOTE: Malinen & Franti balanced k-means (Hungarian, O(n^3)) is infeasible at 1M 
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import time
 from pathlib import Path
@@ -46,6 +47,21 @@ NPROBES = (1, 2, 4, 8, 16, 32, 64, 128, 256)
 from core.device import accel  # noqa: E402
 
 DEV = accel()
+
+# Timed single-thread loops run pinned to one CPU (CLASSIC_ALGOS_PIN_CPU, default 2: off cpu0, which takes most
+# interrupts) so the scheduler cannot migrate them mid-measurement; the previous affinity is restored afterwards.
+PIN_CPU = int(os.environ.get("CLASSIC_ALGOS_PIN_CPU", "2"))
+
+
+class pinned_cpu:
+    def __enter__(self):
+        self.prev = os.sched_getaffinity(0)
+        if PIN_CPU in self.prev:
+            os.sched_setaffinity(0, {PIN_CPU})
+        return self
+
+    def __exit__(self, *exc):
+        os.sched_setaffinity(0, self.prev)
 
 
 def sinkhorn_labels(x, C, eps=0.05, iters=3):
@@ -128,25 +144,30 @@ def build_index(x, C, labels):
     return idx
 
 
-def measure(idx, queries, gt, nq_lat=2000):
-    faiss.omp_set_num_threads(1)
+def measure(idx, queries, gt, nq_lat=2000, recall_threads=None):
     st = faiss.cvar.indexIVF_stats
     out = []
     for nprobe in NPROBES:
         if nprobe > idx.nlist:
             continue
         idx.nprobe = nprobe
+        # recall over all queries: an exact IVF scan, identical for any thread count, so it uses every core;
+        # only the timed per-query loop below runs single-threaded (it is the latency measurement)
+        faiss.omp_set_num_threads(recall_threads or os.cpu_count())
         _, I = idx.search(queries, 10)
+        faiss.omp_set_num_threads(1)
+        time.sleep(0.5)  # let the OpenMP pool's spinning workers go idle before the timed loop
         rec = float(np.mean([len(set(I[i]) & set(gt[i][:10])) / 10 for i in range(len(queries))]))
         lat, nd = [], []
-        for i in range(min(nq_lat, len(queries))):
-            best = np.inf
-            for _ in range(3):  # min of 3 repeats per query suppresses scheduler noise
-                st.reset()
-                idx.search(queries[i:i + 1], 10)
-                best = min(best, (st.quantization_time + st.search_time) * 1000.0)  # ms -> us
-            lat.append(best)
-            nd.append(st.ndis)
+        with pinned_cpu():
+            for i in range(min(nq_lat, len(queries))):
+                best = np.inf
+                for _ in range(3):  # min of 3 repeats per query suppresses scheduler noise
+                    st.reset()
+                    idx.search(queries[i:i + 1], 10)
+                    best = min(best, (st.quantization_time + st.search_time) * 1000.0)  # ms -> us
+                lat.append(best)
+                nd.append(st.ndis)
         out.append({"nprobe": nprobe, "recall10": rec, "p50_us": float(np.percentile(lat, 50)),
                     "p99_us": float(np.percentile(lat, 99)), "mean_us": float(np.mean(lat)),
                     "ndis_p50": float(np.percentile(nd, 50)), "ndis_p99": float(np.percentile(nd, 99))})

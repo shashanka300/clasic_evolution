@@ -23,6 +23,7 @@ import argparse
 import itertools
 import json
 import math
+import os
 import sys
 import time
 from pathlib import Path
@@ -109,10 +110,17 @@ def query(idx, xq, gt, efs):
     idx.set_num_threads(1)
     idx.set_ef(max(efs, 10))
     best = np.inf
-    for _ in range(2):
-        t0 = time.perf_counter()
-        lab, _ = idx.knn_query(xq, k=10)
-        best = min(best, time.perf_counter() - t0)
+    prev = os.sched_getaffinity(0)  # pin the single query thread (as T03) so it is not migrated while timed
+    pin = int(os.environ.get("CLASSIC_ALGOS_PIN_CPU", "2"))
+    if pin in prev:
+        os.sched_setaffinity(0, {pin})
+    try:
+        for _ in range(2):
+            t0 = time.perf_counter()
+            lab, _ = idx.knn_query(xq, k=10)
+            best = min(best, time.perf_counter() - t0)
+    finally:
+        os.sched_setaffinity(0, prev)
     rec = float(np.mean([len(set(lab[i]) & set(gt[i])) / 10 for i in range(len(xq))]))
     return rec, len(xq) / best
 

@@ -178,13 +178,14 @@ def main():
     ap.add_argument("--datasets", default=",".join(CORPORA))
     ap.add_argument("--seeds", type=int, default=3)
     ap.add_argument("--stage", default="all")
+    ap.add_argument("--seed-list", default=None, help="explicit seeds, e.g. 1 (lets the per-seed reference run in parallel)")
     args = ap.parse_args()
-    seeds = list(range(args.seeds))
+    seeds = [int(x) for x in args.seed_list.split(",")] if args.seed_list else list(range(args.seeds))
     for name in args.datasets.split(","):
         p = make_problem(name)
         print(f"\n##### {name} D={p.n} V={p.d} K={K}", flush=True)
         law_cfgs = [{"n": n, "B": B, "T": T} for n in (p.n // 4, p.n) for B in (64, 512) for T in (1.0, 2.0)]
-        if args.stage in ("all", "reference", "sweep", "online", "emit", "law-sweep"):
+        if args.stage in ("all", "reference", "sweep", "online", "kmlaw", "emit", "law-sweep", "plan"):
             run_all(p, RUNS, SWEEP, seeds[:2] if args.stage == "law-sweep" else seeds, ref_method="batch_vb",
                     ema_method="lda_ema", stepwise_method="online_lda", head_B=HEAD_B, stage=args.stage,
                     law_sweep_configs=law_cfgs, law_ks=(20, 50))
