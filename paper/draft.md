@@ -1,7 +1,7 @@
 # Scaling laws for stochastic-approximation EM: one recipe and one step-size rule across five model families
 
 *Draft v0 (Markdown), 2026-11-16. Numbers from protocol v3 at commit 225a281; source of record `paper/METADATA.md`
-and `PAPER_LOG.md`. `[CITE]` = reference to add; `TODO` = open item. Authors: TBD.*
+and `PAPER_LOG.md`. References in `paper/references.md`; `TODO` = open item. Authors: TBD.*
 
 ---
 
@@ -42,7 +42,7 @@ families: online LDA (Hoffman et al. 2010), online dictionary learning (Mairal e
 mixtures (Nguyen, Forbes & McLachlan 2019). In practice its step-size schedule is tuned per problem; Liang & Klein
 already noted that the best schedule "depends on the task and dataset".
 
-e-means [CITE arXiv:2611.09501] revisited this update for k-means at billion scale. It adds three ingredients:
+e-means (Bessa et al. 2026) revisited this update for k-means at billion scale. It adds three ingredients:
 - a **cosine-annealed** rate in place of the usual inverse-time decay (τ0 + t)^−κ;
 - a **revival** rule that re-seeds clusters whose EMA mass collapses;
 - a **scaling law** that predicts the initial rate α0 and the batch size from (n, k, B, T), fitted on one dataset.
@@ -88,19 +88,25 @@ fitted law for the rate.
 **Step-size adaptation.** Ranganath et al. 2013 (adaptive learning rate for SVI) removes tuning for one family by
 estimating the step online; we instead predict the initial rate from problem coordinates. Chen et al. 2018
 (variance-reduced stochastic EM) uses a constant step with control variates and is complementary. Hosseini & Sra
-(Riemannian SGD for GMMs) is an alternative to EM-style updates. [CITE all]
+2020 (Riemannian batch and stochastic optimisation for GMMs) is an alternative to EM-style updates.
 
 **Dead components.** Hughes & Sudderth 2013 (memoized online VI with birth/merge moves) is the closest mechanism
 to revival in the online-EM literature. k-means codebooks commonly re-seed empty clusters (Faiss; e-means' donor
 split). We know of no single dead-component rule applied across EM families.
 
 **Scaling laws and hyperparameter transfer.** Empirical laws for learning rate and batch size in neural network
-training [CITE: McCandlish et al. 2018 noise scale; Kaplan et al. 2020; Bi et al. 2024 / DeepSeek LLM
-hyper-parameter laws; Busbridge et al. 2023 EMA scaling with batch size]. e-means fitted such a law for k-means on
+training are well established: the gradient noise scale (McCandlish et al. 2018), loss scaling laws (Kaplan et al.
+2020), and fitted learning-rate and batch-size laws (DeepSeek-AI 2024). Busbridge et al. 2023 show how to scale an
+EMA with batch size. The cosine schedule comes from SGD (Loshchilov & Hutter 2017). e-means fitted such a law for k-means on
 one dataset. We test whether it transfers across families, and in which coordinates.
 
-**Fast exact baselines.** GPU-exact k-means and GMM implementations [CITE Flash-KMeans / Flash-GMM] change
-wall-clock but not epochs. TODO: compare, or justify leaving them out (§7).
+**Fast exact kernels.** Flash-KMeans (Yang et al. 2026) and Flash-GMM (Bloch et al. 2026) are fused GPU kernels
+that make each exact Lloyd or EM iteration cheaper without storing the N×K distance or responsibility matrix. They
+change the cost per pass, not the number of passes. The same kernels would apply to the mini-batch E-step of the
+recipe. They are therefore complementary to this paper, which counts passes (epochs to the batch objective) and
+reports wall-clock only from a like-for-like CPU implementation of both sides. We did not combine them with either
+side. Their GPU speed-ups, if they carry over to the mini-batch E-step, should multiply with the epoch gains
+reported here; testing this is future work.
 
 ## 3. Method
 
@@ -118,11 +124,12 @@ With α_t = (τ0 + t)^−κ this is stepwise EM; the tuned baseline uses this fo
 |---|---|---|
 | GMM (diag / full) | N_j, Σ r_ij x_i, Σ r_ij x_i x_iᵀ (or diagonal) | weights, means, covariances (+ ridge) |
 | HMM | expected initial, transition and emission counts (forward–backward) | row-normalise |
-| LDA | expected topic–word counts (SVI global step on λ) | λ = η + D·Ŝ |
+| LDA | expected topic–word counts, scaled by D/B (D = training documents), i.e. SVI's global step | λ = η + Ŝ |
 | Dictionary learning / NMF | A = Σ α αᵀ, B = Σ x αᵀ (Mairal et al.) | block-coordinate dictionary update |
 | ALS | per-item n_i, b_i = Σ r u, A_i = Σ u uᵀ | item factors from the normal equations |
 
-TODO: confirm notation for LDA's scaling (D = corpus size) and the dictionary-learning projection against code.
+For dictionary learning the M-step is a few passes of block-coordinate descent on the dictionary columns given the
+EMA (A, B), with a non-negativity projection for NMF (Mairal et al. 2010).
 
 ### 3.2 Cosine schedule
 
@@ -134,8 +141,9 @@ annealing to ε·α0 at the end.
 
 ### 3.3 Revival
 
-Every 5 batches, any component with EMA mass N_j < 0.1 · mean(N) is re-seeded by splitting a donor component, as in
-e-means. Families without per-component mass (ALS) do not use revival. Statistics start at N = 10⁻¹⁰, so the first
+Every 5 batches, any unit (mixture component, topic, state, dictionary atom) with EMA mass N_j < 0.1 · mean(N) is
+re-seeded by splitting a live donor drawn with probability proportional to its mass: the donor's statistics are
+shared and slightly perturbed, as in e-means. One implementation (`core/revival.py`) serves all families. Families without per-component mass (ALS) do not use revival. Statistics start at N = 10⁻¹⁰, so the first
 batch effectively initialises them.
 
 ### 3.4 Rate laws
@@ -282,8 +290,12 @@ Three findings follow.
 3. **On LDA, a tuned inverse-time schedule with revival is as good or better.** It matches the batch reference
    sooner on 20NG (0.89 vs 1.13 epochs) and ends lower on Enron and NYTimes at T = 25. The recipe's held-out
    perplexity rises from T = 5 to T = 25 on all three corpora (e.g. 20NG 2290 → 2334), and so does batch VB's
-   (2456 at 10 → 2489 at 25). The cosine floor (ε·α0) may be too high for LDA, or the long-budget local search may
-   be too narrow. TODO: one diagnostic run with ε = 0.01 on LDA.
+   (2456 at 10 → 2489 at 25). A diagnostic rules out the two obvious causes (exploratory; seeds 0–2, k = 50,
+   B = 256). Lowering the cosine floor from ε = 0.1 to 0.01 changes validation-selected test perplexity by at most
+   7 (20NG T = 25: 2321 → 2328; Enron 2293 → 2290; NYTimes 3235 → 3235 at T = 25), well inside seed spread. Adding
+   α0 one step below the long-budget grid does not move the optimum, which stays interior (20NG T = 25: 0.00518,
+   val 2466 vs 2569 one step lower). The rise with T is therefore a property of SVI on these corpora rather than of
+   the floor or the grid, and we leave its cause open.
 
 Against the strongest baseline, the recipe reaches the batch reference sooner on 16 of 19 configurations (ALS is
 compared with stepwise ALS without revival, since neither uses it). It is slower on LDA 20NG, and neither reaches
@@ -308,6 +320,10 @@ time / time for our method to reach the reference objective. Timed only for matc
 | GMM AG News diag | 10.7 | 6.1x | 7.5x |
 | GMM synthetic full | 20.9 | 5.4x | 6.2x |
 | LDA 20NG | 6.0 | 6.8x | — |
+
+![Figure 5](figs/timing_speedup.png)
+
+*Figure 5:* the same speed-ups on a log scale (`results/figures/timing_speedup.*`).
 
 Wall-clock speed-ups are below epoch gains because a mini-batch epoch has extra per-step overhead (statistic
 updates, M-steps after every batch). TODO: time the T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if
@@ -354,8 +370,15 @@ The law is not universal:
 A natural next feature is the fraction of missing information, which theory links to the optimal step of
 stochastic-approximation EM (TODO, §7).
 
-*Figure 3:* LOCO / LOAO penalties per law (`results/figures/law_penalties.*`). *Figure 4 (TODO):* α0* vs q_eff, all
-families, with the global fit.
+*Figure 3:* LOCO / LOAO penalties per law (`results/figures/law_penalties.*`).
+
+![Figure 4](figs/law_coords.png)
+
+*Figure 4:* swept α0* vs observations per statistic cell per step (q_eff), all 422 cells. Each α0* is moved to a
+common n/B (94) and T = 1 along the fitted exponents; the line is the single global fit Qe0 (slope 0.43). Hollow =
+censored at the grid's lower edge, excluded from the fit. Two things stand out. LDA's low rates fall on the same
+trend as the other families once cells are counted per statistic. HMMs (squares) sit far above the line at α0* ≈ 1.
+(`results/figures/law_coords.*`)
 
 ## 6. Discussion
 
@@ -375,10 +398,12 @@ is already near convergence after a few passes (ALS ML-1M) or where the statisti
 **Limitations.**
 1. *Datasets.* They are narrower than planned: MovieLens 1M/10M instead of 25M/Netflix; Brown instead of Penn
    Treebank; no PubMed/Wikipedia LDA; no audio dictionary learning.
-2. *Reference.* The reference is batch EM at 25 iterations, not converged batch EM.
+2. *Reference.* The reference is batch EM at 25 iterations, not converged batch EM. It runs with a like-for-like
+   CPU implementation, not with fused GPU kernels such as Flash-KMeans / Flash-GMM (§2).
 3. *Long budgets.* They use a frozen 3–4-point local search for all methods.
 4. *Wall-clock.* It covers matches within 5 epochs only, on one CPU.
-5. *Missing GPU baselines.* We did not compare exact GPU baselines (Flash-KMeans / Flash-GMM).
+5. *GPU kernels.* We did not combine either side with fused GPU kernels (Flash-KMeans / Flash-GMM); §2 explains
+   why they are complementary rather than competing.
 6. *Post-hoc analyses.* The revival-equipped baseline and the per-cell law were added after seeing results.
 7. *Operational repairs.* All were disclosed and none changed a method: an LDA E-step aliasing bug (all LDA re-run),
    a scheduler bug (73 jobs re-run), 17 HMM jobs re-run after GPU errors, and one ALS cell filled

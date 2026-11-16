@@ -104,7 +104,7 @@ epochs-to-match; 95% CI by seed bootstrap; paired t-test by seed (α = 0.05). At
 3–4-point local search around the T = 5 optimum for both ours and the tuned baselines
 (`results/<track>/long_budget_plan.json`) — disclose.
 
-**Recipe constants:** cosine schedule α(t) = α0·(ε + (1−ε)·½(1+cos(πt/M))), ε = 0.1; revival when
+**Recipe constants:** cosine schedule α(t) = α0·(ε + (1−ε)·½(1+cos(πt/M))), ε = 0.1 (ε = 0.01 checked on LDA: |Δ test perplexity| ≤ 7, PAPER_LOG §5); revival when
 N_j < 0.1·mean(N) checked every 5 batches; statistics initialised at N = 1e-10.
 
 **Hardware / software.**
@@ -162,8 +162,8 @@ no-revival one is the published prior art, the revival one is the fair ablation.
 | Fig 1 | convergence curves (test objective vs epochs, ours vs tuned vs batch) per family | `results/figures/convergence.{pdf,png,txt}` | generated (v3); needs final styling |
 | Fig 2 | α0 sweeps: val loss vs α0 per budget, law prediction marked | `results/figures/alpha0_sweeps.*` | generated (v3) |
 | Fig 3 | law penalties: LOCO / LOAO penalty per model (M0, M1, KM, Q*, Qe*) | `results/figures/law_penalties.*` | generated (v3) |
-| Fig 4 (planned) | optimal α0* vs observations per cell q_eff, all families, global fit | from `refit_coords.json` | **to make** |
-| Fig 5 (planned) | wall-clock speed-up bar chart (isolated timing) | `results/_timing/*/runs.jsonl` | **to make** |
+| Fig 4 | optimal α0* vs observations per cell q_eff, all families, global fit (partial residual to n/B = 94, T = 1) | sweep cells via `refit_coords.load_cells` → `results/figures/law_coords.*` | generated |
+| Fig 5 | wall-clock speed-up dot plot (isolated timing, T ≤ 5) | `results/_timing/*/runs.jsonl` → `results/figures/timing_speedup.*` | generated |
 | Tab 1 | families × datasets × metric × reference | §4 above | draft |
 | Tab 2 | epochs-to-match, ours vs tuned vs law | §5 above / VERDICT.md | draft |
 | Tab 3 | isolated timing | PAPER_LOG §4 | draft |
@@ -193,13 +193,17 @@ no-revival one is the published prior art, the revival one is the fair ablation.
 - [x] Novelty checks, first pass (2026-11-16, PAPER_LOG §6): no cross-family law, no cosine-scheduled online EM,
       no cross-family benchmark found; cite Ranganath 2013, Hughes & Sudderth 2013, Chen 2018 in addition; watch
       DDMC issue #561 and arXiv for e-means follow-ups.
-- [ ] Flash-KMeans / Flash-GMM comparison or a justification for leaving it out.
+- [x] Flash-KMeans / Flash-GMM: justification written (draft §2, limitation 5). They are fused GPU kernels that
+      make each exact pass cheaper, complementary to the epoch count (arXiv:2603.09229, arXiv:2606.10896).
+- [x] Figures 4 (α0* vs q_eff, `law_coords`) and 5 (timing speed-ups, `timing_speedup`) made (`make_figures.py`).
+- [x] Draft bibliography `paper/references.md` (unverified entries marked); dataset table `paper/datasets.md`
+      (licences to verify on provider pages).
 - [ ] Missing-information fraction as a law feature (PAPER_LOG §5); statistic-space noise-scale test.
 - [ ] Deeper novelty checks (forward citations, SVI adaptive-step papers; first pass done above) (literature review, "Novelty checks" table): cross-family step law, cosine schedule for EM,
       unified revival rule.
 - [x] e-means law exponents and citations confirmed (PAPER_LOG §6, 2026-11-16).
 - [ ] Decide headline framing (title choice, §1) and finalise the abstract's last sentence.
-- [ ] Make Fig 4 and Fig 5; restyle Figs 1–3.
+- [ ] Restyle Figs 1–3.
 - [ ] Optional: time T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if wall-clock for them is wanted.
 - [ ] Dataset licences / citations for every dataset (SIFT1M, MovieLens, UCI BoW, UCI HAR, Brown, 20NG, CIFAR-100,
       AG News, DINOv2 / MiniLM models).

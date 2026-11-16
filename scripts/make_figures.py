@@ -233,9 +233,81 @@ def fig_law():
     save(fig, "law_penalties", [f"results/universal-scaling-law/runs.jsonl ({len(recs)} records)"])
 
 
+FAM_STYLE = {"gmm-ema": ("GMM", "o"), "hmm-ema": ("HMM", "s"), "lda-scaling": ("LDA", "^"),
+             "dictlearn-scaling": ("dictionary learning", "D"), "als-ema": ("ALS", "v")}
+
+
+def fig_law_coords():
+    """Fig 4: swept alpha0* vs observations per statistic cell (q_eff), one global law (Qe0, exploratory)."""
+    sys.path.insert(0, str(ROOT / "tracks" / "universal-scaling-law"))
+    import refit_coords as rc
+    cells = rc.load_cells(rc.dataset_stats())
+    if not cells:
+        return
+    fitc = [c for c in cells if not c["edge"]]
+    c0, a, b, d = rc.fit(fitc, "Qe0", sorted({c["alg"] for c in cells}))
+    nb_ref = float(np.median([c["n"] / c["B"] for c in cells]))
+    # partial residual: alpha0* moved to the reference n/B and T = 1 along the fitted exponents
+    adj = lambda c: c["a_star"] * (nb_ref / (c["n"] / c["B"])) ** b * (1.0 / c["T"]) ** d
+    fig, ax = plt.subplots(figsize=(3.6, 2.6))
+    for i, (alg, (lab, mk)) in enumerate(FAM_STYLE.items()):
+        cs = [c for c in cells if c["alg"] == alg]
+        if not cs:
+            continue
+        for cens in (False, True):
+            sel = [c for c in cs if c["edge"] == cens]
+            if sel:
+                ax.scatter([c["qe"] for c in sel], [adj(c) for c in sel], s=14, marker=mk, linewidths=0.8,
+                           facecolors="none" if cens else SLOTS[i], edgecolors=SLOTS[i], alpha=0.85,
+                           label=lab if not cens else None, zorder=3)
+    xs = np.logspace(np.log10(min(c["qe"] for c in cells)), np.log10(max(c["qe"] for c in cells)), 50)
+    ax.plot(xs, np.minimum(np.exp(c0) * xs ** a * nb_ref ** b, 1.0), color=INK, lw=1.5, zorder=4,
+            label=f"global fit, slope {a:.2f}")
+    ax.set_xscale("log"); ax.set_yscale("log")
+    ax.set_xlabel("observations per statistic cell per step, q_eff")
+    ax.set_ylabel(f"alpha0* (adjusted to n/B={nb_ref:.0f}, T=1)")
+    ax.legend(fontsize=6.5, loc="upper left", bbox_to_anchor=(1.01, 1.0), handletextpad=0.3)
+    save(fig, "law_coords", [f"results/<track>/sweep.jsonl via refit_coords.load_cells ({len(cells)} cells, "
+                             f"{len(cells) - len(fitc)} censored = hollow)",
+                             f"Qe0 refit here: log a* = {c0:.3f} + {a:.3f} log q_eff + {b:.3f} log(n/B) + {d:.3f} log T"])
+
+
+def fig_timing(tracks=("dictlearn-scaling", "hmm-ema", "gmm-ema", "lda-scaling", "als-ema")):
+    """Fig 5: isolated-timing wall-clock speed-up to reach the full-batch reference@25 (CPU, T <= 5 only)."""
+    from evaluate import timing_summary
+    rows = []
+    for tr in tracks:
+        t = timing_summary(tr) or {}
+        for g, v in t.items():
+            sp = {kind: next((m["wall_speedup"] for name, m in v["methods"].items()
+                              if name.endswith(kind) and m["wall_speedup"]), None) for kind in ("_swept", "_kmlaw")}
+            if sp["_swept"] or sp["_kmlaw"]:
+                rows.append((f"{'DL' if tr == 'dictlearn-scaling' else FAM_STYLE[tr][0]} {g.split('|')[0]}" +
+                             (f" {g.split('|')[-1]}" if tr == "gmm-ema" else ""), sp))
+    if not rows:
+        return
+    rows.sort(key=lambda r: r[1]["_swept"] or r[1]["_kmlaw"])
+    fig, ax = plt.subplots(figsize=(3.6, 0.22 * len(rows) + 0.6))
+    y = np.arange(len(rows))
+    for kind, col, lab, off in (("_swept", SLOTS[0], "recipe, alpha0 swept on val", 0.12),
+                                ("_kmlaw", SLOTS[1], "recipe, k-means law (untuned)", -0.12)):
+        xv = [r[1][kind] for r in rows]
+        ax.scatter([x for x in xv if x], [yy + off for yy, x in zip(y, xv) if x], s=22, color=col, label=lab,
+                   zorder=3, edgecolors="white", linewidths=0.8)
+    ax.axvline(1.0, color=INK2, lw=1, ls="--")
+    ax.set_yticks(y, [r[0] for r in rows], fontsize=6.5)
+    ax.set_xscale("log")
+    ax.set_xlabel("wall-clock speed-up to reach full-batch@25 (CPU, isolated)")
+    ax.grid(axis="y", visible=False)
+    ax.legend(fontsize=6.5, loc="lower left", bbox_to_anchor=(0.0, 1.0), ncol=2, handletextpad=0.2)
+    save(fig, "timing_speedup", [f"results/_timing/{tr}/runs.jsonl via evaluate.timing_summary" for tr in tracks])
+
+
 if __name__ == "__main__":
     fig_convergence()
     fig_alpha_sweeps()
     fig_ivf()
     fig_drift()
     fig_law()
+    fig_law_coords()
+    fig_timing()

@@ -1,0 +1,6 @@
+Plotted from:
+  results/_timing/dictlearn-scaling/runs.jsonl via evaluate.timing_summary
+  results/_timing/hmm-ema/runs.jsonl via evaluate.timing_summary
+  results/_timing/gmm-ema/runs.jsonl via evaluate.timing_summary
+  results/_timing/lda-scaling/runs.jsonl via evaluate.timing_summary
+  results/_timing/als-ema/runs.jsonl via evaluate.timing_summary

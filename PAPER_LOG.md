@@ -372,6 +372,30 @@ re-emitted. *Result: see the next entry.*
   top, alpha0 = 1, with ~1 observation per cell per step) is predicted worse than by the k-means law
   (LOAO 1.6–1.8% vs 0.1%). Next candidate feature: missing-information fraction.
 
+### LDA cosine-floor diagnostic (2026-11-16/17; diagnostic, not pre-registered)
+
+Question: is the recipe's rise in LDA held-out perplexity from T=5 to T=25 caused by the cosine floor (eps=0.1) or
+by the long-budget alpha0 grid being too narrow? Script `tracks/lda-scaling/eps_diag.py`; records in
+`results/lda-scaling/eps_diag.jsonl` (102 runs; not read by evaluate.py). Headline cells k=50, B=256, full n,
+revival on, seeds 0-2. eps=0.1 baselines come from sweep.jsonl plus eps=0.1 runs made here for alphas outside the
+sweep. alpha0 picked on mean val; test is the mean over seeds at that alpha0.
+
+| corpus | T | eps=0.1: best a0, test | eps=0.01: best a0, test |
+|---|---|---|---|
+| 20NG | 5 | 0.0193, 2297.3 | 0.0193, 2292.0 |
+| 20NG | 25 | 0.00518, 2321.4 | 0.00518, 2328.1 |
+| Enron | 5 | 0.01, 2265.1 | 0.01, 2264.6 |
+| Enron | 25 | 0.00518, 2292.8 | 0.00518, 2289.6 |
+| NYTimes | 5 | 0.00518, 3224.6 | 0.00518, 3225.3 |
+| NYTimes | 25 | 0.00518, 3235.3 | 0.00518, 3234.6 |
+
+- The floor does not matter: |Δ test| ≤ 6.7, same selected alpha0 in every cell.
+- Grid edge: at T=25, 20NG was extended to 0.00268 and Enron to 0.00139; both are worse on val (20NG 2569 vs 2466),
+  so the optima are interior. NYTimes `--below` crashed (no alpha below 0.00139 in the UP/DOWN map; KeyError in
+  eps_diag_logs/nytimes_T25_below_*.log); not needed, since its optimum 0.00518 is interior already.
+- The T=5 → T=25 rise persists under both eps on all three corpora (20NG 2297 → 2321, Enron 2265 → 2293, NYTimes
+  3225 → 3235). Cause left open; the paper says so (draft §5.2 item 3).
+
 ## 6. Positioning and related work (from the literature review, 2026-11-14)
 
 Full report: `reports/Novel directions for EMA statistics.md`; notes per area in

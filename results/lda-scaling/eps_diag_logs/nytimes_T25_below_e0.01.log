@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/dummi/clasic_evolution/tracks/lda-scaling/eps_diag.py", line 109, in <module>
+    run(a.corpus, a.T, a.eps, [int(x) for x in a.seeds.split(",")], a.below)
+  File "/home/dummi/clasic_evolution/tracks/lda-scaling/eps_diag.py", line 55, in run
+    for a in alphas(corpus, below):
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/lda-scaling/eps_diag.py", line 42, in alphas
+    return [DOWN[min(a)]]
+            ~~~~^^^^^^^^
+KeyError: 0.00139
