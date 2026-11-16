@@ -1,0 +1,6 @@
+
+##### dinov2_pca64 cov=full n=45000 k=64
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=10.0 a0=0.0373 s=1 val=54.864 test=54.863 (96.3s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=10.0 a0=0.0720 s=1 val=54.968 test=54.89 (121.9s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=10.0 a0=0.1389 s=1 val=55.131 test=55.012 (97.3s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=10.0 a0=0.2683 s=1 val=54.878 test=54.69 (154.4s)

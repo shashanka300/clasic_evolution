@@ -1,0 +1,43 @@
+
+##### nmf_20ng n=14200 d=2000 K=32
+   full_batch_dl it=1 test=0.46575 (0s)
+   full_batch_dl it=2 test=0.45824 (0s)
+   full_batch_dl it=3 test=0.45430 (0s)
+   full_batch_dl it=4 test=0.45210 (0s)
+   full_batch_dl it=5 test=0.45093 (1s)
+   full_batch_dl it=6 test=0.45016 (1s)
+   full_batch_dl it=7 test=0.44953 (1s)
+   full_batch_dl it=8 test=0.44900 (1s)
+   full_batch_dl it=9 test=0.44857 (1s)
+   full_batch_dl it=10 test=0.44828 (1s)
+   full_batch_dl it=11 test=0.44808 (1s)
+   full_batch_dl it=12 test=0.44795 (1s)
+   full_batch_dl it=13 test=0.44785 (1s)
+   full_batch_dl it=14 test=0.44779 (1s)
+   full_batch_dl it=15 test=0.44775 (1s)
+   full_batch_dl it=16 test=0.44772 (1s)
+   full_batch_dl it=17 test=0.44769 (1s)
+   full_batch_dl it=18 test=0.44768 (2s)
+   full_batch_dl it=19 test=0.44767 (2s)
+   full_batch_dl it=20 test=0.44767 (2s)
+   full_batch_dl it=21 test=0.44768 (2s)
+   full_batch_dl it=22 test=0.44768 (2s)
+   full_batch_dl it=23 test=0.44770 (2s)
+   full_batch_dl it=24 test=0.44771 (2s)
+   full_batch_dl it=25 test=0.44771 (2s)
+[ref] nmf_20ng|k=32 s=0 full_batch_dl@25 test=0.44771 (2s)
+
+##### cifar_p8 n=200000 d=64 K=128
+
+##### nmf_20ng n=14200 d=2000 K=32
+
+##### cifar_p12 n=100000 d=144 K=192
+[timing] cifar_p8|k=128 s=0 dl_ema_swept walls=[2.33, 4.29, 8.61, 17.65, 26.33, 43.83]
+[timing] cifar_p8|k=128 s=1 dl_ema_swept walls=[2.18, 4.36, 8.72, 17.42, 25.92, 43.32]
+[timing] cifar_p8|k=128 s=2 dl_ema_swept walls=[2.24, 4.3, 8.66, 17.41, 26.06, 43.16]
+[timing] nmf_20ng|k=32 s=0 dl_ema_swept walls=[0.12, 0.09, 0.14, 0.25, 0.4, 0.58]
+[timing] nmf_20ng|k=32 s=1 dl_ema_swept walls=[0.06, 0.08, 0.14, 0.25, 0.37, 0.59]
+[timing] nmf_20ng|k=32 s=2 dl_ema_swept walls=[0.11, 0.09, 0.14, 0.27, 0.36, 0.58]
+[timing] cifar_p12|k=192 s=0 dl_ema_swept walls=[1.67, 3.32, 6.59, 12.97, 19.68, 32.65]
+[timing] cifar_p12|k=192 s=1 dl_ema_swept walls=[1.68, 3.33, 6.61, 13.01, 19.66, 32.75]
+[timing] cifar_p12|k=192 s=2 dl_ema_swept walls=[1.69, 3.33, 6.57, 12.99, 19.65, 32.64]

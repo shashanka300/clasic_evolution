@@ -1,0 +1,107 @@
+{
+ "alpha|lda_ema|20ng|n=12170|k=50|B=256": {
+  "alphas": [
+   0.00518,
+   0.01,
+   0.0193,
+   0.0373
+  ],
+  "anchor_alpha": 0.0193,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|lda_ema|enron|n=35518|k=50|B=256": {
+  "alphas": [
+   0.00268,
+   0.00518,
+   0.01,
+   0.0193
+  ],
+  "anchor_alpha": 0.01,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|lda_ema|nytimes|n=95543|k=50|B=256": {
+  "alphas": [
+   0.00139,
+   0.00268,
+   0.00518,
+   0.01
+  ],
+  "anchor_alpha": 0.00518,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "stepwise|stepwise|20ng|k=50": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    10.0,
+    1.0
+   ],
+   [
+    10.0,
+    0.9
+   ],
+   [
+    100.0,
+    0.7
+   ]
+  ]
+ },
+ "stepwise|stepwise|enron|k=50": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    10.0,
+    1.0
+   ],
+   [
+    10.0,
+    0.9
+   ],
+   [
+    10.0,
+    0.8
+   ]
+  ]
+ },
+ "stepwise|stepwise|nytimes|k=50": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    100.0,
+    0.7
+   ],
+   [
+    10.0,
+    1.0
+   ],
+   [
+    10.0,
+    0.9
+   ]
+  ]
+ }
+}

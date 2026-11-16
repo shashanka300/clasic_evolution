@@ -1,0 +1,18 @@
+
+##### agnews_pca64 cov=diag n=90000 k=64
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=0.0100 s=0 val=80.921 test=80.979 (3.8s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=0.0193 s=0 val=80.89 test=80.947 (2.0s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=0.0373 s=0 val=80.831 test=80.885 (1.5s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=0.0720 s=0 val=80.721 test=80.772 (2.0s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=0.1389 s=0 val=80.506 test=80.549 (2.1s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=0.2683 s=0 val=80.145 test=80.17 (1.9s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=0.5179 s=0 val=79.789 test=79.854 (2.1s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.25 a0=1.0000 s=0 val=80.45 test=80.61 (1.6s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=0.0100 s=0 val=80.412 test=80.456 (1.4s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=0.0193 s=0 val=80.356 test=80.399 (1.2s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=0.0373 s=0 val=80.245 test=80.286 (1.5s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=0.0720 s=0 val=80.027 test=80.069 (1.9s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=0.1389 s=0 val=79.675 test=79.714 (1.6s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=0.2683 s=0 val=79.33 test=79.379 (1.3s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=0.5179 s=0 val=79.28 test=79.396 (1.7s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=0.5 a0=1.0000 s=0 val=79.457 test=79.55 (2.0s)

@@ -1,0 +1,18 @@
+
+##### synthetic n=20000 S=12 V=200
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0100 s=0 val=4.642 test=4.645 (151.7s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0193 s=0 val=4.6419 test=4.6449 (0.9s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0373 s=0 val=4.6417 test=4.6447 (1.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0720 s=0 val=4.6412 test=4.6443 (0.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.1389 s=0 val=4.6403 test=4.6434 (0.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.2683 s=0 val=4.6371 test=4.6403 (0.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.5179 s=0 val=4.6169 test=4.6199 (0.5s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=1.0000 s=0 val=4.4215 test=4.4222 (0.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0100 s=0 val=4.6399 test=4.643 (1.7s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0193 s=0 val=4.6396 test=4.6427 (0.7s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0373 s=0 val=4.6389 test=4.642 (1.6s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0720 s=0 val=4.6373 test=4.6404 (0.7s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.1389 s=0 val=4.6318 test=4.6348 (3.6s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.2683 s=0 val=4.5903 test=4.5928 (9.0s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.5179 s=0 val=4.3739 test=4.3743 (4.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=1.0000 s=0 val=4.0907 test=4.0964 (0.6s)

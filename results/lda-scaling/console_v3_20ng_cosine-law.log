@@ -1,0 +1,10 @@
+
+##### 20ng D=12170 V=10000 K=50
+[law] 20ng: LOO coeffs [-4.567 -0.536  0.933 -0.841] from 40 cells; a0(T)=0.310, 0.173, 0.097, 0.054, 0.038, 0.025, 0.014, 0.006
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+[cosine_law] 20ng s=0 T0.25=3470.1 T0.5=2864.7 T1=2500.9 T2=2320.1 T3=2327.0 T5=2242.3 T10=2347.5 T25=2347.5
+[cosine_law] 20ng s=1 T0.25=3488.1 T0.5=2988.3 T1=2566.6 T2=2366.5 T3=2373.4 T5=2321.0 T10=2257.3 T25=2347.9
+[cosine_law] 20ng s=2 T0.25=3506.9 T0.5=2984.0 T1=2568.3 T2=2369.7 T3=2345.1 T5=2263.0 T10=2282.7 T25=2315.4
+[cosine_law] 20ng s=3 T0.25=3458.1 T0.5=2850.1 T1=2530.2 T2=2349.9 T3=2311.1 T5=2305.4 T10=2239.1 T25=2364.2
+[cosine_law] 20ng s=4 T0.25=3517.5 T0.5=2905.3 T1=2547.2 T2=2461.4 T3=2398.6 T5=2356.1 T10=2328.5 T25=2388.8

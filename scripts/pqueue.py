@@ -91,12 +91,23 @@ def job_core(cmd: str) -> str:
     return cmd.split(" >")[0].split(".venv/bin/python", 1)[-1].strip()
 
 
-def find_pid(core: str) -> int | None:
-    """pid of an already-running python process for this job (so a restarted queue adopts it, never duplicates it)."""
+def job_env(cmd: str) -> dict[str, str]:
+    """VAR=value assignments in front of the python invocation (they tell apart jobs with the same argv)."""
+    head = cmd.split(" >")[0].split(".venv/bin/python", 1)[0]
+    return dict(t.split("=", 1) for t in head.split() if "=" in t and t.split("=", 1)[0].isupper())
+
+
+def find_pid(core: str, env: dict[str, str] | None = None, claimed: set[int] = frozenset()) -> int | None:
+    """pid of an already-running python process for this job (so a restarted queue adopts it, never duplicates it).
+
+    Jobs that differ only in env vars (CLASSIC_ALGOS_BUDGETS=10 vs =25) share an argv: the env must match too, and a
+    pid already adopted by another job is never reused (2026-11-15 fix: one pid used to be adopted by several ids,
+    which then all got recorded as done when it exited).
+    """
     if not core:
         return None
     for d in Path("/proc").iterdir():
-        if not d.name.isdigit() or int(d.name) == os.getpid():
+        if not d.name.isdigit() or int(d.name) == os.getpid() or int(d.name) in claimed:
             continue
         try:
             argv = (d / "cmdline").read_bytes().split(b"\0")
@@ -104,6 +115,14 @@ def find_pid(core: str) -> int | None:
             continue
         line = " ".join(a.decode(errors="replace") for a in argv if a)
         if "python" in argv[0].decode(errors="replace") and line.endswith(core):
+            if env:
+                try:
+                    penv = dict(e.decode(errors="replace").split("=", 1) for e in (d / "environ").read_bytes().split(b"\0")
+                                if b"=" in e)
+                except OSError:
+                    continue
+                if any(penv.get(k) != v for k, v in env.items()):
+                    continue
             return int(d.name)
     return None
 
@@ -153,9 +172,11 @@ def main() -> None:
 
     running: dict[str, tuple[subprocess.Popen | Adopted, dict, float]] = {}
     pending = [j for j in jobs if j["id"] not in done]
+    claimed: set[int] = set()
     for job in list(pending):  # jobs still running from a previous queue instance
-        pid = find_pid(job_core(job["cmd"]))
+        pid = find_pid(job_core(job["cmd"]), job_env(job["cmd"]), claimed)
         if pid:
+            claimed.add(pid)
             running[job["id"]] = (Adopted(pid), job, time.time())
             pending.remove(job)
             log(f"ADOPT {job['id']} pid={pid} (already running)")

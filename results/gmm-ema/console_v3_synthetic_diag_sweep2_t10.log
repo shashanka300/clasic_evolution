@@ -1,0 +1,5 @@
+
+##### synthetic cov=diag n=200000 k=32
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=10.0 a0=0.2683 s=2 val=48.322 test=48.403 (343.7s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=10.0 a0=0.5179 s=2 val=47.867 test=47.955 (296.4s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=10.0 a0=1.0000 s=2 val=47.764 test=47.851 (210.8s)

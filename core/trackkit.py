@@ -141,14 +141,14 @@ def stage_kmlaw(p: Problem, runs, seeds, method: str, n_for_law: int | None = No
     nl = n_for_law or p.n
     for s in seeds:
         curve = []
-        for T in BUDGETS:
+        for T in active(BUDGETS):  # all budgets unless CLASSIC_ALGOS_BUDGETS restricts them (v3 timing pass: T <= 5)
             B = emeans_batch_size(nl, p.k, T)
             a0 = emeans_alpha0(nl, p.k, T, B)
             tic = time.perf_counter()
             m = p.fit(a0, T, B, s)
             curve.append({"epoch": T, "test_loss": p.loss(m, "test"), "wall_s": time.perf_counter() - tic, "alpha0": a0, "B": B})
         write_run(runs, make_run(track=p.track, method=method, dataset=p.dataset, n=p.n, d=p.d, k_or_units=p.k,
-                  epochs=BUDGETS[-1], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
+                  epochs=curve[-1]["epoch"], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
                   test_loss=curve[-1]["test_loss"], wall_s=curve[-1]["wall_s"], role="ours", alpha0_source="law",
                   group=p.group, metric=p.metric, curve=curve, curve_kind="budget", config=p.config))
 
@@ -167,9 +167,12 @@ def run_all(p: Problem, runs, sweep_path, seeds, *, ref_method, ema_method, step
         stage_head_sweep(p, sweep_path, seeds, ema_method, head_B)
     if stage == "plan":  # freeze the restricted long-budget grids (run once, after the T=5 cells are complete)
         sg = sweep_group(p.dataset, p.n, p.k, head_B, p.tag)
-        print(f"[plan] {sg} alphas={long_alphas(sweep_path, ema_method, sg)} stepwise="
-              f"{long_stepwise(sweep_path, f'stepwise|{p.group}', anchor_rows(sweep_path, f'stepwise|{p.group}', 'sweep_stepwise'))}",
-              flush=True)
+        try:
+            print(f"[plan] {sg} alphas={long_alphas(sweep_path, ema_method, sg)} stepwise="
+                  f"{long_stepwise(sweep_path, f'stepwise|{p.group}', anchor_rows(sweep_path, f'stepwise|{p.group}', 'sweep_stepwise'))}",
+                  flush=True)
+        except RuntimeError as e:  # no T=5 cells yet: frozen lazily by the first long-budget worker (job deps)
+            print(f"[plan] {sg} deferred: {e}", flush=True)
     if stage in ("all", "online"):
         stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method)
     if stage in ("all", "kmlaw"):

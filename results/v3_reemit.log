@@ -1,0 +1,48 @@
+[reemit] gmm-ema: removed 40 swept rows; re-emitting
+
+##### synthetic cov=diag n=200000 k=32
+
+##### synthetic cov=full n=200000 k=32
+
+##### sift1m_pca64 cov=diag n=200000 k=64
+
+##### sift1m_pca64 cov=full n=200000 k=64
+
+##### dinov2_pca64 cov=diag n=45000 k=64
+
+##### dinov2_pca64 cov=full n=45000 k=64
+
+##### agnews_pca64 cov=diag n=90000 k=64
+
+##### agnews_pca64 cov=full n=90000 k=64
+[reemit] gmm-ema: 40 swept rows now
+[reemit] dictlearn-scaling: removed 15 swept rows; re-emitting
+
+##### cifar_p8 n=200000 d=64 K=128
+
+##### nmf_20ng n=14200 d=2000 K=32
+
+##### cifar_p12 n=100000 d=144 K=192
+[reemit] dictlearn-scaling: 15 swept rows now
+[reemit] lda-scaling: removed 11 swept rows; re-emitting
+
+##### 20ng D=12170 V=10000 K=50
+
+##### enron D=35518 V=20000 K=50
+
+##### nytimes D=95543 V=20000 K=50
+[reemit] lda-scaling: 15 swept rows now
+[reemit] als-ema: removed 9 swept rows; re-emitting
+
+##### ml1m users=6040 items=3706 lambda=0.1
+
+##### ml10m users=69878 items=10677 lambda=0.05
+[reemit] als-ema: 9 swept rows now
+[reemit] hmm-ema: removed 9 swept rows; re-emitting
+
+##### synthetic n=20000 S=12 V=200
+
+##### brown_pos n=47340 S=12 V=5000
+
+##### uci_har_vq n=6352 S=12 V=64
+[reemit] hmm-ema: 9 swept rows now

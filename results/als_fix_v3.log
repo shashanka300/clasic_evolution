@@ -1,0 +1,7 @@
+[reemit] als-ema: removed 9 swept rows; re-emitting
+
+##### ml1m users=6040 items=3706 lambda=0.1
+
+##### ml10m users=69878 items=10677 lambda=0.05
+[reemit] als-ema: 10 swept rows now
+[drop_rows] results/_timing/als-ema/runs.jsonl: moved 6 rows (als_ema_swept, None)

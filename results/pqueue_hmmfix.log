@@ -1,0 +1,46 @@
+2026-11-16 00:52:35 start: 22 pending / 22 jobs, budget=32 threads, max_jobs=8
+2026-11-16 00:52:35 START on_hmm_synthetic_s0_t25 threads=2 (in use 2/32, 1 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage online --seed-list 0 >> results/hmm-ema/console_v3_synthetic_online0_t25.log 2>&1
+2026-11-16 00:52:35 START sw_hmm_synthetic_s1_t10 threads=2 (in use 4/32, 2 jobs): CLASSIC_ALGOS_BUDGETS=10 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage sweep --seed-list 1 >> results/hmm-ema/console_v3_synthetic_sweep1_t10.log 2>&1
+2026-11-16 00:52:35 START on_hmm_synthetic_s1_t10 threads=2 (in use 6/32, 3 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_BUDGETS=10 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage online --seed-list 1 >> results/hmm-ema/console_v3_synthetic_online1_t10.log 2>&1
+2026-11-16 00:52:35 START sw_hmm_synthetic_s1_t25 threads=2 (in use 8/32, 4 jobs): CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage sweep --seed-list 1 >> results/hmm-ema/console_v3_synthetic_sweep1_t25.log 2>&1
+2026-11-16 00:52:35 START on_hmm_synthetic_s1_t25 threads=2 (in use 10/32, 5 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage online --seed-list 1 >> results/hmm-ema/console_v3_synthetic_online1_t25.log 2>&1
+2026-11-16 00:52:35 START sw_hmm_synthetic_s2_t10 threads=2 (in use 12/32, 6 jobs): CLASSIC_ALGOS_BUDGETS=10 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage sweep --seed-list 2 >> results/hmm-ema/console_v3_synthetic_sweep2_t10.log 2>&1
+2026-11-16 00:52:35 START sw_hmm_synthetic_s2_t25 threads=2 (in use 14/32, 7 jobs): CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage sweep --seed-list 2 >> results/hmm-ema/console_v3_synthetic_sweep2_t25.log 2>&1
+2026-11-16 00:52:35 START on_hmm_synthetic_s2_t25 threads=2 (in use 16/32, 8 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage online --seed-list 2 >> results/hmm-ema/console_v3_synthetic_online2_t25.log 2>&1
+2026-11-16 00:52:50 END   on_hmm_synthetic_s1_t10 rc=0 (0.00 h)
+2026-11-16 00:52:50 START on_hmm_synthetic_s3_t25 threads=2 (in use 16/32, 8 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage online --seed-list 3 >> results/hmm-ema/console_v3_synthetic_online3_t25.log 2>&1
+2026-11-16 00:55:13 END   on_hmm_synthetic_s0_t25 rc=0 (0.04 h)
+2026-11-16 00:55:13 END   on_hmm_synthetic_s1_t25 rc=0 (0.04 h)
+2026-11-16 00:55:13 END   on_hmm_synthetic_s2_t25 rc=0 (0.04 h)
+2026-11-16 00:55:13 START sw_hmm_synthetic_s4_short threads=2 (in use 12/32, 6 jobs): CLASSIC_ALGOS_BUDGETS=0.25,0.5,1,2,3,5 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage sweep --seed-list 4 >> results/hmm-ema/console_v3_synthetic_sweep4_short.log 2>&1
+2026-11-16 00:55:13 START sw_hmm_brown_pos_s0_short threads=2 (in use 14/32, 7 jobs): CLASSIC_ALGOS_BUDGETS=0.25,0.5,1,2,3,5 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage sweep --seed-list 0 >> results/hmm-ema/console_v3_brown_pos_sweep0_short.log 2>&1
+2026-11-16 00:55:13 START sw_hmm_brown_pos_s0_t25 threads=2 (in use 16/32, 8 jobs): CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage sweep --seed-list 0 >> results/hmm-ema/console_v3_brown_pos_sweep0_t25.log 2>&1
+2026-11-16 00:55:28 END   sw_hmm_synthetic_s2_t10 rc=0 (0.05 h)
+2026-11-16 00:55:28 START on_hmm_brown_pos_s1_short threads=2 (in use 16/32, 8 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_BUDGETS=0.25,0.5,1,2,3,5 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage online --seed-list 1 >> results/hmm-ema/console_v3_brown_pos_online1_short.log 2>&1
+2026-11-16 00:55:43 END   on_hmm_brown_pos_s1_short rc=0 (0.00 h)
+2026-11-16 00:55:43 START on_hmm_brown_pos_s0_t25 threads=2 (in use 16/32, 8 jobs): CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage online --seed-list 0 >> results/hmm-ema/console_v3_brown_pos_online0_t25.log 2>&1
+2026-11-16 00:55:57 END   sw_hmm_synthetic_s4_short rc=0 (0.01 h)
+2026-11-16 00:55:57 END   on_hmm_brown_pos_s0_t25 rc=0 (0.00 h)
+2026-11-16 00:55:57 START sw_hmm_brown_pos_s1_t25 threads=2 (in use 14/32, 7 jobs): CLASSIC_ALGOS_BUDGETS=25 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage sweep --seed-list 1 >> results/hmm-ema/console_v3_brown_pos_sweep1_t25.log 2>&1
+2026-11-16 00:55:57 START sw_hmm_brown_pos_s2_t10 threads=2 (in use 16/32, 8 jobs): CLASSIC_ALGOS_BUDGETS=10 CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage sweep --seed-list 2 >> results/hmm-ema/console_v3_brown_pos_sweep2_t10.log 2>&1
+2026-11-16 00:56:12 END   sw_hmm_synthetic_s1_t10 rc=0 (0.06 h)
+2026-11-16 00:56:12 START fix_drop_tuned_brown threads=1 (in use 15/32, 8 jobs): python3 scripts/drop_rows.py results/hmm-ema/runs.jsonl --method stepwise_em_tuned --dataset brown_pos --tag cuda_crash >> results/hmm_fix_v3.log 2>&1
+2026-11-16 00:56:25 END   fix_drop_tuned_brown rc=0 (0.00 h)
+2026-11-16 00:56:25 START fix_fin_online_hmm_brown_pos threads=1 (in use 15/32, 8 jobs): CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets brown_pos --stage online --seeds 5 >> results/hmm-ema/console_v3_brown_pos_final.log 2>&1
+2026-11-16 00:56:40 END   sw_hmm_brown_pos_s0_short rc=0 (0.02 h)
+2026-11-16 00:56:40 END   fix_fin_online_hmm_brown_pos rc=0 (0.00 h)
+2026-11-16 00:57:24 END   on_hmm_synthetic_s3_t25 rc=0 (0.08 h)
+2026-11-16 00:57:24 START fix_fin_online_hmm_synthetic threads=1 (in use 11/32, 6 jobs): CLASSIC_ALGOS_GPU_PORTS=hmm .venv/bin/python -u tracks/hmm-ema/run_v2.py --datasets synthetic --stage online --seeds 5 >> results/hmm-ema/console_v3_synthetic_final.log 2>&1
+2026-11-16 00:57:38 END   fix_fin_online_hmm_synthetic rc=0 (0.00 h)
+2026-11-16 00:58:22 END   sw_hmm_synthetic_s2_t25 rc=0 (0.10 h)
+2026-11-16 00:59:33 END   sw_hmm_synthetic_s1_t25 rc=0 (0.12 h)
+2026-11-16 01:00:31 END   sw_hmm_brown_pos_s2_t10 rc=0 (0.08 h)
+2026-11-16 01:05:20 END   sw_hmm_brown_pos_s0_t25 rc=0 (0.17 h)
+2026-11-16 01:05:49 END   sw_hmm_brown_pos_s1_t25 rc=0 (0.16 h)
+2026-11-16 01:05:49 START fix_reemit_hmm threads=2 (in use 2/32, 1 jobs): python3 scripts/reemit_v3.py hmm-ema >> results/hmm_fix_v3.log 2>&1
+2026-11-16 01:06:18 END   fix_reemit_hmm rc=0 (0.01 h)
+2026-11-16 01:06:18 START fix_time_hmm threads=12 (in use 12/32, 1 jobs): python3 scripts/drop_rows.py results/_timing/hmm-ema/runs.jsonl --method hmm_ema_swept --tag cuda_crash >> results/hmm_fix_v3.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu CLASSIC_ALGOS_BUDGETS=0.25,0.5,1,2,3,5 .venv/bin/python -u scripts/timing_swept.py hmm-ema >> results/timing_hmm_v3.log 2>&1
+2026-11-16 01:08:13 END   fix_time_hmm rc=0 (0.03 h)
+2026-11-16 01:08:13 START fix_evaluate threads=4 (in use 4/32, 1 jobs): .venv/bin/python tracks/universal-scaling-law/fit_v2.py >> results/universal-scaling-law/console.log 2>&1; .venv/bin/python tracks/universal-scaling-law/refit_coords.py > results/universal-scaling-law/refit_coords.log 2>&1; .venv/bin/python scripts/evaluate.py > results/evaluate_all.log 2>&1 && .venv/bin/python scripts/make_figures.py >> results/evaluate_all.log 2>&1
+2026-11-16 01:09:10 END   fix_evaluate rc=0 (0.02 h)
+2026-11-16 01:09:25 queue empty

@@ -1,0 +1,18 @@
+
+##### nytimes D=95543 V=20000 K=50
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=0.0100 s=1 val=3611 test=3573.5 (12.1s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=0.0193 s=1 val=3554.6 test=3542.8 (8.9s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=0.0373 s=1 val=3492.8 test=3455.1 (11.2s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=0.0720 s=1 val=3538 test=3505.3 (12.9s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=0.1389 s=1 val=3716.8 test=3684.5 (10.8s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=0.2683 s=1 val=4094.7 test=4079.6 (12.7s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=0.5179 s=1 val=4821.8 test=4806.4 (12.2s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.25 a0=1.0000 s=1 val=6292 test=6223.3 (13.2s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=0.0100 s=1 val=3413 test=3379.5 (23.6s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=0.0193 s=1 val=3394.2 test=3384.1 (21.6s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=0.0373 s=1 val=3372.4 test=3337.2 (23.1s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=0.0720 s=1 val=3465.8 test=3433.3 (27.2s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=0.1389 s=1 val=3722.7 test=3704.6 (31.5s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=0.2683 s=1 val=4184.7 test=4133.4 (20.1s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=0.5179 s=1 val=4919.6 test=4878.7 (23.5s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=0.5 a0=1.0000 s=1 val=6433.5 test=6288.7 (33.4s)

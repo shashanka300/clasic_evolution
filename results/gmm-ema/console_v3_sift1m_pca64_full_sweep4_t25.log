@@ -1,0 +1,6 @@
+
+##### sift1m_pca64 cov=full n=200000 k=64
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=25.0 a0=0.0100 s=4 val=40.205 test=40.567 (299.1s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=25.0 a0=0.0193 s=4 val=40.115 test=40.471 (255.3s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=25.0 a0=0.0373 s=4 val=40.154 test=40.604 (398.4s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=25.0 a0=0.0720 s=4 val=40.116 test=40.67 (472.5s)

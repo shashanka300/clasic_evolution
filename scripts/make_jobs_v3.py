@@ -16,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PY = ".venv/bin/python -u"
 SEEDS = range(5)
 NEW_SEEDS = (3, 4)
+FILL_SEEDS = {"lda_enron", "lda_nytimes"}  # sweep cells with extend_grid alphas on seeds 0-2 only
+LATE_PLAN = {"gmm_sift1m_pca64_full"}  # no T=5 cells before v3: long chunks wait for seeds 0-2 short chunks
 CHUNKS = {"short": "0.25,0.5,1,2,3,5", "t10": "10", "t25": "25"}  # one worker per (group, seed, chunk)
 TRACKS = {  # slug: (short, runner, gpu port, datasets, threads per worker, extra final stages)
     "gmm-ema": ("gmm", "tracks/gmm-ema/run_v2.py", "gmm",
@@ -50,9 +52,12 @@ def main():
             for s in SEEDS:
                 for ck, bud in CHUNKS.items():
                     benv = f"CLASSIC_ALGOS_BUDGETS={bud} {env}"
-                    L.append(f"id=sw_{tag}_s{s}_{ck} threads={thr} needs=data after=plan_{sh} :: {benv} {PY} {runner} {sel} "
+                    dep = f"plan_{sh}"
+                    if tag in LATE_PLAN and ck != "short":
+                        dep += "," + ",".join(f"{x}_{tag}_s{i}_short" for x in ("sw", "on") for i in (0, 1, 2))
+                    L.append(f"id=sw_{tag}_s{s}_{ck} threads={thr} needs=data after={dep} :: {benv} {PY} {runner} {sel} "
                              f"--stage sweep --seed-list {s} >> {log}_sweep{s}_{ck}.log 2>&1")
-                    L.append(f"id=on_{tag}_s{s}_{ck} threads={thr} needs=data after=plan_{sh} :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 "
+                    L.append(f"id=on_{tag}_s{s}_{ck} threads={thr} needs=data after={dep} :: CLASSIC_ALGOS_STEPWISE_CELLS_ONLY=1 "
                              f"{benv} {PY} {runner} {sel} --stage online --seed-list {s} >> {log}_online{s}_{ck}.log 2>&1")
                     sw.append(f"sw_{tag}_s{s}_{ck}")
                     on.append(f"on_{tag}_s{s}_{ck}")
@@ -72,10 +77,18 @@ def main():
                 L.append(f"id=fin_{st}_{tag} threads={thr} needs=data after=v3_archive :: {env} {PY} {runner} {sel} "
                          f"--stage {st} --seeds 5 >> {log}_{st}.log 2>&1")
                 finals_all.append(f"fin_{st}_{tag}")
-    L.append("# --- isolated timing pass on the v3 budgets (alone, CPU only, 12 threads, 3 seeds; references kept)")
-    prev = ",".join(finals_all)
+            if tag in FILL_SEEDS:  # 2026-11-15: grid-extension alphas existed for seeds 0-2 only (PAPER_LOG §2)
+                L.append(f"id=fill_{tag} threads={thr} needs=data after={','.join(sw)} :: {env} {PY} "
+                         f"tracks/lda-scaling/fill_seeds.py --datasets {name} >> {log}_fill.log 2>&1")
+                finals_all.append(f"fill_{tag}")
+    L.append("# --- re-emit every swept record from the complete cells (scripts/reemit_v3.py, PAPER_LOG §2)")
+    L.append(f"id=v3_reemit threads=2 needs=data after={','.join(finals_all)} :: python3 scripts/reemit_v3.py "
+             f">> results/v3_reemit.log 2>&1")
+    L.append("# --- isolated timing pass on the v3 short budgets T <= 5 (alone, CPU only, 12 threads, 3 seeds; references kept)")
+    prev = "v3_reemit"
     for slug, (sh, runner, _port, _d, _t, _e) in TRACKS.items():
-        tim = "CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu"
+        # 2026-11-15: timed budgets restricted to T <= 5 (short budgets) to finish the queue sooner (PAPER_LOG §2)
+        tim = f"CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu CLASSIC_ALGOS_BUDGETS={CHUNKS['short']}"
         L.append(f"id=time3_{sh} threads=12 needs=data exclusive after={prev} :: "
                  f"CLASSIC_ALGOS_RESULTS_DIR=/tmp/warmup_{sh} CLASSIC_ALGOS_DEVICE=cpu {PY} {runner} "
                  f"--datasets {TIMING_WARMUP[slug]} --stage reference --seeds 1 >> results/timing_{sh}_v3.log 2>&1; "

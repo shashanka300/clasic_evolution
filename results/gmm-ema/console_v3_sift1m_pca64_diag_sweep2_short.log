@@ -1,0 +1,18 @@
+
+##### sift1m_pca64 cov=diag n=200000 k=64
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=0.0100 s=2 val=60.986 test=61.116 (14.2s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=0.0193 s=2 val=60.942 test=61.069 (8.5s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=0.0373 s=2 val=60.818 test=60.94 (10.3s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=0.0720 s=2 val=60.586 test=60.639 (8.7s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=0.1389 s=2 val=60.218 test=60.276 (10.8s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=0.2683 s=2 val=59.808 test=59.841 (9.5s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=0.5179 s=2 val=59.775 test=59.724 (10.1s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.25 a0=1.0000 s=2 val=59.948 test=59.958 (10.2s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=0.0100 s=2 val=60.515 test=60.622 (15.2s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=0.0193 s=2 val=60.4 test=60.503 (14.9s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=0.0373 s=2 val=60.204 test=60.293 (15.8s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=0.0720 s=2 val=59.907 test=59.946 (14.6s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=0.1389 s=2 val=59.662 test=59.687 (14.1s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=0.2683 s=2 val=59.496 test=59.498 (15.3s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=0.5179 s=2 val=59.59 test=59.506 (13.7s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=0.5 a0=1.0000 s=2 val=59.808 test=59.8 (14.3s)

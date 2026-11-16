@@ -1,0 +1,10 @@
+[drop_rows] results/hmm-ema/runs.jsonl: moved 5 rows (stepwise_em_tuned, ['brown_pos'])
+[reemit] hmm-ema: removed 9 swept rows; re-emitting
+
+##### synthetic n=20000 S=12 V=200
+
+##### brown_pos n=47340 S=12 V=5000
+
+##### uci_har_vq n=6352 S=12 V=64
+[reemit] hmm-ema: 15 swept rows now
+[drop_rows] results/_timing/hmm-ema/runs.jsonl: moved 9 rows (hmm_ema_swept, None)

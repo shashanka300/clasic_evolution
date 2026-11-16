@@ -1,0 +1,72 @@
+{
+ "alpha|als_ema|ml10m|n=69878|k=32|B=2048": {
+  "alphas": [
+   0.072,
+   0.1389,
+   0.2683,
+   0.5179
+  ],
+  "anchor_alpha": 0.2683,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|als_ema|ml1m|n=6040|k=32|B=256": {
+  "alphas": [
+   0.0373,
+   0.072,
+   0.1389,
+   0.2683
+  ],
+  "anchor_alpha": 0.1389,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "stepwise|stepwise|ml10m|k=32": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    2.0,
+    0.6
+   ],
+   [
+    2.0,
+    0.7
+   ],
+   [
+    10.0,
+    0.6
+   ]
+  ]
+ },
+ "stepwise|stepwise|ml1m|k=32": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    2.0,
+    0.8
+   ],
+   [
+    2.0,
+    0.7
+   ],
+   [
+    10.0,
+    0.7
+   ]
+  ]
+ }
+}

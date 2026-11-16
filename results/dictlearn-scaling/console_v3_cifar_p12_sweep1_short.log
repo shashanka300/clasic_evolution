@@ -1,0 +1,18 @@
+
+##### cifar_p12 n=100000 d=144 K=192
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=0.0100 s=1 val=0.22189 test=0.22082 (33.5s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=0.0193 s=1 val=0.22156 test=0.22049 (31.3s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=0.0373 s=1 val=0.22096 test=0.21989 (33.7s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=0.0720 s=1 val=0.22001 test=0.21895 (25.8s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=0.1389 s=1 val=0.21886 test=0.21776 (34.5s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=0.2683 s=1 val=0.21785 test=0.21679 (38.1s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=0.5179 s=1 val=0.21781 test=0.2167 (35.2s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.25 a0=1.0000 s=1 val=0.21949 test=0.21833 (36.8s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=0.0100 s=1 val=0.22056 test=0.21951 (58.7s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=0.0193 s=1 val=0.22003 test=0.21898 (54.9s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=0.0373 s=1 val=0.21916 test=0.21811 (50.2s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=0.0720 s=1 val=0.21804 test=0.21697 (52.1s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=0.1389 s=1 val=0.21706 test=0.21596 (45.5s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=0.2683 s=1 val=0.21653 test=0.21555 (56.0s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=0.5179 s=1 val=0.21667 test=0.21555 (46.2s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=0.5 a0=1.0000 s=1 val=0.21806 test=0.21705 (56.7s)

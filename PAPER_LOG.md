@@ -86,6 +86,48 @@ desktop run was set up), `reports/Novel directions for EMA statistics.md` (liter
   budgets (law and swept methods; timed references kept).
 - Epochs-to-match can now be below 1 (first point 0.25), so gains above 25x are possible; ties at "1 epoch" in v2
   become distinguishable.
+- 2026-11-14: GMM `sift1m_pca64 | full` never had a swept / online-EM search in v2 (only reference and law curves),
+  so it has no T=5 anchor. Its whole short-budget search runs in v3, and its long-budget plan is frozen lazily by the
+  first long-budget worker after seeds 0–2's short budgets finish (the seeds used are recorded in the plan file's
+  `anchor_seeds`). The other 18 groups were frozen up front from seeds 0–2.
+- 2026-11-14 (operational, no effect on numbers): the v3 job `fin_kmlaw_gmm_agnews_pca64_diag` wrote seeds 0–3
+  (~2.5 min each) and then stalled on seed 4 for 7.9 h (process running, no progress, under ~2x CPU
+  oversubscription). Run alone, the same seed/config finishes in 35 s with the same loss range as seeds 0–3, so it was
+  a stall, not a property of the config. The process was killed and seed 4 was rerun alone, same code and settings
+  (note in `results/pqueue_v3_notes.log`). Its test-NLL curve (79.86 → 78.74) matches seeds 0–3. Wall times inside
+  `kmlaw` rows are from a contended machine anyway; the paper's timing numbers come only from the isolated timing pass.
+- 2026-11-15 (operational): from ~00:10 UTC no job finished for 6 h. Windows had 0.3 of 61.6 GB free: WSL was capped
+  at 56 GB and full GPU memory (31/32.6 GB, 13 concurrent ALS ml10m jobs) spills into Windows RAM. WSL was shut down
+  (the 27 running jobs were killed; finished cells are kept, run_sweep skips recorded configs), the WSL cap lowered to
+  44 GB (`~/.wslconfig`, backup `.wslconfig.bak-20261115`), and the queue relaunched at budget 32 / max 16 jobs
+  (was 56 / 28). No results files were corrupted (every jsonl line parses).
+- 2026-11-15: **LDA seeds 3–4 on grid-extension alphas.** The alpha0 < 0.01 values from `extend_grid.py` (§5) were run
+  for seeds 0–2 only; `select_alpha` keeps only seeds that have every alpha in a cell, so 7 enron/nytimes cells
+  (T ≤ 5) dropped seeds 3–4. `tracks/lda-scaling/fill_seeds.py` runs the missing (alpha, seed) pairs (job
+  `fill_lda_<corpus>`); all swept records are then regenerated from the complete cells by `scripts/reemit_v3.py` (job
+  `v3_reemit`, before the timing pass, which reads its alpha selection from the same cells).
+- 2026-11-15 (user decision): **the v3 isolated timing pass times the short budgets only (T ≤ 5).** It sets
+  `CLASSIC_ALGOS_BUDGETS=0.25,…,5` for the law-curve and swept timing runs (`timing_swept.py`, `stage_kmlaw` honour
+  `core.budgets.active()`). Reason: the queue was running a day late; timing T = 10 and 25 would have added several
+  hours of serial runs. Consequence for the paper: wall-clock speed-ups exist only for methods that match the reference
+  within 5 epochs; matches at 10–25 epochs are reported in epochs only (the reference's own 25-epoch wall time comes
+  from the kept timing references). Accuracy results (main runs) still cover all budgets.
+- 2026-11-15: a stale WSL VM process from before the restart (`vmmemWSL`, 7 GB RAM / 41 GB commit) could not be
+  stopped without admin rights; it keeps Windows memory tight until the next reboot. No effect on results.
+- 2026-11-15: LDA `_budget_curve` (hoffman default, cosine law) now resumes per seed; it used to skip a whole group as
+  soon as one seed was recorded (hoffman nytimes had seeds 0–1 when the WSL restart killed it).
+- 2026-11-16: **17 HMM jobs crashed with `CUDA_ERROR_UNKNOWN`** (2026-11-15 ~18:00 UTC, while Windows had < 1 GB RAM
+  free; GPU forward-backward `_fb_torch`): sweep / stepwise cells for HMM synthetic (seeds 0–4) and brown_pos
+  (seeds 0–2), plus `fin_online_hmm_synthetic`. The v3 queue still ran its finals, so the first v3 evaluation (00:49
+  UTC) had `hmm_ema_swept` with 2 seeds on synthetic and brown_pos, no `stepwise_em_tuned` for synthetic, and a brown_pos
+  tuned baseline selected from incomplete cells. Fix (`results/jobs_hmm_fix_v3.txt`, all rc=0, CUDA healthy after the
+  load dropped): re-ran the 16 cell jobs (recorded configs skipped), moved the brown_pos tuned rows to
+  `results/hmm-ema/superseded_cuda_crash.jsonl` (`scripts/drop_rows.py`) and re-selected, re-ran the synthetic tuned
+  selection, re-emitted HMM swept records (`reemit_v3.py hmm-ema`), re-timed the HMM swept method, re-evaluated. Every
+  HMM method now has 5 seeds. No other track had a failed job.
+- 2026-11-16: **ALS ml10m, T = 10, alpha0 = 0.518, seed 2 was missing** (the only incomplete sweep cell in any track;
+  killed in the 2026-11-15 WSL restart and not re-run because the job's other configs were recorded). It made
+  `als_ema_swept` ml10m a 4-seed record. Filled by `results/jobs_als_fix_v3.txt`, then ALS re-emit, re-time, re-evaluate.
 
 ## 3. Bugs found and their effect on results
 
@@ -98,9 +140,79 @@ and every LDA stage was re-run. Any LDA number from before 2026-11-14 is invalid
 **2026-11-14 — make_figures.py**: matplotlib renamed `boxplot(labels=)` to `tick_labels=`; the last figure
 (`law_penalties`) failed in the final queue step. Fixed and regenerated; no data affected.
 
+**2026-11-15 — scheduler adoption (scripts/pqueue.py).** On restart the queue adopts still-running jobs by matching
+the process argv. v3 jobs of one (group, seed) differ only in the env var `CLASSIC_ALGOS_BUDGETS` (short / 10 / 25), so
+one process was adopted under 2–3 job ids, and all of them were recorded as done when it exited. On the 2026-11-14
+restarts this hit 73 jobs (GMM sift1m diag+full, dinov2 full, synthetic full; dictlearn cifar_p8 seed 0). Effect: the
+tuned online-EM / stepwise baselines and swept records of those 5 groups were computed from incomplete cells (e.g.
+gmm_ema_swept had 4 seeds for three groups). Fix: adoption also matches the job's env and never reuses a pid. The 73
+jobs and the 10 dependent finals were re-queued (cells already recorded are skipped); the stale tuned rows were
+moved to `results/<track>/superseded_adopt_bug.jsonl`, and every swept record is regenerated by `v3_reemit`.
+
 ## 4. Results snapshot
 
-**2026-11-14 04:48 UTC — final verdicts of the 5090 queue** (`results/evaluate_all.log`):
+**2026-11-16 — protocol v3 final verdicts** (budgets 0.25–25 epochs, 5 seeds; `results/evaluate_all.log`). Supersedes the
+2026-11-14 v2 snapshot below. Gain = 25 / epochs-to-match the full-batch reference@25 (seed means).
+
+| track | outcome | headline (v3) |
+|---|---|---|
+| T00 core | SURVIVES | 4 datasets reach Lloyd@25 in <= 3 epochs |
+| T01 gmm-ema | SURVIVES | 0/4 datasets need > 8 epochs (diag); full covariance needs 2–9.6 epochs (swept) / 2.9–23 (law) |
+| T02 opq-joint-rotation | SURVIVES | 6/6 groups |
+| T03 balanced-ivf | SURVIVES (marginal) | median p99@R0.9 +10.1% vs required +10% |
+| T04 dictlearn-scaling | SURVIVES | median gain 30.1x (cifar_p12 30.1x, cifar_p8 100x = matched at the first budget 0.25 ep, nmf_20ng 10.8x) |
+| T05 lda-scaling | SURVIVES | fitted cosine law worse than default online LDA on 0/3 corpora |
+| T06 als-ema | SURVIVES (marginal, see below) | median gain 2.14x vs 2.0x required: ml10m 4.28x (swept), ml1m 0x |
+| T07 hmm-ema | SURVIVES | median gain 38.0x (brown_pos 39.0x, synthetic 38.0x, uci_har 14.6x); no significantly worse final optimum |
+| T08 drift-rewarm | SURVIVES | 3/4 scenarios |
+| T09 cheap-seeding | SURVIVES | 15 budget-charged wins |
+| T10 adaptive-k | SURVIVES | max CV 1.8% |
+| T11 hnsw-scaling-laws | KILLED | 1/6 held-out pairs |
+| T12 universal-scaling-law | SURVIVES | LOCO median penalty M1 0.108% vs M0 0.319% (Wilcoxon p = 1.05e-18); LOAO 0.338% vs 0.440% |
+| T13 drift-balanced-ivf | descriptive | no kill criterion |
+
+What changed from v2 (budget cap 5 -> 25, 3 -> 5 seeds):
+- **ALS is no longer killed.** With a 25-epoch budget, ml10m swept EMA reaches ALS-WR@25 at 5.84 epochs (4.28x, 5 seeds after the seed-2 fill; 4.25x with 4 seeds),
+  the untuned law at 8.9 (2.8x), tuned stepwise ALS only at 20.1 (1.25x). On ml1m nothing reaches the reference before
+  25 epochs; all three online methods end within 0.0005 RMSE of it (swept 0.8656 = reference; p = 0.21), i.e. ml1m
+  ALS-WR is already converged and the "0x" is a tie, not a loss. The pre-registered median (2.14x) passes only
+  narrowly: report per-dataset numbers, not the median.
+- GMM full covariance needs 2–10 epochs (swept) — the v2 "not reached within 5 epochs" was the budget cap. The tuned
+  online-EM baseline is very weak on full covariance (ends 10 nats above the reference on sift1m) — still a weak
+  baseline (§7, step 3).
+- LDA: the k-means law still does not transfer (never reaches batch VB@25). Swept EMA (alpha0 0.005–0.01) reaches it
+  on 20ng (1.13 ep, 22x) and enron (4.4 ep); on nytimes no online method reaches batch VB@25 (3167) within 25 epochs —
+  swept EMA ends best (3242 vs tuned online LDA 3317, Hoffman default 3615).
+- HMM: the untuned law reaches Baum–Welch@25 in 0.95–2.2 epochs, before tuned stepwise EM (1.3–5.7), but on the v3
+  seeds it **ends slightly above** tuned stepwise EM on all three datasets (brown 5.215 vs 5.209, synthetic 3.927 vs
+  3.889, uci_har 2.228 vs 2.205 nats/token; each within ~1 seed-std). **This corrects the v2 note below** ("law ends
+  lower than tuned stepwise EM") — do not use that claim. Swept EMA ends lowest on all three (5.206, 3.854, 2.108).
+  Claim: the law gets there faster without tuning; the tuned recipe also ends best.
+- T12 law: the pre-registered test passes, but held-out-algorithm (LOAO) penalties stay large for LDA (M1 27.7%) and
+  HMM (4.5%). The exploratory "observations per cell" refit (§5, `refit_coords.log`, 422 cells) on v3 data: Qe0
+  LOAO median 0.143% (vs M1 0.289%), LDA 11.9%, HMM 1.5%; Qe1 LOCO 0.072%. Median swept alpha0*: ALS 0.21, dictlearn
+  0.26, GMM 0.32, HMM 1.0, LDA 0.029 — LDA's alpha* is ~10x below the others (in q_eff/alpha* terms 6.8 vs 19–148).
+
+**Isolated timing v3 (CPU only, 12 threads, alone, 3 seeds; T ≤ 5 only, §2)** — wall-clock speed-up to reach the
+reference@25 vs the reference's own 25 iterations (`—` = no match within 5 epochs):
+
+| group | ref@25 (s) | swept | untuned law |
+|---|---|---|---|
+| dictlearn cifar_p8, k=128 | 184 | 82x (0.25 ep) | 16.4x |
+| dictlearn cifar_p12, k=192 | 161 | 30.8x | 10.1x |
+| dictlearn nmf_20ng, k=32 | 1.85 | 6.5x | 7.3x |
+| HMM brown_pos | 59.4 | 32.9x | 25.3x |
+| HMM synthetic | 1.55 | 24.7x | 13.9x |
+| HMM uci_har_vq | 0.68 | 9.9x | 7.5x |
+| GMM synthetic diag | 8.8 | 17.6x | — |
+| GMM sift1m_pca64 diag | 25.0 | 10.6x | 9.2x |
+| GMM dinov2_pca64 diag | 5.4 | 8.7x | 6.6x |
+| GMM agnews_pca64 diag | 10.7 | 6.1x | 7.5x |
+| GMM synthetic full | 20.9 | 5.4x | 6.2x |
+| LDA 20ng | 6.0 | 6.8x | — |
+| GMM full (agnews, dinov2, sift1m), LDA enron/nytimes, ALS ml1m/ml10m | | — (match > 5 ep or never) | — |
+
+**2026-11-14 04:48 UTC — final verdicts of the 5090 queue (protocol v2, superseded)** (`results/evaluate_all.log`):
 
 | track | outcome | headline |
 |---|---|---|

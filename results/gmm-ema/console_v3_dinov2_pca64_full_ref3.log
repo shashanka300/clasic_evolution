@@ -1,0 +1,5 @@
+
+##### dinov2_pca64 cov=full n=45000 k=64
+[ref] dinov2_pca64|k=64|full s=3 EM@25 test=54.8188 (22s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(

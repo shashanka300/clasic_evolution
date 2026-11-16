@@ -1,0 +1,8 @@
+
+##### sift1m_pca64 cov=diag n=200000 k=64
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=10.0 a0=0.0720 s=2 val=59.32 test=59.222 (163.4s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=10.0 a0=0.1389 s=2 val=59.341 test=59.223 (166.5s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=10.0 a0=0.2683 s=2 val=59.312 test=59.171 (211.8s)
+  [gmm-ema] sift1m_pca64 n=200000 k=64 B=1024 T=10.0 a0=0.5179 s=2 val=59.351 test=59.218 (207.3s)
+
+##### sift1m_pca64 cov=diag n=200000 k=64

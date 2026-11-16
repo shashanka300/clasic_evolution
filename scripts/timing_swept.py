@@ -23,7 +23,10 @@ sys.path.insert(0, str(ROOT))
 from core.harness import make_run, read_runs, write_run  # noqa: E402
 from core.sweep import sweep_cells, sweep_group  # noqa: E402
 
-from core.budgets import BUDGETS  # noqa: E402  (protocol v3: 0.25 .. 25 epochs)
+from core.budgets import active  # noqa: E402
+
+# protocol v3 budgets, restricted by CLASSIC_ALGOS_BUDGETS: the v3 timing pass times T <= 5 only (PAPER_LOG §2)
+BUDGETS = active()
 MAIN = ROOT / "results"  # the queue's sweep rows (alpha0 selection); timing records go to the env results dir
 
 

@@ -1,0 +1,10 @@
+
+##### enron D=35518 V=20000 K=50
+[law] enron: LOO coeffs [-4.729 -0.501  0.902 -0.684] from 43 cells; a0(T)=0.126, 0.079, 0.049, 0.030, 0.023, 0.016, 0.010, 0.005
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+[cosine_law] enron s=0 T0.25=2809.6 T0.5=2560.7 T1=2393.6 T2=2331.1 T3=2377.9 T5=2290.7 T10=2282.2 T25=2327.7
+[cosine_law] enron s=1 T0.25=2785.3 T0.5=2526.6 T1=2404.4 T2=2349.9 T3=2320.0 T5=2257.3 T10=2305.0 T25=2312.6
+[cosine_law] enron s=2 T0.25=2748.4 T0.5=2504.8 T1=2337.6 T2=2289.9 T3=2287.9 T5=2277.2 T10=2285.7 T25=2249.0
+[cosine_law] enron s=3 T0.25=2788.9 T0.5=2533.8 T1=2432.0 T2=2336.4 T3=2317.3 T5=2267.5 T10=2234.1 T25=2346.3
+[cosine_law] enron s=4 T0.25=2789.0 T0.5=2548.3 T1=2383.5 T2=2274.4 T3=2305.4 T5=2275.5 T10=2349.9 T25=2308.1

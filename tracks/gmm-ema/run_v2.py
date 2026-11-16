@@ -239,7 +239,7 @@ def stage_kmlaw(name, data, k, cov, seeds):
     n, d = x.shape
     for s in seeds:
         curve = []
-        for T in BUDGETS:
+        for T in active(BUDGETS):  # all budgets unless CLASSIC_ALGOS_BUDGETS restricts them (v3 timing pass: T <= 5)
             B = emeans_batch_size(n, k, T)
             a0 = emeans_alpha0(n, k, T, B)
             tic = time.perf_counter()
@@ -247,7 +247,7 @@ def stage_kmlaw(name, data, k, cov, seeds):
             curve.append({"epoch": T, "test_loss": evaluate_gmm_nll(data["test"], p), "wall_s": time.perf_counter() - tic,
                           "alpha0": a0, "B": B})
         write_run(RUNS, make_run(track=TRACK, method="gmm_ema_kmlaw", dataset=name, n=n, d=d, k_or_units=k,
-                  epochs=BUDGETS[-1], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
+                  epochs=curve[-1]["epoch"], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
                   test_loss=curve[-1]["test_loss"], wall_s=curve[-1]["wall_s"], role="ours", alpha0_source="law",
                   group=group, metric="test_nll", curve=curve, curve_kind="budget", config={"cov": cov}))
 
@@ -283,8 +283,11 @@ def main():
                     stage_sweep(name, data, meta, k, cov, seeds, [{"n": n, "B": HEAD_B, "T": T} for T in long_], alphas=al)
             if args.stage == "plan":
                 sg = sweep_group(name, n, k, HEAD_B, cov)
-                print(f"[plan] {sg} alphas={long_alphas(SWEEP, f'gmm_ema_{cov}', sg)} online_em="
-                      f"{long_stepwise(SWEEP, f'oem|{name}|k={k}|{cov}', anchor_rows(SWEEP, f'oem|{name}|k={k}|{cov}', 'sweep_oem'))}", flush=True)
+                try:
+                    print(f"[plan] {sg} alphas={long_alphas(SWEEP, f'gmm_ema_{cov}', sg)} online_em="
+                          f"{long_stepwise(SWEEP, f'oem|{name}|k={k}|{cov}', anchor_rows(SWEEP, f'oem|{name}|k={k}|{cov}', 'sweep_oem'))}", flush=True)
+                except RuntimeError as e:  # no T=5 cells yet: frozen lazily by the first long-budget worker (job deps)
+                    print(f"[plan] {sg} deferred: {e}", flush=True)
             if args.stage in ("all", "online"):
                 stage_online_em(name, data, k, cov, seeds, HEAD_B)
             if args.stage in ("all", "kmlaw"):

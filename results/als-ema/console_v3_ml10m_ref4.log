@@ -1,0 +1,3 @@
+
+##### ml10m users=69878 items=10677 lambda=0.05
+[ref] ml10m|k=32 s=4 als_wr_full_batch@25 test=0.79229 (23188s)

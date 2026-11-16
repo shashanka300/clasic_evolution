@@ -1,0 +1,6 @@
+
+##### nytimes D=95543 V=20000 K=50
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=10.0 a0=0.0014 s=2 val=3395.9 test=3349.8 (437.3s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=10.0 a0=0.0027 s=2 val=3267.2 test=3230.9 (475.1s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=10.0 a0=0.0052 s=2 val=3285.5 test=3249.4 (420.6s)
+  [lda-scaling] nytimes n=95543 k=50 B=256 T=10.0 a0=0.0100 s=2 val=3255.1 test=3239 (503.7s)
