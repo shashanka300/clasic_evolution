@@ -246,7 +246,9 @@ Configurations that take longer:
 
 DL CIFAR 8×8 matches at the first budget (0.25 epochs), so its gain is a floor and we report it as ≤ 0.25 epochs.
 
-*Figure 1:* test objective vs epochs per configuration, all methods (`results/figures/convergence.*`).
+![Figure 1](figs/convergence.png)
+
+*Figure 1:* seed-mean test objective vs epochs (log scale) for every configuration. Black: full-batch reference; dashed: the reference after 25 iterations. LDA's leave-one-corpus law run and full-iteration library checks are omitted for legibility (`results/figures/convergence.*`).
 
 ### 5.2 Against tuned stepwise EM, and what the gain is made of (C2, C2b)
 
@@ -340,7 +342,9 @@ The law fails on LDA. It predicts α0 ≈ 0.2–1, while the swept optimum is 0.
 rate, held-out perplexity *worsens* with more epochs, and the batch reference is never reached. The median swept α0*
 per family is ALS 0.21, DL 0.26, GMM 0.32, HMM 1.0, LDA 0.029.
 
-*Figure 2:* validation loss vs α0 per budget, law prediction marked (`results/figures/alpha0_sweeps.*`).
+![Figure 2](figs/alpha0_sweeps.png)
+
+*Figure 2:* validation penalty against α0 divided by the global law's prediction (dashed line at 1), median over sweep cells in 0.25-decade bins, grouped by budget. The law is fitted in-sample here; out-of-sample penalties are in Figure 3 (`results/figures/alpha0_sweeps.*`).
 
 ### 5.5 One law across families (C5, C6)
 
@@ -370,7 +374,9 @@ The law is not universal:
 A natural next feature is the fraction of missing information, which theory links to the optimal step of
 stochastic-approximation EM (TODO, §7).
 
-*Figure 3:* LOCO / LOAO penalties per law (`results/figures/law_penalties.*`).
+![Figure 3](figs/law_penalties.png)
+
+*Figure 3:* validation penalty of the predicted α0 for each law, leave-one-cell-out (left) and leave-one-algorithm-out (right), over all 422 cells; boxes are quartiles, whiskers the 5th–95th percentiles (`results/figures/law_penalties.*`).
 
 ![Figure 4](figs/law_coords.png)
 

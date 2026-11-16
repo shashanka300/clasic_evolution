@@ -22,3 +22,4 @@ Plotted from:
   results/core/runs.jsonl (48 records), group dinov2s_cifar100|k=512|train
   results/core/runs.jsonl (48 records), group sift1m|k=1024|train
   results/core/runs.jsonl (48 records), group sift1m|k=4096|train
+  not drawn: cosine_law (LDA leave-one-corpus law), full-iteration library checks

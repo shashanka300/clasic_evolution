@@ -159,9 +159,9 @@ no-revival one is the published prior art, the revival one is the fair ablation.
 
 | id | content | source | status |
 |---|---|---|---|
-| Fig 1 | convergence curves (test objective vs epochs, ours vs tuned vs batch) per family | `results/figures/convergence.{pdf,png,txt}` | generated (v3); needs final styling |
-| Fig 2 | α0 sweeps: val loss vs α0 per budget, law prediction marked | `results/figures/alpha0_sweeps.*` | generated (v3) |
-| Fig 3 | law penalties: LOCO / LOAO penalty per model (M0, M1, KM, Q*, Qe*) | `results/figures/law_penalties.*` | generated (v3) |
+| Fig 1 | convergence curves (test objective vs epochs, ours vs tuned vs batch) per family | `results/figures/convergence.{pdf,png,txt}` | restyled 2026-11-17 |
+| Fig 2 | α0 sweeps: median val penalty vs α0 / law prediction, by budget group | `results/figures/alpha0_sweeps.*` | generated (v3) |
+| Fig 3 | law penalties: LOCO / LOAO penalty per model (KM, M1, Qe1, Qe0) | `results/figures/law_penalties.*` | generated (v3) |
 | Fig 4 | optimal α0* vs observations per cell q_eff, all families, global fit (partial residual to n/B = 94, T = 1) | sweep cells via `refit_coords.load_cells` → `results/figures/law_coords.*` | generated |
 | Fig 5 | wall-clock speed-up dot plot (isolated timing, T ≤ 5) | `results/_timing/*/runs.jsonl` → `results/figures/timing_speedup.*` | generated |
 | Tab 1 | families × datasets × metric × reference | §4 above | draft |
@@ -203,7 +203,7 @@ no-revival one is the published prior art, the revival one is the fair ablation.
       unified revival rule.
 - [x] e-means law exponents and citations confirmed (PAPER_LOG §6, 2026-11-16).
 - [ ] Decide headline framing (title choice, §1) and finalise the abstract's last sentence.
-- [ ] Restyle Figs 1–3.
+- [x] Restyle Figs 1–3 (2026-11-17; all seven figures re-rendered, legends outside panels).
 - [ ] Optional: time T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if wall-clock for them is wanted.
 - [ ] Dataset licences / citations for every dataset (SIFT1M, MovieLens, UCI BoW, UCI HAR, Brown, 20NG, CIFAR-100,
       AG News, DINOv2 / MiniLM models).

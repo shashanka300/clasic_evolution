@@ -462,3 +462,16 @@ in METADATA, C2 stated against the revival-equipped tuned baseline, LDA as the c
 while drafting: refit_coords.log (current) gives Qe0 LOAO 0.149% and LDA LOAO 11.6% (METADATA had 0.143% / 11.9% from an
 earlier run of the refit); METADATA C6 updated. Open TODOs in the draft: related-work citations, LDA ε = 0.01
 diagnostic (recipe's LDA perplexity rises T = 5 → 25), Figures 4–5, tuned-baseline wall-clock, Flash-KMeans/GMM.
+
+### Figure restyle (2026-11-17)
+
+All seven figures re-rendered from `scripts/make_figures.py` after the user reported overlapping text.
+- Fig 1: 4 columns, short panel titles ("GMM AG News diag, k=64"), x label only on the bottom row, 3 y ticks,
+  legend outside below. Method colours now follow roles; cosine_law and full-iteration library checks are not drawn
+  (stated in convergence.txt and the caption).
+- Fig 2 redefined: x = alpha0 / in-sample Qe0 prediction, y = median val penalty over cells (0.25-decade bins), three
+  budget groups (0.25–1, 2–5, 10–25 epochs). The old version drew every cell (unreadable) and its T colours repeated.
+- Fig 3 recomputed from refit_coords (KM, M1, Qe1, Qe0; LOCO and LOAO; 422 cells), horizontal boxes, medians printed.
+  Medians match refit_coords.log (KM 0.155/0.155, M1 0.103/0.290, Qe1 0.073/0.183, Qe0 0.116/0.149 %).
+  Note: the §5 table above lists KM 0.149% and M1 0.088% (an older refit); refit_coords.log is the current value.
+- Drift figure: frozen_emeans was drawn in the same blue as rewarm (suffix "emeans" matched first); fixed.
