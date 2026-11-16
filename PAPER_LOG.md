@@ -128,6 +128,31 @@ desktop run was set up), `reports/Novel directions for EMA statistics.md` (liter
 - 2026-11-16: **ALS ml10m, T = 10, alpha0 = 0.518, seed 2 was missing** (the only incomplete sweep cell in any track;
   killed in the 2026-11-15 WSL restart and not re-run because the job's other configs were recorded). It made
   `als_ema_swept` ml10m a 4-seed record. Filled by `results/jobs_als_fix_v3.txt`, then ALS re-emit, re-time, re-evaluate.
+- 2026-11-16: **the tuned stepwise / online-EM baselines ran without revival; the recipe runs with it.** Found while
+  checking the "weak GMM baseline" suspicion (§2.6). Diagnostic (`scratchpad oemdiag.py / revdiag.py`, seed 0 or
+  seeds 0–2, best tuned (tau0, kappa) and best swept alpha0 at T = 1 and 5; test loss):
+
+  | group | tuned stepwise, no revival → with revival | cosine recipe, no revival → with revival |
+  |---|---|---|
+  | GMM SIFT1M full, T=5 | 50.35 → **40.84** (57 of 64 components dead without revival) | 51.18 → **40.84** |
+  | GMM SIFT1M full, T=1 | 51.46 → 42.56 | 51.51 → 42.17 |
+  | GMM DINOv2 diag, T=5 | 71.78 → 71.66 | 71.78 → 71.69 |
+  | LDA 20NG, T=5 (perplexity) | 2404 → 2309 | 2701 → 2297 |
+  | HMM synthetic / Brown / UCI HAR, T=5 | 3.935 / 5.237 / 2.271 (revival: no effect) | 3.906 / 5.220 / 2.143 (no effect) |
+  | DL 20NG NMF, T=5 | 0.44761 (no effect) | 0.44752 (no effect) |
+  | ALS | neither uses revival | — |
+
+  Consequence: for GMM and LDA the "ours vs tuned stepwise EM" gap is mostly the revival rule, not the cosine
+  schedule; for HMM, dictionary learning (NMF) and ALS it is the schedule. The v3 claim "reaches the reference sooner
+  than tuned stepwise EM on 17/19" is therefore confounded for GMM/LDA. Fix: a second tuned baseline,
+  **`<stepwise>_rev_tuned` = the same (tau0, kappa) grid and val selection plus the recipe's revival rule**
+  (`core/trackkit.stage_stepwise(revival=True)`, `gmm run_v2 stage_online_em(revival=True)`, stage `online_rev`), run for
+  GMM, dictionary learning, LDA and HMM (not ALS) at all v3 budgets with 5 seeds (`scripts/make_jobs_rev.py`,
+  `results/jobs_rev_v3.txt`, 273 jobs, started 2026-11-16 03:29 UTC). Its long-budget top-3 grid is frozen from its own
+  T = 5 cells over all 5 seeds (the no-revival baseline froze from seeds 0–2) — disclose. The original
+  no-revival baselines are kept: they are the published prior art; the new one is the schedule-vs-revival ablation.
+  **Done 2026-11-16 16:08 UTC**: 273/273 jobs rc=0, every `*_rev_tuned` cell has 5 seeds, `rev_evaluate` re-ran
+  evaluate.py + make_figures.py (VERDICT.md now lists `*_rev_tuned`). Results in §4 "Schedule vs revival ablation".
 
 ## 3. Bugs found and their effect on results
 
@@ -257,6 +282,37 @@ Interpretation notes for the paper:
   while the swept optimum is ~0.01–0.04. The LDA-specific fitted cosine law fixes it (beats default online LDA on
   3/3 corpora, tuned online LDA on 2/3).
 
+### Schedule vs revival ablation (v3, 2026-11-16; ablation, not pre-registered)
+
+Recipe (`*_swept`) vs tuned stepwise/online EM **with revival** (`*_rev_tuned`), both α0 / (τ0, κ) selected on
+val, 5 seeds. Paired t-test by seed (4 dof, p < 0.05) at T ∈ {1, 2, 3, 5, 10, 25}; W = recipe significantly lower,
+L = significantly higher. Script: `scripts/compare_rev.py`.
+
+| family | W / tie / L (cells) | relative margin (recipe − rev_tuned) | notes |
+|---|---|---|---|
+| GMM (8 groups) | 26 / 22 / 0 | −0.03% … −1.5% | real-data full cov: W only at T ≤ 2, tie after; synthetic diag W at every T |
+| HMM (3) | 14 / 4 / 0 | −0.05% … −10.3% | revival never fires; rev_tuned = tuned |
+| DL (3) | 11 / 7 / 0 | −0.03% … −0.30% | revival never fires; rev_tuned = tuned |
+| LDA (3) | 0 / 14 / 4 | −0.8% … +3.2% | L: 20NG T=1 (+3.2%), Enron T=1 (+0.6%) and T=25 (+2.5%), NYTimes T=25 (+1.4%) |
+
+Epochs to reach full-batch@25, rev_tuned (swept in brackets): GMM synth diag 3.94 (0.29), synth full 23.0 (1.98),
+SIFT1M diag 1.64 (0.88), SIFT1M full 11.8 (7.86), DINOv2 diag 11.8 (1.88), DINOv2 full 9.01 (8.78), AG News diag 4.49
+(2.54), AG News full 16.0 (9.63); LDA 20NG **0.89** (1.13), Enron 7.17 (4.44), NYTimes not reached (final **3198**
+vs swept 3242, ref 3167); HMM and DL unchanged from no-revival tuned (UCI HAR 6.73 vs 5.70; noise in the selection).
+Recipe sooner on 16/19 (ALS compared with no-revival stepwise ALS as before), slower on LDA 20NG, neither on
+NYTimes / ML-1M.
+
+Revival effect on the tuned baseline at T = 25: SIFT1M full 50.68 → 40.53 nats, DINOv2 full 69.64 → 54.61,
+AG News full 78.81 → 70.37; LDA NYTimes 3317 → 3198, Enron 2401 → 2240, 20NG 2410 → 2320.
+
+Interpretation for the paper:
+- Revival is the component that makes stochastic EM competitive on GMM full covariance and LDA; the old
+  "beats tuned stepwise EM" claim was mostly revival there.
+- With revival on both sides, the cosine schedule still wins modestly on GMM, clearly on HMM, marginally on DL,
+  and **not on LDA**, where a tuned inverse-time schedule + revival is as good or better (also at long budgets,
+  where the recipe's test perplexity rises from T = 5 to T = 25: overfitting or cosine floor too high).
+- So: claim C2 holds outside LDA; LDA is the honest counter-example, consistent with the LDA α0 anomaly (C4, C6).
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
@@ -337,6 +393,28 @@ Full report: `reports/Novel directions for EMA statistics.md`; notes per area in
   (Flash-KMeans, Flash-GMM, variance-reduced EM, tuned stepwise EM as the main baseline).
 - Recommended framing: a predictive theory of stochastic-approximation EM at scale (noise-scale / per-cell law,
   failure modes, time-to-baseline benchmark), with stepwise EM named as the lineage and main baseline.
+
+**2026-11-16 — novelty checks before drafting** (web searches, extended mode; limited, not a systematic review).
+- e-means paper (arXiv 2611.09501v1, read from the HTML): alpha0 law α0 = min(0.824·k^-0.46·B^0.90·n^-0.45·T^-0.11, 1)
+  (R² 0.95), batch law B = 0.035·k^0.13·n^0.88·T^0.81 (÷8 for n > 2M), both fitted on DEEP only; revival every 5
+  batches when N_j < 0.1·mean(N), donor split (Faiss); its ablation names revival the largest single effect (+2.97%
+  train MSE without it). It cites Neal & Hinton 1998, Nowlan 1991, Sculley 2010, Bottou & Bengio 1994 and calls the
+  update "a hard-assignment form of EM with decayed statistics", but does **not** cite Cappé & Moulines, Liang & Klein,
+  Sato & Ishii, Hoffman et al. or Mairal et al., and tests no model other than k-means. Its own limitations: laws not
+  optimal on low-dimensional / tiny data; runs only up to 25 epochs.
+- Not found: a step/batch-size law for online EM across model families; cosine-annealed step sizes for online EM;
+  a cross-family stochastic-vs-batch EM epochs benchmark. Closest prior art to cite and position against: Liang & Klein
+  2009 (stepwise EM, 4 NLP models, "depends on the task"); Ranganath et al. 2013 (adaptive, tuning-free SVI step size);
+  Hughes & Sudderth 2013 (memoized online VI — no learning rate, birth/merge moves = a revival-like mechanism);
+  Chen et al. 2018 (variance-reduced stochastic EM, constant step); Nguyen, Forbes & McLachlan 2019 (mini-batch
+  exponential-family mixtures); Hosseini & Sra (Riemannian SGD for GMM beats EM); Busbridge et al. 2023 (scaling an
+  EMA with batch size).
+- Possible concurrent work: GitHub issue meyer-lab/DDMC #561 proposes porting e-means (EMA, scaling laws, split
+  revival) to EM clustering / diagonal GMM — a proposal, no results. Re-check arXiv for e-means follow-ups before
+  submission (the paper is 10 days old).
+- Consequence for claims: the revival rule is the part with the least direct prior art in online EM (memoized VI's
+  births are the nearest), and our ablation shows it is what makes online EM work on GMM full covariance and LDA. The
+  schedule is the part that matters for HMM / DL / ALS.
 
 ## 7. Open items before writing
 

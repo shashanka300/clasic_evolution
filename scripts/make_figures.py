@@ -43,7 +43,7 @@ plt.rcParams.update({
 
 
 FAMILIES = (("_swept", 0), ("emeans", 0), ("rewarm", 0), ("balanced_ivf_priced", 4), ("balanced_ivf", 0),
-            ("joint_rotation", 0), ("_kmlaw", 1), ("cosine_law", 1), ("_tuned", 2), ("hoffman", 3), ("sklearn", 4),
+            ("joint_rotation", 0), ("_kmlaw", 1), ("cosine_law", 1), ("_rev_tuned", 6), ("_tuned", 2), ("hoffman", 3), ("sklearn", 4),
             ("frozen", 1), ("periodic", 3), ("const_alpha", 2), ("faiss", 3), ("emeans_ivf", 1))
 
 
@@ -116,7 +116,8 @@ def fig_convergence(tracks=("gmm-ema", "hmm-ema", "als-ema", "lda-scaling", "dic
         ax.axis("off")
     fam = [("full-batch reference (25 it)", INK), ("EMA recipe, alpha0 swept on val", SLOTS[0]),
            ("EMA recipe, k-means law alpha0 (untuned)", SLOTS[1]), ("prior-art online/stepwise, tuned on val", SLOTS[2]),
-           ("Hoffman default online LDA (tau0=1024, kappa=0.7)", SLOTS[3])]
+           ("Hoffman default online LDA (tau0=1024, kappa=0.7)", SLOTS[3]),
+           ("prior-art online/stepwise + recipe revival, tuned on val", SLOTS[6])]
     fig.legend([plt.Line2D([], [], color=c, marker=None if c == INK else "o") for _, c in fam], [f for f, _ in fam],
                loc="lower center", ncol=2, bbox_to_anchor=(0.5, -0.04))
     fig.text(0.5, 1.0, "dashed: reference@25 (seed mean)", ha="center", color=INK2, fontsize=7)

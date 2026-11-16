@@ -41,6 +41,75 @@
    2
   ]
  },
+ "stepwise|stepwise_rev|cifar_p12|k=192": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|cifar_p8|k=128": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|nmf_20ng|k=32": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.6
+   ],
+   [
+    10.0,
+    0.6
+   ],
+   [
+    2.0,
+    0.5
+   ]
+  ]
+ },
  "stepwise|stepwise|cifar_p12|k=192": {
   "anchor_seeds": [
    0,

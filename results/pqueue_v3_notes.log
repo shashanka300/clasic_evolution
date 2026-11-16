@@ -5,3 +5,4 @@
 2026-11-15 07:08:39 manual: timing pass restricted to T<=5 (CLASSIC_ALGOS_BUDGETS on time3 jobs); scheduler restarted (adopt, fixed matcher)
 2026-11-16 00:52:55 manual: 17 HMM jobs crashed with CUDA_ERROR_UNKNOWN 2026-11-15 ~18:00; rerun queue results/jobs_hmm_fix_v3.txt started
 2026-11-16 01:11:25 manual: ALS ml10m T=10 a=0.518 seed 2 fill queue results/jobs_als_fix_v3.txt started
+2026-11-16 03:29:11 manual: schedule-vs-revival ablation queue results/jobs_rev_v3.txt started (budget 32 / max 16)

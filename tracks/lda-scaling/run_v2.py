@@ -188,7 +188,7 @@ def main():
         p = make_problem(name)
         print(f"\n##### {name} D={p.n} V={p.d} K={K}", flush=True)
         law_cfgs = [{"n": n, "B": B, "T": T} for n in (p.n // 4, p.n) for B in (64, 512) for T in (1.0, 2.0)]
-        if args.stage in ("all", "reference", "sweep", "online", "kmlaw", "emit", "law-sweep", "plan"):
+        if args.stage in ("all", "reference", "sweep", "online", "online_rev", "kmlaw", "emit", "law-sweep", "plan"):
             run_all(p, RUNS, SWEEP, seeds[:2] if args.stage == "law-sweep" else seeds, ref_method="batch_vb",
                     ema_method="lda_ema", stepwise_method="online_lda", head_B=HEAD_B, stage=args.stage,
                     law_sweep_configs=law_cfgs, law_ks=(20, 50))

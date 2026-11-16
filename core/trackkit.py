@@ -90,10 +90,16 @@ def stage_head_sweep(p: Problem, sweep_path, seeds, method: str, head_B: int, bu
         stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in long_], alphas=al)
 
 
-def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, grid=STEPWISE_GRID):
-    """Robbins-Monro / stepwise-EM step (tau0 + t)^-kappa, (tau0, kappa) chosen on val per T. No revival."""
+def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, grid=STEPWISE_GRID, revival=False):
+    """Robbins-Monro / stepwise-EM step (tau0 + t)^-kappa, (tau0, kappa) chosen on val per T.
+
+    revival=False: the prior-art baseline as published (no dead-unit handling) -> ``<method>_tuned``.
+    revival=True (added 2026-11-16, PAPER_LOG §2): the same tuned schedule plus the recipe's revival rule ->
+    ``<method>_rev_tuned``; separates the effect of the cosine schedule from that of revival. Its long-budget grid is
+    frozen from its own T=5 cells (job deps: after all short-budget seeds)."""
+    method = f"{method}_rev" if revival else method
     done = done_hashes(sweep_path)
-    sg = f"stepwise|{p.group}"
+    sg = f"stepwise{'_rev' if revival else ''}|{p.group}"
     for T in active(BUDGETS):
         tgrid = long_stepwise(sweep_path, sg, anchor_rows(sweep_path, sg, "sweep_stepwise")) if T in LONG_BUDGETS else grid
         for t0, kp in tgrid:
@@ -103,7 +109,7 @@ def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, gri
                 if (h, s) in done:
                     continue
                 tic = time.perf_counter()
-                m = p.fit(1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=False)
+                m = p.fit(1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=revival)
                 w = time.perf_counter() - tic
                 rec = make_run(track=p.track, method=method, dataset=p.dataset, n=p.n, d=p.d, k_or_units=p.k, epochs=T,
                                batch=B, alpha0=None, seed=s, train_loss=None, test_loss=p.loss(m, "test"), wall_s=w,
@@ -175,6 +181,8 @@ def run_all(p: Problem, runs, sweep_path, seeds, *, ref_method, ema_method, step
             print(f"[plan] {sg} deferred: {e}", flush=True)
     if stage in ("all", "online"):
         stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method)
+    if stage == "online_rev":  # tuned stepwise + the recipe's revival (ablation baseline, 2026-11-16)
+        stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method, revival=True)
     if stage in ("all", "kmlaw"):
         stage_kmlaw(p, runs, seeds, f"{ema_method}_kmlaw")
     if stage in ("all", "emit"):

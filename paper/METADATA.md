@@ -41,8 +41,10 @@ Nguyen, Forbes & McLachlan 2019 (mini-batch EM). Starting point: e-means, arXiv:
 > learning / NMF and alternating least squares — on 19 dataset configurations with 5 seeds and budgets from 0.25 to 25
 > epochs, against full-batch EM at 25 iterations and against stepwise / online EM tuned on the same validation grid.
 > With its rate selected on validation, the recipe reaches the batch objective in under 3 epochs on 12 of 19
-> configurations (HMM median 38x fewer epochs, dictionary learning 30x, diagonal GMM 9.9–85x), reaches it sooner than
-> tuned stepwise EM on 17 of 19 (the other two: neither reaches it), and ends at an equal or lower objective on all 19; on a CPU, matched-quality wall-clock speed-ups reach 5–82x.
+> configurations (HMM median 38x fewer epochs, dictionary learning 30x, diagonal GMM 9.9–85x). Against stepwise EM
+> tuned on the same grid *and given the same revival rule*, it reaches the batch objective sooner on 16 of 19
+> (slower on LDA 20NG; neither reaches it on two) and is never significantly worse outside LDA, where revival, not
+> the schedule, accounts for the gain. On a CPU, matched-quality wall-clock speed-ups reach 5–82x.
 > The k-means rate law, applied unchanged, transfers to GMM, HMM, dictionary learning and ALS (median validation
 > penalty ≤ 0.2%) but fails on LDA, whose optimal rate is about 10x lower. Re-expressing the law in observations per
 > sufficient-statistic cell explains two-thirds of the variance of the optimal rate across all families with one
@@ -58,7 +60,8 @@ numbers; the untuned law ends slightly above tuned stepwise EM on HMM (§3 C4).
 | # | Claim | Status | Evidence (v3) | Pre-registered? |
 |---|---|---|---|---|
 | C1 | The EMA-statistics recipe (cosine rate + revival) reaches full-batch EM@25 in ≤ 3 epochs across families | **Supported** for GMM diag, HMM, dictionary learning, LDA 20ng; **not** for GMM full (2–10 ep), LDA enron (4.4) / nytimes (never), ALS (5.8 ep ml10m; tie ml1m) | T01, T04, T05, T06, T07 VERDICT.md | Yes (kill criteria, `scripts/kill_criteria.py`) |
-| C2 | It beats or matches stepwise / online EM tuned on the same grid | **Supported**: reaches the reference sooner on 17/19 groups (LDA NYTimes, ALS ML-1M: neither reaches it); final objective swept ≤ tuned on 19/19, often within one seed-std | `*_tuned` / `online_em_tuned` rows | Partly (tuned baselines were in the plan; "ours vs tuned" as headline is a v3 framing) |
+| C2 | It beats or matches stepwise / online EM tuned on the same grid **with the same revival rule** (`*_rev_tuned`) | **Supported outside LDA.** Paired by seed at T ∈ {1,2,3,5,10,25} (t-test, 4 dof, p < 0.05), recipe (swept) vs rev-tuned: GMM 26 W / 22 tie / 0 L (margins 0.1–1.5%; full covariance on real data wins only at T ≤ 2, ties after); HMM 14 / 4 / 0 (up to 10% at T = 1, UCI HAR); DL 11 / 7 / 0 (≤ 0.3%); **LDA 0 / 14 / 4** (rev-tuned better at T = 1 on 20NG/Enron and at T = 25 on Enron/NYTimes). Epochs-to-match sooner on 16/19 (slower: LDA 20NG 1.13 vs 0.89). ALS: no revival on either side, vs `stepwise_als_tuned` as before | `*_rev_tuned` rows in every VERDICT.md; PAPER_LOG §4 | Partly — the rev-tuned baseline was added after results |
+| C2b | Schedule vs revival: revival is what makes stochastic EM work where components die (GMM full covariance, LDA); the cosine schedule is what beats tuned step decay where they don't (HMM, DL) | **Supported (5 seeds, all budgets).** Revival moves tuned online EM on SIFT1M full from 50.68 to 40.53 nats at T = 25 (reference 40.67) and LDA NYTimes from 3317 to 3198; on HMM and DL the rev-tuned rows equal the no-revival ones (revival never fires). With revival on both sides, the cosine schedule adds a further 0.1–1.5% on GMM, nothing on LDA | `*_tuned` vs `*_rev_tuned` vs `*_swept` | No — label as ablation |
 | C3 | Matched-quality wall-clock speed-ups on CPU (isolated timing) | **Supported for T ≤ 5 only**: 5.4–82x (swept), 6.2–25x (law) | §5 timing table; `results/_timing/` | Measurement protocol fixed 2026-11-14 |
 | C4 | The untuned k-means α0 law transfers to other families | **Supported except LDA**: median penalty ≤ 0.2% for GMM/HMM/DL/ALS; LDA law never reaches batch VB@25. HMM: law converges fastest but ends slightly *above* tuned stepwise EM (within 1 seed-std) | `*_kmlaw` rows; `refit_coords.log` | Yes (T12) |
 | C5 | One cross-family law (T12, M1) beats a per-algorithm constant | **Supported** (pre-registered): LOCO median penalty 0.108% vs 0.319%, Wilcoxon p = 1.05e-18; LOAO 0.338% vs 0.440% | `results/universal-scaling-law/VERDICT.md` | Yes |
@@ -121,30 +124,31 @@ desktop are archived (`superseded_*` folders) and not used for v3 numbers.
 
 **Epochs to reach full-batch@25** (seed means; gain = 25 / epochs). `—` = not reached within 25 epochs.
 
-| group | swept (ours) | law (ours, untuned) | tuned stepwise / online EM |
-|---|---|---|---|
-| GMM synthetic diag | 0.29 | 17.2 | — |
-| GMM synthetic full | 1.98 | 2.88 | — |
-| GMM SIFT1M diag | 0.88 | 0.97 | — |
-| GMM SIFT1M full | 7.86 | 16.1 | — |
-| GMM DINOv2 diag | 1.88 | 2.04 | — |
-| GMM DINOv2 full | 8.78 | 23.1 | — |
-| GMM AG News diag | 2.54 | 2.04 | — |
-| GMM AG News full | 9.63 | 12.0 | — |
-| DL CIFAR 8×8 | ≤ 0.25 | 1.68 | 0.54 |
-| DL CIFAR 12×12 | 0.83 | 2.83 | 1.66 |
-| DL 20NG NMF | 2.32 | 2.36 | 3.70 |
-| LDA 20NG | 1.13 | — | 1.60 |
-| LDA Enron | 4.44 | — | — |
-| LDA NYTimes | — (ends best: 3242 vs tuned 3317, ref 3167) | — | — |
-| ALS ML-10M | 5.84 | 8.88 | 20.1 |
-| ALS ML-1M | — (tie: 0.8656 = ref) | — | — |
-| HMM Brown POS | 0.64 | 0.95 | 1.33 |
-| HMM synthetic | 0.66 | 1.44 | 1.95 |
-| HMM UCI HAR | 1.72 | 2.21 | 5.70 |
+| group | swept (ours) | law (ours, untuned) | tuned stepwise / online EM | tuned + revival |
+|---|---|---|---|---|
+| GMM synthetic diag | 0.29 | 17.2 | — | 3.94 |
+| GMM synthetic full | 1.98 | 2.88 | — | 23.0 |
+| GMM SIFT1M diag | 0.88 | 0.97 | — | 1.64 |
+| GMM SIFT1M full | 7.86 | 16.1 | — | 11.8 |
+| GMM DINOv2 diag | 1.88 | 2.04 | — | 11.8 |
+| GMM DINOv2 full | 8.78 | 23.1 | — | 9.01 |
+| GMM AG News diag | 2.54 | 2.04 | — | 4.49 |
+| GMM AG News full | 9.63 | 12.0 | — | 16.0 |
+| DL CIFAR 8×8 | ≤ 0.25 | 1.68 | 0.54 | 0.54 |
+| DL CIFAR 12×12 | 0.83 | 2.83 | 1.66 | 1.66 |
+| DL 20NG NMF | 2.32 | 2.36 | 3.70 | 3.70 |
+| LDA 20NG | 1.13 | — | 1.60 | **0.89** |
+| LDA Enron | 4.44 | — | — | 7.17 |
+| LDA NYTimes | — (ends 3242; ref 3167) | — | — (3317) | — (**ends 3198**) |
+| ALS ML-10M | 5.84 | 8.88 | 20.1 | n/a (no revival in ALS) |
+| ALS ML-1M | — (tie: 0.8656 = ref) | — | — | n/a |
+| HMM Brown POS | 0.64 | 0.95 | 1.33 | 1.33 |
+| HMM synthetic | 0.66 | 1.44 | 1.95 | 1.95 |
+| HMM UCI HAR | 1.72 | 2.21 | 5.70 | 6.73 |
 
-GMM note: tuned online EM never reaches EM@25 on any GMM group and is far off on full covariance (e.g. SIFT1M full
-50.7 vs reference 40.7 nats) — **suspected weak baseline**, must be checked before submission (§8).
+GMM note: the no-revival tuned online EM never reaches EM@25 on any GMM group because components die (57/64 on
+SIFT1M full). With revival it reaches it on all 8, but later than the recipe. Report both baselines; the
+no-revival one is the published prior art, the revival one is the fair ablation.
 
 **Isolated wall-clock speed-up (CPU, T ≤ 5 only):** see PAPER_LOG §4 "Isolated timing v3" (5.4–82x swept,
 6.2–25.3x law; HMM Brown 32.9x / 25.3x; DL CIFAR 12×12 30.8x / 10.1x).
@@ -174,19 +178,26 @@ GMM note: tuned online EM never reaches EM@25 on any GMM group and is far off on
 2. Long budgets (10, 25) use a frozen 3–4-point local search for both ours and baselines.
 3. Wall-clock speed-ups only for matches within 5 epochs; CPU only; one machine.
 4. The reference is batch EM at 25 iterations, not converged batch EM.
-5. Weak-baseline suspicions: GMM tuned online EM (full covariance); exact GPU baselines (Flash-KMeans,
-   Flash-GMM) not compared.
+5. The published tuned online EM baselines have no revival; we add a revival-equipped tuned baseline as an
+   ablation (C2/C2b). On LDA it matches or beats the recipe. Exact GPU baselines (Flash-KMeans, Flash-GMM) not
+   compared.
 6. Operational repairs (all disclosed, none changed a method): LDA E-step aliasing bug (all LDA re-run), scheduler
    adoption bug (73 jobs re-run), 17 HMM jobs re-run after CUDA errors, one ALS cell filled.
 7. T12's refit in per-cell coordinates is exploratory (chosen after seeing the LDA failure).
 
 ## 8. Open items before submission
 
-- [ ] Check / strengthen weak baselines: GMM full-covariance online EM; add Flash-KMeans / Flash-GMM or justify.
+- [x] Weak GMM baseline explained (2026-11-16): no revival → 57/64 components die on full covariance. Ablation
+      baseline `*_rev_tuned` (tuned stepwise + revival) run for GMM, DL, LDA, HMM (273 jobs, all rc=0, 5 seeds);
+      §3 C2/C2b and §5 updated.
+- [x] Novelty checks, first pass (2026-11-16, PAPER_LOG §6): no cross-family law, no cosine-scheduled online EM,
+      no cross-family benchmark found; cite Ranganath 2013, Hughes & Sudderth 2013, Chen 2018 in addition; watch
+      DDMC issue #561 and arXiv for e-means follow-ups.
+- [ ] Flash-KMeans / Flash-GMM comparison or a justification for leaving it out.
 - [ ] Missing-information fraction as a law feature (PAPER_LOG §5); statistic-space noise-scale test.
-- [ ] Novelty checks (literature review, "Novelty checks" table): cross-family step law, cosine schedule for EM,
+- [ ] Deeper novelty checks (forward citations, SVI adaptive-step papers; first pass done above) (literature review, "Novelty checks" table): cross-family step law, cosine schedule for EM,
       unified revival rule.
-- [ ] Read the e-means PDF for exact law exponents; confirm it does not cite the online-EM lineage.
+- [x] e-means law exponents and citations confirmed (PAPER_LOG §6, 2026-11-16).
 - [ ] Decide headline framing (title choice, §1) and finalise the abstract's last sentence.
 - [ ] Make Fig 4 and Fig 5; restyle Figs 1–3.
 - [ ] Optional: time T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if wall-clock for them is wanted.

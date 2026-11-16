@@ -40,6 +40,75 @@
    2
   ]
  },
+ "stepwise|stepwise_rev|brown_pos|k=12": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|synthetic|k=12": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|uci_har_vq|k=12": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    2.0,
+    0.6
+   ]
+  ]
+ },
  "stepwise|stepwise|brown_pos|k=12": {
   "anchor_seeds": [
    0,

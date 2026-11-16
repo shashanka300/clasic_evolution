@@ -41,6 +41,75 @@
    2
   ]
  },
+ "stepwise|stepwise_rev|20ng|k=50": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    100.0,
+    0.8
+   ],
+   [
+    10.0,
+    1.0
+   ],
+   [
+    100.0,
+    0.9
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|enron|k=50": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    100.0,
+    0.9
+   ],
+   [
+    100.0,
+    1.0
+   ],
+   [
+    100.0,
+    0.8
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|nytimes|k=50": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    100.0,
+    1.0
+   ],
+   [
+    100.0,
+    0.9
+   ],
+   [
+    100.0,
+    0.8
+   ]
+  ]
+ },
  "stepwise|stepwise|20ng|k=50": {
   "anchor_seeds": [
    0,
