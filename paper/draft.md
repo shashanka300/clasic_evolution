@@ -212,25 +212,25 @@ time, 3 seeds, after warm-up.
 
 | configuration | swept (ours) | law (ours, untuned) | tuned stepwise | tuned stepwise + revival |
 |---|---|---|---|---|
-| GMM synthetic diag | **0.29** | 17.2 | — | 3.94 |
-| GMM synthetic full | **1.98** | 2.88 | — | 23.0 |
-| GMM SIFT1M diag | **0.88** | 0.97 | — | 1.64 |
+| GMM synthetic diag | **0.29** | 17.2 | — | 3.94 | 9.2x |
+| GMM synthetic full | **1.98** | 2.88 | — | 23.0 | — |
+| GMM SIFT1M diag | **0.88** | 0.97 | — | 1.64 | 7.3x |
 | GMM SIFT1M full | **7.86** | 16.1 | — | 11.8 |
-| GMM DINOv2 diag | **1.88** | 2.04 | — | 11.8 |
+| GMM DINOv2 diag | **1.88** | 2.04 | — | 11.8 | — |
 | GMM DINOv2 full | **8.78** | 23.1 | — | 9.01 |
-| GMM AG News diag | 2.54 | **2.04** | — | 4.49 |
+| GMM AG News diag | 2.54 | **2.04** | — | 4.49 | 4.3x |
 | GMM AG News full | **9.63** | 12.0 | — | 16.0 |
-| DL CIFAR 8×8 | **≤ 0.25** | 1.68 | 0.54 | 0.54 |
-| DL CIFAR 12×12 | **0.83** | 2.83 | 1.66 | 1.66 |
-| DL 20NG NMF | **2.32** | 2.36 | 3.70 | 3.70 |
-| LDA 20NG | 1.13 | — | 1.60 | **0.89** |
+| DL CIFAR 8×8 | **≤ 0.25** | 1.68 | 0.54 | 0.54 | 36.4x |
+| DL CIFAR 12×12 | **0.83** | 2.83 | 1.66 | 1.66 | 15.4x |
+| DL 20NG NMF | **2.32** | 2.36 | 3.70 | 3.70 | 5.5x |
+| LDA 20NG | 1.13 | — | 1.60 | **0.89** | 9.5x |
 | LDA Enron | **4.44** | — | — | 7.17 |
 | LDA NYTimes | — (3242) | — | — (3317) | — (**3198**; ref 3167) |
 | ALS ML-10M | **5.84** | 8.88 | 20.1 | n/a |
 | ALS ML-1M | — (tie: 0.8656 = ref) | — | — | n/a |
-| HMM Brown POS | **0.64** | 0.95 | 1.33 | 1.33 |
-| HMM synthetic | **0.66** | 1.44 | 1.95 | 1.95 |
-| HMM UCI HAR | **1.72** | 2.21 | 5.70 | 6.73 |
+| HMM Brown POS | **0.64** | 0.95 | 1.33 | 1.33 | 16.6x |
+| HMM synthetic | **0.66** | 1.44 | 1.95 | 1.95 | 8.5x |
+| HMM UCI HAR | **1.72** | 2.21 | 5.70 | 6.73 | — (4.2x w/o revival) |
 
 The swept recipe reaches the reference within 3 epochs on 12 configurations:
 - all four diagonal GMMs and synthetic full;
@@ -276,7 +276,7 @@ p < 0.05).
 | GMM SIFT1M full | 50.68 | 40.53 | 40.50 | 40.67 |
 | GMM DINOv2 full | 69.64 | 54.61 | 54.65 | 54.80 |
 | GMM AG News full | 78.81 | 70.37 | 70.20 | 70.42 |
-| LDA 20NG | 2410 | 2320 | 2334 | 2489 |
+| LDA 20NG | 2410 | 2320 | 2334 | 2489 | None |
 | LDA Enron | 2401 | 2240 | 2295 | 2267 |
 | LDA NYTimes | 3317 | 3198 | 3242 | 3167 |
 | HMM / DL | identical with and without revival (it never fires) | | | |
@@ -306,22 +306,24 @@ it on NYTimes or ML-1M.
 ### 5.3 Wall-clock (C3)
 
 **Table 4.** Isolated CPU timing (12 threads, one job at a time, 3 seeds). Speed-up = reference's 25-iteration
-time / time for our method to reach the reference objective. Timed only for matches within 5 epochs.
+time / time for the method to reach the reference objective. Timed only for matches within 5 epochs. Tuned + revival
+is stepwise / online EM with revival and the val-selected (τ0, κ) per budget, timed under the same conditions;
+— = not reached within 5 epochs.
 
-| configuration | ref@25 (s) | swept | law |
-|---|---|---|---|
-| DL CIFAR 8×8 | 184 | 82x (≤ 0.25 ep) | 16.4x |
-| DL CIFAR 12×12 | 161 | 30.8x | 10.1x |
-| DL 20NG NMF | 1.85 | 6.5x | 7.3x |
-| HMM Brown POS | 59.4 | 32.9x | 25.3x |
-| HMM synthetic | 1.55 | 24.7x | 13.9x |
-| HMM UCI HAR | 0.68 | 9.9x | 7.5x |
-| GMM synthetic diag | 8.8 | 17.6x | — |
-| GMM SIFT1M diag | 25.0 | 10.6x | 9.2x |
-| GMM DINOv2 diag | 5.4 | 8.7x | 6.6x |
-| GMM AG News diag | 10.7 | 6.1x | 7.5x |
-| GMM synthetic full | 20.9 | 5.4x | 6.2x |
-| LDA 20NG | 6.0 | 6.8x | — |
+| configuration | ref@25 (s) | swept | law | tuned + revival |
+|---|---|---|---|---|
+| DL CIFAR 8×8 | 184 | 82x (≤ 0.25 ep) | 16.4x | None |
+| DL CIFAR 12×12 | 161 | 30.8x | 10.1x | None |
+| DL 20NG NMF | 1.85 | 6.5x | 7.3x | None |
+| HMM Brown POS | 59.4 | 32.9x | 25.3x | None |
+| HMM synthetic | 1.55 | 24.7x | 13.9x | None |
+| HMM UCI HAR | 0.68 | 9.9x | 7.5x | None |
+| GMM synthetic diag | 8.8 | 17.6x | — | None |
+| GMM SIFT1M diag | 25.0 | 10.6x | 9.2x | None |
+| GMM DINOv2 diag | 5.4 | 8.7x | 6.6x | None |
+| GMM AG News diag | 10.7 | 6.1x | 7.5x | None |
+| GMM synthetic full | 20.9 | 5.4x | 6.2x | None |
+| LDA 20NG | 6.0 | 6.8x | — | None |
 
 ![Figure 5](figs/timing_speedup.png)
 
@@ -329,7 +331,15 @@ time / time for our method to reach the reference objective. Timed only for matc
 
 Wall-clock speed-ups are below epoch gains because a mini-batch epoch has extra per-step overhead (statistic
 updates, M-steps after every batch). TODO: time the T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if
-reviewers want them. TODO: wall-clock for the tuned baselines.
+reviewers want them.
+
+The tuned baselines cost the same per epoch as the recipe: at T = 2 their wall time is within 5% of the recipe's on
+every configuration, because both do one E-step and one M-step per mini-batch and the EMA of statistics adds no
+measurable work. Wall-clock therefore ranks the methods exactly as epochs do. Against tuned EM with revival the
+recipe reaches the reference sooner in wall time on 11 of 12 timed configurations (e.g. DL CIFAR 8×8 82x vs 36x,
+HMM Brown 33x vs 17x); tuned EM with revival is faster only on LDA 20NG (9.5x vs 6.8x), as in epochs (§5.2). Most
+of the speed-up over full batch therefore comes from stochastic approximation with revival; the recipe's own
+contribution is a further 1.2–2.9x from the schedule and the step-size law.
 
 ### 5.4 Does the k-means law transfer? (C4)
 
@@ -371,8 +381,13 @@ The law is not universal:
   EMA. Observations held at the peak rate range from about 7 (LDA) to about 150 (dictionary learning).
 - HMMs want the maximum rate (α0* = 1) despite receiving about one observation per cell per step.
 
-A natural next feature is the fraction of missing information, which theory links to the optimal step of
-stochastic-approximation EM (TODO, §7).
+A natural next feature is the fraction of missing information, which theory links to EM's convergence rate. In an
+exploratory test (not pre-registered) we used the normalised posterior entropy of the latents on held-out data, h,
+as a proxy. It does not help. Adding log(1 − h) raises R² only from 0.66 to 0.67 and worsens the
+leave-one-algorithm-out penalty (0.149% → 0.167%). The fitted sign is also the opposite of the hypothesis: more
+missing information goes with a *larger* α0*, driven by HMMs. LDA's latents are no more uncertain than the HMMs'
+(h ≈ 0.16–0.24 vs 0.04–0.47), yet LDA needs an α0 about 30x smaller. Whatever sets LDA's rate is specific to LDA
+(Appendix, PAPER_LOG §5).
 
 ![Figure 3](figs/law_penalties.png)
 
@@ -427,7 +442,6 @@ theory of stochastic EM step sizes will have to explain.
 
 TODO before submission:
 - Flash-KMeans / GMM baseline or justification;
-- missing-information feature;
 - an ε diagnostic on LDA;
 - Figures 4–5;
 - dataset licences;

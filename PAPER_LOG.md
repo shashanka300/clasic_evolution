@@ -313,6 +313,42 @@ Interpretation for the paper:
   where the recipe's test perplexity rises from T = 5 to T = 25: overfitting or cosine floor too high).
 - So: claim C2 holds outside LDA; LDA is the honest counter-example, consistent with the LDA α0 anomaly (C4, C6).
 
+### Tuned-baseline timing (2026-11-17; closes "wall-clock for the tuned baselines")
+
+`scripts/timing_tuned.py` re-runs the tuned prior-art baselines (`*_tuned`, `*_rev_tuned`; ALS `stepwise_als_tuned`
+only) alone under the v3 timing conditions (CPU, 12 threads, one job, untimed warm-up, 3 seeds, T ∈ {0.25, 0.5, 1, 2,
+3, 5}), using the val-selected (τ0, κ) per T from the main runs. Records go to `results/_timing/<track>/runs.jsonl`
+with `timing_pass=True`; log `results/timing_tuned.log` (108 seed-runs, no errors, 19:22–20:29 UTC).
+
+Wall-clock speed-up to reach full-batch@25 (reference@25 time / time to match; — = not reached by T = 5):
+
+| group | swept | kmlaw | tuned | rev_tuned |
+|---|---|---|---|---|
+| DL cifar_p8 | 82.0x | 16.4x | 36.8x | 36.4x |
+| DL cifar_p12 | 30.8x | 10.1x | 15.4x | 15.4x |
+| DL nmf_20ng | 6.5x | 7.3x | 5.4x | 5.5x |
+| HMM brown_pos | 32.9x | 25.3x | 16.8x | 16.6x |
+| HMM synthetic | 24.7x | 13.9x | 8.9x | 8.5x |
+| HMM uci_har_vq | 9.9x | 7.5x | 4.2x | — (gap at T=5 +0.05%) |
+| GMM synthetic diag | 17.6x | — | — | 9.2x |
+| GMM sift1m diag | 10.6x | 9.2x | — | 7.3x |
+| GMM dinov2 diag | 8.6x | 6.6x | — | — |
+| GMM agnews diag | 6.1x | 7.5x | — | 4.3x |
+| GMM synthetic full | 5.4x | 6.2x | — | — |
+| LDA 20ng | 6.8x | — | 5.2x | 9.5x |
+| GMM full (real), LDA enron/nytimes, ALS | — | — | — | — |
+
+Per-epoch cost: at T = 2 the tuned baselines' wall time is within ±5% of the recipe's on all 19 groups (e.g. DL
+cifar_p8 17.4 vs 17.5 s, LDA nytimes 27.4 vs 27.5 s, GMM sift1m full 18.2 vs 18.3 s). So wall-clock ranks the methods
+as epochs do; the recipe's EMA adds no measurable cost. Recipe (swept) faster than rev_tuned on 11/12 timed groups
+(including the three where rev_tuned does not match by T = 5); slower only on LDA 20ng, as in epochs.
+Revival never fires for HMM and DL (tuned ≈ rev_tuned, differences are timing noise).
+Summary JSON: `results/_timing/timing_tuned_summary.json`.
+
+Interpretation for the paper: most of the speed-up over full batch belongs to stochastic approximation + revival;
+the recipe's schedule and law add a further 1.2–2.9x in wall time where both match (DL nmf_20ng 1.2x, DL cifar_p8
+2.3x, HMM brown 2.0x, HMM synthetic 2.9x) except on LDA (0.7x).
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
@@ -396,6 +432,34 @@ sweep. alpha0 picked on mean val; test is the mean over seeds at that alpha0.
 - The T=5 → T=25 rise persists under both eps on all three corpora (20NG 2297 → 2321, Enron 2265 → 2293, NYTimes
   3225 → 3235). Cause left open; the paper says so (draft §5.2 item 3).
 
+### Missing-information feature (2026-11-17; exploratory, not pre-registered) — negative result
+
+Hypothesis: EM's rate depends on the fraction of missing information (Dempster, Laird & Rubin 1977), so a proxy for
+it should explain what q_eff leaves, especially the LDA α0 anomaly. Proxy: h = mean posterior entropy of the latent
+assignment / log k on validation data, from one recipe fit per sweep group (seed 0, T = 2, group-median α0* and B);
+GMM responsibilities, HMM forward-backward state posteriors, LDA per-token φ; h = 0 for DL and ALS. Script
+`tracks/universal-scaling-law/missing_info.py` -> `results/universal-scaling-law/missing_info.json` (44 groups,
+log `missing_info.log`); refit `refit_coords.py --missing-info` -> `refit_coords_mi.json`, log `refit_coords_mi.log`.
+
+h by family (median, range): GMM 0.048 (0.014–0.155), HMM 0.170 (0.043–0.469), LDA 0.207 (0.157–0.236), DL / ALS 0.
+Within a family h falls with n (HMM synthetic k=6: 0.469 / 0.350 / 0.175 at n = 5k / 10k / 20k).
+
+| model | LOCO | LOAO | HMM held out | LDA held out | R²(log α*) |
+|---|---|---|---|---|---|
+| Qe1 | 0.073% | 0.183% | 1.81% | 5.30% | — |
+| Qe0 | 0.116% | 0.149% | 1.52% | 11.64% | 0.659 |
+| Qh1 (+ log(1−h)) | 0.073% | 0.214% | 4.35% | 3.93% | — |
+| Qh0 (+ log(1−h)) | 0.099% | 0.167% | 2.45% | 11.72% | 0.673 |
+
+Global fit Qh0: α0* = 0.286 · q_eff^0.466 · (1−h)^−1.433 · (n/B)^−0.254 · T^−0.320.
+
+Reading: h adds almost nothing (R² +0.014, LOCO 0.116 -> 0.099%) and makes LOAO worse (0.149 -> 0.167%; HMM 1.52 ->
+2.45%). The fitted sign is the opposite of the hypothesis: more missing information -> *larger* α0*, driven by HMM
+(high h, α* = 1), whereas LDA has similar h (0.16–0.24) but needs α* ≈ 0.03. So posterior entropy does not explain
+the LDA anomaly; whatever does is specific to LDA (candidates: the Dirichlet prior on topics and the sparse,
+heavy-tailed word statistics; the per-document local E-step). Qe0 stays the headline law. For the paper: one
+sentence in §5 (exploratory, negative) plus this table in the appendix.
+
 ## 6. Positioning and related work (from the literature review, 2026-11-14)
 
 Full report: `reports/Novel directions for EMA statistics.md`; notes per area in
@@ -452,7 +516,7 @@ flagship paper, from the v3 results at commit 342cd1c. Items below that v3 close
       pass, `fit_v2.py` and `evaluate.py`; archive the superseded records first.
 - [ ] Budgets 10 and 25 (+ sub-epoch) for ours and tuned baselines; 5 seeds for headline groups (§2.1–2.3).
 - [ ] Check the weak-baseline suspicions (§2.6).
-- [ ] Missing-information feature for the law (§5).
+- [x] Missing-information feature for the law (§5): done 2026-11-17, negative (see §5).
 - [ ] Novelty checks listed at the end of the literature review report.
 - [ ] Commit: results live in the WSL clone `~/clasic_evolution`; code changes in `F:\clasic_evolution`.
 

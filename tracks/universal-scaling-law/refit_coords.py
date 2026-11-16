@@ -17,6 +17,9 @@ Models for log alpha0* (scored like fit_v2: val-loss penalty of the predicted al
   Q1    c_alg + log q, log(n/B), log T
   Q0    Q1 with ONE global constant           <- a truly universal law: predicts an unseen algorithm with no constant
   Qe0   Q0 with q_eff
+  --missing-info (2026-11-17): adds Qh1 / Qh0 = Qe1 / Qe0 plus log(1 - h), h = normalised posterior entropy of the
+  latents (missing_info.py; 0 for dictionary learning and ALS). Saved to refit_coords_mi.json; the default run is
+  unchanged.
 Censoring: optima at the grid's lower edge (0.01) are excluded from fitting, but every cell is scored (the loss
 interpolation clamps to the grid, so predicting <= 0.01 for an edge cell costs nothing).
 Exploratory: not pre-registered, writes nothing to results/*.jsonl; prints a report and saves a JSON summary.
@@ -128,10 +131,25 @@ def load_cells(st):
     return cells
 
 
+def group_key(c):
+    g = c["group"].split("|")
+    kv = dict(x.split("=", 1) for x in g[1:] if "=" in x)
+    tag = [x for x in g[1:] if "=" not in x]
+    return f"{c['alg']}|{g[0]}|n={int(float(kv['n']))}|k={int(float(kv['k']))}" + (f"|{tag[0]}" if tag else "")
+
+
+def attach_h(cells):
+    mi = json.loads((ROOT / "results" / "universal-scaling-law" / "missing_info.json").read_text())
+    for c in cells:
+        c["h"] = 0.0 if c["alg"] in ("dictlearn-scaling", "als-ema") else mi[group_key(c)]["h"]
+    return cells
+
+
 FEATS = {
     "M1": lambda c: [math.log(c["n"] / c["k"]), math.log(c["B"]), math.log(c["T"])],
     "Q1": lambda c: [math.log(c["q"]), math.log(c["n"] / c["B"]), math.log(c["T"])],
     "Qe1": lambda c: [math.log(c["qe"]), math.log(c["n"] / c["B"]), math.log(c["T"])],
+    "Qh1": lambda c: [math.log(c["qe"]), math.log(max(1.0 - c["h"], 1e-3)), math.log(c["n"] / c["B"]), math.log(c["T"])],
 }
 MODELS = {"M1": ("M1", True), "M1g": ("M1", False), "Q1": ("Q1", True), "Q0": ("Q1", False),
           "Qe1": ("Qe1", True), "Qe0": ("Qe1", False)}
@@ -164,8 +182,17 @@ def penalty(c, a):
 
 
 def main():
+    global OUT
     st = dataset_stats()
     cells = load_cells(st)
+    mi = "--missing-info" in sys.argv
+    if mi:
+        cells = attach_h(cells)
+        MODELS.update({"Qh1": ("Qh1", True), "Qh0": ("Qh1", False)})
+        OUT = OUT.with_name("refit_coords_mi.json")
+        for a in sorted({c["alg"] for c in cells}):
+            hs = [c["h"] for c in cells if c["alg"] == a]
+            print(f"  h {a:18s} median {np.median(hs):.3f}  range {min(hs):.3f}-{max(hs):.3f}")
     fitc = [c for c in cells if not c["edge"]]
     algs = sorted({c["alg"] for c in cells})
     print(f"cells {len(cells)}; censored at the lower edge (alpha*<=0.01): {len(cells) - len(fitc)}")
@@ -215,10 +242,11 @@ def main():
         by = "  ".join(f"{a.split('-')[0]}={r['loao_by_alg'][a]:.2%}[{r['pred_vs_grid_by_alg'][a][0]:.3g}/"
                        f"{r['pred_vs_grid_by_alg'][a][1]:.3g}]" for a in algs)
         print(f"  {model:5s} {r['loco_median']:8.3%} {r['loao_median']:8.3%}   {by}")
-    for model in ("M1g", "Q0", "Qe0"):
+    for model in ("M1g", "Q0", "Qe0") + (("Qh0",) if mi else ()):
         beta = fit(fitc, model, fit_algs)
         names = {"M1": ["log(n/k)", "log B", "log T"], "Q1": ["log q", "log(n/B)", "log T"],
-                 "Qe1": ["log q_eff", "log(n/B)", "log T"]}[MODELS[model][0]]
+                 "Qe1": ["log q_eff", "log(n/B)", "log T"],
+                 "Qh1": ["log q_eff", "log(1-h)", "log(n/B)", "log T"]}[MODELS[model][0]]
         X = np.array([xrow(c, model, fit_algs) for c in fitc])
         y = np.log([c["a_star"] for c in fitc])
         r2 = 1 - np.sum((y - X @ beta) ** 2) / np.sum((y - y.mean()) ** 2)

@@ -198,12 +198,16 @@ no-revival one is the published prior art, the revival one is the fair ablation.
 - [x] Figures 4 (α0* vs q_eff, `law_coords`) and 5 (timing speed-ups, `timing_speedup`) made (`make_figures.py`).
 - [x] Draft bibliography `paper/references.md` (unverified entries marked); dataset table `paper/datasets.md`
       (licences to verify on provider pages).
-- [ ] Missing-information fraction as a law feature (PAPER_LOG §5); statistic-space noise-scale test.
+- [x] Missing-information fraction as a law feature (2026-11-17): negative — R² 0.659 → 0.673, LOAO 0.149% → 0.167%,
+      sign opposite to hypothesis (PAPER_LOG §5).
+- [ ] Statistic-space noise-scale test.
 - [ ] Deeper novelty checks (forward citations, SVI adaptive-step papers; first pass done above) (literature review, "Novelty checks" table): cross-family step law, cosine schedule for EM,
       unified revival rule.
 - [x] e-means law exponents and citations confirmed (PAPER_LOG §6, 2026-11-16).
 - [ ] Decide headline framing (title choice, §1) and finalise the abstract's last sentence.
 - [x] Restyle Figs 1–3 (2026-11-17; all seven figures re-rendered, legends outside panels).
+- [x] Wall-clock for the tuned baselines (2026-11-17, `scripts/timing_tuned.py`): same per-epoch cost as the recipe
+      (±5% at T = 2); speed-ups in PAPER_LOG §4 "Tuned-baseline timing" and draft Table 4.
 - [ ] Optional: time T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if wall-clock for them is wanted.
 - [ ] Dataset licences / citations for every dataset (SIFT1M, MovieLens, UCI BoW, UCI HAR, Brown, 20NG, CIFAR-100,
       AG News, DINOv2 / MiniLM models).

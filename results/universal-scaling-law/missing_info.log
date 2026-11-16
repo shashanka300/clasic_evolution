@@ -1,0 +1,47 @@
+44 groups (0 done)
+gmm-ema|agnews_pca64|n=90000|k=64|diag                  h=0.048
+gmm-ema|agnews_pca64|n=90000|k=64|full                  h=0.046
+gmm-ema|dinov2_pca64|n=45000|k=64|diag                  h=0.028
+gmm-ema|dinov2_pca64|n=45000|k=64|full                  h=0.043
+gmm-ema|sift1m_pca64|n=100000|k=16|diag                 h=0.086
+gmm-ema|sift1m_pca64|n=100000|k=64|diag                 h=0.084
+gmm-ema|sift1m_pca64|n=200000|k=16|diag                 h=0.085
+gmm-ema|sift1m_pca64|n=200000|k=64|diag                 h=0.081
+gmm-ema|sift1m_pca64|n=200000|k=64|full                 h=0.044
+gmm-ema|sift1m_pca64|n=50000|k=16|diag                  h=0.091
+gmm-ema|sift1m_pca64|n=50000|k=64|diag                  h=0.086
+gmm-ema|synthetic|n=100000|k=16|diag                    h=0.014
+gmm-ema|synthetic|n=100000|k=64|diag                    h=0.155
+gmm-ema|synthetic|n=200000|k=16|diag                    h=0.031
+gmm-ema|synthetic|n=200000|k=32|diag                    h=0.019
+gmm-ema|synthetic|n=200000|k=32|full                    h=0.028
+gmm-ema|synthetic|n=200000|k=64|diag                    h=0.139
+gmm-ema|synthetic|n=50000|k=16|diag                     h=0.023
+gmm-ema|synthetic|n=50000|k=64|diag                     h=0.128
+hmm-ema|brown_pos|n=11835|k=12                          h=0.225
+hmm-ema|brown_pos|n=11835|k=6                           h=0.248
+hmm-ema|brown_pos|n=23670|k=12                          h=0.165
+hmm-ema|brown_pos|n=23670|k=6                           h=0.241
+hmm-ema|brown_pos|n=47340|k=12                          h=0.155
+hmm-ema|brown_pos|n=47340|k=6                           h=0.202
+hmm-ema|synthetic|n=10000|k=12                          h=0.151
+hmm-ema|synthetic|n=10000|k=6                           h=0.350
+hmm-ema|synthetic|n=20000|k=12                          h=0.096
+hmm-ema|synthetic|n=20000|k=6                           h=0.175
+hmm-ema|synthetic|n=5000|k=12                           h=0.364
+hmm-ema|synthetic|n=5000|k=6                            h=0.469
+hmm-ema|uci_har_vq|n=6352|k=12                          h=0.043
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+lda-scaling|20ng|n=12170|k=20                           h=0.203
+lda-scaling|20ng|n=12170|k=50                           h=0.158
+lda-scaling|20ng|n=3042|k=20                            h=0.157
+lda-scaling|20ng|n=3042|k=50                            h=0.173
+lda-scaling|enron|n=35518|k=20                          h=0.201
+lda-scaling|enron|n=35518|k=50                          h=0.207
+lda-scaling|enron|n=8879|k=20                           h=0.230
+lda-scaling|enron|n=8879|k=50                           h=0.231
+lda-scaling|nytimes|n=23885|k=20                        h=0.236
+lda-scaling|nytimes|n=23885|k=50                        h=0.233
+lda-scaling|nytimes|n=95543|k=20                        h=0.234
+lda-scaling|nytimes|n=95543|k=50                        h=0.208
