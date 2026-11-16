@@ -431,3 +431,10 @@ flagship paper, from the v3 results at commit 342cd1c. Items below that v3 close
 - [ ] Missing-information feature for the law (§5).
 - [ ] Novelty checks listed at the end of the literature review report.
 - [ ] Commit: results live in the WSL clone `~/clasic_evolution`; code changes in `F:\clasic_evolution`.
+
+**2026-11-16 — paper draft v0 (Markdown, user decision: Markdown first, LaTeX later):** `paper/draft.md`, framing A
+("Scaling laws for stochastic-approximation EM"). Sections 1–7 written from METADATA §3–5 and §4 here; claims C1–C6 as
+in METADATA, C2 stated against the revival-equipped tuned baseline, LDA as the counter-example. Number corrections made
+while drafting: refit_coords.log (current) gives Qe0 LOAO 0.149% and LDA LOAO 11.6% (METADATA had 0.143% / 11.9% from an
+earlier run of the refit); METADATA C6 updated. Open TODOs in the draft: related-work citations, LDA ε = 0.01
+diagnostic (recipe's LDA perplexity rises T = 5 → 25), Figures 4–5, tuned-baseline wall-clock, Flash-KMeans/GMM.

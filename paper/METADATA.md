@@ -65,7 +65,7 @@ numbers; the untuned law ends slightly above tuned stepwise EM on HMM (§3 C4).
 | C3 | Matched-quality wall-clock speed-ups on CPU (isolated timing) | **Supported for T ≤ 5 only**: 5.4–82x (swept), 6.2–25x (law) | §5 timing table; `results/_timing/` | Measurement protocol fixed 2026-11-14 |
 | C4 | The untuned k-means α0 law transfers to other families | **Supported except LDA**: median penalty ≤ 0.2% for GMM/HMM/DL/ALS; LDA law never reaches batch VB@25. HMM: law converges fastest but ends slightly *above* tuned stepwise EM (within 1 seed-std) | `*_kmlaw` rows; `refit_coords.log` | Yes (T12) |
 | C5 | One cross-family law (T12, M1) beats a per-algorithm constant | **Supported** (pre-registered): LOCO median penalty 0.108% vs 0.319%, Wilcoxon p = 1.05e-18; LOAO 0.338% vs 0.440% | `results/universal-scaling-law/VERDICT.md` | Yes |
-| C6 | "Observations per statistic cell" coordinates explain the LDA anomaly | **Exploratory**: one global law R² 0.66 (Qe0) vs 0.20 for n/k; LOAO median 0.143%; LDA LOAO 11.9% (vs 27.7% M1). Exponent on q_eff 0.43, not 1 — not a universal constant | `refit_coords.log` (422 cells) | **No — label exploratory** |
+| C6 | "Observations per statistic cell" coordinates explain the LDA anomaly | **Exploratory**: one global law R² 0.66 (Qe0) vs 0.20 for n/k; LOAO median 0.149%; LDA LOAO 11.6% (vs 27.7% M1) (refit_coords.log as of 2026-11-16 16:07). Exponent on q_eff 0.43, not 1 — not a universal constant | `refit_coords.log` (422 cells) | **No — label exploratory** |
 
 Claims **not** to make (contradicted or unsupported by v3 data):
 - "The untuned law ends lower than tuned stepwise EM on HMM" — v2 claim, false on 5 seeds (PAPER_LOG §4).
