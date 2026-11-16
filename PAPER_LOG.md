@@ -340,6 +340,11 @@ Full report: `reports/Novel directions for EMA statistics.md`; notes per area in
 
 ## 7. Open items before writing
 
+**2026-11-16 — paper metadata started:** `paper/METADATA.md` (titles, abstract draft v0, contributions with
+evidence and status, setup, headline tables, figure inventory, limitations, open items, reproducibility) for the
+flagship paper, from the v3 results at commit 342cd1c. Items below that v3 closed: budgets 10/25 + sub-epoch and
+5 seeds (done, §2 protocol v3); LDA re-emit and re-fit (done by `v3_reemit` and the v3 queue); commit (done, 342cd1c).
+
 - [x] LDA grid extension result (§5) -> `refit_coords.py` re-run (2026-11-14).
 - [ ] Re-emit `lda_ema_swept` (NYTimes T=5 changed) and re-run the LDA `cosine-law` stage, the LDA timing-swept
       pass, `fit_v2.py` and `evaluate.py`; archive the superseded records first.
