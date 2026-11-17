@@ -40,28 +40,23 @@
 \maketitle
 
 \begin{abstract}
-e-means trains $k$-means by keeping an exponential moving average (EMA) of each cluster's sufficient statistics,
-annealing the rate with a cosine schedule, reviving dead clusters, and setting the initial rate from the problem
-size with a fitted law. The update is stochastic-approximation (stepwise) EM, so it applies to any model with a
-closed-form M-step. We test the full recipe on five families: Gaussian mixtures, hidden Markov models, latent
-Dirichlet allocation, online dictionary learning / NMF, and alternating least squares. The test covers 19 dataset
-configurations with 5 seeds and budgets from 0.25 to 25 epochs. We compare against full-batch EM at 25 iterations
-and against stepwise / online EM tuned on the same validation grid.
-
-With its rate selected on validation, the recipe reaches the batch objective in under 3 epochs on 12 of 19
-configurations (HMM median 38$\times$ fewer epochs, dictionary learning 30$\times$). We also give the tuned stepwise
-baseline the same revival rule. Against it, the recipe still reaches the batch objective sooner on 16 of 19
-configurations and is never significantly worse outside LDA; on LDA, revival rather than the schedule accounts for
-the gain. An ablation shows the two components play different roles. Revival is what makes stochastic EM work where
-components die (full-covariance GMMs, LDA). The cosine schedule is what beats tuned step decay where they do not
-(HMMs, dictionary learning). On a CPU, matched-quality wall-clock speed-ups reach 5--82$\times$.
-
-The $k$-means rate law, applied unchanged, transfers to GMM, HMM, dictionary learning and ALS (median validation
-penalty $\le 0.2\%$) but fails on LDA, whose optimal rate is about an order of magnitude lower. One cross-family law
-beats a per-family constant (pre-registered; leave-one-cell-out median penalty 0.11\% vs 0.32\%). Re-expressing it
-in observations per sufficient-statistic cell explains two-thirds of the variance of the optimal rate with a single
-global fit, and cuts the held-out-family penalty on LDA from 28\% to 12\% (exploratory). Code, job files and all
-44{,}197 run records are released.
+e-means trains $k$-means with an exponential moving average (EMA) of each cluster's sufficient statistics, a
+cosine-annealed rate, revival of dead clusters, and a fitted law that sets the initial rate from the problem size.
+The update is stochastic-approximation (stepwise) EM, so it applies to any model with a closed-form M-step. We test
+the full recipe on Gaussian mixtures, hidden Markov models, latent Dirichlet allocation, online dictionary learning /
+NMF and alternating least squares: 19 dataset configurations, 5 seeds, budgets from 0.25 to 25 epochs, against
+full-batch EM at 25 iterations and against stepwise EM tuned on the same validation grid. With its rate selected on
+validation, the recipe reaches the batch objective in under 3 epochs on 12 of 19 configurations (median 38$\times$
+fewer epochs on HMMs, 30$\times$ on dictionary learning). Against tuned stepwise EM given the same revival rule, it
+reaches the batch objective sooner on 16 of 19 configurations and is never significantly worse outside LDA. An
+ablation separates the components: revival is what makes stochastic EM work where components die (full-covariance
+GMMs, LDA), and the cosine schedule is what beats tuned step decay where they do not (HMMs, dictionary learning).
+Matched-quality CPU wall-clock speed-ups reach 5--82$\times$. The $k$-means rate law, applied unchanged, transfers to
+four families (median validation penalty $\le 0.2\%$) but fails on LDA, whose optimal rate is about an order of
+magnitude lower. A pre-registered cross-family law beats per-family constants (leave-one-cell-out median penalty
+0.11\% vs 0.32\%), and re-expressing it in observations per sufficient-statistic cell explains two-thirds of the
+variance of the optimal rate with one global fit and cuts the held-out penalty on LDA from 28\% to 12\%
+(exploratory). Code and all 44{,}197 run records are released.
 \end{abstract}
 
 %======================================================================================================================
@@ -278,6 +273,7 @@ threads, one job at a time, 3 seeds, after warm-up.
 \centering\small
 \caption{Epochs to reach full-batch EM@25 (seed means, 5 seeds; --- = not within 25 epochs). Best per row in bold.}
 \label{tab:epochs}
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lcccc}
 \toprule
 configuration & swept (ours) & law (ours, untuned) & tuned stepwise & tuned stepwise + revival \\
@@ -473,7 +469,9 @@ step, a single global law (no per-family constants),
 explains $R^2 = 0.66$ of the variance of $\log\aopt$ (vs 0.20 for the same global fit in $n/k$ coordinates). Its
 leave-one-family-out median penalty is 0.149\%, and it cuts the LDA held-out penalty from 27.7\% (M1) to 11.6\%. With
 per-family constants (Qe1), LOCO is 0.073\% and LDA held-out is 5.3\% (Figures~\ref{fig:penalties}
-and~\ref{fig:coords}; all fits in Appendix~\ref{app:law}).
+and~\ref{fig:coords}; all fits in Appendix~\ref{app:law}). The gain is concentrated on LDA: on median
+leave-one-family-out penalty the unchanged $k$-means law (0.155\%) is almost as good as Qe0 (0.149\%), and it predicts
+HMMs better (0.19\% vs 1.52\%).
 
 The law is not universal. The exponent on $\qeff$ is 0.43, not 1, so the recipe does not hold a fixed number of
 observations per cell in its EMA; observations held at the peak rate range from about 7 (LDA) to about 150
@@ -575,8 +573,30 @@ Datasets are not redistributed; the released download script fetches each from i
 citations are listed in the supplementary material.
 
 \section{Hyperparameter grids}\label{app:grids}
-\textbf{TODO (fill from the released job files):} the $\alpha_0$ grid per family including the LDA extension; the
-$(\tau_0, \kappa)$ grids per family; batch sizes; the frozen long-budget neighbourhoods.
+\begin{itemize}[nosep]
+  \item \textbf{Recipe $\alpha_0$ grid (swept).} Eight log-spaced values on $[0.01, 1]$: $\{0.01, 0.0193, 0.0373,
+        0.0720, 0.1389, 0.2683, 0.5179, 1\}$. For LDA, where a third of the cells chose 0.01, the grid continues
+        downwards with the same spacing by five values ($0.00518, 0.00268, 0.00139, 0.00072, 0.00037$).
+  \item \textbf{Tuned stepwise / online EM.} $\alpha_t = (\tau_0 + t)^{-\kappa}$ with $\kappa \in \{0.5, 0.6, 0.7,
+        0.8, 0.9, 1.0\}$; $\tau_0 \in \{2, 10, 100\}$ for HMM, LDA, dictionary learning and ALS (18 settings) and
+        $\tau_0 \in \{1, 10, 100, 1000\}$ for GMMs (24 settings). The same grid is used with and without revival.
+        The online-LDA library default is $\tau_0 = 1024$, $\kappa = 0.7$.
+  \item \textbf{Batch sizes} for the headline curves: GMM 1024; HMM, LDA and dictionary learning 256; ALS 256
+        (ML-1M) and 2048 (ML-10M). The \emph{law} method uses the e-means batch law instead.
+  \item \textbf{Long budgets ($T = 10, 25$).} Before any long run, a plan file froze, per configuration, the four
+        $\alpha_0$ grid values around the recipe's $T = 5$ optimum (two below, one above) and the three best
+        $(\tau_0, \kappa)$ settings of the tuned baseline at $T = 5$. An optimum at the edge of a restricted grid is
+        treated as censored in the law fits.
+  \item \textbf{Law-fitting cells.} Besides the headline cells, each family sweeps $\alpha_0$ over sub-sampled
+        problems: GMM $n \in \{n/4, n/2, n\}$, $B \in \{256, 2048\}$, $T \in \{1, 2, 5\}$; HMM $n \in \{n/4, n/2,
+        n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; LDA $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1,
+        2\}$; dictionary learning $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; ALS $B \in
+        \{B_h/4, B_h, 4B_h\}$, $T \in \{1, 2, 5\}$. Together with the headline cells this gives the 422 cells used
+        in Section~5.5.
+  \item \textbf{Fixed model settings.} ALS regularisation $\lambda$ is chosen once from $\{0.01, 0.03, 0.05, 0.1,
+        0.2\}$ on validation (seed 0) and shared by every method. The cosine floor is $\varepsilon = 0.1$ and
+        revival runs every 5 batches with threshold 0.1 for every family that uses it.
+\end{itemize}
 
 \section{Deviations and repairs}\label{app:repairs}
 \begin{itemize}[nosep]

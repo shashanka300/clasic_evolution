@@ -1,22 +1,22 @@
 # References (draft bibliography, author–year)
 
-Status: **v** = venue/details checked by web search on 2026-11-16; unmarked = from memory, to verify against the
-publisher page before submission (convert to BibTeX at the LaTeX stage).
+Status: **v** = venue/details checked by web search (2026-11-16/17); unmarked = standard references (classic papers,
+datasets, libraries, well-known preprints) whose details are from memory. BibTeX: `paper/tmlr/references.bib`.
 
 ## Starting point and fast exact baselines
-- Bessa, Mazaré, Szilvasy, Touvron, Picard, Douze, Jégou (2026). e-means: outperforming k-means (in one-tenth the
+- Bessa (Swann), Mazaré, Szilvasy, Touvron, Picard, Douze, Jégou (2026). e-means: outperforming k-means (in one-tenth the
   epochs). arXiv:2611.09501. **v** (PAPER_LOG §6)
-- Weiss, E. (2026). Small is not dead: distance-aware cluster revival for e-means. arXiv:2611.18238. **v**
+- Weiss, Eyal (2026). Small Is Not Dead: Distance-Aware Cluster Revival for e-means. arXiv:2611.18238. **v**
   (2026-11-17; k-means only, keeps small isolated clusters that count-based revival removes)
-- Yang, Xi, et al. (2026). Flash-KMeans: Fast and memory-efficient exact k-means. arXiv:2603.09229; NeurIPS 2026
+- Yang, Shuo; Xi, Haocheng; et al. (13 authors) (2026). Flash-KMeans: Fast and memory-efficient exact k-means. arXiv:2603.09229; NeurIPS 2026
   poster. **v**
-- Bloch, Gera, Orbach, Eytan, Toledo (2026). Flash-GMM: A memory-efficient kernel for scalable soft clustering.
+- Bloch (Gal), Gera (Ariel), Orbach (Matan), Eytan (Ohad), Toledo (Assaf) (2026; IBM Research). Flash-GMM: A memory-efficient kernel for scalable soft clustering.
   arXiv:2606.10896. **v**
 - Johnson, Douze, Jégou (2019). Billion-scale similarity search with GPUs. IEEE Trans. Big Data 7(3):535–547.
   doi:10.1109/TBDATA.2019.2921572. (Faiss) **v**
 - Douze, Guzhva, Deng, Johnson, Szilvasy, Mazaré, Lomeli, Hosseini, Jégou (2024). The Faiss library.
-  arXiv:2401.08281.
-- Sculley (2010). Web-scale k-means clustering. WWW 2010.
+  arXiv:2401.08281. **v**
+- Sculley (2010). Web-scale k-means clustering. WWW 2010, pp. 1177–1178. doi:10.1145/1772690.1772862. **v**
 
 ## Online / stepwise EM, stochastic approximation, SVI
 - Robbins, Monro (1951). A stochastic approximation method. Ann. Math. Stat. 22(3):400–407.
@@ -29,7 +29,7 @@ publisher page before submission (convert to BibTeX at the LaTeX stage).
 - Cappé, Moulines (2009). On-line expectation–maximization algorithm for latent data models. JRSS-B 71(3):593–613.
   doi:10.1111/j.1467-9868.2009.00698.x. **v**
 - Liang, Klein (2009). Online EM for unsupervised models. NAACL-HLT 2009, pp. 611–619 (ACL N09-1069). **v**
-- Hoffman, Blei, Bach (2010). Online learning for latent Dirichlet allocation. NeurIPS 2010, pp. 856–864. **v** (proceedings list the
+- Hoffman, Bach, Blei (2010; order as in the NeurIPS proceedings). Online learning for latent Dirichlet allocation. NeurIPS 2010, pp. 856–864. **v** (proceedings list the
   authors as Hoffman, Bach, Blei; check the order against the PDF at the BibTeX stage)
 - Hoffman, Blei, Wang, Paisley (2013). Stochastic variational inference. JMLR 14:1303–1347. **v**
 - Mairal, Bach, Ponce, Sapiro (2010). Online learning for matrix factorization and sparse coding. JMLR 11:19–60. **v**
@@ -53,8 +53,9 @@ publisher page before submission (convert to BibTeX at the LaTeX stage).
 
 ## Datasets and models
 - Jégou, Douze, Schmid (2011). Product quantization for nearest neighbor search. TPAMI 33(1). (SIFT1M)
-- Aumüller, Bernhardsson, Faithfull (2020). ANN-Benchmarks. Information Systems 87. (SIFT1M / GloVe distribution)
-- Oquab et al. (2024). DINOv2: Learning robust visual features without supervision. TMLR.
+- Aumüller, Bernhardsson, Faithfull (2020). ANN-Benchmarks. Information Systems 87:101374.
+  doi:10.1016/j.is.2019.02.006. (SIFT1M / GloVe distribution) **v**
+- Oquab et al. (2024). DINOv2: Learning robust visual features without supervision. TMLR. **v**
 - Reimers, Gurevych (2019). Sentence-BERT. EMNLP 2019; Wang et al. (2020). MiniLM. NeurIPS 2020.
   (all-MiniLM-L6-v2 embeddings)
 - Zhang, Zhao, LeCun (2015). Character-level convolutional networks for text classification. NeurIPS 2015.

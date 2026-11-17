@@ -19,7 +19,7 @@ rm -rf MIGRATION_5090.md MAC_AND_DATA_PLAN.md research_notes reports \
        results/jobs_5090.txt results/queue.txt results/queue.log
 # job lists and queue logs: drop lines for companion tracks
 pat=$(echo $COMPANION | sed 's/ /\\|/g')
-rm -f results/figures/ivf_recall_latency.* results/figures/drift_window_mse.*
+rm -f results/figures/ivf_recall_latency.* results/figures/drift_window_mse.* paper/figs/ivf_recall_latency.* paper/figs/drift_window_mse.*
 for f in results/jobs_*.txt results/pqueue_done*.txt results/pqueue*.log results/queue*.txt; do
   if [ -f "$f" ]; then sed -i "/$pat/d" "$f"; fi
 done
