@@ -503,6 +503,20 @@ Draft Table 1 / Table 3, METADATA §4 updated; §5.1 now says real-data full-cov
   - the Appendix B α0-grid line was badly stretched (an unbreakable math list); it is now plain text.
   16 pages, no errors, no overfull boxes.
 
+### Framing: lead with our results, not e-means (2026-11-17; author decision)
+
+- The author asked that the paper not open with e-means. Abstract now opens: "How many passes over the data does
+  EM need? We show that across five latent-variable families, a few are enough." The method is described
+  directly; e-means is no longer named in the abstract (the k-means rate law is described as "a rate law fitted
+  for k-means").
+- Introduction: paragraph 2 now states our claim and lists the three additions. A single sentence credits e-means
+  (Bessa et al., 2026) with proposing them together for k-means. Credit is kept because TMLR rejects incorrect
+  novelty claims. The question is reframed as which parts belong to SA-EM in general, which are family-specific,
+  and whether one law serves all families.
+- Discussion heading "What transfers from e-means, and what does not" → "What carries across families, and what
+  does not". Conclusion opens "Within the scope we tested, a few epochs of stochastic-approximation EM are enough."
+- No numbers changed. `paper/draft.md` (older Markdown) keeps the old framing; `main.tex` is canonical.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

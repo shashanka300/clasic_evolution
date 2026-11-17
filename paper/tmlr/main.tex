@@ -41,23 +41,24 @@
 \maketitle
 
 \begin{abstract}
-e-means trains $k$-means with an exponential moving average (EMA) of each cluster's sufficient statistics, a
-cosine-annealed rate, revival of dead clusters, and a fitted law that sets the initial rate from the problem size.
-The update is stochastic-approximation (stepwise) EM, so it applies to any model with a closed-form M-step. We test
-the full recipe on Gaussian mixtures, hidden Markov models, latent Dirichlet allocation, online dictionary learning /
-NMF and alternating least squares: 19 dataset configurations, 5 seeds, budgets from 0.25 to 25 epochs, against
-full-batch EM at 25 iterations and against stepwise EM tuned on the same validation grid. With its rate selected on
-validation, the recipe reaches the batch objective in under 3 epochs on 12 of 19 configurations (median 38$\times$
-fewer epochs on HMMs, 30$\times$ on dictionary learning). Against tuned stepwise EM given the same revival rule, it
-reaches the batch objective sooner on 16 of 19 configurations and is never significantly worse outside LDA. An
-ablation separates the components: revival is what makes stochastic EM work where components die (full-covariance
-GMMs, LDA), and the cosine schedule is what beats tuned step decay where they do not (HMMs, dictionary learning).
-Matched-quality CPU wall-clock speed-ups reach 5--82$\times$. The $k$-means rate law, applied unchanged, transfers to
-four families (median validation penalty $\le 0.2\%$) but fails on LDA, whose optimal rate is about an order of
-magnitude lower. A pre-registered cross-family law beats per-family constants (leave-one-cell-out median penalty
-0.11\% vs 0.32\%), and re-expressing it in observations per sufficient-statistic cell explains two-thirds of the
-variance of the optimal rate with one global fit and cuts the held-out penalty on LDA from 28\% to 12\%
-(exploratory). Code and all 44{,}197 run records are released.
+How many passes over the data does EM need? We show that across five latent-variable families, a few are enough. The
+method keeps a running average of expected sufficient statistics over mini-batches (stochastic-approximation, or
+stepwise, EM) and adds a cosine-annealed step size, revival of dead components, and a law that sets the initial step
+from the problem size. We test it on Gaussian mixtures, hidden Markov models, latent Dirichlet allocation, online
+dictionary learning / NMF and alternating least squares: 19 dataset configurations, 5 seeds, budgets from 0.25 to 25
+epochs, against full-batch EM at 25 iterations and against stepwise EM tuned on the same validation grid. With its
+step size selected on validation, the method reaches the batch objective in under 3 epochs on 12 of 19
+configurations (median 38$\times$ fewer epochs on HMMs, 30$\times$ on dictionary learning), with matched-quality CPU
+wall-clock speed-ups of 5--82$\times$. Against tuned stepwise EM given the same revival rule, it reaches the batch
+objective sooner on 16 of 19 configurations and is never significantly worse outside LDA. An ablation separates the
+components: revival is what makes stochastic EM work where components die (full-covariance GMMs, LDA), and the
+cosine schedule is what beats tuned step decay where they do not (HMMs, dictionary learning). We also map where the
+step-size rule holds. A rate law fitted for $k$-means, applied unchanged, transfers to four families (median
+validation penalty $\le 0.2\%$) but fails on LDA, whose optimal step is about an order of magnitude lower. A
+pre-registered cross-family law beats per-family constants (leave-one-cell-out median penalty 0.11\% vs 0.32\%), and
+re-expressing it in observations per sufficient-statistic cell explains two-thirds of the variance of the optimal
+step with one global fit and cuts the held-out penalty on LDA from 28\% to 12\% (exploratory). Code and all
+44{,}197 run records are released.
 \end{abstract}
 
 %======================================================================================================================
@@ -72,18 +73,19 @@ families: online LDA \citep{hoffman2010online}, online dictionary learning \cite
 for mixtures \citep{nguyen2020minibatch}. In practice its step-size schedule is tuned per problem;
 \citet{liang2009online} already noted that the best schedule depends on the task and dataset.
 
-e-means \citep{bessa2026emeans} revisited this update for $k$-means at billion scale. It adds three ingredients:
+This paper shows that, with three additions, stochastic-approximation EM matches full-batch EM within a few epochs
+across mixtures, sequence models, topic models and matrix factorisations, and it maps where that fails. The
+additions are:
 \begin{itemize}[nosep]
-  \item a \emph{cosine-annealed} rate in place of the usual inverse-time decay $(\tau_0 + t)^{-\kappa}$;
-  \item a \emph{revival} rule that re-seeds clusters whose EMA mass collapses;
-  \item a \emph{scaling law} that predicts the initial rate $\alpha_0$ and the batch size from $(n, k, B, T)$, fitted on
-        one dataset.
+  \item a \emph{cosine-annealed} step size tied to the epoch budget, in place of the usual inverse-time decay
+        $(\tau_0 + t)^{-\kappa}$;
+  \item a \emph{revival} rule that re-seeds components whose running mass collapses;
+  \item a \emph{step-size law} that predicts the initial step $\alpha_0$ and the batch size from $(n, k, B, T)$.
 \end{itemize}
-It reports reaching Lloyd's objective in about a tenth of the epochs. The paper calls its update a hard-assignment
-form of EM with decayed statistics but tests no other model.
-
-This paper asks whether that recipe, including its law, is a property of stochastic-approximation EM in general or
-of $k$-means. We answer with a pre-registered, cross-family study:
+These three were proposed together for $k$-means by e-means \citep{bessa2026emeans}, which fitted the law on one
+dataset and tested no other model. We take them as a starting point and ask which parts belong to
+stochastic-approximation EM in general, which parts are specific to a model family, and whether one step-size law
+can serve all families. We answer with a pre-registered, cross-family study:
 \begin{enumerate}[nosep]
   \item \textbf{The recipe transfers (C1).} On 12 of 19 configurations across five families, the recipe with
         $\alpha_0$ selected on validation reaches full-batch EM@25 in $\le 3$ epochs. Where it does not
@@ -508,7 +510,7 @@ once cells are counted per statistic; HMMs (squares) sit far above the line at $
 %======================================================================================================================
 \section{Discussion}
 
-\paragraph{What transfers from e-means, and what does not.}
+\paragraph{What carries across families, and what does not.}
 The update and the revival rule transfer as they are. The update was already known to work across families
 \citep{liang2009online}. Revival has prior art in online EM \citep{sato2000online,hughes2013memoized} but is absent
 from the standard stepwise-EM baselines, and it decides whether online EM works at all on full-covariance mixtures and
@@ -545,9 +547,9 @@ NYTimes).
 %======================================================================================================================
 \section{Conclusion}
 
-Within the scope we tested, the e-means recipe is a recipe for stochastic-approximation EM in general, not only for
-$k$-means. Revival and a budget-aware cosine schedule let a stepwise EM update reach the batch objective in a few
-epochs across mixtures, HMMs, dictionary learning, topic models and matrix factorisation. The $k$-means rate law
+Within the scope we tested, a few epochs of stochastic-approximation EM are enough. Revival and a budget-aware
+cosine schedule let a stepwise EM update reach the batch objective in a few epochs across mixtures, HMMs, dictionary
+learning, topic models and matrix factorisation. The $k$-means rate law
 carries over to four of five families, and a law in observations-per-statistic coordinates comes closer to one rule
 for all five. LDA is the exception throughout: there, a well-tuned inverse-time schedule with revival is as good, and
 the optimal rate is an order of magnitude lower than the law predicts. These are the cases a predictive theory of
