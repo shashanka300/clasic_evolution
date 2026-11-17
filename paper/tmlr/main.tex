@@ -1,4 +1,4 @@
-% TMLR submission (anonymised). Build: tectonic main.tex   (or latexmk -pdf main.tex)
+% TMLR submission (anonymized). Build: tectonic main.tex   (or latexmk -pdf main.tex)
 % Uses the official TMLR style (tmlr.sty, tmlr.bst from github.com/JmlrOrg/tmlr-style-file) when present in this
 % folder; otherwise falls back to article + natbib so the draft still compiles.
 \documentclass[10pt]{article}
@@ -18,6 +18,8 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage[section]{placeins} % keep figures inside their section (they used to drift past the appendices)
@@ -41,245 +43,357 @@
 \maketitle
 
 \begin{abstract}
-How many passes over the data does EM need? We show that across five latent-variable families, a few are enough. The
-method keeps a running average of expected sufficient statistics over mini-batches (stochastic-approximation, or
-stepwise, EM) and adds a cosine-annealed step size, revival of dead components, and a law that sets the initial step
-from the problem size. We test it on Gaussian mixtures, hidden Markov models, latent Dirichlet allocation, online
-dictionary learning / NMF and alternating least squares: 19 dataset configurations, 5 seeds, budgets from 0.25 to 25
-epochs, against full-batch EM at 25 iterations and against stepwise EM tuned on the same validation grid. With its
-step size selected on validation, the method reaches the batch objective in under 3 epochs on 12 of 19
-configurations (median 38$\times$ fewer epochs on HMMs, 30$\times$ on dictionary learning), with matched-quality CPU
-wall-clock speed-ups of 5--82$\times$. Against tuned stepwise EM given the same revival rule, it reaches the batch
-objective sooner on 16 of 19 configurations and is never significantly worse outside LDA. An ablation separates the
-components: revival is what makes stochastic EM work where components die (full-covariance GMMs, LDA), and the
-cosine schedule is what beats tuned step decay where they do not (HMMs, dictionary learning). We also map where the
-step-size rule holds. A rate law fitted for $k$-means, applied unchanged, transfers to four families (median
-validation penalty $\le 0.2\%$) but fails on LDA, whose optimal step is about an order of magnitude lower. A
-pre-registered cross-family law beats per-family constants (leave-one-cell-out median penalty 0.11\% vs 0.32\%), and
-re-expressing it in observations per sufficient-statistic cell explains two-thirds of the variance of the optimal
-step with one global fit and cuts the held-out penalty on LDA from 28\% to 12\% (exploratory). Code and all
-44{,}197 run records are released.
+How many passes over the data does expectation--maximization (EM) need? Full-batch EM makes one pass per iteration
+and is usually run for tens of iterations, while its mini-batch form, stochastic-approximation (stepwise) EM, needs a
+step size tuned for each problem. We study stepwise EM with three additions: a step size annealed over a fixed epoch
+budget, revival of components that stop receiving data, and a rule that sets the initial step size from the size of
+the problem. We test it on Gaussian mixtures, hidden Markov models, latent Dirichlet allocation (LDA), dictionary
+learning and matrix factorization. On 12 of 19 dataset configurations it reaches the objective that full-batch EM
+attains after 25 iterations within 3 epochs, and where it matches within 5 epochs it is 5--82$\times$ faster in CPU
+wall-clock time. Against stepwise EM tuned on the same validation grid and given the same revival rule, it gets there
+sooner on 16 of 19 configurations. An ablation shows that revival is what makes stochastic EM work where components
+die, and the annealed schedule is what helps where they do not. LDA is the consistent exception: tuned stepwise EM is
+as good there, and the best step size is about ten times smaller than the rule predicts. A step-size rule fitted for
+$k$-means transfers unchanged to the other four families, and a pre-registered test shows that one cross-family rule
+beats separate per-family constants. Code and all run records are released.
 \end{abstract}
 
 %======================================================================================================================
 \section{Introduction}
 
-Expectation--maximisation (EM) for latent-variable models with exponential-family complete-data likelihoods touches
-the data only through expected sufficient statistics. Replacing the full-data average of those statistics with a
-running, step-size-weighted average over mini-batches gives stochastic-approximation EM. The method has several
-names and origins: online EM \citep{sato2000online,cappe2009online}, stepwise EM \citep{liang2009online}, and the
-natural-gradient step of stochastic variational inference \citep{hoffman2013svi}. It is a standard tool for single
-families: online LDA \citep{hoffman2010online}, online dictionary learning \citep{mairal2010online} and mini-batch EM
-for mixtures \citep{nguyen2020minibatch}. In practice its step-size schedule is tuned per problem;
-\citet{liang2009online} already noted that the best schedule depends on the task and dataset.
+Expectation--maximization (EM) is the standard way to fit latent-variable models such as mixtures, hidden Markov
+models and topic models. For models in the exponential family, EM touches the data only through \emph{expected
+sufficient statistics}: a fixed set of sums, such as soft counts and soft sums of the data, from which the parameters
+follow in closed form (Section~\ref{sec:background}). Each EM iteration recomputes these sums over the whole dataset.
+Replacing the full-data sums with a running average over mini-batches gives stochastic-approximation EM, known as
+online EM \citep{sato2000online,cappe2009online}, stepwise EM \citep{liang2009online}, and, for variational models,
+stochastic variational inference \citep{hoffman2013svi}. It is a standard tool for single model families: online LDA
+\citep{hoffman2010online}, online dictionary learning \citep{mairal2010online} and mini-batch EM for mixtures
+\citep{nguyen2020minibatch}. Its step-size schedule is usually tuned per problem; \citet{liang2009online} already
+noted that the best schedule depends on the task and the dataset.
 
 This paper shows that, with three additions, stochastic-approximation EM matches full-batch EM within a few epochs
-across mixtures, sequence models, topic models and matrix factorisations, and it maps where that fails. The
-additions are:
+across mixtures, sequence models, topic models and matrix factorizations, and it maps where that fails. The additions
+are:
 \begin{itemize}[nosep]
-  \item a \emph{cosine-annealed} step size tied to the epoch budget, in place of the usual inverse-time decay
-        $(\tau_0 + t)^{-\kappa}$;
-  \item a \emph{revival} rule that re-seeds components whose running mass collapses;
-  \item a \emph{step-size law} that predicts the initial step $\alpha_0$ and the batch size from $(n, k, B, T)$.
+  \item a \emph{cosine-annealed} step size tied to the epoch budget, in place of the usual inverse-time decay;
+  \item a \emph{revival} rule that re-seeds components whose share of the data collapses;
+  \item a \emph{step-size law} that predicts the initial step size $\alpha_0$ from the number of points, components,
+        batch size and epoch budget.
 \end{itemize}
 These three were proposed together for $k$-means by e-means \citep{bessa2026emeans}, which fitted the law on one
 dataset and tested no other model. We take them as a starting point and ask which parts belong to
 stochastic-approximation EM in general, which parts are specific to a model family, and whether one step-size law
-can serve all families. We answer with a pre-registered, cross-family study:
+can serve all families. Our contributions are:
 \begin{enumerate}[nosep]
-  \item \textbf{The recipe transfers (C1).} On 12 of 19 configurations across five families, the recipe with
-        $\alpha_0$ selected on validation reaches full-batch EM@25 in $\le 3$ epochs. Where it does not
-        (full-covariance GMMs on real data, two LDA corpora, ALS), we report how long it takes.
-  \item \textbf{Against the strongest baseline, the schedule matters except on LDA (C2, C2b).} We compare with
-        stepwise EM tuned on the same grid \emph{and given the same revival rule}. The recipe is significantly better
-        on 51 of 102 (configuration, budget) cells, tied on 47 and worse on 4, all on LDA. The ablation separates the
-        components: revival rescues stochastic EM on full-covariance GMMs (SIFT1M: 50.7 $\to$ 40.5 nats against a
-        batch reference of 40.7) and LDA. The schedule is the whole advantage on HMMs (up to 10\% lower held-out NLL
-        at one epoch) and dictionary learning.
-  \item \textbf{Wall-clock (C3).} In an isolated CPU timing pass, matched-quality speed-ups over batch EM@25 are
-        5.4--82$\times$ for every configuration that matches within 5 epochs.
-  \item \textbf{The $k$-means law transfers, except to LDA (C4).} Unchanged, it costs $\le 0.2\%$ median validation
-        loss on GMM, HMM, dictionary learning and ALS. On LDA it never reaches the batch reference.
-  \item \textbf{A cross-family law (C5, pre-registered) and a coordinate that explains the LDA anomaly (C6,
-        exploratory).} One law with per-family constants beats per-family constants alone. Written in observations
-        per sufficient-statistic cell per step, a single global law explains 66\% of the variance of $\log\aopt$
-        (vs 20\% in the $k$-means coordinates) and shrinks the LDA held-out penalty from 28\% to 12\%. It is not
-        universal: the exponent on observations per cell is 0.43, not 1, and HMMs want the maximum rate despite
-        sparse cells.
+  \item \textbf{A cross-family time-to-batch study} (Section~\ref{sec:res-time}): five model families, 19 dataset
+        configurations, 5 seeds and budgets from a quarter of an epoch to 25 epochs. With $\alpha_0$ selected on
+        validation, our method reaches full-batch EM's 25-iteration objective within 3 epochs on 12 of 19
+        configurations; where it does not, we report how long it takes.
+  \item \textbf{An ablation that separates revival from the schedule} (Section~\ref{sec:res-ablation}). Against
+        stepwise EM tuned on the same grid and given the same revival rule, our method is better on 42 of 102
+        (configuration, budget) pairs after false-discovery-rate correction and worse on 2, both on LDA. Revival is
+        what makes stochastic EM work on full-covariance mixtures and LDA; the schedule is the whole advantage on
+        HMMs and dictionary learning.
+  \item \textbf{Wall-clock measurements} (Section~\ref{sec:res-wall}) from an isolated CPU timing pass: 5.4--82$\times$
+        speed-ups over full-batch EM where our method matches within 5 epochs.
+  \item \textbf{A map of where the step-size law transfers} (Sections~\ref{sec:res-kmlaw} and~\ref{sec:res-law}).
+        The $k$-means law, unchanged, costs at most 0.2\% validation loss on four families and fails on LDA. A
+        pre-registered cross-family law beats per-family constants; an exploratory refit in a different coordinate
+        explains much of the LDA gap but is not universal.
 \end{enumerate}
-We frame the contribution as an empirical and predictive study of stochastic-approximation EM at scale. We make no
-claim to a new update rule: the update is stepwise EM, and tuned stepwise EM is our main baseline throughout.
+All hypotheses and their pass/fail criteria were fixed before the runs (Table~\ref{tab:hyp}); analyses added later are
+labeled exploratory. We make no claim to a new update rule: the update is stepwise EM, and tuned stepwise EM is our main
+baseline throughout. The step-size laws are empirical fits checked on held-out data, not a theory.
+
+%======================================================================================================================
+\section{Background: EM and its stochastic-approximation form}\label{sec:background}
+
+\paragraph{EM with sufficient statistics.} Let $x$ be observed data and $z$ latent variables, with model $p(x, z \mid
+\theta)$. When the complete-data likelihood is in the exponential family, it depends on the data only through a
+vector of \emph{sufficient statistics} $s(x, z)$. For a Gaussian mixture model (GMM) with $k$ components, $z_i$ is the
+component of point $x_i$, and the statistics of component $j$ are the indicator $[z_i = j]$, the vector $[z_i = j]
+x_i$ and the matrix $[z_i = j] x_i x_i^\top$. EM alternates two steps. The \emph{E-step} averages the expected
+statistics over the data under the current parameters,
+\begin{equation}
+  S = \frac{1}{n}\sum_{i=1}^{n} \mathbb{E}\big[s(x_i, z_i) \mid x_i, \theta\big];
+\end{equation}
+for a GMM the expectation replaces each indicator by the responsibility $r_{ij} = p(z_i = j \mid x_i, \theta)$. The
+\emph{M-step} sets $\theta = m(S)$ in closed form; for a GMM the weights are the soft counts $N_j = \sum_i r_{ij}$
+divided by $n$, the means are soft sums divided by $N_j$, and similarly for the covariances. Each iteration reads the
+whole dataset once. We call one pass over the data an \emph{epoch}, so full-batch EM does one iteration per epoch.
+
+\paragraph{Stochastic-approximation EM.} Instead of recomputing $S$ from all $n$ points, keep a running estimate $\hat
+S$ and update it after each mini-batch $b_t$ of $B$ points:
+\begin{equation}\label{eq:update}
+  \hat S_t = (1 - \alpha_t)\, \hat S_{t-1} + \alpha_t \cdot \frac{1}{B}\sum_{i \in b_t}
+  \mathbb{E}\big[s(x_i, z_i) \mid x_i, \theta_{t-1}\big], \qquad \theta_t = m(\hat S_t).
+\end{equation}
+The step size $\alpha_t \in (0, 1]$ sets how fast old batches are forgotten: a batch seen $j$ steps ago has weight
+proportional to $\prod (1 - \alpha)$ over those $j$ steps, so $\hat S$ is an \emph{exponential moving average (EMA)} of
+the batch statistics. With a decaying step such as $\alpha_t = (\tau_0 + t)^{-\kappa}$, $\kappa \in (0.5, 1]$, the
+iteration converges to a stationary point of the likelihood \citep{robbins1951stochastic,cappe2009online}; this is
+stepwise EM \citep{liang2009online}, and the constants $\tau_0$ and $\kappa$ are what practitioners tune. Stochastic
+variational inference (SVI) applies the same update to the parameters of a variational posterior, which is how
+online LDA works \citep{hoffman2013svi}.
+
+\paragraph{Notation.} $n$ training points (documents for LDA, sequences for HMMs, users for ALS), $k$ components
+(clusters, states, topics, atoms or rank), $d$ data dimension, $B$ batch size, $T$ epoch budget, $M = \lceil Tn / B
+\rceil$ total steps, and $\alpha_0$ the initial step size. A star, as in $\aopt$, marks the value that is best on
+validation.
+
+%======================================================================================================================
+\section{Method}\label{sec:method}
+
+Algorithm~\ref{alg:method} gives the complete method. It is the update of Equation~\ref{eq:update} with the three
+additions described below; one implementation serves all five families, which differ only in their statistics and
+M-step (Table~\ref{tab:stats}).
+
+\begin{algorithm}[tbp]
+\caption{Our method: stochastic-approximation EM with a budget-annealed step and revival.}\label{alg:method}
+\begin{algorithmic}[1]
+\Require data $x_{1:n}$; a model with statistics $s$ and closed-form M-step $m$; budget $T$ epochs; batch size $B$;
+initial step $\alpha_0$ (tuned on validation, or from a law in Section~\ref{sec:laws}); floor $\varepsilon = 0.1$
+\State $M \gets \lceil Tn/B \rceil$; initialize $\theta_0$; set every unit's mass $N_j$ in $\hat S_0$ to $10^{-10}$
+\For{$t = 1, \dots, M$}
+  \State take the next mini-batch $b_t$ of $B$ points
+  \State $\bar S_t \gets \frac{1}{B}\sum_{i \in b_t} \mathbb{E}[s(x_i, z_i) \mid x_i, \theta_{t-1}]$
+         \Comment{E-step on the batch}
+  \State $\alpha_t \gets \alpha_0 \big(\varepsilon + (1 - \varepsilon)\tfrac12(1 + \cos(\pi t / M))\big)$
+         \Comment{cosine schedule}
+  \State $\hat S_t \gets (1 - \alpha_t)\,\hat S_{t-1} + \alpha_t\, \bar S_t$ \Comment{running average}
+  \If{$t \bmod 5 = 0$} \Comment{revival}
+    \For{each unit $j$ with $N_j < 0.1 \cdot \mathrm{mean}(N)$}
+      \State draw a donor $j'$ with probability $\propto N_{j'}$; give $j$ a perturbed share of $j'$'s statistics
+    \EndFor
+  \EndIf
+  \State $\theta_t \gets m(\hat S_t)$ \Comment{closed-form M-step}
+\EndFor
+\State \Return $\theta_M$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Running-average statistics and M-step per family.}\label{tab:stats}
+\begin{tabular}{p{2.6cm}p{6.6cm}p{4.6cm}}
+\toprule
+family & statistics averaged in $\hat S$ & M-step \\
+\midrule
+GMM (diagonal / full) & soft counts $N_j$, soft sums $\sum_i r_{ij} x_i$, soft second moments $\sum_i r_{ij} x_i
+x_i^\top$ (or their diagonal) & weights, means, covariances (plus a small ridge) \\
+HMM & expected initial, transition and emission counts (forward--backward) & normalize rows \\
+LDA & expected topic--word counts, scaled by $D/B$ for $D$ documents (the SVI global step) & $\lambda = \eta + \hat
+S$ \\
+Dictionary learning / NMF & $A = \sum_i \alpha_i\alpha_i^\top$, $C = \sum_i x_i \alpha_i^\top$ for sparse codes
+$\alpha_i$ & block-coordinate dictionary update \\
+ALS & per item: rating count, $\sum r\,u$, $\sum u u^\top$ over the users $u$ who rated it & item factors from the
+normal equations \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Cosine schedule.} The step decays from $\alpha_0$ to $\varepsilon\alpha_0$ along half a cosine over the
+$M$ steps of the budget (line 5 of Algorithm~\ref{alg:method}). The inverse-time schedule of stepwise EM decays with
+the step count regardless of the budget, so a short run ends with a large step and a long run spends most of its
+steps at a small one. The cosine schedule keeps the step high for most of the run and anneals it at the end, whatever
+the budget. The floor $\varepsilon = 0.1$ is the same for every family.
+
+\paragraph{Revival.} When a component stops receiving data, its statistics decay towards zero and it is wasted for
+the rest of the run. Every 5 batches, any unit (mixture component, HMM state, topic or dictionary atom) whose mass
+$N_j$ in $\hat S$ is below a tenth of the mean is re-seeded by splitting a live donor, drawn with probability
+proportional to its mass: the donor's statistics are shared between the two and slightly perturbed. ALS has no
+per-component mass and does not use revival. Because all masses start at $10^{-10}$, the first batch effectively
+initializes the statistics.
+
+\paragraph{Cost per step.}\label{sec:cost} A step costs one E-step on $B$ points, one update of the statistics
+(proportional to their size $|S|$), one M-step, and a revival check linear in $k$ every 5 steps. Per epoch, the E-step
+work is the same as one full-batch iteration: $n$ points either way. The overhead is the $n/B$ statistic updates and
+M-steps per epoch instead of one. For a full-covariance GMM, for example, the E-step on a batch costs about $Bkd^2$
+and the M-step about $kd^3$, so the overhead is roughly $d/B$ of the E-step work, 6\% at $d = 64$ and $B = 1024$. This
+overhead is why wall-clock gains are smaller than epoch gains (Section~\ref{sec:res-wall}). The baselines use the same
+update with a different schedule, so they pay the same overhead.
+
+\subsection{Step-size laws}\label{sec:laws}
+A law predicts $\aopt$, the validation-best initial step, from the problem size. All laws are fitted by least squares
+on $\log\aopt$ over swept configurations (Section~\ref{sec:protocol}).
+\begin{itemize}[nosep]
+  \item \textbf{The $k$-means law} (from e-means, used unchanged): $\alpha_0 = \min(0.824\, k^{-0.46} B^{0.90}
+        n^{-0.45} T^{-0.11}, 1)$, with $B$ set by the e-means batch-size law. We call our method with this
+        $\alpha_0$ the \emph{law variant}; it needs no tuning.
+  \item \textbf{M0 and M1} (the pre-registered test). M0 is one constant per family. M1 makes $\log\aopt$ linear in
+        $\log(n/k)$, $\log B$ and $\log T$, with one intercept per family.
+  \item \textbf{Per-cell coordinates} (exploratory). The quantity $n/k$ counts points per component per pass, which
+        suits mixtures but not models whose statistics are sparse tables, such as topic--word counts. We instead count
+        $q$, the observations that reach each \emph{statistic cell} per step: $B/k$ for GMMs; $B$ times the code
+        density for dictionary learning; $B$ times ratings per user divided by the number of items for ALS; and $B$
+        times tokens per document or sequence divided by $kV$ for LDA and HMMs, where $V$ is the vocabulary size.
+        $\qeff$ replaces $V$ by the effective vocabulary $\exp(H)$, where $H$ is the entropy of the unigram
+        distribution. Q1 and Qe1 make $\log\aopt$ linear in $\log q$ (or $\log\qeff$), $\log(n/B)$ and $\log T$ with
+        per-family intercepts; Q0 and Qe0 use one global intercept, so they are a single law for all families.
+\end{itemize}
+The exponents have a simple reading. More observations per cell per step make each batch average less noisy, so a
+larger step is safe (positive exponent on $q$). More steps per epoch ($n/B$) or more epochs ($T$) give the average
+more batches to combine, so a smaller step suffices (negative exponents). All quantities are counts, so the laws are
+unit-free; the constants themselves are empirical.
 
 %======================================================================================================================
 \section{Related work}
 
-\paragraph{Online / stepwise EM and SVI.}
-Incremental EM \citep{neal1998view}; online EM for normalised Gaussian networks \citep{sato2000online}; convergence
-of online EM with Robbins--Monro steps \citep{robbins1951stochastic,cappe2009online} and of SAEM
-\citep{delyon1999saem}; stepwise EM on four NLP models, 2--10$\times$ faster than batch EM with a task-dependent step
-\citep{liang2009online}; online LDA and SVI \citep{hoffman2010online,hoffman2013svi}; online dictionary learning
-and NMF \citep{mairal2010online}; and mini-batch EM for exponential-family mixtures, which lists step and batch
-tuning as future work \citep{nguyen2020minibatch}. Our update is theirs. We differ in four ways: the schedule
-(cosine instead of inverse-time), the revival rule, a time-to-batch protocol across five families, and a fitted law
-for the rate.
+\paragraph{Online and stepwise EM, and SVI.} Incremental EM was given its variational justification by
+\citet{neal1998view}. \citet{sato2000online} derived online EM for normalized Gaussian networks, and
+\citet{cappe2009online} proved convergence of online EM with Robbins--Monro steps \citep{robbins1951stochastic}; SAEM
+\citep{delyon1999saem} is the related stochastic-approximation scheme for intractable E-steps. \citet{liang2009online}
+compared stepwise and incremental EM on four NLP models and found stepwise EM 2--10$\times$ faster than batch EM, with
+a task-dependent best step. Online LDA and SVI \citep{hoffman2010online,hoffman2013svi}, online dictionary learning
+and NMF \citep{mairal2010online}, and mini-batch EM for exponential-family mixtures \citep{nguyen2020minibatch}, which
+lists step and batch tuning as future work, apply the same update to single families. Our update is theirs. We
+differ in the budget-tied schedule, the revival rule, a time-to-batch protocol run across five families, and a
+fitted law for the initial step.
 
-\paragraph{Step-size adaptation.}
-\citet{ranganath2013adaptive} remove tuning for SVI by estimating the step online; we instead predict the initial
-rate from problem coordinates. Variance-reduced stochastic EM \citep{chen2018sem} uses a constant step with control
-variates and is complementary. Riemannian batch and stochastic optimisation \citep{hosseini2020alternative} is an
-alternative to EM-style updates for GMMs.
+\paragraph{Step-size adaptation.} \citet{ranganath2013adaptive} remove step tuning for SVI by estimating the step
+online; we instead predict the initial step from problem size, and the two could be combined. Variance-reduced
+stochastic EM \citep{chen2018sem} uses a constant step with control variates and is complementary. Riemannian batch
+and stochastic optimization \citep{hosseini2020alternative} is an alternative to EM-style updates for GMMs.
 
-\paragraph{Dead components.}
-\citet{sato2000online} already add unit production, deletion and division to online EM, to track changing
-environments. Memoized online VI with birth/merge moves \citep{hughes2013memoized} is the closest modern mechanism.
-$k$-means codebooks commonly re-seed empty clusters \citep{johnson2019faiss,douze2024faiss}, and e-means uses a donor
-split. \citet{weiss2026small} refine e-means' count-based rule for $k$-means: a small cluster is removed only if it is
-close to another centre, which protects rare isolated groups (we test this variant in Appendix~\ref{app:rare}). We
-know of no single dead-component rule applied across EM families.
+\paragraph{Dead components.} \citet{sato2000online} already add unit production, deletion and division to online EM
+to track changing environments, and memoized online variational inference with birth and merge moves
+\citep{hughes2013memoized} is the closest modern mechanism. $k$-means codebooks commonly re-seed empty clusters
+\citep{johnson2019faiss,douze2024faiss}, and e-means splits a donor. \citet{weiss2026small} refine e-means'
+count-based rule for $k$-means: a small cluster is removed only if it is close to another center, which protects rare,
+isolated groups; we test this variant for GMMs in Appendix~\ref{app:rare}. We know of no dead-component rule that has
+been applied across EM families.
 
-\paragraph{Scaling laws and hyperparameter transfer.}
-Empirical laws for learning rate and batch size in neural network training are well established: the gradient noise
-scale \citep{mccandlish2018empirical}, loss scaling laws \citep{kaplan2020scaling}, and fitted learning-rate and
-batch-size laws \citep{deepseek2024llm}. \citet{busbridge2023ema} show how to scale an EMA with batch size. The cosine
-schedule comes from SGD \citep{loshchilov2017sgdr}. e-means fitted such a law for $k$-means on one dataset. We test
-whether it transfers across families, and in which coordinates.
+\paragraph{Scaling laws and hyperparameter transfer.} Empirical laws for learning rate and batch size are well
+established for neural network training: the gradient noise scale \citep{mccandlish2018empirical}, loss scaling laws
+\citep{kaplan2020scaling}, and fitted learning-rate and batch-size laws \citep{deepseek2024llm}.
+\citet{busbridge2023ema} show how to scale an EMA with batch size, and the cosine schedule comes from SGD
+\citep{loshchilov2017sgdr}. e-means fitted such a law for $k$-means on one dataset; we test whether it transfers across
+families, and in which coordinates.
 
-\paragraph{Fast exact kernels.}
-Flash-KMeans \citep{yang2026flashkmeans} and Flash-GMM \citep{bloch2026flashgmm} are fused GPU kernels that make each
-exact Lloyd or EM iteration cheaper without storing the $N \times K$ distance or responsibility matrix. They change
-the cost per pass, not the number of passes, and would apply equally to the mini-batch E-step of the recipe. They are
-therefore complementary to this paper, which counts passes and reports wall-clock only from a like-for-like CPU
-implementation of both sides.
-
-%======================================================================================================================
-\section{Method}
-
-\subsection{Stochastic-approximation EM with EMA statistics}
-Let the complete-data model be in the exponential family with sufficient statistics $s(x, z)$. Batch EM alternates
-an E-step, $S = \frac{1}{n}\sum_i \mathbb{E}[s(x_i, z_i) \mid \theta]$, with a closed-form M-step $\theta = m(S)$.
-The recipe keeps a running estimate $\hat S$ and, for each mini-batch $b_t$ of size $B$, sets
-\begin{equation}
-  \hat S_t = (1 - \alpha_t)\, \hat S_{t-1} + \alpha_t \cdot \frac{1}{B}\sum_{i \in b_t}
-  \mathbb{E}[s(x_i, z_i) \mid \theta_{t-1}], \qquad \theta_t = m(\hat S_t).
-\end{equation}
-With $\alpha_t = (\tau_0 + t)^{-\kappa}$ this is stepwise EM; the tuned baseline uses this form. Table~\ref{tab:stats}
-lists the statistics per family. For dictionary learning the M-step is a few passes of block-coordinate descent on
-the dictionary columns given the EMA $(A, B)$, with a non-negativity projection for NMF \citep{mairal2010online}.
-
-\begin{table}[t]
-\centering\small
-\caption{EMA statistics and M-step per family.}\label{tab:stats}
-\begin{tabular}{p{2.6cm}p{6.6cm}p{4.6cm}}
-\toprule
-family & EMA statistics & M-step \\
-\midrule
-GMM (diag / full) & $N_j$, $\sum r_{ij} x_i$, $\sum r_{ij} x_i x_i^\top$ (or diagonal) & weights, means, covariances (+ ridge) \\
-HMM & expected initial, transition, emission counts (forward--backward) & row-normalise \\
-LDA & expected topic--word counts scaled by $D/B$ (SVI's global step) & $\lambda = \eta + \hat S$ \\
-Dict.\ learning / NMF & $A = \sum \alpha\alpha^\top$, $B = \sum x \alpha^\top$ & block-coordinate dictionary update \\
-ALS & per-item $n_i$, $b_i = \sum r u$, $A_i = \sum u u^\top$ & item factors from normal equations \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Cosine schedule}
-\begin{equation}
-  \alpha_t = \alpha_0 \cdot \Big(\varepsilon + (1 - \varepsilon)\cdot \tfrac12\big(1 + \cos(\pi t / M)\big)\Big),
-  \qquad \varepsilon = 0.1,
-\end{equation}
-where $M$ is the total number of steps in the budget $T$ (in epochs). The baseline schedule decays with $t$ regardless
-of the budget. The cosine schedule ties the decay to the budget, keeping the rate high for most of the run and
-annealing to $\varepsilon\alpha_0$ at the end.
-
-\subsection{Revival}
-Every 5 batches, any unit (mixture component, topic, state, dictionary atom) with EMA mass $N_j < 0.1 \cdot
-\mathrm{mean}(N)$ is re-seeded by splitting a live donor drawn with probability proportional to its mass: the donor's
-statistics are shared and slightly perturbed, as in e-means. One implementation serves all families. Families without
-per-component mass (ALS) do not use revival. Statistics start at $N = 10^{-10}$, so the first batch effectively
-initialises them.
-
-\subsection{Rate laws}
-\begin{itemize}[nosep]
-  \item \textbf{$k$-means law (e-means, unchanged):} $\alpha_0 = \min(0.824\, k^{-0.46} B^{0.90} n^{-0.45}
-        T^{-0.11}, 1)$, with $B$ from the e-means batch law. We call the recipe with this $\alpha_0$ the \emph{law}
-        method (untuned).
-  \item \textbf{Cross-family law M1 (pre-registered):} $\log\aopt$ linear in $\log(n/k)$, $\log B$ and $\log T$ with
-        per-family intercepts, fitted on swept optima across all families. The null M0 is per-family constants only.
-  \item \textbf{Per-cell coordinates (exploratory):} $q$ = observations reaching each sufficient-statistic cell per
-        step: $B/k$ for GMMs; $B \times$ code density for dictionary learning; $B \times$ (ratings per user) / items
-        for ALS; $B \times$ (tokens per document or sequence) / $(KV)$ for LDA and HMMs. $\qeff$ replaces $V$ with the
-        effective vocabulary $\exp(H(\text{unigram}))$. The global law is
-        $\log\aopt = c + a\log\qeff + b\log(n/B) + d\log T$.
-\end{itemize}
+\paragraph{Fast exact kernels.} Flash-KMeans \citep{yang2026flashkmeans} and Flash-GMM \citep{bloch2026flashgmm} are
+fused GPU kernels that make each exact Lloyd or EM iteration cheaper without storing the $n \times k$ distance or
+responsibility matrix. They change the cost per pass, not the number of passes, and would speed up the mini-batch
+E-step of our method equally. They are therefore complementary to this paper, which counts passes and reports
+wall-clock only from a like-for-like CPU implementation of all methods.
 
 %======================================================================================================================
-\section{Experimental protocol}
+\section{Experimental protocol}\label{sec:protocol}
 
-\paragraph{Families and data (19 configurations).} Table~\ref{tab:data}. Dataset sources, licences and preprocessing
-are in Appendix~\ref{app:data}.
+\paragraph{Families and data.} We test five model families on 19 dataset configurations (Table~\ref{tab:data}):
+eight GMM configurations (four datasets, each with diagonal and full covariances), three each for dictionary learning,
+LDA and HMMs, and two for alternating least squares (ALS) matrix factorization. Each family is compared with its own
+full-batch algorithm run for 25 iterations. Sources, licenses and preprocessing are in Appendix~\ref{app:data}.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering\small
-\caption{Families, data and references.}\label{tab:data}
-\begin{tabular}{p{2.1cm}p{5.6cm}p{1.6cm}p{2.0cm}p{1.9cm}}
+\caption{Families, data and full-batch references. NLL is negative log-likelihood in nats (natural-log units);
+VB is batch variational Bayes; ALS-WR is ALS with weighted regularization.}
+\label{tab:data}
+\begin{tabular}{p{2.9cm}p{5.8cm}p{1.7cm}p{2.3cm}p{1.6cm}}
 \toprule
 family & datasets (configurations) & $k$ & test metric & reference \\
 \midrule
-GMM & synthetic, SIFT1M-PCA64, DINOv2-PCA64, AG News-PCA64 (MiniLM); diag and full covariance (8) & 32 / 64 & NLL / point & EM, 25 it. \\
-Dict.\ learning / NMF & CIFAR $8{\times}8$ and $12{\times}12$ patches, 20 Newsgroups NMF (3) & 128 / 192 / 32 & recon.\ $+ \lambda\|\alpha\|_1$ & batch DL, 25 it. \\
-LDA & 20 Newsgroups, Enron, NYTimes (UCI bag-of-words) (3) & 50 & held-out perplexity & batch VB, 25 it. \\
-ALS & MovieLens 1M, 10M (2) & rank 32 & test RMSE & ALS-WR, 25 it. \\
-HMM & synthetic, Brown POS, UCI HAR (vector-quantised) (3) & 12 & NLL / token & Baum--Welch, 25 it. \\
+GMM & synthetic, SIFT1M-PCA64, DINOv2-PCA64, AG News-PCA64 (MiniLM); diagonal and full covariance (8) & 32 / 64 &
+NLL per point & EM \\
+Dictionary learning, NMF & CIFAR $8{\times}8$ and $12{\times}12$ patches, 20 Newsgroups NMF (3) & 128 / 192 / 32 &
+reconstruction $+\, \lambda\|\alpha\|_1$ & batch DL \\
+LDA & 20 Newsgroups, Enron, NYTimes (UCI bag-of-words) (3) & 50 & held-out perplexity & batch VB \\
+ALS & MovieLens 1M, 10M (2) & rank 32 & test RMSE & ALS-WR \\
+HMM & synthetic, Brown part-of-speech, UCI HAR (vector-quantized) (3) & 12 & NLL per token & Baum--Welch \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\paragraph{Budgets and seeds.} Budgets $T \in \{0.25, 0.5, 1, 2, 3, 5, 10, 25\}$ epochs; seeds 0--4 for every method
-and configuration. Train / validation / test splits are fixed per seed.
+\begin{table}[!htbp]
+\centering\small
+\caption{Terms used throughout.}\label{tab:terms}
+\begin{tabular}{p{3.6cm}p{11.2cm}}
+\toprule
+term & meaning \\
+\midrule
+our method & Algorithm~\ref{alg:method} with $\alpha_0$ selected on validation for each budget \\
+law variant & Algorithm~\ref{alg:method} with $\alpha_0$ from the $k$-means law, untuned \\
+tuned stepwise EM & Equation~\ref{eq:update} with $\alpha_t = (\tau_0 + t)^{-\kappa}$, $(\tau_0, \kappa)$ selected on
+validation; no revival (the published baselines) \\
+tuned stepwise EM + revival & the same, plus our revival rule (ablation) \\
+batch@25 & the seed-mean test objective of the family's full-batch algorithm after 25 iterations; the target for
+all epochs-to-match numbers \\
+epochs-to-match & first epoch, linearly interpolated, at which a method's seed-mean test curve reaches batch@25 \\
+gain & $25 /$ epochs-to-match \\
+configuration & one dataset with one model setting (19 in total) \\
+pair & one configuration at one budget $T$; the unit of the paired tests (102 pairs) \\
+sweep cell & one problem (a configuration, possibly sub-sampled, with a batch size and budget) on which
+$\alpha_0$ is swept; the unit of the law fits (422 cells) \\
+LOCO / LOFO & leave-one-cell-out / leave-one-family-out evaluation of a law \\
+law penalty & relative validation loss at the predicted $\alpha_0$ compared with the best swept $\alpha_0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\paragraph{Methods.}
-\begin{itemize}[nosep]
-  \item \emph{swept} (ours): $\alpha_0$ selected on validation per budget from an 8-point log grid on $[0.01, 1]$. The
-        LDA grid is extended below 0.01 where the optimum sat at the floor.
-  \item \emph{law} (ours, untuned): the $k$-means law.
-  \item \emph{tuned stepwise / online EM} (published prior art): $(\tau_0, \kappa)$ from an 18--24-point grid,
-        selected on the same validation protocol, without revival.
-  \item \emph{tuned stepwise + revival} (ablation): the same grid and selection plus our revival rule.
-  \item Library defaults as sanity checks: scikit-learn GaussianMixture and MiniBatchDictionaryLearning
-        \citep{pedregosa2011sklearn}, hmmlearn \citep{hmmlearn}, and the online-LDA defaults of
-        \citet{hoffman2010online}.
-\end{itemize}
+\paragraph{Methods compared.} Table~\ref{tab:terms} defines the four methods. Our method selects $\alpha_0$ on
+validation, for each budget, from an 8-point log grid on $[0.01, 1]$; the LDA grid is extended below 0.01 because
+many LDA optima sat at the floor. The tuned stepwise baselines select $(\tau_0, \kappa)$ from an 18- or 24-point grid by
+the same validation protocol (Appendix~\ref{app:grids}). As sanity checks we also run library defaults:
+scikit-learn's GaussianMixture and MiniBatchDictionaryLearning \citep{pedregosa2011sklearn}, hmmlearn \citep{hmmlearn},
+and the online-LDA defaults of \citet{hoffman2010online}.
 
-\paragraph{Long budgets.} At $T = 10$ and 25 both our method and the baselines search a frozen 3--4-point
-neighbourhood of their own $T = 5$ optimum. This was fixed before any long run.
+\paragraph{Budgets and seeds.} Budgets are $T \in \{0.25, 0.5, 1, 2, 3, 5, 10, 25\}$ epochs, with seeds 0--4 for
+every method and configuration. Train, validation and test splits are fixed per seed. At $T = 10$ and 25, every
+method searches only a 3--4-point neighborhood of its own $T = 5$ optimum; these neighborhoods were frozen before any
+long run.
 
-\paragraph{Metrics.}
-\emph{Epochs-to-match} is the first, linearly interpolated, epoch at which the seed-mean test curve reaches the
-seed-mean reference@25; gain $= 25 /$ epochs-to-match. We report 95\% CIs by seed bootstrap and paired $t$-tests by
-seed ($\alpha = 0.05$). The \emph{law penalty} is the relative validation loss of the predicted $\alpha_0$ against
-the swept optimum, scored leave-one-cell-out (LOCO) and leave-one-family-out (LOAO).
+\paragraph{Hypotheses.} Table~\ref{tab:hyp} lists the hypotheses and pass/fail criteria, as frozen before the runs.
+Amendments are logged in the released code. The revival-equipped baseline and the per-cell law refit were added after
+seeing results and are labeled as ablation and exploratory.
 
-\paragraph{Pre-registration.} Hypotheses, kill criteria and the cross-family law test were frozen before the runs
-(amendments logged in the released code). The revival-equipped baseline and the per-cell refit were added after
-seeing results and are labelled as ablation and exploratory.
+\begin{table}[!htbp]
+\centering\small
+\caption{Pre-registered hypotheses. Each was to be rejected if its criterion failed; gain is defined in
+Table~\ref{tab:terms} and taken for the better of our two variants.}\label{tab:hyp}
+\begin{tabular}{p{1.7cm}p{6.6cm}p{6.0cm}}
+\toprule
+family & hypothesis (pass criterion) & outcome \\
+\midrule
+GMM & matches batch@25 within 8 epochs on at least 2 of 3 datasets & passes: within 2.5 epochs on all 4 datasets \\
+Dictionary learning & median gain at least $2\times$ & passes: $30.1\times$ \\
+LDA & a cosine-schedule law fitted on LDA is not worse than default online LDA on 2 of 3 corpora & passes: worse
+on 0 of 3 \\
+ALS & median gain at least $2\times$ & passes narrowly: $2.14\times$ (ML-10M $4.28\times$; ML-1M a tie) \\
+HMM & median gain at least $2\times$, and no significantly worse final objective than Baum--Welch & passes:
+$38.0\times$, none worse \\
+law (all families) & M1 beats M0: lower LOCO median with Wilcoxon $p < 0.05$, and lower LOFO median & passes
+(Section~\ref{sec:res-law}) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\paragraph{Hardware.} One desktop (Ryzen 9 9900X, RTX 5090). GPU ports of the hot loops are float64 and
-parity-tested; they change wall-clock only. Headline wall-clock comes from a separate isolated pass: CPU only, 12
-threads, one job at a time, 3 seeds, after warm-up.
+\paragraph{Statistics.} We report 95\% confidence intervals for epochs-to-match by bootstrapping seeds. Methods are
+compared on each pair with a two-sided paired $t$-test across the 5 seeds (4 degrees of freedom). Because we run 102
+such tests, we also report Benjamini--Hochberg (false-discovery rate 5\%) and Holm (family-wise error 5\%)
+corrections, and the number of pairs in which all 5 seeds favor the same method. With 5 seeds no rank-based test can
+reach $p < 0.05$ on a single pair (the smallest exact two-sided $p$ is $2/32 = 0.0625$), which is why we report this
+count rather than a per-pair Wilcoxon test. The law comparison uses a one-sided paired Wilcoxon signed-rank test
+across sweep cells, as pre-registered.
+
+\paragraph{Hardware.} One desktop (Ryzen 9 9900X, RTX 5090). GPU versions of the inner loops run in float64, are
+tested for parity with the CPU code, and change wall-clock time only. All reported wall-clock numbers come from a
+separate isolated pass: CPU only, 12 threads, one job at a time, 3 seeds, after a warm-up run.
 
 %======================================================================================================================
 \section{Results}
 
-\subsection{Time to the batch objective (C1)}
+\subsection{Time to reach the full-batch objective}\label{sec:res-time}
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering\small
-\caption{Epochs to reach full-batch EM@25 (seed means, 5 seeds; --- = not within 25 epochs). Best per row in bold.}
+\caption{Epochs to reach batch@25 (seed means, 5 seeds; --- = not reached within 25 epochs, with the final test
+objective in brackets; NYTimes batch@25 is 3167). Best per row in bold.}
 \label{tab:epochs}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{lcccc}
 \toprule
-configuration & swept (ours) & law (ours, untuned) & tuned stepwise & tuned stepwise + revival \\
+configuration & our method & law variant & tuned stepwise EM & \ldots{} + revival \\
 \midrule
 GMM synthetic diag & \best{0.29} & 17.2 & --- & 3.94 \\
 GMM synthetic full & \best{1.98} & 2.88 & --- & 23.0 \\
@@ -296,10 +410,10 @@ DL 20NG NMF & \best{2.32} & 2.36 & 3.70 & 3.70 \\
 \midrule
 LDA 20NG & 1.13 & --- & 1.60 & \best{0.89} \\
 LDA Enron & \best{4.44} & --- & --- & 7.17 \\
-LDA NYTimes & --- (3242) & --- & --- (3317) & --- (\best{3198}; ref.\ 3167) \\
+LDA NYTimes & --- [3242] & --- & --- [3317] & --- [\best{3198}] \\
 \midrule
 ALS ML-10M & \best{5.84} & 8.88 & 20.1 & n/a \\
-ALS ML-1M & --- (tie: 0.8656 = ref.) & --- & --- & n/a \\
+ALS ML-1M & --- (tie: 0.8656 = batch@25) & --- & --- & n/a \\
 \midrule
 HMM Brown POS & \best{0.64} & 0.95 & 1.33 & 1.33 \\
 HMM synthetic & \best{0.66} & 1.44 & 1.95 & 1.95 \\
@@ -308,54 +422,66 @@ HMM UCI HAR & \best{1.72} & 2.21 & 5.70 & 6.73 \\
 \end{tabular}
 \end{table}
 
-The swept recipe reaches the reference within 3 epochs on 12 configurations (Table~\ref{tab:epochs},
-Figure~\ref{fig:convergence}): all four
-diagonal GMMs and synthetic full covariance; all three dictionary-learning configurations; LDA 20NG; and all three
-HMMs. Full-covariance GMMs on real data take 7--10 epochs. LDA Enron takes 4.4 epochs; on NYTimes no online method
-reaches batch VB@25 within 25 epochs. ALS ML-10M takes 5.8 epochs; on ML-1M every online method ends within 0.0005
-RMSE of an already-converged ALS-WR (a tie, not a loss). DL CIFAR $8{\times}8$ matches at the first budget (0.25
-epochs), so its gain is a floor.
+Our method reaches batch@25 within 3 epochs on 12 configurations (Table~\ref{tab:epochs},
+Figure~\ref{fig:convergence}): all four diagonal GMMs and the synthetic full-covariance GMM, all three
+dictionary-learning configurations, LDA 20NG, and all three HMMs. Full-covariance GMMs on real data take 7--10
+epochs, LDA Enron takes 4.4, and ALS ML-10M takes 5.8. On NYTimes no online method reaches batch@25 within 25
+epochs. On ML-1M every online method ends within 0.0005 RMSE of ALS-WR, which has already converged, so this is a tie
+rather than a loss. DL CIFAR $8{\times}8$ matches at the first budget we measure (0.25 epochs), so its gain is a lower
+bound.
 
-\begin{figure}[p]
+\paragraph{What ``matching'' means.} batch@25 is the full-batch algorithm after 25 iterations, not at convergence. On
+every GMM, HMM, dictionary-learning and ALS configuration the full-batch objective is still improving or flat at
+iteration 25, so batch@25 is also its best iterate. On LDA, batch VB's held-out perplexity is lowest at iterations
+9--15 and then rises by 0.1--1.4\%, so batch@25 is an easier target there. Measured against batch VB's best iterate
+instead, our method needs 1.38 epochs on 20NG (instead of 1.13) and no longer matches on Enron within 25 epochs; no
+other number in Table~\ref{tab:epochs} changes (computed by \texttt{scripts/review\_stats.py}).
+
+\begin{figure}[tbp]
 \centering
-\includegraphics[width=\linewidth]{convergence.pdf}
-\caption{Seed-mean test objective vs epochs (log scale) for every configuration. Black: full-batch reference; dashed:
-the reference after 25 iterations.}
+\includegraphics[width=\linewidth]{convergence_main.pdf}
+\caption{Seed-mean test objective against epochs (log scale) for six representative configurations, one or two per
+family; all 19 are in Appendix~\ref{app:curves}. The black curve is full-batch EM by iteration (one iteration per
+epoch); the red dotted line is the target, batch@25.}
 \label{fig:convergence}
 \end{figure}
 
-\subsection{Against tuned stepwise EM, and what the gain is made of (C2, C2b)}
+\subsection{Against tuned stepwise EM, and what the gain is made of}\label{sec:res-ablation}
 
-The published stepwise / online EM baselines have no dead-component handling. Without it, full-covariance GMMs lose
-most of their components: 57 of 64 die on SIFT1M. As a result, tuned online EM never reaches the batch reference on
-any GMM configuration (SIFT1M full ends at 50.7 nats vs 40.7). Comparing our recipe only against this baseline would
-credit the schedule with the effect of revival, so we add a baseline with the same $(\tau_0, \kappa)$ grid and
-validation selection plus our revival rule.
+The published stepwise and online EM baselines have no dead-component handling. Without it, full-covariance GMMs
+lose most of their components (57 of 64 die on SIFT1M), and tuned online EM never reaches batch@25 on any GMM
+configuration. Comparing our method only with this baseline would credit the schedule with the effect of revival, so
+we add a baseline with the same $(\tau_0, \kappa)$ grid and selection plus our revival rule.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering\small
-\caption{Recipe (swept) vs tuned stepwise + revival, paired by seed at $T \in \{1, 2, 3, 5, 10, 25\}$. W / tie / L =
-recipe significantly lower / no significant difference / significantly higher (two-sided paired $t$-test, 4 dof,
-$p < 0.05$).}\label{tab:wtl}
-\begin{tabular}{lcc}
+\caption{Our method vs tuned stepwise EM + revival on the 102 (configuration, budget) pairs, $T \in \{1, 2, 3, 5,
+10, 25\}$. W / tie / L = our method significantly lower / no significant difference / significantly higher test
+objective (paired $t$-test, $\alpha = 0.05$), without correction and with Benjamini--Hochberg (BH) or Holm
+correction over all 102 tests. ``Seeds agree'' counts pairs in which all 5 seeds favor our method / the baseline.}
+\label{tab:wtl}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccc}
 \toprule
-family (configurations) & W / tie / L & relative difference (recipe $-$ baseline) \\
+family (configurations, pairs) & uncorrected & BH & Holm & seeds agree & relative difference \\
 \midrule
-GMM (8) & 26 / 22 / 0 & $-0.03\%$ to $-1.5\%$ \\
-HMM (3) & 14 / 4 / 0 & $-0.05\%$ to $-10.3\%$ \\
-Dictionary learning (3) & 11 / 7 / 0 & $-0.03\%$ to $-0.30\%$ \\
-LDA (3) & 0 / 14 / 4 & $-0.8\%$ to $+3.2\%$ \\
+GMM (8, 48) & 26 / 22 / 0 & 19 / 29 / 0 & 0 / 48 / 0 & 30 / 0 & $-0.03\%$ to $-1.5\%$ \\
+HMM (3, 18) & 14 / 4 / 0 & 13 / 5 / 0 & 1 / 17 / 0 & 16 / 0 & $-0.05\%$ to $-10.3\%$ \\
+Dictionary learning (3, 18) & 11 / 7 / 0 & 10 / 8 / 0 & 2 / 16 / 0 & 10 / 0 & $-0.03\%$ to $-0.30\%$ \\
+LDA (3, 18) & 0 / 14 / 4 & 0 / 16 / 2 & 0 / 18 / 0 & 0 / 5 & $-0.8\%$ to $+3.2\%$ \\
+\midrule
+all (17, 102) & 51 / 47 / 4 & 42 / 58 / 2 & 3 / 99 / 0 & 56 / 5 & \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering\small
 \caption{Effect of revival on the tuned baseline (test objective at $T = 25$, seed means; lower is better).}
 \label{tab:revival}
 \begin{tabular}{lcccc}
 \toprule
-configuration & tuned stepwise & + revival & swept (ours) & reference@25 \\
+configuration & tuned stepwise EM & + revival & our method & batch@25 \\
 \midrule
 GMM SIFT1M full & 50.68 & 40.53 & 40.50 & 40.69 \\
 GMM DINOv2 full & 69.64 & 54.61 & 54.65 & 54.80 \\
@@ -363,43 +489,43 @@ GMM AG News full & 78.81 & 70.37 & 70.20 & 70.42 \\
 LDA 20NG & 2410 & 2320 & 2334 & 2489 \\
 LDA Enron & 2401 & 2240 & 2295 & 2267 \\
 LDA NYTimes & 3317 & 3198 & 3242 & 3167 \\
-HMM / DL & \multicolumn{4}{c}{identical with and without revival (it never fires)} \\
+HMM / DL & \multicolumn{4}{c}{identical with and without revival (revival never fires)} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Three findings follow (Tables~\ref{tab:wtl} and~\ref{tab:revival}).
+Tables~\ref{tab:wtl} and~\ref{tab:revival} support three findings.
 \begin{enumerate}[nosep]
-  \item \textbf{Revival is what makes stochastic EM viable} where components can die. With it, the tuned baseline
-        reaches the batch reference on all 8 GMM configurations. On LDA it lowers final perplexity on all three corpora
-        and turns Enron from never matching into a match at 7.2 epochs.
-  \item \textbf{With revival on both sides, the cosine schedule still helps on three of four families.} On GMMs the
-        margin is modest (0.03--1.5\%); on real-data full covariance it is significant only at $T \le 2$ and ties
-        afterwards. On HMMs it is large and persists to 25 epochs on UCI HAR ($-4.5\%$). On dictionary learning it is
-        small but consistent.
-  \item \textbf{On LDA, a tuned inverse-time schedule with revival is as good or better.} It matches the batch
-        reference sooner on 20NG (0.89 vs 1.13 epochs) and ends lower on Enron and NYTimes at $T = 25$. The recipe's
-        held-out perplexity rises from $T = 5$ to $T = 25$ on all three corpora (e.g.\ 20NG 2290 $\to$ 2334), and so
-        does batch VB's (2456 at 10 $\to$ 2489 at 25). A diagnostic rules out the two obvious causes (exploratory;
-        seeds 0--2, $k = 50$, $B = 256$). Lowering the cosine floor from $\varepsilon = 0.1$ to 0.01 changes
-        validation-selected test perplexity by at most 7, well inside seed spread. Adding $\alpha_0$ one step below
-        the long-budget grid does not move the optimum, which stays interior. The rise with $T$ is therefore a
-        property of SVI on these corpora rather than of the floor or the grid, and we leave its cause open.
+  \item \textbf{Revival is what makes stochastic EM viable where components can die.} With it, the tuned baseline
+        reaches batch@25 on all 8 GMM configurations, its final objective on real-data full-covariance GMMs drops by
+        8--15 nats, and LDA Enron turns from never matching into a match at 7.2 epochs.
+  \item \textbf{With revival on both sides, the cosine schedule still helps on three of four families.} On HMMs the
+        advantage is large (up to 10\% lower held-out NLL at one epoch) and persists to 25 epochs on UCI HAR. On
+        GMMs it is modest (0.03--1.5\%); on real-data full covariance it is significant only at $T \le 2$. On
+        dictionary learning it is small but consistent.
+  \item \textbf{On LDA, a tuned inverse-time schedule with revival is as good or better.} It matches batch@25 sooner
+        on 20NG and ends lower on Enron and NYTimes at $T = 25$. Our method's held-out perplexity rises between $T =
+        5$ and $T = 25$ on all three corpora, as batch VB's does after about 10 iterations. In an exploratory check,
+        neither a lower cosine floor nor a smaller $\alpha_0$ removes this rise, so we attribute it to SVI on these
+        corpora and leave its cause open.
 \end{enumerate}
-Against the strongest baseline, the recipe reaches the batch reference sooner on 16 of 19 configurations (ALS is
-compared with stepwise ALS without revival, since neither uses it). It is slower on LDA 20NG, and neither reaches it on
+The per-pair evidence is weak, as expected with 5 seeds: after Benjamini--Hochberg correction 42 wins and 2 losses
+remain, and the much stricter Holm correction leaves 3 wins. The stronger evidence is that the direction is
+consistent: in 56 pairs all five seeds favor our method, and in 5, all on LDA, all five favor the baseline (pairs from
+the same configuration are not independent, so we do not combine them into one test). Counting configurations
+rather than pairs, our method reaches batch@25 sooner than the strongest baseline on 16 of 19 (ALS is compared with
+stepwise ALS without revival, since neither uses it). It is slower on LDA 20NG, and neither method reaches batch@25 on
 NYTimes or ML-1M.
 
-\subsection{Wall-clock (C3)}
+\subsection{Wall-clock time}\label{sec:res-wall}
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \centering\small
-\caption{Isolated CPU timing (12 threads, one job at a time, 3 seeds). Speed-up = reference's 25-iteration time /
-time for the method to reach the reference objective; timed only for matches within 5 epochs; --- = not reached
-within 5 epochs. Best per row in bold.}\label{tab:timing}
+\caption{Isolated CPU timing (12 threads, one job at a time, 3 seeds). Speed-up = full-batch time for 25 iterations
+/ time for the method to reach batch@25; --- = not reached within 5 epochs. Best per row in bold.}\label{tab:timing}
 \begin{tabular}{lcccc}
 \toprule
-configuration & ref@25 (s) & swept & law & tuned + revival \\
+configuration & batch, 25 it.\ (s) & our method & law variant & tuned stepwise EM + revival \\
 \midrule
 DL CIFAR $8{\times}8$ & 184 & \best{82$\times$} & 16.4$\times$ & 36.4$\times$ \\
 DL CIFAR $12{\times}12$ & 161 & \best{30.8$\times$} & 10.1$\times$ & 15.4$\times$ \\
@@ -417,35 +543,37 @@ LDA 20NG & 6.0 & 6.8$\times$ & --- & \best{9.5$\times$} \\
 \end{tabular}
 \end{table}
 
-Wall-clock speed-ups (Table~\ref{tab:timing}, Figure~\ref{fig:timing}) are below epoch gains because a mini-batch
-epoch has extra per-step overhead (statistic updates, M-steps after every batch). Matches that need more than 5 epochs
-(real-data full-covariance GMMs, LDA Enron, ALS ML-10M) were not timed.
+The timing pass covers budgets up to 5 epochs. Twelve configurations match within that budget (Table~\ref{tab:timing},
+Figure~\ref{fig:timing}). Real-data full-covariance GMMs and ALS ML-10M need more than 5 epochs and were not timed. LDA
+Enron was timed, but on the 3 timing seeds our method does not reach batch@25 within 5 epochs (its 5-seed mean is
+4.44 epochs), so it has no entry. Speed-ups are smaller than epoch gains because of the per-step overhead described in
+Section~\ref{sec:method}.
 
-The tuned baselines cost the same per epoch as the recipe: at $T = 2$ their wall time is within 5\% of the recipe's on
-every configuration, because both do one E-step and one M-step per mini-batch and the EMA of statistics adds no
-measurable work. Wall-clock therefore ranks the methods as epochs do. Against tuned EM with revival the recipe reaches
-the reference sooner in wall time on 11 of 12 timed configurations; tuned EM with revival is faster only on LDA 20NG
-(9.5$\times$ vs 6.8$\times$), as in epochs. Most of the speed-up over full batch therefore comes from stochastic
-approximation with revival; the recipe's own contribution is a further 1.2--2.9$\times$ from the schedule and the
-step-size law.
+The tuned baselines cost the same per epoch as our method: at $T = 2$ their wall time is within 5\% of ours on every
+configuration, because both do one E-step and one M-step per mini-batch. Wall-clock therefore ranks the methods as
+epochs do. Against tuned stepwise EM with revival, our method reaches batch@25 sooner in wall time on 11 of 12 timed
+configurations; the exception is LDA 20NG, as in epochs. Most of the speed-up over full-batch EM therefore comes from
+stochastic approximation with revival, and the schedule and step-size choice add a further 1.2--2.9$\times$.
 
-\begin{figure}[tbp]
+\begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.75\linewidth]{timing_speedup.pdf}
-\caption{Matched-quality wall-clock speed-ups over full-batch EM@25 (log scale).}
+\includegraphics[width=0.6\linewidth]{timing_speedup.pdf}
+\caption{Wall-clock speed-up to reach batch@25 (CPU, isolated timing pass, log scale), for our method with
+$\alpha_0$ tuned on validation and for the untuned law variant.}
 \label{fig:timing}
 \end{figure}
 
-\subsection{Does the $k$-means law transfer? (C4)}
+\subsection{Does the $k$-means law transfer?}\label{sec:res-kmlaw}
 
-Applied unchanged, the $k$-means law costs a median validation penalty of $\le 0.2\%$ relative to the swept optimum
-on GMM, HMM, dictionary learning and ALS. On HMMs the untuned law reaches Baum--Welch@25 before tuned stepwise EM
-(0.95--2.2 vs 1.3--5.7 epochs) but ends slightly above it (e.g.\ Brown 5.215 vs 5.209 nats/token, within one seed
-standard deviation).
+Applied unchanged, the $k$-means law costs a median validation penalty of at most 0.2\% relative to the best swept
+$\alpha_0$ on GMM, HMM, dictionary learning and ALS. On HMMs the untuned law variant reaches Baum--Welch@25 before
+tuned stepwise EM (0.95--2.2 vs 1.3--5.7 epochs) and ends within one seed standard deviation of it.
 
-The law fails on LDA. It predicts $\alpha_0 \approx 0.2$--1, while the swept optimum is 0.005--0.04 (median 0.029).
-With the law's rate, held-out perplexity \emph{worsens} with more epochs, and the batch reference is never reached.
-The median swept $\aopt$ per family is ALS 0.21, DL 0.26, GMM 0.32, HMM 1.0, LDA 0.029 (Figure~\ref{fig:sweeps}).
+The law fails on LDA. It predicts $\alpha_0 \approx 0.2$--1, while the best swept values are 0.005--0.04. With the
+law's step, held-out perplexity \emph{worsens} with more epochs, and batch@25 is never reached. A cosine-schedule law
+refitted on LDA alone fixes this and passes the pre-registered LDA test (Table~\ref{tab:hyp}). The median best
+$\alpha_0$ per family is 0.21 (ALS), 0.26 (dictionary learning), 0.32 (GMM), 1.0 (HMM) and 0.029 (LDA)
+(Figure~\ref{fig:sweeps}).
 
 \begin{figure}[tbp]
 \centering
@@ -456,42 +584,57 @@ Figure~\ref{fig:penalties}.}
 \label{fig:sweeps}
 \end{figure}
 
-\subsection{One law across families (C5, C6)}
+\subsection{One law across families}\label{sec:res-law}
 
-\paragraph{Pre-registered test (C5).} On 422 swept cells, M1 (log-linear in $n/k$, $B$, $T$ with per-family
-intercepts) beats the per-family-constant null M0: leave-one-cell-out median penalty 0.108\% vs 0.319\% (Wilcoxon
-$p = 1.05 \times 10^{-18}$); leave-one-family-out median 0.338\% vs 0.440\%. Held-out-family penalties stay large for
-LDA (M1 27.7\%) and HMM (4.5\%).
+\paragraph{Pre-registered test.} On 422 sweep cells, M1 beats the per-family-constant null M0. Its leave-one-cell-out
+median penalty is 0.108\% against M0's 0.319\% (one-sided Wilcoxon $p = 1.05 \times 10^{-18}$), and its
+leave-one-family-out median is 0.338\% against 0.440\%. These numbers come from the pre-registered fitting script.
+The refit in Table~\ref{tab:laws}, which uses the same cells and also fits the exploratory laws, gives slightly
+different values for M1 (0.103\% and 0.290\%); the conclusion is the same. Held-out-family penalties remain large for
+LDA and HMMs.
 
-\paragraph{Per-cell coordinates (C6, exploratory).} The law's coordinate $n/k$ counts observations per cluster per
-pass. That is the right count for $k$-means and GMMs, but not for models whose statistics are sparse cells:
-topic--word counts in LDA and emission counts in HMMs. Counting the observations that reach each statistic cell per
-step, a single global law (no per-family constants),
+\paragraph{Per-cell coordinates (exploratory).} Counting the observations that reach each statistic cell per step
+(Section~\ref{sec:laws}), a single global law,
 \begin{equation}
   \aopt = 0.419 \cdot \qeff^{0.427} \cdot (n/B)^{-0.282} \cdot T^{-0.326},
 \end{equation}
-explains $R^2 = 0.66$ of the variance of $\log\aopt$ (vs 0.20 for the same global fit in $n/k$ coordinates). Its
-leave-one-family-out median penalty is 0.149\%, and it cuts the LDA held-out penalty from 27.7\% (M1) to 11.6\%. With
-per-family constants (Qe1), LOCO is 0.073\% and LDA held-out is 5.3\% (Figures~\ref{fig:penalties}
-and~\ref{fig:coords}; all fits in Appendix~\ref{app:law}). The gain is concentrated on LDA: on median
-leave-one-family-out penalty the unchanged $k$-means law (0.155\%) is almost as good as Qe0 (0.149\%), and it predicts
-HMMs better (0.19\% vs 1.52\%).
+explains 66\% of the variance of $\log\aopt$, against 20\% for the same global fit in $n/k$ coordinates
+(Table~\ref{tab:laws}, Figures~\ref{fig:penalties} and~\ref{fig:coords}). It cuts the penalty on held-out LDA from
+27.7\% (M1) to 11.6\%. The gain is concentrated on LDA: on median leave-one-family-out penalty, the unchanged
+$k$-means law (0.155\%) is almost as good as Qe0 (0.149\%), and it predicts HMMs better.
 
-The law is not universal. The exponent on $\qeff$ is 0.43, not 1, so the recipe does not hold a fixed number of
-observations per cell in its EMA; observations held at the peak rate range from about 7 (LDA) to about 150
-(dictionary learning). HMMs want the maximum rate ($\aopt = 1$) despite receiving about one observation per cell per
-step.
+\begin{table}[!htbp]
+\centering\small
+\caption{Step-size laws on 422 sweep cells (15 censored at the grid's lower edge and excluded from fitting).
+Penalties are medians. ``LDA held out'' gives the penalty and, in brackets, the predicted / best $\alpha_0$. The last
+column is the $R^2$ of $\log\aopt$ for the global version of each coordinate.}
+\label{tab:laws}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{4.6cm}cccp{3.0cm}c}
+\toprule
+law & LOCO & LOFO & HMM held out & LDA held out & $R^2$ (global) \\
+\midrule
+$k$-means law (unchanged) & 0.155\% & 0.155\% & 0.19\% & 16.3\% (0.187 / 0.037) & --- \\
+M1: $n/k$, $B$, $T$, per-family intercept & 0.103\% & 0.290\% & 4.54\% & 27.7\% (0.27 / 0.037) & 0.20 \\
+Q1: $q$, $n/B$, $T$, per-family intercept & 0.076\% & 0.225\% & 4.79\% & 6.4\% (0.088 / 0.037) & 0.50 \\
+Q0: one global law in $q$ & 0.193\% & 0.249\% & 4.54\% & 29.9\% (0.309 / 0.037) & 0.50 \\
+Qe1: $\qeff$, $n/B$, $T$, per-family intercept & 0.073\% & 0.183\% & 1.81\% & 5.3\% (0.067 / 0.037) & 0.66 \\
+\textbf{Qe0: one global law in $\qeff$} & 0.116\% & \textbf{0.149\%} & 1.52\% & 11.6\% (0.134 / 0.037) &
+\textbf{0.66} \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-A natural next feature is the fraction of missing information, which theory links to EM's convergence rate. In an
-exploratory test we used the normalised posterior entropy of the latents on held-out data, $h$, as a proxy. It does
-not help: adding $\log(1 - h)$ raises $R^2$ only from 0.66 to 0.67 and worsens the leave-one-family-out penalty
-(0.149\% $\to$ 0.167\%). The fitted sign is also the opposite of the hypothesis: more missing information goes with a
-\emph{larger} $\aopt$, driven by HMMs. LDA's latents are no more uncertain than the HMMs' ($h \approx 0.16$--0.24 vs
-0.04--0.47), yet LDA needs an $\alpha_0$ about 30$\times$ smaller. Whatever sets LDA's rate is specific to LDA.
+The law is not universal. The exponent on $\qeff$ is 0.43, not 1, so the method does not hold a fixed number of
+observations per cell in its running average: at the peak step this number ranges from about 7 (LDA) to about 150
+(dictionary learning). HMMs want the maximum step ($\aopt = 1$) although each cell receives about one observation per
+step. In a further exploratory test, the fraction of missing information (proxied by the normalized posterior
+entropy of the latents) does not explain the residual: it raises $R^2$ only from 0.66 to 0.67, worsens the
+leave-one-family-out penalty, and has the opposite sign to the one theory suggests (Appendix~\ref{app:law}).
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.85\linewidth]{law_penalties.pdf}
+\includegraphics[width=\linewidth]{law_penalties.pdf}
 \caption{Validation penalty of the predicted $\alpha_0$ for each law, leave-one-cell-out (left) and
 leave-one-family-out (right), over all 422 cells; boxes are quartiles, whiskers the 5th--95th percentiles.}
 \label{fig:penalties}
@@ -500,65 +643,80 @@ leave-one-family-out (right), over all 422 cells; boxes are quartiles, whiskers 
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.75\linewidth]{law_coords.pdf}
-\caption{Swept $\aopt$ vs observations per statistic cell per step ($\qeff$), all 422 cells. Each $\aopt$ is moved to a
-common $n/B$ (94) and $T = 1$ along the fitted exponents; the line is the single global fit Qe0 (slope 0.43). Hollow =
-censored at the grid's lower edge, excluded from the fit. LDA's low rates fall on the same trend as the other families
-once cells are counted per statistic; HMMs (squares) sit far above the line at $\aopt \approx 1$.}
+\caption{Best swept $\aopt$ against observations per statistic cell per step ($\qeff$), all 422 cells. Each $\aopt$
+is moved to a common $n/B$ (94) and $T = 1$ along the fitted exponents; the line is the single global law Qe0 (slope
+0.43). Hollow markers are censored at the grid's lower edge and excluded from the fit. LDA's low steps fall on the
+same trend as the other families once cells are counted per statistic; HMMs (squares) sit far above the line at
+$\aopt \approx 1$.}
 \label{fig:coords}
 \end{figure}
 
 %======================================================================================================================
 \section{Discussion}
 
-\paragraph{What carries across families, and what does not.}
-The update and the revival rule transfer as they are. The update was already known to work across families
-\citep{liang2009online}. Revival has prior art in online EM \citep{sato2000online,hughes2013memoized} but is absent
-from the standard stepwise-EM baselines, and it decides whether online EM works at all on full-covariance mixtures and
-LDA. The cosine schedule transfers with a family-dependent benefit: large on HMMs, modest on GMMs and dictionary
-learning, none on LDA. The rate law transfers in form but not in coordinates: LDA shows that $n/k$ is the wrong
-variable, and the per-cell coordinate is a partial fix.
+\paragraph{What carries across families, and what does not.} The update and the revival rule carry over unchanged.
+The update was already known to work across families \citep{liang2009online}. Revival has prior art in online EM
+\citep{sato2000online,hughes2013memoized} but is absent from the standard stepwise-EM baselines, and it decides
+whether online EM works at all on full-covariance mixtures and LDA. The cosine schedule carries over with a
+family-dependent benefit: large on HMMs, modest on GMMs and dictionary learning, none on LDA. The step-size law carries
+over in form but not in its coordinates: LDA shows that $n/k$ is the wrong variable, and the per-cell coordinate is a
+partial fix.
 
-\paragraph{When is stochastic EM worth it?} Epoch gains are largest where the batch E-step is expensive and the
-statistics are dense relative to the batch: HMMs, dictionary learning, diagonal GMMs. They are smallest where the
-batch method is already near convergence after a few passes (ALS ML-1M) or where the statistics are sparse (LDA
+\paragraph{When is stochastic EM worth it?} Epoch gains are largest where the full-batch E-step is expensive and the
+statistics are dense relative to the batch: HMMs, dictionary learning and diagonal GMMs. They are smallest where the
+full-batch method is already near convergence after a few passes (ALS ML-1M) or where the statistics are sparse (LDA
 NYTimes).
 
 \paragraph{Limitations.}
 \begin{enumerate}[nosep]
-  \item \emph{Datasets} are narrower than planned: MovieLens 1M/10M instead of 25M/Netflix; Brown instead of Penn
-        Treebank; no PubMed/Wikipedia LDA; no audio dictionary learning.
-  \item \emph{Reference.} The reference is batch EM at 25 iterations, not converged batch EM.
-  \item \emph{Long budgets} use a frozen 3--4-point local search for all methods.
-  \item \emph{Wall-clock} covers matches within 5 epochs only (12 of the 17 configurations the recipe matches), on one
-        CPU.
-  \item \emph{GPU kernels.} We did not combine either side with fused GPU kernels (Flash-KMeans / Flash-GMM).
-  \item \emph{Post-hoc analyses.} The revival-equipped baseline and the per-cell law were added after seeing results.
-  \item \emph{Operational repairs}, all disclosed and none changing a method: an LDA E-step aliasing bug (all LDA
-        re-run), a scheduler bug (73 jobs re-run), 17 HMM jobs re-run after GPU errors, one ALS cell filled, and
-        three missing SIFT1M full-covariance reference seeds filled (Appendix~\ref{app:repairs}).
-  \item \emph{Revival and rare groups.} Our revival rule judges a unit by its mass alone, as e-means does, so it can
-        delete a small component that covers a rare, isolated group \citep{weiss2026small}. In a GMM ablation
-        (Appendix~\ref{app:rare}; exploratory, 3 seeds) this costs likelihood on rare classes (Covertype: rare-class NLL
-        $-41.4$ vs $-43.2$ without revival at 5 epochs; KDD Cup 99: worse than no revival overall at 5 epochs). A
-        distance-aware variant recovers most of the loss, and on our benchmark data the two rules give identical
-        results. Deployments with rare, isolated groups should use the distance-aware rule.
+  \item \emph{Reference.} The target is the full-batch algorithm after 25 iterations, not at convergence; on LDA it is
+        not the best iterate (Section~\ref{sec:res-time}).
+  \item \emph{Seeds and tests.} Accuracy results use 5 seeds; timing and the rare-group ablation use 3. Paired
+        $t$-tests with 4 degrees of freedom rely on approximate normality, and few per-pair results survive a
+        family-wise correction (Section~\ref{sec:res-ablation}).
+  \item \emph{Data.} The datasets are narrower than planned: MovieLens 1M and 10M instead of 25M or Netflix, Brown
+        instead of the Penn Treebank, no PubMed or Wikipedia LDA and no audio dictionary learning. Law-fitting cells
+        include sub-samples ($n/4$, $n/2$), which may behave differently from full datasets.
+  \item \emph{Search at long budgets.} At 10 and 25 epochs every method searches only a frozen 3--4-point
+        neighborhood.
+  \item \emph{Wall-clock} covers matches within 5 epochs only, on one CPU, and neither side uses fused GPU kernels
+        such as Flash-KMeans or Flash-GMM.
+  \item \emph{Analyses added after seeing results}: the revival-equipped baseline and the per-cell law. Operational
+        repairs, none of which changes a method, are listed in Appendix~\ref{app:repairs}.
+  \item \emph{Revival and rare groups.} Our rule judges a unit by its mass alone, as e-means does, so it can delete a
+        small component that covers a rare, isolated group \citep{weiss2026small}. In a GMM ablation
+        (Appendix~\ref{app:rare}; exploratory, 3 seeds) this costs likelihood on rare classes, and a distance-aware
+        variant recovers most of the loss. On our benchmark data the two rules give identical results; data with
+        rare, isolated groups should use the distance-aware rule.
 \end{enumerate}
 
 %======================================================================================================================
 \section{Conclusion}
 
-Within the scope we tested, a few epochs of stochastic-approximation EM are enough. Revival and a budget-aware
-cosine schedule let a stepwise EM update reach the batch objective in a few epochs across mixtures, HMMs, dictionary
-learning, topic models and matrix factorisation. The $k$-means rate law
-carries over to four of five families, and a law in observations-per-statistic coordinates comes closer to one rule
-for all five. LDA is the exception throughout: there, a well-tuned inverse-time schedule with revival is as good, and
-the optimal rate is an order of magnitude lower than the law predicts. These are the cases a predictive theory of
-stochastic EM step sizes will have to explain.
+Within the scope we tested, a few epochs of stochastic-approximation EM are enough. Revival and a budget-aware cosine
+schedule let a stepwise EM update reach the 25-iteration full-batch objective in a few epochs across mixtures, HMMs,
+dictionary learning, topic models and matrix factorization. The $k$-means step-size law carries over to four of five
+families, and a law in observations-per-statistic coordinates comes closer to one rule for all five. LDA is the
+exception throughout: there, a well-tuned inverse-time schedule with revival is as good, and the best step is an order
+of magnitude lower than the law predicts.
+
+\paragraph{Future work.} Five directions follow from these results.
+\begin{enumerate}[nosep]
+  \item \emph{Converged references.} Repeat the time-to-batch study against full-batch algorithms run to
+        convergence, and against their best iterate.
+  \item \emph{A theory of the step size.} Explain why LDA needs a step about ten times smaller than the other
+        families, and why HMMs want the maximum step despite sparse cells; the missing-information fraction does not.
+  \item \emph{Revival across families.} Test the distance-aware revival rule on HMMs, LDA and dictionary learning,
+        not only GMMs.
+  \item \emph{Adaptive and predicted steps together.} Use the law to initialize an online step-size estimator such
+        as that of \citet{ranganath2013adaptive}.
+  \item \emph{Scale.} Larger datasets (Netflix, PubMed, Wikipedia) and fused GPU kernels for the mini-batch E-step.
+\end{enumerate}
 
 \paragraph{Reproducibility.} Code, job files and every result record (one JSONL line per run, 44{,}197 runs) are
-provided as anonymised supplementary material. Verdict tables, figures and law fits are regenerated from the records
-without re-running any experiment; the full protocol is about 575 job-hours on one desktop. Hypotheses and kill
-criteria were frozen before the runs, and amendments are logged.
+provided as anonymized supplementary material. Tables, figures and law fits are regenerated from the records without
+re-running any experiment; the full protocol is about 575 job-hours on one desktop. Hypotheses and pass/fail criteria
+were frozen before the runs, and amendments are logged.
 
 \bibliography{references}
 \bibliographystyle{\bibstylename}
@@ -573,22 +731,22 @@ News \citep{zhang2015character}; 20 Newsgroups \citep{lang1995newsweeder}; Enron
 bag-of-words collection \citep{newman2008bow}; MovieLens \citep{harper2015movielens}; the Brown corpus
 \citep{francis1979brown} with the universal tagset \citep{petrov2012universal}; UCI HAR \citep{anguita2013har}. ALS
 follows ALS-WR \citep{zhou2008netflix}. Embeddings are reduced to 64 dimensions by PCA fitted on the training split.
-Datasets are not redistributed; the released download script fetches each from its provider. Licences and required
+Datasets are not redistributed; the released download script fetches each from its provider. Licenses and required
 citations are listed in the supplementary material.
 
 \section{Hyperparameter grids}\label{app:grids}
 \begin{itemize}[nosep]
-  \item \textbf{Recipe $\alpha_0$ grid (swept).} Eight log-spaced values on $[0.01, 1]$: 0.01, 0.0193, 0.0373,
+  \item \textbf{$\alpha_0$ grid for our method.} Eight log-spaced values on $[0.01, 1]$: 0.01, 0.0193, 0.0373,
         0.0720, 0.1389, 0.2683, 0.5179 and 1. For LDA, where a third of the cells chose 0.01, the grid continues
         downwards with the same spacing by five values: 0.00518, 0.00268, 0.00139, 0.00072 and 0.00037.
-  \item \textbf{Tuned stepwise / online EM.} $\alpha_t = (\tau_0 + t)^{-\kappa}$ with $\kappa \in \{0.5, 0.6, 0.7,
-        0.8, 0.9, 1.0\}$; $\tau_0 \in \{2, 10, 100\}$ for HMM, LDA, dictionary learning and ALS (18 settings) and
-        $\tau_0 \in \{1, 10, 100, 1000\}$ for GMMs (24 settings). The same grid is used with and without revival.
-        The online-LDA library default is $\tau_0 = 1024$, $\kappa = 0.7$.
+  \item \textbf{Tuned stepwise EM.} $\alpha_t = (\tau_0 + t)^{-\kappa}$ with $\kappa \in \{0.5, 0.6, 0.7, 0.8, 0.9,
+        1.0\}$; $\tau_0 \in \{2, 10, 100\}$ for HMM, LDA, dictionary learning and ALS (18 settings) and $\tau_0 \in
+        \{1, 10, 100, 1000\}$ for GMMs (24 settings). The same grid is used with and without revival. The
+        online-LDA library default is $\tau_0 = 1024$, $\kappa = 0.7$.
   \item \textbf{Batch sizes} for the headline curves: GMM 1024; HMM, LDA and dictionary learning 256; ALS 256
-        (ML-1M) and 2048 (ML-10M). The \emph{law} method uses the e-means batch law instead.
+        (ML-1M) and 2048 (ML-10M). The law variant uses the e-means batch-size law instead.
   \item \textbf{Long budgets ($T = 10, 25$).} Before any long run, a plan file froze, per configuration, the four
-        $\alpha_0$ grid values around the recipe's $T = 5$ optimum (two below, one above) and the three best
+        $\alpha_0$ grid values around our method's $T = 5$ optimum (two below, one above) and the three best
         $(\tau_0, \kappa)$ settings of the tuned baseline at $T = 5$. An optimum at the edge of a restricted grid is
         treated as censored in the law fits.
   \item \textbf{Law-fitting cells.} Besides the headline cells, each family sweeps $\alpha_0$ over sub-sampled
@@ -596,69 +754,58 @@ citations are listed in the supplementary material.
         n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; LDA $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1,
         2\}$; dictionary learning $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; ALS $B \in
         \{B_h/4, B_h, 4B_h\}$, $T \in \{1, 2, 5\}$. Together with the headline cells this gives the 422 cells used
-        in Section~5.5.
-  \item \textbf{Fixed model settings.} ALS regularisation $\lambda$ is chosen once from $\{0.01, 0.03, 0.05, 0.1,
-        0.2\}$ on validation (seed 0) and shared by every method. The cosine floor is $\varepsilon = 0.1$ and
+        in Section~\ref{sec:res-law}.
+  \item \textbf{Fixed model settings.} The ALS regularization $\lambda$ is chosen once from $\{0.01, 0.03, 0.05,
+        0.1, 0.2\}$ on validation (seed 0) and shared by every method. The cosine floor is $\varepsilon = 0.1$, and
         revival runs every 5 batches with threshold 0.1 for every family that uses it.
 \end{itemize}
 
 \section{Deviations and repairs}\label{app:repairs}
 \begin{itemize}[nosep]
-  \item \textbf{LDA E-step aliasing bug.} In the parallel (numba) LDA E-step a hoisted allocation made two
+  \item \textbf{LDA E-step aliasing bug.} In the parallel (numba) LDA E-step, a hoisted allocation made two
         per-document buffers alias, so every document stopped after 2 E-step iterations instead of iterating to
-        tolerance. It was found because a GPU port disagreed with the CPU path. After the fix (with a regression test)
-        every LDA stage was re-run; earlier LDA records are archived and none is used.
-  \item \textbf{Scheduler adoption bug.} On restart the queue adopted a running process under 2--3 job ids that
+        tolerance. It was found because a GPU port disagreed with the CPU path. After the fix (with a regression
+        test) every LDA stage was re-run; earlier LDA records are archived and none is used.
+  \item \textbf{Scheduler adoption bug.} On restart the job queue adopted a running process under 2--3 job ids that
         differed only in an environment variable, and marked all of them done when it exited. This affected 73 jobs
-        (GMM SIFT1M diag and full, DINOv2 full, synthetic full; dictionary learning CIFAR $8{\times}8$ seed 0); they
-        and 10 dependent jobs were re-queued, and stale records were moved aside.
+        (GMM SIFT1M diagonal and full, DINOv2 full, synthetic full; dictionary learning CIFAR $8{\times}8$ seed 0);
+        they and 10 dependent jobs were re-queued, and stale records were moved aside.
   \item \textbf{HMM GPU errors.} 17 HMM jobs failed with GPU errors and were re-run.
-  \item \textbf{ALS.} One missing ALS cell was filled.
-  \item \textbf{SIFT1M full-covariance reference.} The batch reference for this configuration initially had seeds
-        3--4 only; seeds 0--2 were run later with the same command. With 5 seeds the reference moves from 40.67 to
-        40.69 nats, and epochs-to-match change from 7.86 to 7.24 (swept), 16.1 to 14.8 (law) and 11.8 to 10.4
-        (tuned + revival). No count or test in the paper changes.
+  \item \textbf{ALS.} One missing ALS sweep cell was filled.
+  \item \textbf{SIFT1M full-covariance reference.} The full-batch reference for this configuration initially had
+        seeds 3--4 only; seeds 0--2 were run later with the same command. With 5 seeds batch@25 moves from 40.67 to
+        40.69 nats, and epochs-to-match change from 7.86 to 7.24 (our method), 16.1 to 14.8 (law variant) and 11.8
+        to 10.4 (tuned + revival). No count or test in the paper changes.
 \end{itemize}
 
-\section{Law fits}\label{app:law}
-\begin{table}[h]
-\centering\small
-\caption{Law comparison on 422 swept cells (15 censored at the grid's lower edge). Penalties are median relative
-validation losses; LDA held out gives the penalty and (predicted / best $\alpha_0$). The pre-registered test in the
-main text (M1 vs M0) uses the pre-registered fitting script, whose cross-validation gives M1 LOCO 0.108\% and LOAO
-0.338\%; the numbers below come from the exploratory refit, which reproduces M1 within 0.05 points.}
-\label{tab:laws}
-\begin{tabular}{p{4.6cm}cccp{3.0cm}p{1.6cm}}
-\toprule
-model & LOCO & LOAO & HMM held out & LDA held out & $R^2$, one global law \\
-\midrule
-$k$-means law (unchanged) & 0.155\% & 0.155\% & 0.19\% & 16.3\% (0.187 / 0.037) & --- \\
-M1: $n/k$, $B$, $T$ (+ per-family constant) & 0.103\% & 0.290\% & 4.54\% & 27.7\% (0.27 / 0.037) & 0.20 \\
-Q1: $q$, $n/B$, $T$ (+ per-family constant) & 0.076\% & 0.225\% & 4.79\% & 6.4\% (0.088 / 0.037) & 0.50 \\
-Q0: one global law in $q$ & 0.193\% & 0.249\% & 4.54\% & 29.9\% (0.309 / 0.037) & 0.50 \\
-Qe1: $\qeff$, $n/B$, $T$ (+ per-family constant) & 0.073\% & 0.183\% & 1.81\% & 5.3\% (0.067 / 0.037) & 0.66 \\
-\textbf{Qe0: one global law in $\qeff$} & 0.116\% & \textbf{0.149\%} & 1.52\% & 11.6\% (0.134 / 0.037) & \textbf{0.659} \\
-\bottomrule
-\end{tabular}
-\end{table}
-Every coordinate law predicts HMMs worse than the unchanged $k$-means law (1.5--4.8\% vs 0.19\%), and the unchanged
-$k$-means law's leave-one-family-out median (0.155\%) is close to Qe0's (0.149\%). The per-cell coordinate's gain is
-concentrated on LDA.
+\section{Law fits: further details}\label{app:law}
+\paragraph{Pre-registered script vs refit.} The pre-registered test (Section~\ref{sec:res-law}) uses the fitting
+script frozen before the law sweeps. Table~\ref{tab:laws} comes from a later script that also fits the exploratory
+laws; on the same 422 cells it reproduces M1's leave-one-cell-out median within 0.005 points (0.103\% vs 0.108\%) and
+its leave-one-family-out median within 0.05 points (0.290\% vs 0.338\%). We quote the pre-registered values for the
+test and the refit values for comparisons between laws.
+
+\paragraph{Missing-information feature.} Theory links EM's convergence rate to the fraction of missing information.
+We proxied it by $h$, the normalized posterior entropy of the latents on held-out data, and added $\log(1 - h)$ to
+Qe0. $R^2$ rises from 0.66 to 0.67 and the leave-one-family-out median worsens from 0.149\% to 0.167\%. The fitted
+sign is opposite to the hypothesis: more missing information goes with a \emph{larger} $\aopt$, driven by HMMs. LDA's
+latents are no more uncertain than the HMMs' ($h \approx 0.16$--0.24 vs 0.04--0.47), yet LDA needs an $\alpha_0$
+about 30$\times$ smaller.
 
 \section{Revival on rare groups}\label{app:rare}
 \textbf{Question.} \citet{weiss2026small} report, for $k$-means, that count-based revival deletes clusters covering
-rare isolated groups. Does the recipe's rule do the same in EM?
+rare, isolated groups. Does our rule do the same in EM?
 
-\textbf{Setup.} GMM recipe (cosine EMA, $B = 1024$, $\varepsilon = 0.1$) with three revival modes: \emph{off};
-\emph{count} (the recipe's rule); \emph{dist}, Weiss's rule adapted to GMMs, where a count-flagged component is
-re-seeded only if $\min_i \|\mu_j - \mu_i\|^2 \le 4\,\mathrm{MSE}$, with $\mathrm{MSE} = \sum_j w_j \operatorname{tr}
-\Sigma_j$, or if it has had fewer than 0.5 points of batch mass for 2 epochs. $\alpha_0$ is selected on validation
-NLL from $\{0.072, 0.139, 0.268, 0.518, 1.0\}$ per (dataset, method, $T$); seeds 0--2; $T \in \{2, 5\}$. Tail NLL is
-the mean test NLL on rare groups (the synthetic small clusters, or labelled classes with $< 2\%$ of training points).
-Data: a synthetic far-groups mixture ($d = 16$; 30 large clusters and 4 at radius 30 with 0.2\% mass each; diagonal
-and full, $k = 34$); Statlog Shuttle; KDD Cup 99 (10\%, 38 numeric columns); Covertype; SIFT1M-PCA64 as a control;
-real data standardised, $k = 64$, diagonal. KDD Cup 99 and Covertype use a covariance floor of 0.01 (standardised
-units) instead of the recipe's relative floor, because components otherwise collapse onto binary columns.
+\textbf{Setup.} The GMM version of our method ($B = 1024$, $\varepsilon = 0.1$) with three revival modes:
+\emph{off}; \emph{count} (our rule); and \emph{dist}, Weiss's rule adapted to GMMs, where a count-flagged component
+is re-seeded only if $\min_i \|\mu_j - \mu_i\|^2 \le 4\,\mathrm{MSE}$, with $\mathrm{MSE} = \sum_j w_j
+\operatorname{tr} \Sigma_j$, or if it has had less than 0.5 points of batch mass for 2 epochs. $\alpha_0$ is selected
+on validation NLL from $\{0.072, 0.139, 0.268, 0.518, 1.0\}$ per (dataset, method, $T$); seeds 0--2; $T \in \{2,
+5\}$. Tail NLL is the mean test NLL on rare groups (the synthetic small clusters, or labeled classes with less than
+2\% of training points). Data: a synthetic far-groups mixture ($d = 16$; 30 large clusters and 4 at radius 30 with
+0.2\% mass each; diagonal and full, $k = 34$); Statlog Shuttle; KDD Cup 99 (10\%, 38 numeric columns); Covertype; and
+SIFT1M-PCA64 as a control; real data standardized, $k = 64$, diagonal. KDD Cup 99 and Covertype use a covariance floor
+of 0.01 (standardized units) instead of our relative floor, because components otherwise collapse onto binary columns.
 
 \begin{table}[h]
 \centering\small
@@ -666,7 +813,7 @@ units) instead of the recipe's relative floor, because components otherwise coll
 better.}\label{tab:rare}
 \begin{tabular}{llccc}
 \toprule
-dataset & $T$ & off & count (recipe) & dist (Weiss) \\
+dataset & $T$ & off & count (ours) & dist (Weiss) \\
 \midrule
 SIFT1M control & 2 & 60.02 & 59.30 & 59.30 (identical) \\
 SIFT1M control & 5 & 59.92 & 59.21 & 59.21 (identical) \\
@@ -684,12 +831,22 @@ Covertype & 5 & $-45.24$ [$-43.25$] & $-45.20$ [$-41.44$] & \best{$-45.47$} [$-4
 \end{tabular}
 \end{table}
 
-Where rare isolated groups exist, count-based revival costs tail likelihood (Covertype 1.7--1.8 nats on rare classes;
-KDD Cup 99 by 3--40 nats; synthetic full covariance 2 nats), and on KDD Cup 99 at $T = 5$ it is worse overall than no
-revival. The distance-aware rule removes most of that cost while keeping revival's gains where they exist (Shuttle
-$-12.1$ vs $-9.2$ without revival). On SIFT1M the distance test never fires and results are identical, so the main
-results are unaffected. Tail sets are small (Shuttle 39 points, KDD Cup 99 367, Covertype 431) and KDD Cup 99 tail
-variance is large; only GMMs were tested.
+Where rare, isolated groups exist, count-based revival costs tail likelihood (Covertype 1.7--1.8 nats on rare
+classes; KDD Cup 99 by 3--40 nats; synthetic full covariance 2 nats), and on KDD Cup 99 at $T = 5$ it is worse
+overall than no revival. The distance-aware rule removes most of that cost while keeping revival's gains where they
+exist (Shuttle $-12.1$ vs $-9.2$ without revival). On SIFT1M the distance test never fires and results are identical,
+so the main results are unaffected. Tail sets are small (Shuttle 39 points, KDD Cup 99 367, Covertype 431), KDD Cup
+99 tail variance is large, and only GMMs were tested.
+
+\section{Convergence curves for all configurations}\label{app:curves}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{convergence.pdf}
+\caption{Seed-mean test objective against epochs (log scale) for all 19 configurations. The black curve is the
+full-batch algorithm by iteration; the red dotted line is the target, batch@25.}
+\label{fig:convergence-all}
+\end{figure}
 
 \section{Compute}\label{app:compute}
 About 575 job-hours for the main protocol plus 273 ablation jobs, on one desktop (Ryzen 9 9900X, RTX 5090); software

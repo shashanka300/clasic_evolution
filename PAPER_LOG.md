@@ -517,6 +517,74 @@ Draft Table 1 / Table 3, METADATA §4 updated; §5.1 now says real-data full-cov
   does not". Conclusion opens "Within the scope we tested, a few epochs of stochastic-approximation EM are enough."
 - No numbers changed. `paper/draft.md` (older Markdown) keeps the old framing; `main.tex` is canonical.
 
+### Methodology review and revision (2026-11-17)
+
+The author supplied a 31-point review judged against Vinod Chandra & Anand Hareendran, *Research Methodology*:
+readability 5/10 for a general ML reader. The author approved parts 1–4 of the plan (consistency fixes, statistics,
+rewrite, figures).
+
+**New analyses** (`scripts/review_stats.py`, output `results/review_stats.json`; from existing records only, no
+new runs):
+- **Multiple comparisons** over the 102 (configuration, budget) pairs, ours vs tuned stepwise EM + revival.
+  Results are wins / ties / losses:
+
+  | | GMM | HMM | DL | LDA | all |
+  |---|---|---|---|---|---|
+  | uncorrected | 26/22/0 | 14/4/0 | 11/7/0 | 0/14/4 | 51/47/4 |
+  | Benjamini–Hochberg (FDR 5%) | 19/29/0 | 13/5/0 | 10/8/0 | 0/16/2 | 42/58/2 |
+  | Holm (FWER 5%) | 0/48/0 | 1/17/0 | 2/16/0 | 0/18/0 | 3/99/0 |
+  | all 5 seeds agree (ours / baseline) | 30/0 | 16/0 | 10/0 | 0/5 | 56/5 |
+
+  - With 5 seeds no exact rank or sign-flip test can reach p < 0.05 on one pair (min two-sided p = 2/32), so the
+    seed-agreement count stands in for a per-pair Wilcoxon test.
+  - **Claim changed**: the paper now leads with the BH count (42 wins / 2 losses), reports Holm (3 wins), and says
+    the evidence is the consistent direction, not per-pair significance.
+- **Best-iterate reference.** On every GMM, HMM, DL and ALS configuration the full-batch curve is still improving
+  or flat at iteration 25, so batch@25 is also the best iterate. On LDA, batch VB is best at iteration 9 (20NG), 11
+  (Enron) and 15 (NYTimes), then rises 1.35% / 0.72% / 0.15%. Against the best iterate:
+  - our method needs 1.38 epochs on 20NG (was 1.13);
+  - our method does not match Enron within 25 epochs (was 4.44);
+  - tuned + revival needs 0.95 on 20NG (was 0.89) and 15.0 on Enron (was 7.17);
+  - nothing else changes, and the "12 within 3 epochs" claim holds.
+- **#29, Enron timing.** It was timed, but on the 3 timing seeds our method does not reach batch@25 within 5 epochs
+  (the 5-seed mean is 4.44). The text now says so; before, it said Enron was "not timed".
+
+**Manuscript changes (`paper/tmlr/main.tex`, 20 pages):**
+- **Abstract:** about 8 numbers, no undefined jargon; the exploratory 28% → 12% result dropped.
+- **New sections and boxes:**
+  - new §2, Background (sufficient statistics, E/M-steps with a GMM example, stepwise EM, EMA, SVI, notation);
+  - Algorithm 1 (full method) and a cost-per-step paragraph (overhead about d/B of the E-step for a full GMM);
+  - intuition for the law exponents (positive on q, negative on n/B and T; unit-free).
+- **Terms:**
+  - Table 3 defines our method, the law variant, tuned stepwise EM (+ revival), batch@25, epochs-to-match, gain,
+    configuration, pair, sweep cell, LOCO/LOFO and law penalty;
+  - "LOAO" renamed LOFO everywhere, including Figure 4;
+  - C1–C6/C2b labels replaced by section references;
+  - the law models M0/M1/Q0/Q1/Qe0/Qe1 are now defined in §3.1, and the law table moved from Appendix D to §6.5.
+- **Hypotheses:** Table 4 lists the pre-registered hypotheses with pass criteria and outcomes, from
+  `scripts/kill_criteria.py`. The LDA test concerns the LDA-fitted cosine law, now mentioned in §6.4.
+- **Statistics paragraph:** bootstrap CIs, paired t-tests (4 dof), BH/Holm, seed agreement, and the Wilcoxon
+  signed-rank test for the law test.
+- **#15:** pre-registered vs refit M1 numbers (0.108 / 0.103) are explained once, in §6.5 and Appendix D.
+- **Related Work** rewritten as prose; the protocol opens with a prose paragraph; the LDA paragraph in §6.2 has
+  fewer numbers.
+- **Limitations** consolidated into 7 items. They now include the reference definition, seeds and test
+  assumptions, and sub-sampled law cells. Repairs are only pointed to (Appendix C).
+- **Conclusion:** adds 5 future-work items.
+- American spelling throughout. Appendix F (new) holds the full 19-panel convergence figure. The missing-information
+  test moved to Appendix D.
+
+**Figures (`scripts/make_figures.py`):**
+- `convergence_main` is a new 6-panel Figure 1 (SIFT1M full, DINOv2 diag, Brown POS, LDA 20NG, CIFAR 12x12,
+  ML-10M) with y-axis labels. The full grid drops the 4 k-means panels and moves to Appendix F.
+- Target line: red dotted, labeled "target: full-batch EM after 25 iterations".
+- Method names unified ("ours, α0 tuned on validation", "ours, α0 from the k-means law (untuned)", "tuned
+  stepwise EM", "+ revival").
+- Math notation in the axis labels; Figure 4 medians shown to 3 decimals and labeled "leave one family out".
+
+**Not yet done:** the supplementary ZIP and the private release repo still have the old manuscript; `draft.md` is
+superseded and not updated.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

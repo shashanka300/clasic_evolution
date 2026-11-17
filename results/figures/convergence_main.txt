@@ -1,0 +1,8 @@
+Plotted from:
+  results/gmm-ema/runs.jsonl (240 records), group sift1m_pca64|k=64|full
+  results/gmm-ema/runs.jsonl (240 records), group dinov2_pca64|k=64|diag
+  results/hmm-ema/runs.jsonl (90 records), group brown_pos|k=12
+  results/lda-scaling/runs.jsonl (114 records), group 20ng|k=50
+  results/dictlearn-scaling/runs.jsonl (90 records), group cifar_p12|k=192
+  results/als-ema/runs.jsonl (40 records), group ml10m|k=32
+  not drawn: cosine_law (LDA leave-one-corpus law), full-iteration library checks

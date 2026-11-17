@@ -18,8 +18,4 @@ Plotted from:
   results/dictlearn-scaling/runs.jsonl (90 records), group cifar_p12|k=192
   results/dictlearn-scaling/runs.jsonl (90 records), group cifar_p8|k=128
   results/dictlearn-scaling/runs.jsonl (90 records), group nmf_20ng|k=32
-  results/core/runs.jsonl (48 records), group agnews_minilm|k=1024|train
-  results/core/runs.jsonl (48 records), group dinov2s_cifar100|k=512|train
-  results/core/runs.jsonl (48 records), group sift1m|k=1024|train
-  results/core/runs.jsonl (48 records), group sift1m|k=4096|train
   not drawn: cosine_law (LDA leave-one-corpus law), full-iteration library checks
