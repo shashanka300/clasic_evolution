@@ -2,6 +2,11 @@
 
 *Drafted 2026-11-17. Decisions marked **(author)** are yours; everything else is a recommendation.*
 
+**Status (2026-11-17):** licence MIT; fresh repo chosen. Clean single-commit export pushed to a new **private**
+repo `sa-em-scaling-laws` (commit e195097, 1,300 files, 54 MB), built by `scripts/make_release.sh`. Make it public
+at arXiv time; for double-blind review, mirror it anonymously (the repo owner name is visible). Still to do: Zenodo
+DOI, `CITATION.cff` (needs author names).
+
 ## What we release
 
 | item | release? | how |

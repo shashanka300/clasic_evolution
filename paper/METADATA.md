@@ -221,6 +221,7 @@ no-revival one is the published prior art, the revival one is the fair ablation.
 ## 9. Reproducibility
 
 - Code + results: commit `1398f74`, branch `desktop-5090` (release plan: `paper/RELEASE_PLAN.md`).
+- Release snapshot: private repo `sa-em-scaling-laws`, commit e195097 (MIT), built by `scripts/make_release.sh`.
 - Data: `python3 scripts/fetch_data.py` (downloads and embeds; embeddings recomputed on the 5090).
 - Full v3 regeneration: `python3 scripts/make_jobs_v3.py && python3 scripts/pqueue.py --jobs results/jobs_budget_v3.txt
   --done results/pqueue_done_v3.txt --budget 32 --max-jobs 16`; repairs: `results/jobs_hmm_fix_v3.txt`,

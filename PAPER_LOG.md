@@ -427,6 +427,23 @@ Reading:
   public repo + Zenodo DOI at arXiv/camera-ready. Open author decisions: licence; same repo vs fresh one.
 - Appendix outline reordered (E before F).
 
+### Release snapshot (2026-11-17)
+
+- Licence MIT (`LICENSE`, copyright "the authors" until names are set). Fresh repo, single commit: private
+  `sa-em-scaling-laws`, commit e195097, 1,300 files, 54 MB, built by `scripts/make_release.sh`.
+- Export keeps core, the five families, law fits, scripts, tests, results, paper, PAPER_LOG, RESEARCH_PLAN. It
+  drops the companion-paper tracks (OPQ, balanced/drift IVF, drift re-warm, seeding, adaptive k, HNSW) with their
+  tests, results, figures and job lines, plus internal machine notes and the literature-review notes.
+  RESEARCH_PLAN and PAPER_LOG still name the companion tracks (pre-registration kept intact).
+- Scrubbed: local home path, the hostname (in 14,422+ run records' `host` field and verdict tables; now
+  "desktop"), old macOS checkout paths in two console logs, and the private repo/owner name. Final check:
+  no username, hostname, home path, `/Users/` or email string left.
+- Verified on the export: `evaluate.py`, `make_figures.py` and `refit_coords.py` run cleanly; verdict tables
+  differ from the shipped ones only in the "Generated at" line; Qe0 reproduces (0.419, 0.427, −0.282, −0.326,
+  R² 0.659); pytest 71 passed, 15 GPU tests deselected.
+- Found while building: the working repo's verdict tables were stale (missing the `*_rev_tuned` rows); refreshed
+  in the working repo (a7d4696). Paper numbers came from `compare_rev.py` and are unaffected.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
