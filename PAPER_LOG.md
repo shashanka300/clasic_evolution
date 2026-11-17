@@ -417,6 +417,16 @@ Reading:
 - **For the paper:** limitation 8 plus Appendix F; recommend the distance-aware rule for data with rare isolated
   groups.
 
+### Title, abstract and release plan (2026-11-17; decision log)
+
+- Title kept provisionally as METADATA §1 option 1 (the draft's current title); author to confirm.
+- Abstract now ends: "Code, job files and all 44,197 run records are released." (67 JSONL files.)
+- `paper/RELEASE_PLAN.md`: release code, jobs, JSONL, verdicts, figures; not raw data (MovieLens forbids
+  redistribution; AG News / CIFAR unlicensed), rebuilt by `scripts/fetch_data.py`. Console logs contain the local
+  home path (~25k occurrences, 199 files) and must be scrubbed; JSONL is clean. Anonymised snapshot for review,
+  public repo + Zenodo DOI at arXiv/camera-ready. Open author decisions: licence; same repo vs fresh one.
+- Appendix outline reordered (E before F).
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

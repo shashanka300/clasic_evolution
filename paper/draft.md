@@ -27,7 +27,8 @@ The k-means rate law, applied unchanged, transfers to GMM, HMM, dictionary learn
 penalty ≤ 0.2%) but fails on LDA, whose optimal rate is about 10x lower. One cross-family law beats a per-family
 constant (pre-registered; leave-one-cell-out median penalty 0.11% vs 0.32%). Re-expressing it in observations per
 sufficient-statistic cell explains two-thirds of the variance of the optimal rate with a single global fit, and cuts
-the held-out-family penalty on LDA from 28% to 12% (exploratory).
+the held-out-family penalty on LDA from 28% to 12% (exploratory). Code, job files and all 44,197 run records are
+released.
 
 ---
 
@@ -453,8 +454,8 @@ good, and the optimal rate is an order of magnitude lower than the law predicts.
 theory of stochastic EM step sizes will have to explain.
 
 TODO before submission:
-- choose the title and finalise the abstract's last sentence;
-- code and data release plan.
+- confirm the title (provisional: the current one, METADATA §1 option 1);
+- release decisions in `paper/RELEASE_PLAN.md` (licence, same or fresh public repo).
 
 ---
 
@@ -465,9 +466,9 @@ TODO before submission:
 - **B.** Hyperparameter grids: α0 grid; (τ0, κ) grids per family; batch sizes; long-budget plans.
 - **C.** Deviations and repairs (`PAPER_LOG.md` §2–3).
 - **D.** Law fits: coefficients for M0, M1, KM, Q0/Q1, Qe0/Qe1; per-family medians of α0*, q, q_eff; censoring.
+- **E.** Compute: ~575 job-hours for protocol v3 plus 273 ablation jobs, one desktop; software versions (`uv.lock`).
 - **F.** Revival on rare groups: count-based vs distance-aware vs none, GMM on a synthetic far-groups mixture,
   Statlog Shuttle, KDD Cup 99, Covertype and SIFT1M (`tracks/gmm-ema/revival_rare.py`, PAPER_LOG §4).
-- **E.** Compute: ~575 job-hours for protocol v3 plus 273 ablation jobs, one desktop; software versions (`uv.lock`).
 
 ## Reproducibility statement
 

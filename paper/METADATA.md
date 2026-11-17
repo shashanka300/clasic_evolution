@@ -207,18 +207,20 @@ no-revival one is the published prior art, the revival one is the fair ablation.
       no step/batch law for online EM across families found; PAPER_LOG §6) Deeper novelty checks (forward citations, SVI adaptive-step papers; first pass done above) (literature review, "Novelty checks" table): cross-family step law, cosine schedule for EM,
       unified revival rule.
 - [x] e-means law exponents and citations confirmed (PAPER_LOG §6, 2026-11-16).
-- [ ] Decide headline framing (title choice, §1) and finalise the abstract's last sentence.
+- [x] (2026-11-17, provisional; author to confirm) Title: option 1 as in the draft; abstract ends with the release
+      sentence. Decide headline framing (title choice, §1) and finalise the abstract's last sentence.
 - [x] Restyle Figs 1–3 (2026-11-17; all seven figures re-rendered, legends outside panels).
 - [x] Wall-clock for the tuned baselines (2026-11-17, `scripts/timing_tuned.py`): same per-epoch cost as the recipe
       (±5% at T = 2); speed-ups in PAPER_LOG §4 "Tuned-baseline timing" and draft Table 4.
 - [ ] Optional: time T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if wall-clock for them is wanted.
 - [x] (2026-11-17, `paper/datasets.md`; SIFT1M and 20NG pages unreachable, noted) Dataset licences / citations for every dataset (SIFT1M, MovieLens, UCI BoW, UCI HAR, Brown, 20NG, CIFAR-100,
       AG News, DINOv2 / MiniLM models).
-- [ ] Code/data release plan (repo is private at `shashanka300/clasic_evolution`).
+- [x] (2026-11-17, `paper/RELEASE_PLAN.md`; licence and same-vs-fresh repo are author decisions) Code/data release
+      plan (repo is private at `shashanka300/clasic_evolution`).
 
 ## 9. Reproducibility
 
-- Code + results: commit `342cd1c`, branch `desktop-5090`.
+- Code + results: commit `1398f74`, branch `desktop-5090` (release plan: `paper/RELEASE_PLAN.md`).
 - Data: `python3 scripts/fetch_data.py` (downloads and embeds; embeddings recomputed on the 5090).
 - Full v3 regeneration: `python3 scripts/make_jobs_v3.py && python3 scripts/pqueue.py --jobs results/jobs_budget_v3.txt
   --done results/pqueue_done_v3.txt --budget 32 --max-jobs 16`; repairs: `results/jobs_hmm_fix_v3.txt`,
