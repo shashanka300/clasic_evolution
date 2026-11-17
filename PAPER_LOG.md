@@ -349,6 +349,74 @@ Interpretation for the paper: most of the speed-up over full batch belongs to st
 the recipe's schedule and law add a further 1.2–2.9x in wall time where both match (DL nmf_20ng 1.2x, DL cifar_p8
 2.3x, HMM brown 2.0x, HMM synthetic 2.9x) except on LDA (0.7x).
 
+### Revival on rare, isolated groups (2026-11-17; ablation, not pre-registered)
+
+Question (raised by Weiss 2026, arXiv:2611.18238, for k-means): does the recipe's count-based revival (re-seed any
+unit with EMA mass < 0.1·mean every 5 batches) delete components that cover rare, isolated groups?
+
+Script `tracks/gmm-ema/revival_rare.py`. GMM recipe (cosine EMA, B = 1024, ε = 0.1) with three revival modes:
+- **off:** no revival.
+- **count:** the recipe's rule.
+- **dist:** Weiss's rule adapted to GMMs. A count-flagged component is re-seeded only if
+  min_i ‖μ_j − μ_i‖² ≤ 4·MSE, with MSE = Σ_j w_j tr Σ_j, or if it has had < 0.5 points of batch mass for 2 epochs.
+  Implemented as a `protect` mask on `revive_gmm_components`; the default None leaves the recipe unchanged, and the
+  22 GMM tests pass.
+
+Setup:
+- α0 from {0.072, 0.139, 0.268, 0.518, 1.0}, selected on validation NLL per (dataset, method, T). Seeds 0–2,
+  T ∈ {2, 5}.
+- Reference: sklearn full-batch EM, 25 iterations.
+- Tail NLL = mean test NLL on rare groups: the synthetic small clusters, or labelled classes with < 2% of training
+  points.
+- Datasets:
+  - synthetic far-groups (d = 16; 30 large clusters + 4 at radius 30 with 0.2% mass each; diag and full, k = 34);
+  - Statlog Shuttle (OpenML 40685);
+  - KDD Cup 99 10% (38 numeric columns);
+  - Covertype;
+  - SIFT1M-PCA64 (control, no rare groups);
+  - real data standardised; k = 64, diagonal covariance.
+- **Deviation:** KDD99 and Covertype use a covariance floor of 0.01 (standardised units) instead of the recipe's
+  1e-6 relative floor. With the recipe floor, components collapse onto binary or constant columns and the NLL
+  diverges (KDD99 full-batch test NLL 1.7e5, Covertype −246). The first KDD99 and Covertype runs were discarded.
+  Logs are in `results/gmm-ema/revival_rare_logs/`, results in `revival_rare.jsonl` (546 rows) and
+  `revival_rare.summary.json`.
+
+Test NLL, mean ± sd over 3 seeds, at the val-selected α0 (tail NLL in brackets; lower is better):
+
+| dataset | T | off | count (recipe) | dist (Weiss) |
+|---|---|---|---|---|
+| SIFT1M control | 2 | 60.02 ± 0.14 | 59.30 ± 0.02 | 59.30 ± 0.02 (identical) |
+| SIFT1M control | 5 | 59.92 ± 0.10 | 59.21 ± 0.02 | 59.21 ± 0.02 (identical) |
+| synthetic diag | 2 | 27.36 [61.5] | 27.00 [53.8] | 26.98 [53.8] |
+| synthetic diag | 5 | 27.40 [62.0] | **26.32** [53.9] | 26.48 [53.9] |
+| synthetic full | 2 | 26.48 [34.3] | 26.56 [36.3] | 26.50 [34.7] |
+| synthetic full | 5 | 26.47 [34.4] | 26.54 [36.3] | 26.49 [34.8] |
+| Shuttle | 2 | −8.35 [19.7] | −11.11 [16.8] | −10.99 [21.8] |
+| Shuttle | 5 | −9.18 [16.8] | −12.14 [19.5 ± 5.0] | −12.11 [14.9 ± 1.4] |
+| KDD99 | 2 | −45.82 [2.4 ± 7.1] | −46.58 [5.2 ± 4.6] | **−47.07** [**−12.0** ± 4.6] |
+| KDD99 | 5 | **−47.41** [**−24.9** ± 1.2] | −46.27 ± 0.48 [15.4 ± 18.7] | −46.93 [−6.9 ± 4.7] |
+| Covertype | 2 | −45.29 [−43.25] | −45.25 [−41.59 ± 0.37] | **−45.57** [−43.05] |
+| Covertype | 5 | −45.24 [−43.25] | −45.20 [−41.44 ± 0.34] | **−45.47** [−42.29] |
+
+References@25 (test [tail]): SIFT 59.27; synthetic diag 26.55 [55.3], full 26.25 [32.0]; Shuttle −8.11 [17.8];
+KDD99 −32.15 [784]; Covertype −45.49 [−43.72]. On KDD99, full-batch EM is stuck far above every stochastic run.
+
+Reading:
+- **The caveat is real but data-dependent.**
+  - Where rare isolated groups exist, count-based revival costs tail likelihood: Covertype 1.7–1.8 nats on rare
+    classes at both budgets; KDD99 tail +3 to +40 nats vs off; synthetic full covariance 2 nats.
+  - On KDD99 at T = 5 it is also worse overall than no revival (−46.27 vs −47.41).
+  - The distance-aware rule removes most of that cost. It is the best overall on KDD99 T=2 and Covertype, matches
+    count on Shuttle and synthetic diag (count better at synthetic diag T=5, 26.32 vs 26.48), and keeps the
+    overall gains of revival where they exist (Shuttle −12.1 vs −9.2 off).
+- **Our benchmark is unaffected:** on SIFT1M the distance test never fires and the results are bit-identical, as
+  Weiss reports for embedding data. The paper's numbers stand.
+- **Revival still matters:** off is clearly worse on SIFT1M, the synthetic diag data and Shuttle.
+- **Caveats:** 3 seeds; tail sets are small (Shuttle 39 points, KDD99 367, Covertype 431); KDD99 tail variance is
+  large; only GMM was tested (HMM / LDA / DL not tested).
+- **For the paper:** limitation 8 plus Appendix F; recommend the distance-aware rule for data with rare isolated
+  groups.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

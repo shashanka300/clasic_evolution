@@ -201,6 +201,8 @@ no-revival one is the published prior art, the revival one is the fair ablation.
 - [x] Missing-information fraction as a law feature (2026-11-17): negative — R² 0.659 → 0.673, LOAO 0.149% → 0.167%,
       sign opposite to hypothesis (PAPER_LOG §5).
 - [ ] Statistic-space noise-scale test.
+- [x] Revival on rare groups (2026-11-17, Weiss 2026 caveat): count-based revival costs rare-class likelihood
+      on KDD99 / Covertype; distance-aware rule recovers most; identical on SIFT1M. Draft limitation 8, Appendix F.
 - [x] (2026-11-17: one e-means follow-up found, Weiss 2026 arXiv:2611.18238 — k-means revival only, no overlap;
       no step/batch law for online EM across families found; PAPER_LOG §6) Deeper novelty checks (forward citations, SVI adaptive-step papers; first pass done above) (literature review, "Novelty checks" table): cross-family step law, cosine schedule for EM,
       unified revival rule.

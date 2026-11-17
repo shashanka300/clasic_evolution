@@ -7,3 +7,4 @@
 2026-11-16 01:11:25 manual: ALS ml10m T=10 a=0.518 seed 2 fill queue results/jobs_als_fix_v3.txt started
 2026-11-16 03:29:11 manual: schedule-vs-revival ablation queue results/jobs_rev_v3.txt started (budget 32 / max 16)
 2026-11-16 17:31:44 manual: LDA eps=0.01 cosine-floor diagnostic launched (18 procs, tracks/lda-scaling/eps_diag.py)
+2026-11-17 09:31:30 manual: revival_rare ablation (Weiss 2026 distance-aware revival vs count vs off), 5 datasets

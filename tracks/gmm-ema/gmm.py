@@ -380,8 +380,12 @@ def revive_gmm_components(
     delta: float = 1.0 / 128.0,
     eps_cov: float = 1e-6,
     rng: np.random.Generator | None = None,
+    protect: np.ndarray | None = None,
 ) -> RevivalEvent:
     """Revive dead GMM components by splitting donors along principal covariance axis.
+
+    ``protect`` (bool, shape (k,)), if given, exempts flagged components from revival; they are also not donors.
+    Used by the distance-aware revival test (tracks/gmm-ema/revival_rare.py); default None = the recipe's rule.
 
     When component count falls below tau * mean(N), donor cluster is chosen
     proportionally to count, and split along its top eigenvector.
@@ -412,6 +416,8 @@ def revive_gmm_components(
 
     thresh = tau * mean_n
     dead_idx = np.flatnonzero(counts < thresh)
+    if protect is not None:
+        dead_idx = dead_idx[~protect[dead_idx]]
     if len(dead_idx) == 0:
         empty = np.empty(0, dtype=np.int64)
         return RevivalEvent(dead_indices=empty, donor_indices=empty, delta=delta)

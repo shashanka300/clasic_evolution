@@ -431,6 +431,16 @@ is already near convergence after a few passes (ALS ML-1M) or where the statisti
 7. *Operational repairs.* All were disclosed and none changed a method: an LDA E-step aliasing bug (all LDA re-run),
    a scheduler bug (73 jobs re-run), 17 HMM jobs re-run after GPU errors, and one ALS cell filled
    (Appendix C).
+8. *Revival and rare groups.* Our revival rule judges a unit by its mass alone, as e-means does, so it can delete a
+   small component that covers a rare, isolated group (Weiss 2026). In a GMM ablation (Appendix F; exploratory, 3
+   seeds) this costs likelihood on rare classes. Examples:
+   - Covertype: rare-class NLL −41.4 vs −43.2 without revival, at 5 epochs.
+   - KDD Cup 99: worse than no revival overall at 5 epochs (−46.3 vs −47.4 nats).
+
+   A distance-aware variant recovers most of the loss. It re-seeds a small component only if its mean is within
+   2·√MSE of another component's mean, or if it has received no data for 2 epochs. On our benchmark datasets the
+   two rules give identical results (SIFT1M: the distance test never fires), so no reported number changes.
+   Deployments with rare, isolated groups should use the distance-aware rule.
 
 ## 7. Conclusion
 
@@ -455,6 +465,8 @@ TODO before submission:
 - **B.** Hyperparameter grids: α0 grid; (τ0, κ) grids per family; batch sizes; long-budget plans.
 - **C.** Deviations and repairs (`PAPER_LOG.md` §2–3).
 - **D.** Law fits: coefficients for M0, M1, KM, Q0/Q1, Qe0/Qe1; per-family medians of α0*, q, q_eff; censoring.
+- **F.** Revival on rare groups: count-based vs distance-aware vs none, GMM on a synthetic far-groups mixture,
+  Statlog Shuttle, KDD Cup 99, Covertype and SIFT1M (`tracks/gmm-ema/revival_rare.py`, PAPER_LOG §4).
 - **E.** Compute: ~575 job-hours for protocol v3 plus 273 ablation jobs, one desktop; software versions (`uv.lock`).
 
 ## Reproducibility statement

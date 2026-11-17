@@ -1,0 +1,8 @@
+covtype: n=400000 d=54 rare classes=2 tail test points=431
+  ref diag k=64: test -45.4938 tail -43.719743766858755
+  diag k=64 T=2.0 off done
+  diag k=64 T=2.0 count done
+  diag k=64 T=2.0 dist done
+  diag k=64 T=5.0 off done
+  diag k=64 T=5.0 count done
+  diag k=64 T=5.0 dist done

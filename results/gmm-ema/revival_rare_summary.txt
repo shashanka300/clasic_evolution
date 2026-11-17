@@ -1,0 +1,24 @@
+
+covtype diag k=64: ref@25 test -45.4938 tail -43.719743766858755
+  T=2.0: off: a=0.268 test=-45.2912±0.3603 (+0.45%) tail=-43.253±0.648 rev=0 prot=0 | count: a=0.139 test=-45.2495±0.0987 (+0.54%) tail=-41.590±0.366 rev=20 prot=0 | dist: a=1.0 test=-45.5721±0.0892 (-0.17%) tail=-43.049±0.568 rev=64 prot=1124
+  T=5.0: off: a=0.268 test=-45.2370±0.3539 (+0.56%) tail=-43.248±0.645 rev=0 prot=0 | count: a=0.139 test=-45.1978±0.1410 (+0.65%) tail=-41.436±0.337 rev=21 prot=0 | dist: a=1.0 test=-45.4736±0.1002 (+0.04%) tail=-42.285±0.386 rev=121 prot=2150
+
+kdd99 diag k=64: ref@25 test -32.1482 tail 784.3849338738818
+  T=2.0: off: a=1.0 test=-45.8228±0.2456 (-42.54%) tail=2.443±7.114 rev=0 prot=0 | count: a=0.072 test=-46.5801±0.0744 (-44.89%) tail=5.214±4.635 rev=80 prot=0 | dist: a=0.268 test=-47.0659±0.0458 (-46.40%) tail=-12.024±4.554 rev=46 prot=1073
+  T=5.0: off: a=0.268 test=-47.4136±0.0638 (-47.48%) tail=-24.900±1.189 rev=0 prot=0 | count: a=0.268 test=-46.2717±0.4766 (-43.93%) tail=15.411±18.693 rev=89 prot=0 | dist: a=0.268 test=-46.9295±0.1786 (-45.98%) tail=-6.942±4.679 rev=56 prot=896
+
+shuttle diag k=64: ref@25 test -8.1073 tail 17.810339002808174
+  T=2.0: off: a=1.0 test=-8.3503±0.4388 (-3.00%) tail=19.749±3.843 rev=0 prot=0 | count: a=1.0 test=-11.1108±0.1159 (-37.05%) tail=16.791±2.780 rev=41 prot=0 | dist: a=1.0 test=-10.9904±0.1270 (-35.56%) tail=21.777±6.155 rev=40 prot=6
+  T=5.0: off: a=0.518 test=-9.1828±0.2646 (-13.27%) tail=16.841±2.634 rev=0 prot=0 | count: a=1.0 test=-12.1422±0.2639 (-49.77%) tail=19.465±4.992 rev=60 prot=0 | dist: a=1.0 test=-12.1149±0.1535 (-49.43%) tail=14.901±1.381 rev=58 prot=6
+
+sift_control diag k=64: ref@25 test 59.2679 tail None
+  T=2.0: off: a=0.072 test=60.0161±0.1364 (+1.26%) rev=0 prot=0 | count: a=0.268 test=59.2956±0.0151 (+0.05%) rev=30 prot=0 | dist: a=0.268 test=59.2956±0.0151 (+0.05%) rev=30 prot=0
+  T=5.0: off: a=0.072 test=59.9173±0.1044 (+1.10%) rev=0 prot=0 | count: a=0.268 test=59.2133±0.0219 (-0.09%) rev=40 prot=0 | dist: a=0.268 test=59.2133±0.0219 (-0.09%) rev=40 prot=0
+
+synthetic_far diag k=34: ref@25 test 26.5519 tail 55.33510869332555
+  T=2.0: off: a=0.518 test=27.3633±0.2405 (+3.06%) tail=61.538±5.360 rev=0 prot=0 | count: a=1.0 test=26.9968±0.3259 (+1.68%) tail=53.798±0.038 rev=12 prot=0 | dist: a=1.0 test=26.9802±0.4782 (+1.61%) tail=53.791±0.023 rev=12 prot=2
+  T=5.0: off: a=0.072 test=27.3955±0.1865 (+3.18%) tail=61.978±4.483 rev=0 prot=0 | count: a=1.0 test=26.3211±0.0018 (-0.87%) tail=53.871±0.086 rev=24 prot=0 | dist: a=1.0 test=26.4764±0.2183 (-0.28%) tail=53.869±0.035 rev=23 prot=3
+
+synthetic_far full k=34: ref@25 test 26.2499 tail 32.043559876009695
+  T=2.0: off: a=0.139 test=26.4846±0.0544 (+0.89%) tail=34.291±2.320 rev=0 prot=0 | count: a=0.139 test=26.5556±0.0205 (+1.16%) tail=36.302±0.923 rev=5 prot=0 | dist: a=0.139 test=26.5024±0.0550 (+0.96%) tail=34.726±2.048 rev=1 prot=73
+  T=5.0: off: a=0.139 test=26.4687±0.0619 (+0.83%) tail=34.410±2.421 rev=0 prot=0 | count: a=0.139 test=26.5433±0.0115 (+1.12%) tail=36.330±1.054 rev=6 prot=0 | dist: a=0.139 test=26.4884±0.0534 (+0.91%) tail=34.780±2.167 rev=3 prot=191

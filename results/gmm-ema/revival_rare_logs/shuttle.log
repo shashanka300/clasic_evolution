@@ -1,0 +1,10 @@
+shuttle: n=43000 d=9 rare classes=4 tail test points=39
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(
+  ref diag k=64: test -8.1073 tail 17.810339002808174
+  diag k=64 T=2.0 off done
+  diag k=64 T=2.0 count done
+  diag k=64 T=2.0 dist done
+  diag k=64 T=5.0 off done
+  diag k=64 T=5.0 count done
+  diag k=64 T=5.0 dist done

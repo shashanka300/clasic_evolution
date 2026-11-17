@@ -1,0 +1,8 @@
+kdd99: n=400000 d=38 rare classes=20 tail test points=367
+  ref diag k=64: test -32.1482 tail 784.3849338738818
+  diag k=64 T=2.0 off done
+  diag k=64 T=2.0 count done
+  diag k=64 T=2.0 dist done
+  diag k=64 T=5.0 off done
+  diag k=64 T=5.0 count done
+  diag k=64 T=5.0 dist done
