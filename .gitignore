@@ -22,3 +22,8 @@ __pycache__/
 .DS_Store
 # TASK.md is generated per worktree from RESEARCH_PLAN.md; kept untracked so rebases never conflict on it
 TASK.md
+paper/tmlr/*.log
+paper/tmlr/*.blg
+paper/tmlr/*.aux
+paper/tmlr/*.bbl
+paper/tmlr/*.out

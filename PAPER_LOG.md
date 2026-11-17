@@ -427,6 +427,17 @@ Reading:
   public repo + Zenodo DOI at arXiv/camera-ready. Open author decisions: licence; same repo vs fresh one.
 - Appendix outline reordered (E before F).
 
+### TMLR target and LaTeX manuscript (2026-11-17; decision)
+
+- Venue: TMLR (claims-and-evidence criteria; double-blind; OpenReview; supplementary ZIP up to 100 MB; no fees).
+- `paper/tmlr/main.tex` + `references.bib` converted from `paper/draft.md`; builds with tectonic (15 pages incl.
+  appendices A–F), no undefined references. Falls back to article+natbib until `tmlr.sty` / `tmlr.bst` are added
+  (download from github.com/JmlrOrg/tmlr-style-file pending author OK).
+- New in the LaTeX version vs draft.md: Appendix C (repairs, incl. the SIFT1M reference fill), D (full law table;
+  states that the unchanged k-means law's LOAO 0.155% is close to Qe0's 0.149%), F (rare-group revival table).
+  Appendix B (grids) is still a TODO.
+- Checklist and likely reviewer questions: `paper/tmlr/SUBMISSION_CHECKLIST.md`.
+
 ### SIFT1M full-covariance reference filled to 5 seeds (2026-11-17; deviation repaired)
 
 Found while checking Table 1 against `results/summary.json`: the GMM `sift1m_pca64 | full` reference
