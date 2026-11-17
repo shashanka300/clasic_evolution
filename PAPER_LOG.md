@@ -494,6 +494,14 @@ Draft Table 1 / Table 3, METADATA §4 updated; §5.1 now says real-data full-cov
   recipe works, including the LDA exception.
 - Updated in `paper/tmlr/main.tex` (PDF rebuilt), `paper/draft.md`, `paper/METADATA.md` §1,
   `paper/README_release.md`, `LICENSE`, and the TMLR checklist.
+- PDF layout fixes (author reported "some issue with the pdf"; found by rendering every page):
+  - the title broke as "Factor-izations"; it now uses explicit line breaks;
+  - all five figures had floated past the appendices to pages 14–16, because Figure 1 is page-sized and `[t]`
+    only. Figure 1 is now `[p]`, the others `[tbp]`, and `placeins` keeps floats inside their section. Figures
+    are now on pages 6 and 9–10, inside Results;
+  - Figure 1 was never cited in the text; §5.1 now cites it;
+  - the Appendix B α0-grid line was badly stretched (an unbreakable math list); it is now plain text.
+  16 pages, no errors, no overfull boxes.
 
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
