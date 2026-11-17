@@ -361,6 +361,9 @@ the recipe's schedule and law add a further 1.2–2.9x in wall time where both m
 - Score: val-loss penalty of the predicted alpha0 vs the swept optimum; leave-one-cell-out (LOCO) and
   leave-one-algorithm-out (LOAO).
 
+*Superseded: first refit, 342 cells with 23 censored. Current values are in the v3 table at the end of the
+next entry.*
+
 | model | LOCO median | LOAO median | LOAO penalty on LDA | one global law: R² of log alpha0* |
 |---|---|---|---|---|
 | k-means law (unchanged) | 0.149% | 0.149% | 18.1% (predicts 0.19 vs best ~0.04) | — |
@@ -391,7 +394,8 @@ re-emitted. *Result: see the next entry.*
 - Headline cells (k=50, B=256, full n): only **NYTimes T=5** changes, 0.01 -> 0.00518, val perplexity
   3258.8 -> 3251.1 (-0.24%). Every other headline choice is unchanged, so `lda_ema_swept` moves by one point at
   most; `cosine_law` (fitted on the law-sweep cells, several of which moved) will change slightly when re-fitted.
-- Refit (`refit_coords.py`, same 342 cells, LDA now fully usable):
+- Refit (`refit_coords.py`, same 342 cells, LDA now fully usable). *Superseded by the v3 refit below; kept for
+  the record.*
 
 | model | LOCO median | LOAO median | LOAO penalty on LDA | one global law: R² of log alpha0* |
 |---|---|---|---|---|
@@ -407,6 +411,26 @@ re-emitted. *Result: see the next entry.*
   excludes LDA from 18.8% to 5.9%. Still not universal: exponent on q_eff 0.42 (not 1), and HMM (optimum at the grid
   top, alpha0 = 1, with ~1 observation per cell per step) is predicted worse than by the k-means law
   (LOAO 1.6–1.8% vs 0.1%). Next candidate feature: missing-information fraction.
+
+**Current law comparison (v3 refit, 2026-11-16; corrected in this log 2026-11-17).** `refit_coords.py` on the v3
+sweeps: 422 cells (GMM 136, HMM 96, dictlearn 72, LDA 72, ALS 46), 15 censored at the lower edge.
+Source: `results/universal-scaling-law/refit_coords.log`. These are the numbers the paper uses (draft §5.5,
+Figure 3, METADATA C6). They replace the two tables above. Relative to the second table, KM moves
+0.149% → 0.155%, M1 LOCO 0.088% → 0.103%, Qe0 LOAO 0.154% → 0.149% and LDA held out 12.8% → 11.6%.
+
+| model | LOCO median | LOAO median | HMM held out | LDA held out (predicted / best α0) | one global law: R² of log α0* |
+|---|---|---|---|---|---|
+| k-means law (unchanged) | 0.155% | 0.155% | 0.19% | 16.3% (0.187 / 0.037) | — |
+| M1: n/k, B, T (+ per-alg constant) | 0.103% | 0.290% | 4.54% | 27.7% (0.27 / 0.037) | 0.20 (M1g) |
+| Q1: q, n/B, T (+ per-alg constant) | 0.076% | 0.225% | 4.79% | 6.4% (0.088 / 0.037) | 0.50 (Q0) |
+| Q0: one global law, q | 0.193% | 0.249% | 4.54% | 29.9% (0.309 / 0.037) | 0.50 |
+| Qe1: q_eff, n/B, T (+ per-alg constant) | 0.073% | 0.183% | 1.81% | 5.3% (0.067 / 0.037) | 0.66 (Qe0) |
+| **Qe0: one global law, q_eff** | 0.116% | **0.149%** | 1.52% | 11.6% (0.134 / 0.037) | **0.659** |
+
+- Global fit Qe0 (v3): α0* = 0.419 · q_eff^0.427 · (n/B)^−0.282 · T^−0.326.
+- Conclusions match the 2026-11-14 refit. The exponent on q_eff is 0.43, not 1. HMM is predicted worse by every
+  coordinate law than by the k-means law (1.5–4.8% vs 0.19%). The missing-information feature (entry below) does
+  not change this.
 
 ### LDA cosine-floor diagnostic (2026-11-16/17; diagnostic, not pre-registered)
 
@@ -538,4 +562,5 @@ All seven figures re-rendered from `scripts/make_figures.py` after the user repo
 - Fig 3 recomputed from refit_coords (KM, M1, Qe1, Qe0; LOCO and LOAO; 422 cells), horizontal boxes, medians printed.
   Medians match refit_coords.log (KM 0.155/0.155, M1 0.103/0.290, Qe1 0.073/0.183, Qe0 0.116/0.149 %).
   Note: the §5 table above lists KM 0.149% and M1 0.088% (an older refit); refit_coords.log is the current value.
+  Fixed 2026-11-17: both old §5 tables are now marked superseded, and a v3 table (422 cells) follows them.
 - Drift figure: frozen_emeans was drawn in the same blue as rewarm (suffix "emeans" matched first); fixed.
