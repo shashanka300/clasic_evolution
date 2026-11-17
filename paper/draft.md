@@ -92,7 +92,9 @@ estimating the step online; we instead predict the initial rate from problem coo
 
 **Dead components.** Hughes & Sudderth 2013 (memoized online VI with birth/merge moves) is the closest mechanism
 to revival in the online-EM literature. k-means codebooks commonly re-seed empty clusters (Faiss; e-means' donor
-split). We know of no single dead-component rule applied across EM families.
+split). Weiss 2026 refines e-means' count-based rule for k-means: a small cluster is removed only if it is close
+to another centre, which protects rare isolated groups. We know of no single dead-component rule applied across EM
+families.
 
 **Scaling laws and hyperparameter transfer.** Empirical laws for learning rate and batch size in neural network
 training are well established: the gradient noise scale (McCandlish et al. 2018), loss scaling laws (Kaplan et al.
@@ -441,11 +443,8 @@ good, and the optimal rate is an order of magnitude lower than the law predicts.
 theory of stochastic EM step sizes will have to explain.
 
 TODO before submission:
-- Flash-KMeans / GMM baseline or justification;
-- an ε diagnostic on LDA;
-- Figures 4–5;
-- dataset licences;
-- arXiv check for e-means follow-ups.
+- choose the title and finalise the abstract's last sentence;
+- code and data release plan.
 
 ---
 

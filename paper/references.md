@@ -6,6 +6,8 @@ publisher page before submission (convert to BibTeX at the LaTeX stage).
 ## Starting point and fast exact baselines
 - Bessa, Mazaré, Szilvasy, Touvron, Picard, Douze, Jégou (2026). e-means: outperforming k-means (in one-tenth the
   epochs). arXiv:2611.09501. **v** (PAPER_LOG §6)
+- Weiss, E. (2026). Small is not dead: distance-aware cluster revival for e-means. arXiv:2611.18238. **v**
+  (2026-11-17; k-means only, keeps small isolated clusters that count-based revival removes)
 - Yang, Xi, et al. (2026). Flash-KMeans: Fast and memory-efficient exact k-means. arXiv:2603.09229; NeurIPS 2026
   poster. **v**
 - Bloch, Gera, Orbach, Eytan, Toledo (2026). Flash-GMM: A memory-efficient kernel for scalable soft clustering.

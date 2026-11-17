@@ -528,6 +528,24 @@ Full report: `reports/Novel directions for EMA statistics.md`; notes per area in
   births are the nearest), and our ablation shows it is what makes online EM work on GMM full covariance and LDA. The
   schedule is the part that matters for HMM / DL / ALS.
 
+**2026-11-17 — novelty re-check and dataset licences.**
+- arXiv / web search (extended) for e-means follow-ups and for step-size laws or cosine schedules in online EM. One
+  follow-up found: Weiss 2026, "Small Is Not Dead: Distance-Aware Cluster Revival for e-means" (arXiv:2611.18238,
+  13 Nov 2026). It covers k-means only: a count-flagged cluster is removed only if its squared distance to the
+  nearest centre is ≤ 4·MSE, or if it gets no points for 2 epochs. It takes e-means' α0/B laws as given, does not
+  refit them, and covers no other model family. No overlap with our contributions. Cited in draft §2 (dead
+  components). Relevance: it confirms that count-based revival can harm rare clusters, a possible caveat for our
+  shared revival rule (not tested here). Still not found: a step/batch-size law for online EM across families; a
+  cosine schedule for EM.
+- Dataset licences verified (`paper/datasets.md`), from provider pages or the READMEs shipped with the data:
+  - UCI Bag of Words and UCI HAR: CC BY 4.0. The HAR README also prohibits commercial use.
+  - MovieLens: research use only, no redistribution, must cite.
+  - Brown README: "redistribution permitted"; NLTK's index lists it as non-commercial.
+  - AG News card: licence "unknown".
+  - CIFAR: no licence stated; cite the 2009 tech report.
+  - SIFT1M (TEXMEX) and 20 Newsgroups home pages were unreachable, so their terms are not verified.
+  - We release no raw data, so every term is met.
+
 ## 7. Open items before writing
 
 **2026-11-16 — paper metadata started:** `paper/METADATA.md` (titles, abstract draft v0, contributions with
@@ -536,13 +554,15 @@ flagship paper, from the v3 results at commit 342cd1c. Items below that v3 close
 5 seeds (done, §2 protocol v3); LDA re-emit and re-fit (done by `v3_reemit` and the v3 queue); commit (done, 342cd1c).
 
 - [x] LDA grid extension result (§5) -> `refit_coords.py` re-run (2026-11-14).
-- [ ] Re-emit `lda_ema_swept` (NYTimes T=5 changed) and re-run the LDA `cosine-law` stage, the LDA timing-swept
+- [x] (v3 `v3_reemit`, 2026-11-15) Re-emit `lda_ema_swept` (NYTimes T=5 changed) and re-run the LDA `cosine-law` stage, the LDA timing-swept
       pass, `fit_v2.py` and `evaluate.py`; archive the superseded records first.
-- [ ] Budgets 10 and 25 (+ sub-epoch) for ours and tuned baselines; 5 seeds for headline groups (§2.1–2.3).
-- [ ] Check the weak-baseline suspicions (§2.6).
+- [x] (protocol v3) Budgets 10 and 25 (+ sub-epoch) for ours and tuned baselines; 5 seeds for headline groups (§2.1–2.3).
+- [x] Check the weak-baseline suspicions (§2.6), 2026-11-17: (a) weak full-covariance online EM was missing
+      revival. Fixed by the `*_rev_tuned` baseline and the schedule-vs-revival ablation (§4); the paper compares
+      against it. (b) T11 HNSW grid oracle: companion paper, track killed, not used in this paper.
 - [x] Missing-information feature for the law (§5): done 2026-11-17, negative (see §5).
-- [ ] Novelty checks listed at the end of the literature review report.
-- [ ] Commit: results live in the WSL clone `~/clasic_evolution`; code changes in `F:\clasic_evolution`.
+- [x] Novelty checks (2026-11-16 and 2026-11-17, §6).
+- [x] Commit: results live in the WSL clone `~/clasic_evolution`; code changes in `F:\clasic_evolution`.
 
 **2026-11-16 — paper draft v0 (Markdown, user decision: Markdown first, LaTeX later):** `paper/draft.md`, framing A
 ("Scaling laws for stochastic-approximation EM"). Sections 1–7 written from METADATA §3–5 and §4 here; claims C1–C6 as
