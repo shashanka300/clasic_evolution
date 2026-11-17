@@ -25,10 +25,13 @@ for f in results/jobs_*.txt results/pqueue_done*.txt results/pqueue*.log results
 done
 
 mv paper/README_release.md README.md
-# scrub local paths and the private repo name from every text file
-grep -rIl -e "$HOME" -e "$REPO" -e "$OWNER" . | xargs -r sed -i -e "s#$HOME#\$HOME#g" \
-  -e "s#$OWNER/$REPO#<repo>#g" -e "s#$REPO#<repo>#g" -e "s#$OWNER#<user>#g"
+# scrub local paths (this machine and older macOS checkouts), the hostname and the private repo name
+HOST=$(hostname); STEM=${OWNER%%[0-9]*}
+grep -rIl -e "$HOME" -e "$REPO" -e "$OWNER" -e "$HOST" -e "/Users/" . | xargs -r sed -i -E \
+  -e "s#$HOME#\$HOME#g" -e "s#/Users/[^/]+/[^:\"]*/classic-algos-wt#<checkout>#g" -e "s#/Users/[^/ \"]+#\$HOME#g" \
+  -e "s#$OWNER/$REPO#<repo>#g" -e "s#$REPO#<repo>#g" -e "s#$OWNER#<user>#g" -e "s#$HOST#desktop#g"
 
-left=$(grep -rl --exclude=make_release.sh -e "$HOME" -e "$(whoami)" -e "$OWNER" -e "$REPO" -e "@gmail" . || true)
+left=$(grep -rli --exclude=make_release.sh -e "$HOME" -e "$(whoami)" -e "$STEM" -e "$HOST" -e "$REPO" \
+       -e "/Users/" -e "@gmail" . || true)
 if [ -n "$left" ]; then echo "personal strings remain in:"; echo "$left"; exit 1; fi
 echo "release tree: $OUT ($(find . -type f | wc -l) files, $(du -sh . | cut -f1))"

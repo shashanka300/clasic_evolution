@@ -1,5 +1,7 @@
 /home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
   diff_b_a = b - a
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4611: RuntimeWarning: invalid value encountered in subtract
+  subtract(b, diff_b_a * (1 - t), out=lerp_interpolation, where=t >= 0.5,
 adaptive-k               SURVIVES   max CV of selected k 1.8% (threshold 20%)
 als-ema                  SURVIVES   median best gain 2.14x vs required 2.0x (ml10m: 4.28x, ml1m: 0.00x)
 balanced-ivf             SURVIVES   median p99@R0.9 improvement +10.1% vs required +10% (agnews_minilm|nlist=1024: +5.9%, agnews_minilm|nlist=256: +17.1%, dinov2|nlist=256: +7.4%, sift1m|nlist=1024: +18.5%, sift1m|nlist=4096: +10.1%)
@@ -15,10 +17,3 @@ hnsw-scaling-laws        KILLED     law wins 1/6 held-out (dataset, target-recal
 lda-scaling              SURVIVES   law worse than default on 0/3 corpora
 opq-joint-rotation       SURVIVES   joint rotation significantly better in 6/6 groups (agnews_minilm|M=16: win; agnews_minilm|M=8: win; dinov2|M=16: win; dinov2|M=8: win; sift1m|M=16: win; sift1m|M=8: win)
 universal-scaling-law    SURVIVES   LOCO median M1 0.108% vs M0 0.319% (Wilcoxon p=1.05e-18); LOAO median M1 0.338% vs M0 0.439%
-/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:4609: RuntimeWarning: invalid value encountered in subtract
-  diff_b_a = b - a
-wrote convergence
-wrote alpha0_sweeps
-wrote ivf_recall_latency
-wrote drift_window_mse
-wrote law_penalties
