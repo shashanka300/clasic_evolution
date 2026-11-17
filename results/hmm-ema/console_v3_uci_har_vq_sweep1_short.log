@@ -1,0 +1,18 @@
+
+##### uci_har_vq n=6352 S=12 V=64
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=0.0100 s=1 val=3.7901 test=3.8024 (4.2s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=0.0193 s=1 val=3.7898 test=3.8021 (1.5s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=0.0373 s=1 val=3.7891 test=3.8015 (1.6s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=0.0720 s=1 val=3.7878 test=3.8002 (1.7s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=0.1389 s=1 val=3.7849 test=3.7975 (1.6s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=0.2683 s=1 val=3.7784 test=3.7913 (1.6s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=0.5179 s=1 val=3.7593 test=3.7733 (1.4s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.25 a0=1.0000 s=1 val=3.6702 test=3.6912 (1.5s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=0.0100 s=1 val=3.7513 test=3.7684 (3.1s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=0.0193 s=1 val=3.7496 test=3.7669 (3.3s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=0.0373 s=1 val=3.746 test=3.7637 (3.0s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=0.0720 s=1 val=3.7384 test=3.757 (3.2s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=0.1389 s=1 val=3.7206 test=3.7412 (2.7s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=0.2683 s=1 val=3.6698 test=3.6953 (2.9s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=0.5179 s=1 val=3.4816 test=3.5226 (3.1s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=0.5 a0=1.0000 s=1 val=2.8839 test=2.9544 (3.1s)

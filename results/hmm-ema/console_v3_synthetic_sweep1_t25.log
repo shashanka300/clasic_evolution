@@ -1,0 +1,46 @@
+
+##### synthetic n=20000 S=12 V=200
+Traceback (most recent call last):
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 192, in <module>
+    main()
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 186, in main
+    run_all(p, RUNS, SWEEP, seeds, ref_method="baum_welch_full_batch", ema_method="hmm_ema",
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 167, in run_all
+    stage_head_sweep(p, sweep_path, seeds, ema_method, head_B)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 90, in stage_head_sweep
+    stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in long_], alphas=al)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 76, in stage_sweep
+    run_sweep(track=p.track, method=method, dataset=p.dataset, data={"train": np.arange(p.n)}, k=k or p.k, d=p.d,
+  File "/home/dummi/clasic_evolution/core/sweep.py", line 68, in run_sweep
+    out = fit_eval(x_tr, k, float(a), T, B, s)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 73, in fit_eval
+    m = p.fit(a0, T, B, s, n=len(x), k=kk)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 123, in fit
+    res = run_ema_engine(plug, x, epochs=T, batch_size=B, schedule=sched, revival_every=5 if revival else 0,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/plugin.py", line 108, in run_ema_engine
+    bstats = plugin.assign(batch)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 254, in assign
+    occ, emis, trans, init, _ = _fb_batch(seqs, self.log_pi, self.A, self.B)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 35, in _fb_batch
+    return _fb_torch(seqs, log_pi, A, B, want_stats=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 84, in _fb_torch
+    emis.index_add_(0, O[m], g[m])
+                       ~^^^
+torch.AcceleratorError: CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+The CUDA driver logged these messages, which may provide useful details:
+Returning 999 (CUDA_ERROR_UNKNOWN) from cuStreamSynchronize
+
+
+
+##### synthetic n=20000 S=12 V=200
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=25.0 a0=0.0720 s=1 val=3.8852 test=3.8851 (139.8s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=25.0 a0=0.1389 s=1 val=3.8521 test=3.8498 (109.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=25.0 a0=0.2683 s=1 val=3.8522 test=3.8497 (95.5s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=25.0 a0=0.5179 s=1 val=3.8613 test=3.866 (73.2s)

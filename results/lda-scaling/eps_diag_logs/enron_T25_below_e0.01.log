@@ -1,0 +1,5 @@
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+{'corpus': 'enron', 'T': 25.0, 'eps': 0.01, 'alpha0': 0.00139, 'seed': 0, 'val': 2426.4307676508624, 'test': 2335.7363812125323, 'wall_s': 581.1075317110008}
+{'corpus': 'enron', 'T': 25.0, 'eps': 0.01, 'alpha0': 0.00139, 'seed': 1, 'val': 2495.096799420632, 'test': 2329.4093956275146, 'wall_s': 468.0042201719989}
+{'corpus': 'enron', 'T': 25.0, 'eps': 0.01, 'alpha0': 0.00139, 'seed': 2, 'val': 2425.7275197350527, 'test': 2299.7529861837725, 'wall_s': 451.8750714900016}

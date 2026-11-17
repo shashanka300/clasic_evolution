@@ -1,0 +1,18 @@
+
+##### cifar_p8 n=200000 d=64 K=128
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=0.0100 s=0 val=0.19185 test=0.19214 (22.1s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=0.0193 s=0 val=0.19143 test=0.19172 (16.5s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=0.0373 s=0 val=0.1907 test=0.191 (17.7s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=0.0720 s=0 val=0.18972 test=0.18999 (19.8s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=0.1389 s=0 val=0.18875 test=0.18897 (20.6s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=0.2683 s=0 val=0.1882 test=0.18841 (22.0s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=0.5179 s=0 val=0.18811 test=0.18825 (26.8s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.25 a0=1.0000 s=0 val=0.18874 test=0.18894 (26.4s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=0.0100 s=0 val=0.19092 test=0.19121 (40.9s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=0.0193 s=0 val=0.19027 test=0.19057 (40.8s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=0.0373 s=0 val=0.18938 test=0.18966 (57.4s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=0.0720 s=0 val=0.18841 test=0.18865 (90.7s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=0.1389 s=0 val=0.18784 test=0.18812 (78.9s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=0.2683 s=0 val=0.18759 test=0.18779 (64.1s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=0.5179 s=0 val=0.18759 test=0.18774 (63.5s)
+  [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=0.5 a0=1.0000 s=0 val=0.18809 test=0.18832 (68.7s)

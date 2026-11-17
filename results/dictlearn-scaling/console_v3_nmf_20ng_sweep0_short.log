@@ -1,0 +1,18 @@
+
+##### nmf_20ng n=14200 d=2000 K=32
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=0.0100 s=0 val=0.45928 test=0.45913 (2.2s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=0.0193 s=0 val=0.45916 test=0.459 (2.4s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=0.0373 s=0 val=0.45894 test=0.45876 (0.9s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=0.0720 s=0 val=0.45852 test=0.45831 (1.4s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=0.1389 s=0 val=0.45779 test=0.45751 (1.2s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=0.2683 s=0 val=0.45676 test=0.45636 (1.1s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=0.5179 s=0 val=0.45591 test=0.45531 (2.4s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.25 a0=1.0000 s=0 val=0.45498 test=0.45457 (2.1s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=0.0100 s=0 val=0.4551 test=0.45484 (2.0s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=0.0193 s=0 val=0.4549 test=0.45463 (1.5s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=0.0373 s=0 val=0.45453 test=0.45423 (1.8s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=0.0720 s=0 val=0.45388 test=0.45353 (1.9s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=0.1389 s=0 val=0.45287 test=0.45244 (1.5s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=0.2683 s=0 val=0.45128 test=0.45082 (0.8s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=0.5179 s=0 val=0.45081 test=0.45041 (1.4s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=0.5 a0=1.0000 s=0 val=0.45112 test=0.45147 (2.4s)

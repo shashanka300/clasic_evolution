@@ -1,0 +1,5 @@
+
+##### uci_har_vq n=6352 S=12 V=64
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=25.0 a0=0.2683 s=3 val=2.0222 test=2.1409 (169.7s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=25.0 a0=0.5179 s=3 val=2.019 test=2.1393 (170.2s)
+  [hmm-ema] uci_har_vq n=6352 k=12 B=256 T=25.0 a0=1.0000 s=3 val=2.0225 test=2.1242 (164.0s)

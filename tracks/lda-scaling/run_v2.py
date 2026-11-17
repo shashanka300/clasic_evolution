@@ -33,6 +33,7 @@ from core.harness import make_run, read_runs, results_path, write_run  # noqa: E
 from core.plugin import run_ema_engine  # noqa: E402
 from core.schedule import CosineSchedule, InverseTimeSchedule  # noqa: E402
 from core.sweep import sweep_cells  # noqa: E402
+from core.budgets import active  # noqa: E402
 from core.trackkit import BUDGETS, Problem, run_all  # noqa: E402
 from lda_v2 import ETA, Corpus, LDAPlugin, batch_vb_step, init_lambda, npmi, perplexity  # noqa: E402
 
@@ -138,18 +139,20 @@ def make_problem(name):
 
 
 def _budget_curve(p, method, seeds, make_sched, role, a0src, alpha0_fn=None, extra=None):
-    if any(r["method"] == method and r["extra"]["group"] == p.group for r in read_runs(RUNS)):
-        return
+    # per-seed resume: an interrupted run (2026-11-15 WSL restart) left hoffman_default nytimes with seeds 0-1 only
+    have = {r["seed"] for r in read_runs(RUNS) if r["method"] == method and r["extra"]["group"] == p.group}
     for s in seeds:
+        if s in have:
+            continue
         curve = []
         m = None
-        for T in BUDGETS:
+        for T in active(BUDGETS):  # all budgets unless CLASSIC_ALGOS_BUDGETS restricts them (v3 timing pass: T <= 5)
             a0 = alpha0_fn(T) if alpha0_fn else 1.0
             t0 = time.perf_counter()
             m = p.fit(a0, T, HEAD_B, s, schedule=make_sched(T, a0), revival=(role == "ours"))
             curve.append({"epoch": T, "test_loss": p.loss(m, "test"), "wall_s": time.perf_counter() - t0, "alpha0": a0})
         write_run(RUNS, make_run(track=TRACK, method=method, dataset=p.dataset, n=p.n, d=p.d, k_or_units=K,
-                  epochs=BUDGETS[-1], batch=HEAD_B, alpha0=curve[-1]["alpha0"] if alpha0_fn else None, seed=s,
+                  epochs=curve[-1]["epoch"], batch=HEAD_B, alpha0=curve[-1]["alpha0"] if alpha0_fn else None, seed=s,
                   train_loss=None, test_loss=curve[-1]["test_loss"], wall_s=curve[-1]["wall_s"], role=role,
                   alpha0_source=a0src, group=p.group, metric=p.metric, curve=curve, curve_kind="budget",
                   config=p.config, npmi=npmi(m.lam, p.train_corpus), **(extra or {})))
@@ -178,13 +181,14 @@ def main():
     ap.add_argument("--datasets", default=",".join(CORPORA))
     ap.add_argument("--seeds", type=int, default=3)
     ap.add_argument("--stage", default="all")
+    ap.add_argument("--seed-list", default=None, help="explicit seeds, e.g. 1 (lets the per-seed reference run in parallel)")
     args = ap.parse_args()
-    seeds = list(range(args.seeds))
+    seeds = [int(x) for x in args.seed_list.split(",")] if args.seed_list else list(range(args.seeds))
     for name in args.datasets.split(","):
         p = make_problem(name)
         print(f"\n##### {name} D={p.n} V={p.d} K={K}", flush=True)
         law_cfgs = [{"n": n, "B": B, "T": T} for n in (p.n // 4, p.n) for B in (64, 512) for T in (1.0, 2.0)]
-        if args.stage in ("all", "reference", "sweep", "online", "emit", "law-sweep"):
+        if args.stage in ("all", "reference", "sweep", "online", "online_rev", "kmlaw", "emit", "law-sweep", "plan"):
             run_all(p, RUNS, SWEEP, seeds[:2] if args.stage == "law-sweep" else seeds, ref_method="batch_vb",
                     ema_method="lda_ema", stepwise_method="online_lda", head_B=HEAD_B, stage=args.stage,
                     law_sweep_configs=law_cfgs, law_ks=(20, 50))

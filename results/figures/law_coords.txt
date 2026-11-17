@@ -1,0 +1,3 @@
+Plotted from:
+  results/<track>/sweep.jsonl via refit_coords.load_cells (422 cells, 15 censored = hollow)
+  Qe0 refit here: log a* = -0.871 + 0.427 log q_eff + -0.282 log(n/B) + -0.326 log T

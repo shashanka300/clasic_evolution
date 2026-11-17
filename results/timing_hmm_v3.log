@@ -1,0 +1,27 @@
+
+##### uci_har_vq n=6352 S=12 V=64
+[ref] uci_har_vq|k=12 s=0 baum_welch_full_batch@25 test=2.1302 (1s)
+
+##### synthetic n=20000 S=12 V=200
+
+##### brown_pos n=47340 S=12 V=5000
+
+##### uci_har_vq n=6352 S=12 V=64
+[timing] synthetic|k=12 s=0 hmm_ema_swept walls=[0.02, 0.04, 0.09, 0.17, 0.26, 0.44]
+[timing] synthetic|k=12 s=1 hmm_ema_swept walls=[0.02, 0.05, 0.09, 0.18, 0.27, 0.44]
+[timing] synthetic|k=12 s=2 hmm_ema_swept walls=[0.02, 0.04, 0.09, 0.17, 0.26, 0.43]
+[timing] brown_pos|k=12 s=0 hmm_ema_swept walls=[0.62, 1.24, 2.48, 4.96, 7.47, 12.45]
+[timing] brown_pos|k=12 s=1 hmm_ema_swept walls=[0.62, 1.27, 2.49, 4.98, 7.5, 12.44]
+[timing] brown_pos|k=12 s=2 hmm_ema_swept walls=[0.62, 1.24, 2.51, 5.0, 7.49, 12.46]
+[timing] uci_har_vq|k=12 s=0 hmm_ema_swept walls=[0.01, 0.02, 0.04, 0.08, 0.13, 0.21]
+[timing] uci_har_vq|k=12 s=1 hmm_ema_swept walls=[0.01, 0.02, 0.04, 0.08, 0.12, 0.2]
+[timing] uci_har_vq|k=12 s=2 hmm_ema_swept walls=[0.01, 0.02, 0.04, 0.08, 0.12, 0.21]
+[timing] synthetic|k=12 s=0 hmm_ema_swept walls=[0.02, 0.05, 0.09, 0.18, 0.27, 0.47]
+[timing] synthetic|k=12 s=1 hmm_ema_swept walls=[0.03, 0.05, 0.1, 0.19, 0.28, 0.47]
+[timing] synthetic|k=12 s=2 hmm_ema_swept walls=[0.03, 0.05, 0.09, 0.19, 0.28, 0.47]
+[timing] brown_pos|k=12 s=0 hmm_ema_swept walls=[0.67, 1.33, 2.58, 5.11, 7.69, 12.8]
+[timing] brown_pos|k=12 s=1 hmm_ema_swept walls=[0.62, 1.23, 2.62, 5.11, 7.76, 12.79]
+[timing] brown_pos|k=12 s=2 hmm_ema_swept walls=[0.65, 1.3, 2.53, 5.16, 7.75, 12.77]
+[timing] uci_har_vq|k=12 s=0 hmm_ema_swept walls=[0.01, 0.02, 0.04, 0.08, 0.12, 0.21]
+[timing] uci_har_vq|k=12 s=1 hmm_ema_swept walls=[0.01, 0.02, 0.04, 0.08, 0.12, 0.21]
+[timing] uci_har_vq|k=12 s=2 hmm_ema_swept walls=[0.01, 0.02, 0.04, 0.08, 0.12, 0.2]

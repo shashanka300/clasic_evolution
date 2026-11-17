@@ -1,0 +1,4 @@
+Plotted from:
+  results/<track>/sweep.jsonl via refit_coords (422 cells, 15 censored, excluded from fitting)
+  medians: KM LOCO 0.155% LOAO 0.155%; M1 LOCO 0.103% LOAO 0.29%; Qe1 LOCO 0.0731% LOAO 0.183%; Qe0 LOCO 0.116% LOAO 0.149%
+  penalties floored at 1e-3 % for the log axis

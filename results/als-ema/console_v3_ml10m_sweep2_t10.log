@@ -1,0 +1,44 @@
+
+##### ml10m users=69878 items=10677 lambda=0.05
+  [als-ema] ml10m n=69878 k=32 B=2048 T=10.0 a0=0.0720 s=2 val=0.7921 test=0.79297 (1994.6s)
+  [als-ema] ml10m n=69878 k=32 B=2048 T=10.0 a0=0.1389 s=2 val=0.79128 test=0.79225 (3181.6s)
+
+##### ml10m users=69878 items=10677 lambda=0.05
+  [als-ema] ml10m n=69878 k=32 B=2048 T=10.0 a0=0.2683 s=2 val=0.79108 test=0.79201 (280.6s)
+Traceback (most recent call last):
+  File "/home/dummi/clasic_evolution/tracks/als-ema/run_v2.py", line 142, in <module>
+    main()
+  File "/home/dummi/clasic_evolution/tracks/als-ema/run_v2.py", line 137, in main
+    run_all(p, RUNS, SWEEP, seeds, ref_method="als_wr_full_batch", ema_method="als_ema", stepwise_method="stepwise_als",
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 167, in run_all
+    stage_head_sweep(p, sweep_path, seeds, ema_method, head_B)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 90, in stage_head_sweep
+    stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in long_], alphas=al)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 76, in stage_sweep
+    run_sweep(track=p.track, method=method, dataset=p.dataset, data={"train": np.arange(p.n)}, k=k or p.k, d=p.d,
+  File "/home/dummi/clasic_evolution/core/sweep.py", line 68, in run_sweep
+    out = fit_eval(x_tr, k, float(a), T, B, s)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 73, in fit_eval
+    m = p.fit(a0, T, B, s, n=len(x), k=kk)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/run_v2.py", line 100, in fit
+    run_ema_engine(plug, users, epochs=T_train, batch_size=B, schedule=schedule or CosineSchedule(alpha0, steps, eps=0.1),
+  File "/home/dummi/clasic_evolution/core/plugin.py", line 108, in run_ema_engine
+    bstats = plugin.assign(batch)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py", line 226, in assign
+    cnt, b, A = item_batch_stats(users, Ub, self.R_u.indptr, self.R_u.indices, self.R_u.data, self.n_items)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py", line 50, in item_batch_stats
+    return _item_batch_stats_torch(user_ids, U_batch, indptr, indices, data, n_items)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py", line 112, in _item_batch_stats_torch
+    return cnt.cpu().numpy(), b.cpu().numpy(), A.cpu().numpy()
+                                               ^^^^^^^
+torch.AcceleratorError: CUDA error: out of memory
+Search for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+The CUDA driver logged these messages, which may provide useful details:
+Returning 2 (CUDA_ERROR_OUT_OF_MEMORY) from cuMemcpyDtoHAsync_v2
+
+

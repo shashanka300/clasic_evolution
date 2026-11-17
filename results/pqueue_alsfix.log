@@ -1,0 +1,10 @@
+2026-11-16 01:11:09 start: 4 pending / 4 jobs, budget=32 threads, max_jobs=4
+2026-11-16 01:11:09 START fix2_sw_als_ml10m_s2_t10 threads=2 (in use 2/32, 1 jobs): CLASSIC_ALGOS_BUDGETS=10 CLASSIC_ALGOS_GPU_PORTS=als .venv/bin/python -u tracks/als-ema/run_v2.py --datasets ml10m --stage sweep --seed-list 2 >> results/als-ema/console_v3_ml10m_fill.log 2>&1
+2026-11-16 01:11:53 END   fix2_sw_als_ml10m_s2_t10 rc=0 (0.01 h)
+2026-11-16 01:11:53 START fix2_reemit_als threads=2 (in use 2/32, 1 jobs): python3 scripts/reemit_v3.py als-ema >> results/als_fix_v3.log 2>&1
+2026-11-16 01:12:08 END   fix2_reemit_als rc=0 (0.00 h)
+2026-11-16 01:12:08 START fix2_time_als threads=12 (in use 12/32, 1 jobs): python3 scripts/drop_rows.py results/_timing/als-ema/runs.jsonl --method als_ema_swept --tag seed_fill >> results/als_fix_v3.log 2>&1 && CLASSIC_ALGOS_RESULTS_DIR=results/_timing CLASSIC_ALGOS_DEVICE=cpu CLASSIC_ALGOS_BUDGETS=0.25,0.5,1,2,3,5 .venv/bin/python -u scripts/timing_swept.py als-ema >> results/timing_als_v3.log 2>&1
+2026-11-16 01:13:47 END   fix2_time_als rc=0 (0.03 h)
+2026-11-16 01:13:47 START fix2_evaluate threads=4 (in use 4/32, 1 jobs): .venv/bin/python tracks/universal-scaling-law/fit_v2.py >> results/universal-scaling-law/console.log 2>&1; .venv/bin/python tracks/universal-scaling-law/refit_coords.py > results/universal-scaling-law/refit_coords.log 2>&1; .venv/bin/python scripts/evaluate.py > results/evaluate_all.log 2>&1 && .venv/bin/python scripts/make_figures.py >> results/evaluate_all.log 2>&1
+2026-11-16 01:14:44 END   fix2_evaluate rc=0 (0.02 h)
+2026-11-16 01:14:59 queue empty

@@ -1,0 +1,15 @@
+synthetic_far: n=100000 d=16 rare classes=4 tail test points=302
+  ref diag k=34: test 26.5519 tail 55.33510869332555
+  diag k=34 T=2.0 off done
+  diag k=34 T=2.0 count done
+  diag k=34 T=2.0 dist done
+  diag k=34 T=5.0 off done
+  diag k=34 T=5.0 count done
+  diag k=34 T=5.0 dist done
+  ref full k=34: test 26.2499 tail 32.043559876009695
+  full k=34 T=2.0 off done
+  full k=34 T=2.0 count done
+  full k=34 T=2.0 dist done
+  full k=34 T=5.0 off done
+  full k=34 T=5.0 count done
+  full k=34 T=5.0 dist done

@@ -1,0 +1,18 @@
+
+##### dinov2_pca64 cov=full n=45000 k=64
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=0.0100 s=0 val=81.74 test=81.679 (4.0s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=0.0193 s=0 val=81.699 test=81.641 (2.6s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=0.0373 s=0 val=81.595 test=81.54 (2.8s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=0.0720 s=0 val=81.462 test=81.412 (3.2s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=0.1389 s=0 val=81.199 test=81.156 (3.4s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=0.2683 s=0 val=81.54 test=81.496 (2.5s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=0.5179 s=0 val=83.227 test=83.261 (3.1s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.25 a0=1.0000 s=0 val=86.087 test=86.15 (3.2s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=0.0100 s=0 val=75.429 test=75.462 (5.2s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=0.0193 s=0 val=75.337 test=75.358 (6.0s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=0.0373 s=0 val=74.632 test=74.633 (4.3s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=0.0720 s=0 val=73.823 test=73.885 (5.6s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=0.1389 s=0 val=73.267 test=73.303 (6.0s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=0.2683 s=0 val=73.729 test=73.857 (7.0s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=0.5179 s=0 val=77.643 test=77.765 (7.0s)
+  [gmm-ema] dinov2_pca64 n=45000 k=64 B=1024 T=0.5 a0=1.0000 s=0 val=74.331 test=74.361 (4.8s)

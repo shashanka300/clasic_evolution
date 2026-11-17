@@ -1,0 +1,6 @@
+
+##### synthetic cov=full n=200000 k=32
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=25.0 a0=0.0720 s=0 val=48.004 test=48.097 (766.5s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=25.0 a0=0.1389 s=0 val=47.687 test=47.757 (587.0s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=25.0 a0=0.2683 s=0 val=47.769 test=47.843 (514.2s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=25.0 a0=0.5179 s=0 val=47.927 test=48.017 (569.3s)

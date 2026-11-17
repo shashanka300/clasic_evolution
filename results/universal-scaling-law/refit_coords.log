@@ -1,0 +1,23 @@
+cells 422; censored at the lower edge (alpha*<=0.01): 15
+
+per algorithm: cells, censored, median alpha*, median q, median q/alpha* (= observations per cell held in the EMA at peak rate)
+  als-ema              46    4  a*=0.21  q=15.6  q_eff=15.6  q/a*=62.8  q_eff/a*=62.8
+  dictlearn-scaling    72    0  a*=0.256  q=31.7  q_eff=31.7  q/a*=148  q_eff/a*=148
+  gmm-ema             136    8  a*=0.32  q=16  q_eff=16  q/a*=70.9  q_eff/a*=70.9
+  hmm-ema              96    2  a*=1  q=1.07  q_eff=11.3  q/a*=1.62  q_eff/a*=19.4
+  lda-scaling          72    1  a*=0.0289  q=0.0491  q_eff=0.175  q/a*=2.04  q_eff/a*=6.76
+
+val-loss penalty of the predicted alpha0 (median over cells; 0 = as good as the swept optimum)
+  model     LOCO     LOAO   LOAO by held-out algorithm   [predicted / best grid alpha, medians]
+  KM      0.155%   0.155%   als=0.11%[0.707/0.268]  dictlearn=0.08%[0.118/0.268]  gmm=0.05%[0.326/0.268]  hmm=0.19%[0.406/1]  lda=16.30%[0.187/0.0373]
+  M1      0.103%   0.290%   als=0.02%[0.355/0.268]  dictlearn=0.04%[0.148/0.268]  gmm=0.11%[0.276/0.268]  hmm=4.54%[0.0944/1]  lda=27.65%[0.27/0.0373]
+  M1g     0.234%   0.345%   als=0.04%[0.305/0.268]  dictlearn=0.06%[0.144/0.268]  gmm=0.10%[0.445/0.268]  hmm=4.50%[0.104/1]  lda=34.28%[0.321/0.0373]
+  Q1      0.076%   0.225%   als=0.04%[0.451/0.268]  dictlearn=0.03%[0.217/0.268]  gmm=0.09%[0.212/0.268]  hmm=4.79%[0.0658/1]  lda=6.37%[0.088/0.0373]
+  Q0      0.193%   0.249%   als=0.07%[0.547/0.268]  dictlearn=0.02%[0.347/0.268]  gmm=0.05%[0.316/0.268]  hmm=4.54%[0.0775/1]  lda=29.86%[0.309/0.0373]
+  Qe1     0.073%   0.183%   als=0.03%[0.371/0.268]  dictlearn=0.04%[0.21/0.268]  gmm=0.09%[0.197/0.268]  hmm=1.81%[0.181/1]  lda=5.30%[0.0666/0.0373]
+  Qe0     0.116%   0.149%   als=0.03%[0.407/0.268]  dictlearn=0.02%[0.413/0.268]  gmm=0.04%[0.308/0.268]  hmm=1.52%[0.19/1]  lda=11.64%[0.134/0.0373]
+  global fit M1g: alpha0* = 0.0124 * exp(+0.015 log(n/k)) * exp(+0.502 log B) * exp(-0.240 log T)   R^2(log a*) = 0.200
+  global fit Q0: alpha0* = 1.09 * exp(+0.258 log q) * exp(-0.373 log(n/B)) * exp(-0.300 log T)   R^2(log a*) = 0.496
+  global fit Qe0: alpha0* = 0.419 * exp(+0.427 log q_eff) * exp(-0.282 log(n/B)) * exp(-0.326 log T)   R^2(log a*) = 0.659
+
+saved results/universal-scaling-law/refit_coords.json

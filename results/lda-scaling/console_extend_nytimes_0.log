@@ -1,0 +1,11 @@
+[extend] nytimes: 2 cells at their lowest alpha (next step ~9 min at alpha=0.01 cost): nytimes|n=23885|k=50|B=64@T=2<= 0.01, nytimes|n=95543|k=50|B=64@T=1<= 0.01
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+  [lda-scaling] nytimes n=23885 k=50 B=64 T=2.0 a0=0.0052 s=0 val=3752.5 test=3696.9 (39.7s)
+  [lda-scaling] nytimes n=23885 k=50 B=64 T=2.0 a0=0.0052 s=1 val=3677.4 test=3640.4 (30.1s)
+  [lda-scaling] nytimes n=95543 k=50 B=64 T=1.0 a0=0.0052 s=0 val=3425.7 test=3407.4 (55.4s)
+  [lda-scaling] nytimes n=95543 k=50 B=64 T=1.0 a0=0.0052 s=1 val=3479.8 test=3435.3 (50.2s)
+[extend] nytimes: 1 cells at their lowest alpha (next step ~6 min at alpha=0.01 cost): nytimes|n=95543|k=50|B=64@T=1<= 0.00518
+  [lda-scaling] nytimes n=95543 k=50 B=64 T=1.0 a0=0.0027 s=0 val=3521.7 test=3478.5 (49.3s)
+  [lda-scaling] nytimes n=95543 k=50 B=64 T=1.0 a0=0.0027 s=1 val=3536.8 test=3485.9 (53.1s)
+[extend] nytimes: no cell at its lowest alpha; done

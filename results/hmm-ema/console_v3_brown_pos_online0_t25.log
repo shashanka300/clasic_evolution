@@ -1,0 +1,32 @@
+
+##### brown_pos n=47340 S=12 V=5000
+Traceback (most recent call last):
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 192, in <module>
+    main()
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 186, in main
+    run_all(p, RUNS, SWEEP, seeds, ref_method="baum_welch_full_batch", ema_method="hmm_ema",
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 177, in run_all
+    stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 106, in stage_stepwise
+    m = p.fit(1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 123, in fit
+    res = run_ema_engine(plug, x, epochs=T, batch_size=B, schedule=sched, revival_every=5 if revival else 0,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/plugin.py", line 108, in run_ema_engine
+    bstats = plugin.assign(batch)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 254, in assign
+    occ, emis, trans, init, _ = _fb_batch(seqs, self.log_pi, self.A, self.B)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 35, in _fb_batch
+    return _fb_torch(seqs, log_pi, A, B, want_stats=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 79, in _fb_torch
+    b = ((Bo[:, t + 1] * beta[:, t + 1]) @ At.T) / c[:, t + 1:t + 2]
+          ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+torch.AcceleratorError: CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+
+
+##### brown_pos n=47340 S=12 V=5000

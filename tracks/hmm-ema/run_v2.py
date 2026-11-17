@@ -174,10 +174,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--datasets", default="synthetic,brown_pos,uci_har_vq")
     ap.add_argument("--seeds", type=int, default=3)
+    ap.add_argument("--seed-list", default=None, help="explicit seeds, e.g. 3,4 (parallel per-seed workers)")
     ap.add_argument("--stage", default="all")
     ap.add_argument("--no-sanity", action="store_true")
     args = ap.parse_args()
-    seeds = list(range(args.seeds))
+    seeds = [int(x) for x in args.seed_list.split(",")] if args.seed_list else list(range(args.seeds))
     for name in args.datasets.split(","):
         p, sanity = make_problem(name)
         print(f"\n##### {name} n={p.n} S={p.k} V={p.d}", flush=True)

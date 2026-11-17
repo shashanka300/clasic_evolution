@@ -1,0 +1,20 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[abrupt s=1] spark_decay_0.8        avgMSE=0.74203 regret=0.02135 alarms=[] pts=153600
+[abrupt s=1] spark_decay_0.9        avgMSE=0.73716 regret=0.01648 alarms=[] pts=153600
+[abrupt s=1] spark_decay_0.95       avgMSE=0.73866 regret=0.01799 alarms=[] pts=153600
+[abrupt s=1] spark_decay_0.99       avgMSE=0.74270 regret=0.02203 alarms=[] pts=153600
+[abrupt s=2] frozen_emeans          avgMSE=0.74049 regret=0.01981 alarms=[] pts=153600
+[abrupt s=2] rewarm                 avgMSE=0.73323 regret=0.01256 alarms=[151] pts=153600
+[abrupt s=2] periodic_retrain       avgMSE=0.72727 regret=0.00660 alarms=[] pts=460800
+[abrupt s=2] const_alpha_0.005      avgMSE=0.74570 regret=0.02503 alarms=[] pts=153600
+[abrupt s=2] const_alpha_0.01       avgMSE=0.74401 regret=0.02333 alarms=[] pts=153600
+[abrupt s=2] const_alpha_0.02       avgMSE=0.74082 regret=0.02015 alarms=[] pts=153600
+[abrupt s=2] const_alpha_0.05       avgMSE=0.73776 regret=0.01709 alarms=[] pts=153600
+[abrupt s=2] const_alpha_0.1        avgMSE=0.73701 regret=0.01634 alarms=[] pts=153600
+[abrupt s=2] const_alpha_0.2        avgMSE=0.73693 regret=0.01626 alarms=[] pts=153600
+[abrupt s=2] const_alpha_0.4        avgMSE=0.74397 regret=0.02330 alarms=[] pts=153600
+[abrupt s=2] spark_decay_0.5        avgMSE=0.76560 regret=0.04493 alarms=[] pts=153600
+[abrupt s=2] spark_decay_0.8        avgMSE=0.74224 regret=0.02157 alarms=[] pts=153600
+[abrupt s=2] spark_decay_0.9        avgMSE=0.73826 regret=0.01758 alarms=[] pts=153600
+[abrupt s=2] spark_decay_0.95       avgMSE=0.73994 regret=0.01926 alarms=[] pts=153600
+[abrupt s=2] spark_decay_0.99       avgMSE=0.74519 regret=0.02452 alarms=[] pts=153600

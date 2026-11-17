@@ -1,0 +1,6 @@
+
+##### nmf_20ng n=14200 d=2000 K=32
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=10.0 a0=0.0720 s=3 val=0.44743 test=0.44735 (13.2s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=10.0 a0=0.1389 s=3 val=0.44745 test=0.44733 (13.8s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=10.0 a0=0.2683 s=3 val=0.44752 test=0.44734 (11.2s)
+  [dictlearn-scaling] nmf_20ng n=14200 k=32 B=256 T=10.0 a0=0.5179 s=3 val=0.44741 test=0.4477 (10.5s)

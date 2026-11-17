@@ -1,0 +1,38 @@
+[lambda] ml1m lam=0.01 val_rmse@25=0.9954
+[lambda] ml1m lam=0.03 val_rmse@25=0.9004
+[lambda] ml1m lam=0.05 val_rmse@25=0.8701
+[lambda] ml1m lam=0.1 val_rmse@25=0.8690
+[lambda] ml1m lam=0.2 val_rmse@25=0.9280
+
+##### ml1m users=6040 items=3706 lambda=0.1
+[ref] ml1m|k=32 s=0 als_wr_full_batch@25 test=0.86551 (1s)
+[lambda] ml1m lam=0.01 val_rmse@25=0.9954
+[lambda] ml1m lam=0.03 val_rmse@25=0.9004
+[lambda] ml1m lam=0.05 val_rmse@25=0.8701
+[lambda] ml1m lam=0.1 val_rmse@25=0.8690
+[lambda] ml1m lam=0.2 val_rmse@25=0.9280
+
+##### ml1m users=6040 items=3706 lambda=0.1
+[ref] ml1m|k=32 s=0 als_wr_full_batch@25 test=0.86551 (1s)
+[ref] ml1m|k=32 s=1 als_wr_full_batch@25 test=0.86558 (1s)
+[ref] ml1m|k=32 s=2 als_wr_full_batch@25 test=0.86562 (1s)
+[lambda] ml10m lam=0.01 val_rmse@25=0.8598
+[lambda] ml10m lam=0.03 val_rmse@25=0.8021
+[lambda] ml10m lam=0.05 val_rmse@25=0.7913
+[lambda] ml10m lam=0.1 val_rmse@25=0.8188
+[lambda] ml10m lam=0.2 val_rmse@25=0.8835
+
+##### ml10m users=69878 items=10677 lambda=0.05
+[ref] ml10m|k=32 s=0 als_wr_full_batch@25 test=0.7923 (20s)
+[ref] ml10m|k=32 s=1 als_wr_full_batch@25 test=0.79233 (20s)
+[ref] ml10m|k=32 s=2 als_wr_full_batch@25 test=0.79264 (20s)
+
+##### ml1m users=6040 items=3706 lambda=0.1
+
+##### ml10m users=69878 items=10677 lambda=0.05
+[timing] ml1m|k=32 s=0 als_ema_swept walls=[0.22, 0.58, 1.02, 2.0]
+[timing] ml1m|k=32 s=1 als_ema_swept walls=[0.24, 0.67, 1.08, 1.79]
+[timing] ml1m|k=32 s=2 als_ema_swept walls=[0.24, 0.63, 1.07, 1.83]
+[timing] ml10m|k=32 s=0 als_ema_swept walls=[1.74, 4.66, 7.93, 13.57]
+[timing] ml10m|k=32 s=1 als_ema_swept walls=[1.71, 4.65, 7.81, 14.01]
+[timing] ml10m|k=32 s=2 als_ema_swept walls=[1.75, 4.75, 7.74, 13.85]

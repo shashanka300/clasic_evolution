@@ -1,0 +1,18 @@
+
+##### ml1m users=6040 items=3706 lambda=0.1
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=0.0100 s=0 val=1.1175 test=1.1138 (4.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=0.0193 s=0 val=1.1175 test=1.1138 (0.2s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=0.0373 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=0.0720 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=0.1389 s=0 val=1.1175 test=1.1138 (0.2s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=0.2683 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=0.5179 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.25 a0=1.0000 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=0.0100 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=0.0193 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=0.0373 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=0.0720 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=0.1389 s=0 val=1.1175 test=1.1138 (0.2s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=0.2683 s=0 val=1.1175 test=1.1138 (0.2s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=0.5179 s=0 val=1.1175 test=1.1138 (0.1s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=0.5 a0=1.0000 s=0 val=1.1175 test=1.1138 (0.1s)

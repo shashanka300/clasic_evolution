@@ -1,0 +1,3 @@
+
+##### uci_har_vq n=6352 S=12 V=64
+[ref] uci_har_vq|k=12 s=3 baum_welch_full_batch@25 test=2.3426 (16s)

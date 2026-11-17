@@ -1,0 +1,6 @@
+
+##### ml1m users=6040 items=3706 lambda=0.1
+  [als-ema] ml1m n=6040 k=32 B=256 T=10.0 a0=0.0373 s=1 val=0.86984 test=0.8662 (21.3s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=10.0 a0=0.0720 s=1 val=0.8694 test=0.86573 (20.2s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=10.0 a0=0.1389 s=1 val=0.86938 test=0.8657 (17.4s)
+  [als-ema] ml1m n=6040 k=32 B=256 T=10.0 a0=0.2683 s=1 val=0.86984 test=0.86619 (16.8s)

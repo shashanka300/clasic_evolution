@@ -1,0 +1,7 @@
+
+##### ml1m users=6040 items=3706 lambda=0.1
+/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py:190: NumbaPerformanceWarning: '@' is faster on contiguous arrays, called on (Array(float64, 1, 'A', False, aligned=True), Array(float64, 1, 'A', False, aligned=True))
+  out[p] = (U[u[p]] @ V[i[p]] - r[p]) ** 2
+/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py:190: NumbaPerformanceWarning: '@' is faster on contiguous arrays, called on (Array(float64, 1, 'A', False, aligned=True), Array(float64, 1, 'A', False, aligned=True))
+  out[p] = (U[u[p]] @ V[i[p]] - r[p]) ** 2
+[ref] ml1m|k=32 s=3 als_wr_full_batch@25 test=0.86553 (6s)

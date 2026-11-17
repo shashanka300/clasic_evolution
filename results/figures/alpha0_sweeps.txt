@@ -1,5 +1,4 @@
 Plotted from:
-  results/gmm-ema/sweep.jsonl (16 cells)
-  results/hmm-ema/sweep.jsonl (12 cells)
-  results/als-ema/sweep.jsonl (8 cells)
-  results/lda-scaling/sweep.jsonl (12 cells)
+  results/<track>/sweep.jsonl via refit_coords.load_cells (422 cells)
+  x: alpha0 over the in-sample Qe0 prediction; y: median over cells in 0.25-decade bins
+  penalties floored at 1e-3 % for the log axis

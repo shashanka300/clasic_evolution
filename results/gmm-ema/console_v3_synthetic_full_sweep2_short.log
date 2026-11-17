@@ -1,0 +1,18 @@
+
+##### synthetic cov=full n=200000 k=32
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=0.0100 s=2 val=49.97 test=50.077 (13.5s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=0.0193 s=2 val=49.908 test=50.014 (8.0s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=0.0373 s=2 val=49.79 test=49.895 (6.9s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=0.0720 s=2 val=49.522 test=49.622 (8.5s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=0.1389 s=2 val=49.195 test=49.296 (8.0s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=0.2683 s=2 val=48.814 test=48.9 (8.8s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=0.5179 s=2 val=48.749 test=48.82 (8.1s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.25 a0=1.0000 s=2 val=50.008 test=50.062 (8.5s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=0.0100 s=2 val=49.303 test=49.402 (15.4s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=0.0193 s=2 val=49.178 test=49.277 (10.7s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=0.0373 s=2 val=48.964 test=49.062 (23.2s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=0.0720 s=2 val=48.566 test=48.646 (13.6s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=0.1389 s=2 val=48.494 test=48.571 (25.1s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=0.2683 s=2 val=48.559 test=48.634 (14.6s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=0.5179 s=2 val=48.468 test=48.531 (18.1s)
+  [gmm-ema] synthetic n=200000 k=32 B=1024 T=0.5 a0=1.0000 s=2 val=48.778 test=48.831 (15.8s)

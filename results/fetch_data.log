@@ -1,0 +1,1454 @@
+19:20:55 data dir: /home/dummi/clasic_evolution/data
+19:20:55 1/3 network downloads (parallel)
+sift-128-euclidean.hdf5:   0%|          | 0.00/525M [00:00<?, ?B/s]
+glove-100-angular.hdf5:   0%|          | 0.00/485M [00:00<?, ?B/s][A
+
+uci_har_outer.zip: 0.00B [00:00, ?B/s][A[A
+
+
+docword.nytimes.txt.gz: 0.00B [00:00, ?B/s][A[A[A
+
+
+
+docword.enron.txt.gz: 0.00B [00:00, ?B/s][A[A[A[A
+glove-100-angular.hdf5:   0%|          | 1.05M/485M [00:00<04:57, 1.63MB/s][A
+
+
+
+
+ml-1m.zip:   0%|          | 0.00/5.92M [00:00<?, ?B/s][A[A[A[A[A
+
+
+
+
+
+ml-10m.zip:   0%|          | 0.00/65.6M [00:00<?, ?B/s][A[A[A[A[A[A
+glove-100-angular.hdf5:   0%|          | 2.10M/485M [00:00<02:36, 3.08MB/s][Asift-128-euclidean.hdf5:   0%|          | 1.05M/525M [00:00<07:12, 1.21MB/s]
+glove-100-angular.hdf5:   1%|          | 4.19M/485M [00:00<01:17, 6.21MB/s][A
+glove-100-angular.hdf5:   2%|▏         | 7.34M/485M [00:01<00:44, 10.8MB/s][A19:20:57   ok   brown
+
+glove-100-angular.hdf5:   2%|▏         | 10.5M/485M [00:01<00:33, 14.3MB/s][A
+glove-100-angular.hdf5:   3%|▎         | 13.6M/485M [00:01<00:27, 17.0MB/s][Asift-128-euclidean.hdf5:   0%|          | 2.10M/525M [00:01<05:36, 1.55MB/s]
+glove-100-angular.hdf5:   3%|▎         | 16.8M/485M [00:01<00:24, 19.0MB/s][A
+
+uci_har_outer.zip: 1.05MB [00:01, 735kB/s][A[A
+
+
+docword.nytimes.txt.gz: 1.05MB [00:01, 732kB/s][A[A[A
+glove-100-angular.hdf5:   4%|▍         | 19.9M/485M [00:01<00:22, 20.4MB/s][A
+
+
+
+docword.enron.txt.gz: 1.05MB [00:01, 624kB/s][A[A[A[A
+glove-100-angular.hdf5:   5%|▍         | 23.1M/485M [00:01<00:27, 16.9MB/s][A
+
+uci_har_outer.zip: 2.10MB [00:01, 1.21MB/s][A[A
+
+
+docword.nytimes.txt.gz: 2.10MB [00:01, 1.21MB/s][A[A[A
+glove-100-angular.hdf5:   5%|▌         | 25.2M/485M [00:02<00:41, 11.2MB/s][Asift-128-euclidean.hdf5:   1%|          | 3.15M/525M [00:02<06:14, 1.39MB/s]
+glove-100-angular.hdf5:   6%|▌         | 27.3M/485M [00:02<00:45, 10.2MB/s][A
+
+
+docword.nytimes.txt.gz: 3.15MB [00:02, 1.32MB/s][A[A[A
+
+uci_har_outer.zip: 3.15MB [00:02, 1.31MB/s][A[A
+glove-100-angular.hdf5:   6%|▌         | 29.4M/485M [00:02<00:51, 8.94MB/s][A
+
+
+
+
+ml-1m.zip:  18%|█▊        | 1.05M/5.92M [00:02<00:10, 471kB/s][A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 4.19MB [00:03, 1.53MB/s][A[A[A
+glove-100-angular.hdf5:   6%|▋         | 31.5M/485M [00:03<01:02, 7.31MB/s][A
+
+
+
+docword.enron.txt.gz: 3.15MB [00:03, 1.07MB/s][A[A[A[Asift-128-euclidean.hdf5:   1%|          | 4.19M/525M [00:03<07:07, 1.22MB/s]
+
+uci_har_outer.zip: 4.19MB [00:03, 1.23MB/s][A[A
+glove-100-angular.hdf5:   7%|▋         | 34.6M/485M [00:03<01:01, 7.31MB/s][A
+glove-100-angular.hdf5:   8%|▊         | 37.7M/485M [00:03<00:55, 8.13MB/s][Asift-128-euclidean.hdf5:   1%|          | 5.24M/525M [00:04<06:42, 1.29MB/s]
+
+
+docword.nytimes.txt.gz: 5.24MB [00:04, 1.37MB/s][A[A[A
+glove-100-angular.hdf5:   8%|▊         | 40.9M/485M [00:04<00:45, 9.74MB/s][A
+
+
+
+docword.enron.txt.gz: 4.19MB [00:04, 1.08MB/s][A[A[A[A
+
+
+
+
+
+ml-10m.zip:   2%|▏         | 1.05M/65.6M [00:03<03:33, 302kB/s][A[A[A[A[A[A
+
+
+
+
+ml-1m.zip:  35%|███▌      | 2.10M/5.92M [00:03<00:06, 604kB/s][A[A[A[A[A
+glove-100-angular.hdf5:   9%|▉         | 43.0M/485M [00:04<00:43, 10.2MB/s][A
+
+uci_har_outer.zip: 5.24MB [00:04, 1.18MB/s][A[A
+
+
+docword.nytimes.txt.gz: 6.29MB [00:04, 1.58MB/s][A[A[A
+glove-100-angular.hdf5:   9%|▉         | 45.1M/485M [00:04<00:46, 9.43MB/s][A
+glove-100-angular.hdf5:  10%|▉         | 47.2M/485M [00:04<00:40, 10.9MB/s][Asift-128-euclidean.hdf5:   1%|          | 6.29M/525M [00:04<06:50, 1.27MB/s]
+
+
+
+
+ml-1m.zip:  53%|█████▎    | 3.15M/5.92M [00:04<00:03, 874kB/s][A[A[A[A[A
+glove-100-angular.hdf5:  10%|█         | 49.3M/485M [00:05<01:00, 7.25MB/s][A
+
+
+
+docword.enron.txt.gz: 5.24MB [00:05, 940kB/s] [A[A[A[A
+glove-100-angular.hdf5:  11%|█         | 52.4M/485M [00:05<00:56, 7.72MB/s][A
+glove-100-angular.hdf5:  11%|█▏        | 55.6M/485M [00:05<00:45, 9.52MB/s][A
+
+
+docword.nytimes.txt.gz: 7.34MB [00:05, 1.23MB/s][A[A[A
+glove-100-angular.hdf5:  12%|█▏        | 57.7M/485M [00:06<00:44, 9.55MB/s][A
+
+
+
+
+
+ml-10m.zip:   3%|▎         | 2.10M/65.6M [00:05<02:38, 400kB/s][A[A[A[A[A[A
+glove-100-angular.hdf5:  12%|█▏        | 59.8M/485M [00:06<00:52, 8.03MB/s][A
+
+uci_har_outer.zip: 6.29MB [00:06, 849kB/s] [A[A
+glove-100-angular.hdf5:  13%|█▎        | 61.9M/485M [00:06<00:45, 9.23MB/s][Asift-128-euclidean.hdf5:   1%|▏         | 7.34M/525M [00:06<09:51, 876kB/s] 
+
+
+
+docword.enron.txt.gz: 6.29MB [00:07, 838kB/s][A[A[A[A
+glove-100-angular.hdf5:  13%|█▎        | 64.0M/485M [00:07<01:14, 5.64MB/s]19:21:03   ok   20ng[A
+
+glove-100-angular.hdf5:  14%|█▍        | 67.1M/485M [00:07<00:52, 7.99MB/s][A
+
+
+
+
+ml-1m.zip:  71%|███████   | 4.19M/5.92M [00:06<00:03, 574kB/s][A[A[A[A[A
+glove-100-angular.hdf5:  14%|█▍        | 69.2M/485M [00:07<00:52, 7.86MB/s][A
+glove-100-angular.hdf5:  15%|█▍        | 71.3M/485M [00:07<00:50, 8.23MB/s][AWarning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+
+
+docword.nytimes.txt.gz: 8.39MB [00:07, 828kB/s] [A[A[Asift-128-euclidean.hdf5:   2%|▏         | 8.39M/525M [00:08<09:52, 872kB/s]
+glove-100-angular.hdf5:  15%|█▌        | 73.4M/485M [00:08<00:46, 8.92MB/s][A
+glove-100-angular.hdf5:  16%|█▌        | 75.5M/485M [00:08<00:41, 9.90MB/s][A
+glove-100-angular.hdf5:  16%|█▌        | 77.6M/485M [00:08<00:36, 11.1MB/s][A
+glove-100-angular.hdf5:  16%|█▋        | 79.7M/485M [00:08<00:32, 12.5MB/s][A
+glove-100-angular.hdf5:  17%|█▋        | 81.8M/485M [00:08<00:28, 14.0MB/s][A
+glove-100-angular.hdf5:  17%|█▋        | 84.9M/485M [00:08<00:24, 16.4MB/s][Asift-128-euclidean.hdf5:   2%|▏         | 9.44M/525M [00:08<08:55, 962kB/s]
+glove-100-angular.hdf5:  18%|█▊        | 88.1M/485M [00:08<00:21, 18.3MB/s][A
+glove-100-angular.hdf5:  19%|█▊        | 90.2M/485M [00:08<00:21, 18.7MB/s][A
+glove-100-angular.hdf5:  19%|█▉        | 93.3M/485M [00:09<00:19, 20.3MB/s][A
+glove-100-angular.hdf5:  20%|█▉        | 96.5M/485M [00:09<00:18, 21.4MB/s][A
+glove-100-angular.hdf5:  21%|██        | 99.6M/485M [00:09<00:17, 22.2MB/s][A
+
+
+
+docword.enron.txt.gz: 7.34MB [00:09, 659kB/s][A[A[A[A
+glove-100-angular.hdf5:  21%|██        | 103M/485M [00:09<00:16, 22.7MB/s] [Asift-128-euclidean.hdf5:   2%|▏         | 10.5M/525M [00:09<07:54, 1.08MB/s]
+glove-100-angular.hdf5:  22%|██▏       | 106M/485M [00:09<00:19, 19.7MB/s][A
+glove-100-angular.hdf5:  22%|██▏       | 108M/485M [00:09<00:20, 18.3MB/s][A
+
+
+
+
+
+ml-10m.zip:   5%|▍         | 3.15M/65.6M [00:09<03:07, 334kB/s][A[A[A[A[A[A
+glove-100-angular.hdf5:  23%|██▎       | 110M/485M [00:09<00:21, 17.2MB/s][A
+glove-100-angular.hdf5:  23%|██▎       | 113M/485M [00:10<00:19, 19.0MB/s][A
+glove-100-angular.hdf5:  24%|██▍       | 116M/485M [00:10<00:18, 20.4MB/s][Asift-128-euclidean.hdf5:   2%|▏         | 11.5M/525M [00:10<07:28, 1.15MB/s]
+glove-100-angular.hdf5:  25%|██▍       | 120M/485M [00:10<00:21, 17.0MB/s][A
+glove-100-angular.hdf5:  25%|██▌       | 122M/485M [00:10<00:20, 17.7MB/s][A
+glove-100-angular.hdf5:  26%|██▌       | 125M/485M [00:10<00:19, 18.8MB/s][A
+
+
+docword.nytimes.txt.gz: 9.44MB [00:10, 598kB/s][A[A[A
+glove-100-angular.hdf5:  26%|██▋       | 128M/485M [00:10<00:17, 20.2MB/s][A
+
+
+
+
+ml-1m.zip:  89%|████████▊ | 5.24M/5.92M [00:10<00:01, 442kB/s][A[A[A[A[Asift-128-euclidean.hdf5:   2%|▏         | 12.6M/525M [00:11<06:59, 1.22MB/s]
+glove-100-angular.hdf5:  27%|██▋       | 130M/485M [00:11<00:21, 16.5MB/s][A
+glove-100-angular.hdf5:  27%|██▋       | 133M/485M [00:11<00:19, 18.2MB/s][A
+glove-100-angular.hdf5:  28%|██▊       | 135M/485M [00:11<00:20, 17.3MB/s][A
+glove-100-angular.hdf5:  29%|██▊       | 138M/485M [00:11<00:18, 19.0MB/s][A
+glove-100-angular.hdf5:  29%|██▉       | 142M/485M [00:11<00:16, 20.3MB/s][Asift-128-euclidean.hdf5:   3%|▎         | 13.6M/525M [00:11<06:26, 1.32MB/s]
+
+uci_har_outer.zip: 7.34MB [00:11, 413kB/s][A[A
+glove-100-angular.hdf5:  30%|██▉       | 145M/485M [00:11<00:20, 16.9MB/s][A
+
+
+
+docword.enron.txt.gz: 8.39MB [00:11, 549kB/s][A[A[A[A
+glove-100-angular.hdf5:  30%|███       | 148M/485M [00:12<00:20, 16.4MB/s][A
+glove-100-angular.hdf5:  31%|███       | 151M/485M [00:12<00:18, 18.1MB/s][Asift-128-euclidean.hdf5:   3%|▎         | 14.7M/525M [00:12<06:12, 1.37MB/s]
+
+
+
+
+ml-1m.zip: 100%|██████████| 5.92M/5.92M [00:11<00:00, 436kB/s][A[A[A[A[Aml-1m.zip: 100%|██████████| 5.92M/5.92M [00:11<00:00, 497kB/s]
+19:21:09   ok   ml1m
+
+glove-100-angular.hdf5:  32%|███▏      | 153M/485M [00:12<00:31, 10.6MB/s][A
+glove-100-angular.hdf5:  32%|███▏      | 156M/485M [00:12<00:25, 13.0MB/s][A
+glove-100-angular.hdf5:  33%|███▎      | 159M/485M [00:12<00:21, 15.2MB/s][Asift-128-euclidean.hdf5:   3%|▎         | 15.7M/525M [00:13<06:00, 1.41MB/s]
+glove-100-angular.hdf5:  33%|███▎      | 163M/485M [00:13<00:18, 17.1MB/s][A
+glove-100-angular.hdf5:  34%|███▍      | 165M/485M [00:13<00:19, 16.9MB/s][A
+glove-100-angular.hdf5:  35%|███▍      | 168M/485M [00:13<00:20, 15.4MB/s][A
+glove-100-angular.hdf5:  35%|███▍      | 170M/485M [00:14<00:48, 6.48MB/s][A
+glove-100-angular.hdf5:  35%|███▌      | 172M/485M [00:14<00:46, 6.81MB/s][Asift-128-euclidean.hdf5:   3%|▎         | 16.8M/525M [00:15<08:49, 961kB/s] 
+glove-100-angular.hdf5:  36%|███▌      | 174M/485M [00:15<00:50, 6.11MB/s][A
+
+
+docword.nytimes.txt.gz: 10.5MB [00:15, 413kB/s][A[A[A
+glove-100-angular.hdf5:  36%|███▌      | 175M/485M [00:15<00:50, 6.18MB/s][A
+glove-100-angular.hdf5:  36%|███▋      | 176M/485M [00:15<01:12, 4.25MB/s][A
+glove-100-angular.hdf5:  37%|███▋      | 178M/485M [00:16<01:07, 4.58MB/s][A
+glove-100-angular.hdf5:  37%|███▋      | 180M/485M [00:16<01:02, 4.90MB/s][A
+glove-100-angular.hdf5:  37%|███▋      | 181M/485M [00:16<01:00, 5.02MB/s][Asift-128-euclidean.hdf5:   3%|▎         | 17.8M/525M [00:16<10:41, 791kB/s]
+glove-100-angular.hdf5:  38%|███▊      | 182M/485M [00:17<01:08, 4.41MB/s][A
+glove-100-angular.hdf5:  38%|███▊      | 184M/485M [00:17<01:01, 4.89MB/s][A
+glove-100-angular.hdf5:  38%|███▊      | 185M/485M [00:17<00:59, 5.02MB/s][A
+glove-100-angular.hdf5:  38%|███▊      | 186M/485M [00:17<01:01, 4.91MB/s][A
+glove-100-angular.hdf5:  38%|███▊      | 187M/485M [00:18<01:45, 2.83MB/s][Asift-128-euclidean.hdf5:   4%|▎         | 18.9M/525M [00:18<11:42, 720kB/s]
+glove-100-angular.hdf5:  39%|███▊      | 188M/485M [00:18<01:29, 3.31MB/s][A
+glove-100-angular.hdf5:  39%|███▉      | 189M/485M [00:18<01:20, 3.68MB/s][A
+
+
+
+
+
+ml-10m.zip:   6%|▋         | 4.19M/65.6M [00:18<05:17, 193kB/s][A[A[A[A[A[A
+glove-100-angular.hdf5:  39%|███▉      | 190M/485M [00:19<01:17, 3.81MB/s][A
+glove-100-angular.hdf5:  39%|███▉      | 191M/485M [00:19<01:16, 3.87MB/s][A
+glove-100-angular.hdf5:  40%|███▉      | 192M/485M [00:19<01:03, 4.64MB/s][Asift-128-euclidean.hdf5:   4%|▍         | 19.9M/525M [00:19<10:36, 793kB/s]
+glove-100-angular.hdf5:  40%|███▉      | 193M/485M [00:19<01:04, 4.52MB/s][A
+glove-100-angular.hdf5:  40%|███▉      | 194M/485M [00:19<01:05, 4.43MB/s][A
+
+
+
+docword.enron.txt.gz: 9.44MB [00:20, 277kB/s][A[A[A[A
+glove-100-angular.hdf5:  40%|████      | 195M/485M [00:20<01:06, 4.37MB/s][Asift-128-euclidean.hdf5:   4%|▍         | 21.0M/525M [00:20<09:21, 898kB/s]
+glove-100-angular.hdf5:  40%|████      | 196M/485M [00:20<01:06, 4.33MB/s][A
+glove-100-angular.hdf5:  41%|████      | 197M/485M [00:20<01:07, 4.30MB/s][A
+glove-100-angular.hdf5:  41%|████      | 198M/485M [00:20<01:07, 4.28MB/s][Asift-128-euclidean.hdf5:   4%|▍         | 22.0M/525M [00:21<08:16, 1.01MB/s]
+glove-100-angular.hdf5:  41%|████      | 199M/485M [00:21<01:07, 4.26MB/s][A
+glove-100-angular.hdf5:  41%|████▏     | 200M/485M [00:21<01:06, 4.26MB/s][A
+glove-100-angular.hdf5:  41%|████▏     | 201M/485M [00:21<01:06, 4.25MB/s][Asift-128-euclidean.hdf5:   4%|▍         | 23.1M/525M [00:21<07:22, 1.14MB/s]
+
+
+
+
+Generating train split:   0%|          | 0/120000 [00:00<?, ? examples/s][A[A[A[A[A
+glove-100-angular.hdf5:  42%|████▏     | 202M/485M [00:21<01:06, 4.24MB/s][AGenerating train split: 100%|██████████| 120000/120000 [00:00<00:00, 1284501.45 examples/s]
+
+
+
+
+
+Generating test split:   0%|          | 0/7600 [00:00<?, ? examples/s][A[A[A[A[AGenerating test split: 100%|██████████| 7600/7600 [00:00<00:00, 1271356.06 examples/s]
+19:21:18   ok   ag_news
+
+glove-100-angular.hdf5:  42%|████▏     | 203M/485M [00:22<01:06, 4.25MB/s][A
+
+
+
+
+Fetching 6 files:   0%|          | 0/6 [00:00<?, ?it/s][A[A[A[A[A
+glove-100-angular.hdf5:  42%|████▏     | 204M/485M [00:22<01:14, 3.75MB/s][A
+
+
+docword.nytimes.txt.gz: 11.5MB [00:22, 257kB/s][A[A[Asift-128-euclidean.hdf5:   5%|▍         | 24.1M/525M [00:22<07:13, 1.15MB/s]
+glove-100-angular.hdf5:  42%|████▏     | 206M/485M [00:22<01:05, 4.26MB/s][A
+
+
+
+
+Fetching 6 files:  17%|█▋        | 1/6 [00:00<00:01,  3.82it/s][A[A[A[A[A
+
+uci_har_outer.zip: 8.39MB [00:22, 198kB/s][A[A
+glove-100-angular.hdf5:  43%|████▎     | 207M/485M [00:22<01:04, 4.30MB/s][A
+glove-100-angular.hdf5:  43%|████▎     | 208M/485M [00:23<01:00, 4.59MB/s][A
+glove-100-angular.hdf5:  46%|████▌     | 223M/485M [00:23<00:10, 25.5MB/s][Asift-128-euclidean.hdf5:   5%|▌         | 27.3M/525M [00:23<04:17, 1.93MB/s]
+
+
+
+
+
+
+Generating train split:   0%|          | 0/50000 [00:00<?, ? examples/s][A[A[A[A[A[A[A
+glove-100-angular.hdf5:  47%|████▋     | 226M/485M [00:23<00:17, 14.8MB/s][A
+
+
+
+
+
+
+Generating train split:  38%|███▊      | 18900/50000 [00:00<00:00, 186708.56 examples/s][A[A[A[A[A[A[A
+
+
+
+
+
+
+Generating train split:  82%|████████▏ | 40900/50000 [00:00<00:00, 205450.03 examples/s][A[A[A[A[A[A[AGenerating train split: 100%|██████████| 50000/50000 [00:00<00:00, 200589.77 examples/s]
+
+
+
+
+
+
+
+Generating test split:   0%|          | 0/10000 [00:00<?, ? examples/s][A[A[A[A[A[A[AGenerating test split: 100%|██████████| 10000/10000 [00:00<00:00, 246613.51 examples/s]
+
+glove-100-angular.hdf5:  47%|████▋     | 230M/485M [00:24<00:32, 7.75MB/s][A
+glove-100-angular.hdf5:  48%|████▊     | 232M/485M [00:25<00:33, 7.57MB/s][Asift-128-euclidean.hdf5:   5%|▌         | 28.3M/525M [00:25<06:36, 1.25MB/s]
+glove-100-angular.hdf5:  48%|████▊     | 234M/485M [00:25<00:34, 7.24MB/s][A
+glove-100-angular.hdf5:  49%|████▊     | 236M/485M [00:25<00:34, 7.14MB/s][A
+glove-100-angular.hdf5:  49%|████▉     | 238M/485M [00:26<00:34, 7.25MB/s][A19:21:22   ok   cifar100
+
+glove-100-angular.hdf5:  49%|████▉     | 240M/485M [00:26<00:29, 8.30MB/s][Asift-128-euclidean.hdf5:   6%|▌         | 29.4M/525M [00:26<07:04, 1.17MB/s]
+glove-100-angular.hdf5:  50%|████▉     | 242M/485M [00:26<00:29, 8.38MB/s][A
+glove-100-angular.hdf5:  50%|█████     | 243M/485M [00:26<00:29, 8.25MB/s][A
+glove-100-angular.hdf5:  50%|█████     | 244M/485M [00:26<00:29, 8.26MB/s][A
+glove-100-angular.hdf5:  51%|█████     | 245M/485M [00:26<00:28, 8.38MB/s][A
+glove-100-angular.hdf5:  51%|█████     | 247M/485M [00:27<00:25, 9.19MB/s][Asift-128-euclidean.hdf5:   6%|▌         | 30.4M/525M [00:27<06:46, 1.22MB/s]
+glove-100-angular.hdf5:  51%|█████▏    | 250M/485M [00:27<00:22, 10.3MB/s][A
+glove-100-angular.hdf5:  52%|█████▏    | 252M/485M [00:27<00:20, 11.6MB/s][A
+glove-100-angular.hdf5:  52%|█████▏    | 254M/485M [00:27<00:17, 13.1MB/s][A
+glove-100-angular.hdf5:  53%|█████▎    | 256M/485M [00:27<00:15, 14.7MB/s][Asift-128-euclidean.hdf5:   6%|▌         | 31.5M/525M [00:28<06:28, 1.27MB/s]
+glove-100-angular.hdf5:  53%|█████▎    | 259M/485M [00:28<00:24, 9.22MB/s][A
+glove-100-angular.hdf5:  54%|█████▍    | 262M/485M [00:28<00:19, 11.7MB/s][A
+glove-100-angular.hdf5:  54%|█████▍    | 264M/485M [00:28<00:19, 11.2MB/s][Asift-128-euclidean.hdf5:   6%|▌         | 32.5M/525M [00:28<06:18, 1.30MB/s]
+glove-100-angular.hdf5:  55%|█████▌    | 267M/485M [00:28<00:19, 11.2MB/s][A
+glove-100-angular.hdf5:  56%|█████▌    | 269M/485M [00:29<00:20, 10.7MB/s][A
+glove-100-angular.hdf5:  56%|█████▌    | 272M/485M [00:29<00:33, 6.32MB/s][A
+glove-100-angular.hdf5:  56%|█████▌    | 273M/485M [00:29<00:31, 6.70MB/s][A
+
+
+
+docword.enron.txt.gz: 10.5MB [00:29, 185kB/s][A[A[A[A
+glove-100-angular.hdf5:  57%|█████▋    | 275M/485M [00:30<00:35, 5.97MB/s][Asift-128-euclidean.hdf5:   6%|▋         | 33.6M/525M [00:30<08:13, 996kB/s] 
+glove-100-angular.hdf5:  57%|█████▋    | 277M/485M [00:30<00:34, 6.08MB/s][A
+glove-100-angular.hdf5:  57%|█████▋    | 278M/485M [00:30<00:38, 5.35MB/s][A
+glove-100-angular.hdf5:  57%|█████▋    | 279M/485M [00:31<00:36, 5.59MB/s][A
+
+
+
+
+
+ml-10m.zip:   8%|▊         | 5.24M/65.6M [00:30<07:35, 132kB/s][A[A[A[A[A[A
+glove-100-angular.hdf5:  58%|█████▊    | 280M/485M [00:31<00:33, 6.08MB/s][A
+glove-100-angular.hdf5:  58%|█████▊    | 281M/485M [00:31<00:41, 4.87MB/s][A
+glove-100-angular.hdf5:  58%|█████▊    | 282M/485M [00:31<00:37, 5.41MB/s][A
+glove-100-angular.hdf5:  58%|█████▊    | 283M/485M [00:31<00:32, 6.20MB/s][A
+glove-100-angular.hdf5:  59%|█████▊    | 284M/485M [00:32<00:33, 5.94MB/s][Asift-128-euclidean.hdf5:   7%|▋         | 34.6M/525M [00:32<09:40, 845kB/s]
+glove-100-angular.hdf5:  59%|█████▉    | 285M/485M [00:32<00:32, 6.13MB/s][A
+glove-100-angular.hdf5:  59%|█████▉    | 286M/485M [00:32<00:32, 6.20MB/s][A
+glove-100-angular.hdf5:  59%|█████▉    | 287M/485M [00:32<00:31, 6.39MB/s][A
+glove-100-angular.hdf5:  59%|█████▉    | 288M/485M [00:32<00:29, 6.76MB/s][A
+glove-100-angular.hdf5:  60%|█████▉    | 289M/485M [00:32<00:29, 6.71MB/s][A
+glove-100-angular.hdf5:  60%|█████▉    | 290M/485M [00:32<00:28, 6.89MB/s][A
+glove-100-angular.hdf5:  60%|██████    | 292M/485M [00:33<00:28, 6.71MB/s][Asift-128-euclidean.hdf5:   7%|▋         | 35.7M/525M [00:33<09:19, 875kB/s]
+glove-100-angular.hdf5:  60%|██████    | 294M/485M [00:33<00:24, 7.87MB/s][A
+glove-100-angular.hdf5:  61%|██████    | 295M/485M [00:33<00:24, 7.89MB/s][A
+glove-100-angular.hdf5:  61%|██████    | 297M/485M [00:33<00:18, 10.1MB/s][A
+glove-100-angular.hdf5:  61%|██████▏   | 298M/485M [00:33<00:19, 9.83MB/s][A
+glove-100-angular.hdf5:  62%|██████▏   | 299M/485M [00:33<00:19, 9.62MB/s][A
+glove-100-angular.hdf5:  62%|██████▏   | 300M/485M [00:33<00:19, 9.39MB/s][Asift-128-euclidean.hdf5:   7%|▋         | 36.7M/525M [00:34<08:21, 973kB/s]
+glove-100-angular.hdf5:  62%|██████▏   | 301M/485M [00:34<00:19, 9.60MB/s][A
+glove-100-angular.hdf5:  62%|██████▏   | 303M/485M [00:34<00:17, 10.4MB/s][A
+glove-100-angular.hdf5:  63%|██████▎   | 305M/485M [00:34<00:15, 11.6MB/s][A
+glove-100-angular.hdf5:  63%|██████▎   | 307M/485M [00:34<00:13, 12.9MB/s][A
+
+uci_har_outer.zip: 9.44MB [00:34, 144kB/s][A[A
+glove-100-angular.hdf5:  64%|██████▎   | 309M/485M [00:34<00:12, 14.3MB/s][A
+glove-100-angular.hdf5:  64%|██████▍   | 311M/485M [00:34<00:10, 16.0MB/s][A
+glove-100-angular.hdf5:  65%|██████▍   | 315M/485M [00:34<00:09, 18.4MB/s][A
+glove-100-angular.hdf5:  65%|██████▌   | 318M/485M [00:34<00:08, 20.1MB/s][A
+glove-100-angular.hdf5:  66%|██████▌   | 321M/485M [00:35<00:07, 21.2MB/s][A
+
+
+docword.nytimes.txt.gz: 12.6MB [00:35, 158kB/s][A[A[Asift-128-euclidean.hdf5:   7%|▋         | 37.7M/525M [00:35<08:31, 954kB/s]
+glove-100-angular.hdf5:  67%|██████▋   | 324M/485M [00:35<00:07, 22.0MB/s][A
+glove-100-angular.hdf5:  67%|██████▋   | 327M/485M [00:35<00:07, 22.6MB/s][A
+glove-100-angular.hdf5:  68%|██████▊   | 330M/485M [00:35<00:06, 22.8MB/s][A
+glove-100-angular.hdf5:  69%|██████▊   | 333M/485M [00:35<00:08, 17.9MB/s][Asift-128-euclidean.hdf5:   7%|▋         | 38.8M/525M [00:35<07:46, 1.04MB/s]
+glove-100-angular.hdf5:  69%|██████▉   | 337M/485M [00:36<00:10, 14.4MB/s][A
+glove-100-angular.hdf5:  70%|██████▉   | 339M/485M [00:36<00:11, 12.7MB/s][A
+glove-100-angular.hdf5:  70%|███████   | 341M/485M [00:36<00:12, 11.2MB/s][A
+glove-100-angular.hdf5:  71%|███████   | 343M/485M [00:36<00:16, 8.71MB/s][A
+glove-100-angular.hdf5:  71%|███████   | 345M/485M [00:37<00:14, 9.77MB/s][Asift-128-euclidean.hdf5:   8%|▊         | 39.8M/525M [00:37<08:15, 980kB/s] 
+glove-100-angular.hdf5:  72%|███████▏  | 347M/485M [00:37<00:16, 8.15MB/s][A
+glove-100-angular.hdf5:  72%|███████▏  | 349M/485M [00:37<00:17, 7.89MB/s][A
+glove-100-angular.hdf5:  72%|███████▏  | 350M/485M [00:37<00:18, 7.27MB/s][A
+glove-100-angular.hdf5:  73%|███████▎  | 352M/485M [00:38<00:15, 8.71MB/s][A
+glove-100-angular.hdf5:  73%|███████▎  | 353M/485M [00:38<00:23, 5.64MB/s][Asift-128-euclidean.hdf5:   8%|▊         | 40.9M/525M [00:38<09:02, 893kB/s]
+glove-100-angular.hdf5:  73%|███████▎  | 357M/485M [00:38<00:17, 7.19MB/s][A
+glove-100-angular.hdf5:  74%|███████▍  | 359M/485M [00:39<00:15, 8.05MB/s][A
+glove-100-angular.hdf5:  74%|███████▍  | 360M/485M [00:39<00:15, 8.06MB/s][A
+
+
+
+
+Fetching 6 files:  83%|████████▎ | 5/6 [00:16<00:03,  3.54s/it][A[A[A[A[A
+glove-100-angular.hdf5:  75%|███████▍  | 362M/485M [00:39<00:13, 9.43MB/s][A
+glove-100-angular.hdf5:  75%|███████▍  | 364M/485M [00:39<00:14, 8.54MB/s][Asift-128-euclidean.hdf5:   8%|▊         | 41.9M/525M [00:39<08:42, 925kB/s]
+glove-100-angular.hdf5:  76%|███████▌  | 367M/485M [00:39<00:10, 10.9MB/s][A
+glove-100-angular.hdf5:  76%|███████▌  | 369M/485M [00:40<00:11, 9.94MB/s][A
+glove-100-angular.hdf5:  77%|███████▋  | 372M/485M [00:40<00:09, 12.3MB/s][A
+glove-100-angular.hdf5:  77%|███████▋  | 374M/485M [00:40<00:08, 12.6MB/s][A
+glove-100-angular.hdf5:  78%|███████▊  | 376M/485M [00:40<00:08, 13.4MB/s][Asift-128-euclidean.hdf5:   8%|▊         | 43.0M/525M [00:40<08:02, 999kB/s]
+glove-100-angular.hdf5:  78%|███████▊  | 379M/485M [00:40<00:07, 14.0MB/s][A
+glove-100-angular.hdf5:  78%|███████▊  | 381M/485M [00:40<00:07, 14.8MB/s][A
+glove-100-angular.hdf5:  79%|███████▉  | 383M/485M [00:40<00:06, 16.0MB/s][A
+glove-100-angular.hdf5:  79%|███████▉  | 385M/485M [00:41<00:07, 13.5MB/s][A
+glove-100-angular.hdf5:  80%|███████▉  | 387M/485M [00:41<00:07, 13.5MB/s][Asift-128-euclidean.hdf5:   8%|▊         | 44.0M/525M [00:41<07:18, 1.10MB/s]
+glove-100-angular.hdf5:  80%|████████  | 390M/485M [00:41<00:05, 15.9MB/s][A
+glove-100-angular.hdf5:  81%|████████  | 393M/485M [00:41<00:06, 14.7MB/s][A
+glove-100-angular.hdf5:  82%|████████▏ | 396M/485M [00:41<00:06, 13.2MB/s][Asift-128-euclidean.hdf5:   9%|▊         | 45.1M/525M [00:41<06:45, 1.18MB/s]
+glove-100-angular.hdf5:  82%|████████▏ | 400M/485M [00:42<00:06, 12.8MB/s][A
+glove-100-angular.hdf5:  83%|████████▎ | 403M/485M [00:42<00:06, 13.1MB/s][A
+glove-100-angular.hdf5:  83%|████████▎ | 405M/485M [00:42<00:05, 14.0MB/s][A
+glove-100-angular.hdf5:  84%|████████▍ | 407M/485M [00:42<00:06, 11.8MB/s][Asift-128-euclidean.hdf5:   9%|▉         | 46.1M/525M [00:42<06:47, 1.18MB/s]
+glove-100-angular.hdf5:  84%|████████▍ | 409M/485M [00:42<00:07, 10.8MB/s][A
+glove-100-angular.hdf5:  85%|████████▍ | 411M/485M [00:43<00:06, 11.6MB/s][A
+glove-100-angular.hdf5:  85%|████████▌ | 413M/485M [00:43<00:07, 9.14MB/s][A
+
+uci_har_outer.zip: 10.5MB [00:43, 134kB/s][A[Asift-128-euclidean.hdf5:   9%|▉         | 47.2M/525M [00:43<06:48, 1.17MB/s]
+glove-100-angular.hdf5:  86%|████████▌ | 415M/485M [00:43<00:09, 7.55MB/s][A
+glove-100-angular.hdf5:  86%|████████▌ | 417M/485M [00:44<00:07, 8.74MB/s][A
+glove-100-angular.hdf5:  86%|████████▋ | 419M/485M [00:44<00:08, 7.35MB/s][A
+glove-100-angular.hdf5:  87%|████████▋ | 422M/485M [00:44<00:07, 8.50MB/s][A
+glove-100-angular.hdf5:  87%|████████▋ | 423M/485M [00:44<00:09, 6.81MB/s][A
+glove-100-angular.hdf5:  87%|████████▋ | 425M/485M [00:45<00:07, 8.33MB/s][Asift-128-euclidean.hdf5:   9%|▉         | 48.2M/525M [00:45<07:53, 1.01MB/s]
+glove-100-angular.hdf5:  88%|████████▊ | 426M/485M [00:45<00:07, 7.66MB/s][A
+glove-100-angular.hdf5:  88%|████████▊ | 428M/485M [00:45<00:06, 9.51MB/s][A
+glove-100-angular.hdf5:  89%|████████▊ | 430M/485M [00:45<00:05, 10.7MB/s][A
+glove-100-angular.hdf5:  89%|████████▉ | 432M/485M [00:45<00:04, 12.2MB/s][A
+glove-100-angular.hdf5:  89%|████████▉ | 434M/485M [00:45<00:03, 13.4MB/s][A
+glove-100-angular.hdf5:  90%|████████▉ | 436M/485M [00:45<00:03, 14.4MB/s][A
+glove-100-angular.hdf5:  90%|█████████ | 438M/485M [00:45<00:03, 15.1MB/s][Asift-128-euclidean.hdf5:   9%|▉         | 49.3M/525M [00:46<07:29, 1.06MB/s]
+
+
+
+
+
+ml-10m.zip:  10%|▉         | 6.29M/65.6M [00:45<09:40, 102kB/s][A[A[A[A[A[A
+glove-100-angular.hdf5:  91%|█████████ | 440M/485M [00:46<00:02, 16.3MB/s][A
+glove-100-angular.hdf5:  91%|█████████▏| 444M/485M [00:46<00:02, 18.3MB/s][A
+glove-100-angular.hdf5:  92%|█████████▏| 447M/485M [00:46<00:01, 19.9MB/s][Asift-128-euclidean.hdf5:  10%|▉         | 50.3M/525M [00:46<06:55, 1.14MB/s]
+glove-100-angular.hdf5:  92%|█████████▏| 449M/485M [00:46<00:03, 10.5MB/s][A
+glove-100-angular.hdf5:  93%|█████████▎| 452M/485M [00:46<00:02, 13.1MB/s][A
+glove-100-angular.hdf5:  94%|█████████▍| 455M/485M [00:47<00:01, 15.4MB/s][A
+
+
+
+docword.enron.txt.gz: 11.5MB [00:47, 115kB/s][A[A[A[A
+glove-100-angular.hdf5:  94%|█████████▍| 458M/485M [00:47<00:01, 17.4MB/s][A
+glove-100-angular.hdf5:  95%|█████████▌| 461M/485M [00:47<00:01, 19.1MB/s][A
+
+
+docword.nytimes.txt.gz: 12.6MB [00:47, 158kB/s][A[A[A
+glove-100-angular.hdf5:  96%|█████████▌| 465M/485M [00:47<00:01, 20.3MB/s][Asift-128-euclidean.hdf5:  10%|▉         | 51.4M/525M [00:47<06:29, 1.22MB/s]
+glove-100-angular.hdf5:  96%|█████████▋| 468M/485M [00:47<00:00, 21.3MB/s][A
+glove-100-angular.hdf5:  97%|█████████▋| 471M/485M [00:47<00:00, 22.0MB/s][A
+glove-100-angular.hdf5:  98%|█████████▊| 474M/485M [00:47<00:00, 22.5MB/s][A
+glove-100-angular.hdf5:  98%|█████████▊| 477M/485M [00:47<00:00, 22.9MB/s][A
+
+
+
+
+
+ml-10m.zip:  11%|█         | 7.34M/65.6M [00:47<07:00, 138kB/s][A[A[A[A[A[A
+glove-100-angular.hdf5:  99%|█████████▉| 480M/485M [00:48<00:00, 23.2MB/s][Asift-128-euclidean.hdf5:  10%|▉         | 52.4M/525M [00:48<06:05, 1.29MB/s]
+glove-100-angular.hdf5: 100%|█████████▉| 483M/485M [00:48<00:00, 23.3MB/s][Aglove-100-angular.hdf5: 100%|██████████| 485M/485M [00:48<00:00, 10.0MB/s]
+19:21:44   ok   glove100
+
+
+
+
+
+
+ml-10m.zip:  13%|█▎        | 8.39M/65.6M [00:48<05:02, 189kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  10%|█         | 53.5M/525M [00:49<06:48, 1.16MB/s]
+
+
+docword.nytimes.txt.gz: 13.6MB [00:49, 116kB/s][A[A[Asift-128-euclidean.hdf5:  10%|█         | 54.5M/525M [00:50<06:14, 1.26MB/s]
+
+
+
+
+
+ml-10m.zip:  14%|█▍        | 9.44M/65.6M [00:49<03:38, 257kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  11%|█         | 55.6M/525M [00:50<05:58, 1.31MB/s]
+
+
+
+
+
+ml-10m.zip:  16%|█▌        | 10.5M/65.6M [00:50<02:40, 344kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  11%|█         | 56.6M/525M [00:51<05:44, 1.36MB/s]
+
+
+
+
+
+ml-10m.zip:  18%|█▊        | 11.5M/65.6M [00:50<01:58, 457kB/s][A[A[A[A[A[A
+
+
+
+
+
+ml-10m.zip:  19%|█▉        | 12.6M/65.6M [00:51<01:27, 606kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  11%|█         | 57.7M/525M [00:52<05:36, 1.39MB/s]
+
+
+
+docword.enron.txt.gz: 12.3MB [00:52, 123kB/s][A[A[A[Adocword.enron.txt.gz: 12.3MB [00:52, 236kB/s]
+19:21:48   ok   enron
+
+
+uci_har_outer.zip: 11.5MB [00:52, 129kB/s][A[A
+
+
+
+
+
+ml-10m.zip:  21%|██        | 13.6M/65.6M [00:51<01:07, 775kB/s][A[A[A[A[A[A
+
+
+
+
+
+ml-10m.zip:  22%|██▏       | 14.7M/65.6M [00:52<00:51, 991kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  11%|█         | 58.7M/525M [00:52<05:23, 1.44MB/s]
+
+
+
+
+
+ml-10m.zip:  24%|██▍       | 15.7M/65.6M [00:52<00:40, 1.22MB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 14.7MB [00:52, 144kB/s][A[A[Asift-128-euclidean.hdf5:  12%|█▏        | 61.9M/525M [00:53<02:54, 2.65MB/s]
+
+
+
+
+
+ml-10m.zip:  32%|███▏      | 21.0M/65.6M [00:52<00:13, 3.39MB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 12.6MB [00:53, 172kB/s][A[Asift-128-euclidean.hdf5:  12%|█▏        | 62.9M/525M [00:53<03:21, 2.30MB/s]
+
+
+
+
+
+ml-10m.zip:  34%|███▎      | 22.0M/65.6M [00:53<00:14, 2.96MB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  12%|█▏        | 64.0M/525M [00:54<03:46, 2.03MB/s]
+
+
+
+
+
+ml-10m.zip:  35%|███▌      | 23.1M/65.6M [00:53<00:16, 2.64MB/s][A[A[A[A[A[A
+
+
+
+
+
+ml-10m.zip:  37%|███▋      | 24.1M/65.6M [00:54<00:17, 2.41MB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  12%|█▏        | 65.0M/525M [00:55<04:05, 1.88MB/s]
+
+
+
+
+
+ml-10m.zip:  38%|███▊      | 25.2M/65.6M [00:55<00:18, 2.24MB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  13%|█▎        | 66.1M/525M [00:56<05:09, 1.49MB/s]
+
+
+
+
+
+ml-10m.zip:  40%|███▉      | 26.2M/65.6M [00:56<00:26, 1.47MB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  13%|█▎        | 67.1M/525M [00:58<07:05, 1.08MB/s]sift-128-euclidean.hdf5:  13%|█▎        | 68.2M/525M [00:59<07:15, 1.05MB/s]
+
+uci_har_outer.zip: 13.6MB [00:59, 173kB/s][A[Asift-128-euclidean.hdf5:  13%|█▎        | 69.2M/525M [01:00<07:06, 1.07MB/s]
+
+
+docword.nytimes.txt.gz: 15.7MB [01:00, 144kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  42%|████▏     | 27.3M/65.6M [01:00<00:53, 711kB/s] [A[A[A[A[A[Asift-128-euclidean.hdf5:  13%|█▎        | 70.3M/525M [01:01<07:27, 1.02MB/s]sift-128-euclidean.hdf5:  14%|█▎        | 71.3M/525M [01:02<08:45, 863kB/s] sift-128-euclidean.hdf5:  14%|█▍        | 72.4M/525M [01:04<09:12, 820kB/s]sift-128-euclidean.hdf5:  14%|█▍        | 73.4M/525M [01:05<09:02, 832kB/s]sift-128-euclidean.hdf5:  14%|█▍        | 74.4M/525M [01:06<08:08, 922kB/s]sift-128-euclidean.hdf5:  14%|█▍        | 75.5M/525M [01:07<07:17, 1.03MB/s]sift-128-euclidean.hdf5:  15%|█▍        | 76.5M/525M [01:07<06:34, 1.14MB/s]sift-128-euclidean.hdf5:  15%|█▍        | 77.6M/525M [01:08<06:06, 1.22MB/s]sift-128-euclidean.hdf5:  15%|█▍        | 78.6M/525M [01:09<05:40, 1.31MB/s]sift-128-euclidean.hdf5:  15%|█▌        | 79.7M/525M [01:09<05:29, 1.35MB/s]sift-128-euclidean.hdf5:  15%|█▌        | 80.7M/525M [01:10<05:17, 1.40MB/s]sift-128-euclidean.hdf5:  16%|█▌        | 81.8M/525M [01:11<05:11, 1.42MB/s]
+
+
+docword.nytimes.txt.gz: 16.8MB [01:11, 123kB/s][A[A[Asift-128-euclidean.hdf5:  16%|█▌        | 82.8M/525M [01:12<05:06, 1.44MB/s]
+
+uci_har_outer.zip: 14.7MB [01:12, 130kB/s][A[A
+
+
+
+
+
+ml-10m.zip:  43%|████▎     | 28.3M/65.6M [01:12<02:33, 242kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  16%|█▌        | 83.9M/525M [01:12<05:04, 1.45MB/s]
+
+
+docword.nytimes.txt.gz: 17.8MB [01:13, 162kB/s][A[A[Asift-128-euclidean.hdf5:  16%|█▌        | 84.9M/525M [01:13<05:02, 1.46MB/s]sift-128-euclidean.hdf5:  16%|█▋        | 86.0M/525M [01:14<05:09, 1.42MB/s]
+
+
+docword.nytimes.txt.gz: 18.9MB [01:14, 215kB/s][A[A[A
+
+uci_har_outer.zip: 15.7MB [01:15, 163kB/s][A[Asift-128-euclidean.hdf5:  17%|█▋        | 87.0M/525M [01:15<05:46, 1.27MB/s]
+
+
+docword.nytimes.txt.gz: 19.9MB [01:15, 283kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  45%|████▍     | 29.4M/65.6M [01:14<02:15, 266kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  17%|█▋        | 88.1M/525M [01:16<05:34, 1.31MB/s]
+
+
+docword.nytimes.txt.gz: 21.0MB [01:16, 357kB/s][A[A[Asift-128-euclidean.hdf5:  17%|█▋        | 89.1M/525M [01:16<05:24, 1.34MB/s]
+
+
+
+
+
+ml-10m.zip:  46%|████▋     | 30.4M/65.6M [01:16<01:46, 330kB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 16.8MB [01:16, 207kB/s][A[Asift-128-euclidean.hdf5:  17%|█▋        | 90.2M/525M [01:17<05:14, 1.38MB/s]
+
+
+docword.nytimes.txt.gz: 22.0MB [01:17, 448kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  48%|████▊     | 31.5M/65.6M [01:17<01:23, 411kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  17%|█▋        | 91.2M/525M [01:18<05:09, 1.40MB/s]
+
+
+docword.nytimes.txt.gz: 23.1MB [01:18, 554kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  50%|████▉     | 32.5M/65.6M [01:17<01:02, 526kB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 17.8MB [01:18, 259kB/s][A[Asift-128-euclidean.hdf5:  18%|█▊        | 92.3M/525M [01:18<04:58, 1.45MB/s]
+
+
+docword.nytimes.txt.gz: 24.1MB [01:19, 663kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  51%|█████     | 33.6M/65.6M [01:18<00:51, 625kB/s][A[A[A[A[A[A
+
+
+
+
+
+ml-10m.zip:  53%|█████▎    | 34.6M/65.6M [01:19<00:40, 773kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  18%|█▊        | 93.3M/525M [01:20<06:57, 1.03MB/s]
+
+
+docword.nytimes.txt.gz: 25.2MB [01:21, 629kB/s][A[A[A
+
+uci_har_outer.zip: 18.9MB [01:21, 284kB/s][A[Asift-128-euclidean.hdf5:  18%|█▊        | 94.4M/525M [01:21<07:17, 984kB/s] 
+
+
+
+
+
+ml-10m.zip:  54%|█████▍    | 35.7M/65.6M [01:21<00:41, 714kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  18%|█▊        | 95.4M/525M [01:22<06:41, 1.07MB/s]sift-128-euclidean.hdf5:  18%|█▊        | 96.5M/525M [01:23<06:08, 1.16MB/s]
+
+
+docword.nytimes.txt.gz: 26.2MB [01:21, 781kB/s][A[A[A
+
+uci_har_outer.zip: 19.9MB [01:21, 390kB/s][A[A
+
+
+
+
+
+ml-10m.zip:  56%|█████▌    | 36.7M/65.6M [01:21<00:30, 947kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  19%|█▉        | 101M/525M [01:23<02:44, 2.59MB/s] sift-128-euclidean.hdf5:  19%|█▉        | 102M/525M [01:24<03:10, 2.22MB/s]
+
+
+
+
+
+ml-10m.zip:  58%|█████▊    | 37.7M/65.6M [01:24<00:41, 675kB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 21.0MB [01:24, 384kB/s][A[A
+
+
+docword.nytimes.txt.gz: 27.3MB [01:24, 563kB/s][A[A[Asift-128-euclidean.hdf5:  20%|█▉        | 103M/525M [01:25<03:29, 2.01MB/s]sift-128-euclidean.hdf5:  20%|█▉        | 104M/525M [01:25<03:46, 1.86MB/s]sift-128-euclidean.hdf5:  20%|█▉        | 105M/525M [01:26<03:56, 1.78MB/s]
+
+
+
+
+
+ml-10m.zip:  59%|█████▉    | 38.8M/65.6M [01:26<00:45, 589kB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 22.0MB [01:27, 400kB/s][A[A
+
+
+docword.nytimes.txt.gz: 28.3MB [01:27, 521kB/s][A[A[Asift-128-euclidean.hdf5:  20%|██        | 106M/525M [01:27<04:07, 1.69MB/s]sift-128-euclidean.hdf5:  20%|██        | 107M/525M [01:27<04:17, 1.63MB/s]sift-128-euclidean.hdf5:  21%|██        | 108M/525M [01:28<04:24, 1.58MB/s]
+
+uci_har_outer.zip: 23.1MB [01:28, 453kB/s][A[A
+
+
+docword.nytimes.txt.gz: 29.4MB [01:28, 550kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  61%|██████    | 39.8M/65.6M [01:28<00:44, 583kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  21%|██        | 109M/525M [01:29<04:30, 1.54MB/s]
+
+uci_har_outer.zip: 24.1MB [01:29, 531kB/s][A[Asift-128-euclidean.hdf5:  21%|██        | 110M/525M [01:30<04:23, 1.57MB/s]
+
+
+docword.nytimes.txt.gz: 30.4MB [01:29, 621kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  62%|██████▏   | 40.9M/65.6M [01:29<00:39, 632kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  21%|██        | 111M/525M [01:30<04:26, 1.55MB/s]
+
+uci_har_outer.zip: 25.2MB [01:30, 644kB/s][A[A
+
+
+docword.nytimes.txt.gz: 31.5MB [01:30, 731kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  64%|██████▍   | 41.9M/65.6M [01:30<00:32, 718kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  21%|██▏       | 112M/525M [01:31<04:28, 1.54MB/s]
+
+uci_har_outer.zip: 26.2MB [01:31, 754kB/s][A[A
+
+
+docword.nytimes.txt.gz: 32.5MB [01:31, 861kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  66%|██████▌   | 43.0M/65.6M [01:31<00:27, 821kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  22%|██▏       | 113M/525M [01:32<04:29, 1.53MB/s]
+
+uci_har_outer.zip: 27.3MB [01:32, 926kB/s][A[A
+
+
+docword.nytimes.txt.gz: 33.6MB [01:32, 1.02MB/s][A[A[A
+
+uci_har_outer.zip: 28.3MB [01:32, 1.06MB/s][A[A
+
+
+
+
+
+ml-10m.zip:  67%|██████▋   | 44.0M/65.6M [01:32<00:23, 904kB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 34.6MB [01:32, 1.08MB/s][A[A[Asift-128-euclidean.hdf5:  22%|██▏       | 114M/525M [01:33<05:19, 1.28MB/s]
+
+
+docword.nytimes.txt.gz: 35.7MB [01:33, 1.07MB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  69%|██████▉   | 45.1M/65.6M [01:33<00:22, 913kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  22%|██▏       | 115M/525M [01:34<06:23, 1.07MB/s]
+
+uci_har_outer.zip: 29.4MB [01:34, 786kB/s] [A[A
+
+
+
+
+
+ml-10m.zip:  70%|███████   | 46.1M/65.6M [01:34<00:21, 903kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  22%|██▏       | 116M/525M [01:35<06:05, 1.12MB/s]
+
+
+docword.nytimes.txt.gz: 36.7MB [01:35, 824kB/s] [A[A[Asift-128-euclidean.hdf5:  22%|██▏       | 117M/525M [01:36<05:43, 1.19MB/s]
+
+uci_har_outer.zip: 30.4MB [01:36, 716kB/s][A[Asift-128-euclidean.hdf5:  23%|██▎       | 118M/525M [01:36<05:17, 1.28MB/s]
+
+
+
+
+
+ml-10m.zip:  72%|███████▏  | 47.2M/65.6M [01:36<00:26, 700kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  23%|██▎       | 120M/525M [01:37<05:04, 1.33MB/s]
+
+
+docword.nytimes.txt.gz: 37.7MB [01:37, 735kB/s][A[A[Asift-128-euclidean.hdf5:  23%|██▎       | 121M/525M [01:38<04:55, 1.37MB/s]
+
+uci_har_outer.zip: 31.5MB [01:38, 657kB/s][A[Asift-128-euclidean.hdf5:  23%|██▎       | 122M/525M [01:39<05:28, 1.23MB/s]
+
+
+
+
+
+ml-10m.zip:  74%|███████▎  | 48.2M/65.6M [01:38<00:26, 646kB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 38.8MB [01:39, 682kB/s][A[A[Asift-128-euclidean.hdf5:  23%|██▎       | 123M/525M [01:40<05:08, 1.31MB/s]
+
+uci_har_outer.zip: 32.5MB [01:40, 647kB/s][A[Asift-128-euclidean.hdf5:  24%|██▎       | 124M/525M [01:40<04:59, 1.34MB/s]
+
+
+docword.nytimes.txt.gz: 39.8MB [01:41, 664kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  75%|███████▌  | 49.3M/65.6M [01:40<00:26, 612kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  24%|██▍       | 125M/525M [01:41<05:03, 1.32MB/s]
+
+uci_har_outer.zip: 33.6MB [01:42, 614kB/s][A[Asift-128-euclidean.hdf5:  24%|██▍       | 126M/525M [01:42<05:21, 1.24MB/s]sift-128-euclidean.hdf5:  24%|██▍       | 127M/525M [01:43<05:18, 1.25MB/s]
+
+
+
+
+
+ml-10m.zip:  77%|███████▋  | 50.3M/65.6M [01:42<00:27, 560kB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 40.9MB [01:43, 547kB/s][A[A[Asift-128-euclidean.hdf5:  24%|██▍       | 128M/525M [01:44<04:57, 1.34MB/s]sift-128-euclidean.hdf5:  25%|██▍       | 129M/525M [01:44<04:48, 1.37MB/s]sift-128-euclidean.hdf5:  25%|██▍       | 130M/525M [01:45<04:40, 1.41MB/s]
+
+
+
+
+
+ml-10m.zip:  78%|███████▊  | 51.4M/65.6M [01:44<00:25, 547kB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 34.6MB [01:45, 445kB/s][A[Asift-128-euclidean.hdf5:  25%|██▍       | 131M/525M [01:46<04:38, 1.42MB/s]sift-128-euclidean.hdf5:  25%|██▌       | 132M/525M [01:46<04:34, 1.43MB/s]
+
+
+
+
+
+ml-10m.zip:  80%|███████▉  | 52.4M/65.6M [01:46<00:23, 550kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  25%|██▌       | 133M/525M [01:47<04:25, 1.47MB/s]
+
+
+docword.nytimes.txt.gz: 41.9MB [01:47, 428kB/s][A[A[Asift-128-euclidean.hdf5:  26%|██▌       | 134M/525M [01:48<04:24, 1.48MB/s]sift-128-euclidean.hdf5:  26%|██▌       | 135M/525M [01:48<04:22, 1.48MB/s]
+
+
+
+
+
+ml-10m.zip:  82%|████████▏ | 53.5M/65.6M [01:48<00:21, 553kB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 35.7MB [01:49, 387kB/s][A[Asift-128-euclidean.hdf5:  26%|██▌       | 136M/525M [01:49<04:23, 1.48MB/s]sift-128-euclidean.hdf5:  26%|██▌       | 137M/525M [01:50<04:16, 1.51MB/s]
+
+
+docword.nytimes.txt.gz: 43.0MB [01:50, 398kB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  83%|████████▎ | 54.5M/65.6M [01:50<00:19, 567kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  26%|██▋       | 138M/525M [01:51<04:31, 1.42MB/s]
+
+uci_har_outer.zip: 36.7MB [01:51, 408kB/s][A[Asift-128-euclidean.hdf5:  27%|██▋       | 139M/525M [01:52<04:41, 1.37MB/s]
+
+
+docword.nytimes.txt.gz: 44.0MB [01:52, 435kB/s][A[A[Asift-128-euclidean.hdf5:  27%|██▋       | 141M/525M [01:52<04:25, 1.45MB/s]
+
+
+
+
+
+ml-10m.zip:  85%|████████▍ | 55.6M/65.6M [01:52<00:16, 592kB/s][A[A[A[A[A[Asift-128-euclidean.hdf5:  27%|██▋       | 142M/525M [01:53<04:24, 1.45MB/s]
+
+
+docword.nytimes.txt.gz: 47.2MB [01:52, 940kB/s][A[A[A
+
+uci_har_outer.zip: 38.8MB [01:52, 627kB/s][A[A
+
+
+
+
+
+ml-10m.zip:  90%|████████▉ | 58.7M/65.6M [01:52<00:05, 1.20MB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 48.2MB [01:53, 1.04MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 49.3MB [01:53, 1.17MB/s][A[A[Asift-128-euclidean.hdf5:  28%|██▊       | 146M/525M [01:54<02:16, 2.77MB/s]
+
+
+
+
+
+ml-10m.zip:  91%|█████████ | 59.8M/65.6M [01:53<00:04, 1.21MB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 50.3MB [01:54, 1.33MB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  93%|█████████▎| 60.8M/65.6M [01:54<00:03, 1.30MB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 39.8MB [01:54, 629kB/s][A[Asift-128-euclidean.hdf5:  28%|██▊       | 147M/525M [01:54<02:35, 2.43MB/s]
+
+
+docword.nytimes.txt.gz: 51.4MB [01:54, 1.50MB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  94%|█████████▍| 61.9M/65.6M [01:54<00:02, 1.41MB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 52.4MB [01:55, 1.74MB/s][A[A[Asift-128-euclidean.hdf5:  28%|██▊       | 148M/525M [01:55<02:56, 2.13MB/s]
+
+
+docword.nytimes.txt.gz: 53.5MB [01:55, 1.95MB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  96%|█████████▌| 62.9M/65.6M [01:55<00:01, 1.56MB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 54.5MB [01:55, 2.26MB/s][A[A[Asift-128-euclidean.hdf5:  28%|██▊       | 149M/525M [01:56<03:12, 1.96MB/s]
+
+
+
+
+
+ml-10m.zip:  98%|█████████▊| 64.0M/65.6M [01:55<00:00, 1.74MB/s][A[A[A[A[A[A
+
+uci_har_outer.zip: 40.9MB [01:56, 630kB/s][A[A
+
+
+docword.nytimes.txt.gz: 55.6MB [01:56, 2.20MB/s][A[A[A
+
+
+
+
+
+ml-10m.zip:  99%|█████████▉| 65.0M/65.6M [01:55<00:00, 1.88MB/s][A[A[A[A[A[A
+
+
+docword.nytimes.txt.gz: 56.6MB [01:56, 2.70MB/s][A[A[A
+
+
+
+
+
+ml-10m.zip: 100%|██████████| 65.6M/65.6M [01:56<00:00, 2.07MB/s][A[A[A[A[A[Aml-10m.zip: 100%|██████████| 65.6M/65.6M [01:56<00:00, 565kB/s] 
+sift-128-euclidean.hdf5:  29%|██▊       | 150M/525M [01:57<03:39, 1.71MB/s]
+
+
+docword.nytimes.txt.gz: 57.7MB [01:56, 2.76MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 58.7MB [01:57, 2.68MB/s][A[A[A19:22:54   ok   ml10m
+sift-128-euclidean.hdf5:  29%|██▉       | 151M/525M [01:57<03:49, 1.63MB/s]
+
+
+docword.nytimes.txt.gz: 59.8MB [01:57, 2.67MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 60.8MB [01:58, 2.78MB/s][A[A[A
+
+uci_har_outer.zip: 41.9MB [01:58, 606kB/s][A[Asift-128-euclidean.hdf5:  29%|██▉       | 152M/525M [01:58<03:50, 1.62MB/s]
+
+
+docword.nytimes.txt.gz: 61.9MB [01:58, 2.80MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 62.9MB [01:58, 2.94MB/s][A[A[Asift-128-euclidean.hdf5:  29%|██▉       | 153M/525M [01:59<03:56, 1.57MB/s]
+
+
+docword.nytimes.txt.gz: 64.0MB [01:59, 3.11MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 65.0MB [01:59, 3.05MB/s][A[A[Asift-128-euclidean.hdf5:  29%|██▉       | 154M/525M [01:59<04:00, 1.55MB/s]
+
+
+docword.nytimes.txt.gz: 66.1MB [01:59, 3.11MB/s][A[A[A
+
+uci_har_outer.zip: 43.0MB [01:59, 611kB/s][A[A
+
+
+docword.nytimes.txt.gz: 67.1MB [02:00, 3.31MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 68.2MB [02:00, 3.20MB/s][A[A[Asift-128-euclidean.hdf5:  30%|██▉       | 155M/525M [02:00<04:11, 1.47MB/s]
+
+
+docword.nytimes.txt.gz: 69.2MB [02:01, 2.37MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 70.3MB [02:01, 2.51MB/s][A[A[Asift-128-euclidean.hdf5:  30%|██▉       | 156M/525M [02:01<05:04, 1.21MB/s]
+
+
+docword.nytimes.txt.gz: 71.3MB [02:02, 1.93MB/s][A[A[A
+
+uci_har_outer.zip: 44.0MB [02:02, 522kB/s][A[Asift-128-euclidean.hdf5:  30%|██▉       | 157M/525M [02:02<05:28, 1.12MB/s]
+
+
+docword.nytimes.txt.gz: 72.4MB [02:03, 1.36MB/s][A[A[Asift-128-euclidean.hdf5:  30%|███       | 158M/525M [02:03<05:07, 1.19MB/s]sift-128-euclidean.hdf5:  30%|███       | 159M/525M [02:04<04:44, 1.29MB/s]sift-128-euclidean.hdf5:  31%|███       | 160M/525M [02:05<04:33, 1.34MB/s]
+
+
+docword.nytimes.txt.gz: 73.4MB [02:05, 1.04MB/s][A[A[Asift-128-euclidean.hdf5:  31%|███       | 161M/525M [02:05<04:23, 1.38MB/s]sift-128-euclidean.hdf5:  31%|███       | 163M/525M [02:06<04:18, 1.40MB/s]
+
+uci_har_outer.zip: 45.1MB [02:06, 408kB/s][A[A
+
+
+docword.nytimes.txt.gz: 74.4MB [02:06, 903kB/s] [A[A[Asift-128-euclidean.hdf5:  31%|███       | 164M/525M [02:07<04:09, 1.45MB/s]sift-128-euclidean.hdf5:  31%|███▏      | 165M/525M [02:07<04:06, 1.46MB/s]
+
+
+docword.nytimes.txt.gz: 75.5MB [02:08, 844kB/s][A[A[Asift-128-euclidean.hdf5:  32%|███▏      | 166M/525M [02:08<04:03, 1.47MB/s]sift-128-euclidean.hdf5:  32%|███▏      | 167M/525M [02:09<04:00, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 76.5MB [02:09, 791kB/s][A[A[A
+
+uci_har_outer.zip: 46.1MB [02:09, 378kB/s][A[Asift-128-euclidean.hdf5:  32%|███▏      | 168M/525M [02:09<04:00, 1.49MB/s]sift-128-euclidean.hdf5:  32%|███▏      | 169M/525M [02:10<03:59, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 77.6MB [02:10, 791kB/s][A[A[Asift-128-euclidean.hdf5:  32%|███▏      | 170M/525M [02:11<03:50, 1.54MB/s]
+
+uci_har_outer.zip: 47.2MB [02:11, 417kB/s][A[Asift-128-euclidean.hdf5:  33%|███▎      | 171M/525M [02:12<05:12, 1.13MB/s]
+
+
+docword.nytimes.txt.gz: 78.6MB [02:12, 720kB/s][A[A[Asift-128-euclidean.hdf5:  33%|███▎      | 172M/525M [02:14<06:46, 868kB/s] 
+
+uci_har_outer.zip: 48.2MB [02:14, 401kB/s][A[Asift-128-euclidean.hdf5:  33%|███▎      | 173M/525M [02:15<06:05, 963kB/s]
+
+
+docword.nytimes.txt.gz: 79.7MB [02:15, 539kB/s][A[A[Asift-128-euclidean.hdf5:  33%|███▎      | 174M/525M [02:16<05:29, 1.06MB/s]sift-128-euclidean.hdf5:  33%|███▎      | 175M/525M [02:16<04:59, 1.17MB/s]
+
+uci_har_outer.zip: 49.3MB [02:17, 406kB/s][A[Asift-128-euclidean.hdf5:  34%|███▎      | 176M/525M [02:17<04:40, 1.24MB/s]sift-128-euclidean.hdf5:  34%|███▎      | 177M/525M [02:18<04:25, 1.31MB/s]
+
+
+docword.nytimes.txt.gz: 80.7MB [02:18, 474kB/s][A[A[Asift-128-euclidean.hdf5:  34%|███▍      | 178M/525M [02:19<04:16, 1.35MB/s]
+
+uci_har_outer.zip: 50.3MB [02:19, 416kB/s][A[Asift-128-euclidean.hdf5:  34%|███▍      | 179M/525M [02:19<04:10, 1.38MB/s]sift-128-euclidean.hdf5:  34%|███▍      | 180M/525M [02:20<04:05, 1.41MB/s]
+
+
+docword.nytimes.txt.gz: 81.8MB [02:21, 458kB/s][A[A[Asift-128-euclidean.hdf5:  35%|███▍      | 181M/525M [02:21<04:02, 1.42MB/s]
+
+uci_har_outer.zip: 51.4MB [02:21, 446kB/s][A[Asift-128-euclidean.hdf5:  35%|███▍      | 182M/525M [02:21<04:06, 1.39MB/s]sift-128-euclidean.hdf5:  35%|███▍      | 184M/525M [02:22<04:00, 1.42MB/s]
+
+
+docword.nytimes.txt.gz: 82.8MB [02:22, 489kB/s][A[A[A
+
+uci_har_outer.zip: 52.4MB [02:23, 493kB/s][A[Asift-128-euclidean.hdf5:  35%|███▌      | 185M/525M [02:23<03:57, 1.43MB/s]
+
+uci_har_outer.zip: 55.6MB [02:23, 1.09MB/s][A[A
+
+
+docword.nytimes.txt.gz: 86.0MB [02:23, 1.04MB/s][A[A[A
+
+uci_har_outer.zip: 56.6MB [02:23, 1.16MB/s][A[A
+
+
+docword.nytimes.txt.gz: 87.0MB [02:23, 1.12MB/s][A[A[Asift-128-euclidean.hdf5:  36%|███▌      | 189M/525M [02:24<01:59, 2.82MB/s]
+
+uci_har_outer.zip: 57.7MB [02:24, 1.29MB/s][A[A
+
+
+docword.nytimes.txt.gz: 88.1MB [02:24, 1.25MB/s][A[A[Asift-128-euclidean.hdf5:  36%|███▌      | 190M/525M [02:24<02:18, 2.43MB/s]
+
+uci_har_outer.zip: 58.7MB [02:24, 1.44MB/s][A[A
+
+
+docword.nytimes.txt.gz: 89.1MB [02:24, 1.40MB/s][A[A[A
+
+uci_har_outer.zip: 59.8MB [02:25, 1.60MB/s][A[Asift-128-euclidean.hdf5:  36%|███▋      | 191M/525M [02:25<02:36, 2.14MB/s]
+
+
+docword.nytimes.txt.gz: 90.2MB [02:25, 1.56MB/s][A[A[A
+
+uci_har_outer.zip: 60.8MB [02:25, 1.61MB/s][A[Auci_har_outer.zip: 61.0MB [02:25, 418kB/s] 
+
+
+
+docword.nytimes.txt.gz: 91.2MB [02:26, 1.56MB/s][A[A[Asift-128-euclidean.hdf5:  37%|███▋      | 192M/525M [02:26<03:08, 1.77MB/s]
+
+
+docword.nytimes.txt.gz: 92.3MB [02:26, 1.86MB/s][A[A[A19:23:23   ok   uci_har
+
+
+
+docword.nytimes.txt.gz: 93.3MB [02:26, 1.94MB/s][A[A[Asift-128-euclidean.hdf5:  37%|███▋      | 193M/525M [02:27<03:20, 1.66MB/s]
+
+
+docword.nytimes.txt.gz: 94.4MB [02:27, 2.01MB/s][A[A[Asift-128-euclidean.hdf5:  37%|███▋      | 194M/525M [02:27<03:22, 1.63MB/s]
+
+
+docword.nytimes.txt.gz: 95.4MB [02:27, 2.07MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 96.5MB [02:28, 2.12MB/s][A[A[Asift-128-euclidean.hdf5:  37%|███▋      | 195M/525M [02:28<03:28, 1.58MB/s]
+
+
+docword.nytimes.txt.gz: 97.5MB [02:28, 2.19MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 98.6MB [02:29, 2.40MB/s][A[A[Asift-128-euclidean.hdf5:  37%|███▋      | 196M/525M [02:29<03:32, 1.55MB/s]
+
+
+docword.nytimes.txt.gz: 99.6MB [02:29, 2.42MB/s][A[A[Asift-128-euclidean.hdf5:  38%|███▊      | 197M/525M [02:29<03:35, 1.52MB/s]
+
+
+docword.nytimes.txt.gz: 101MB [02:29, 2.38MB/s] [A[A[A
+
+
+docword.nytimes.txt.gz: 102MB [02:30, 2.61MB/s][A[A[Asift-128-euclidean.hdf5:  38%|███▊      | 198M/525M [02:30<03:31, 1.54MB/s]
+
+
+docword.nytimes.txt.gz: 103MB [02:30, 2.59MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 104MB [02:31, 2.51MB/s][A[A[Asift-128-euclidean.hdf5:  38%|███▊      | 199M/525M [02:31<03:34, 1.52MB/s]
+
+
+docword.nytimes.txt.gz: 105MB [02:31, 2.72MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 106MB [02:31, 2.65MB/s][A[A[Asift-128-euclidean.hdf5:  38%|███▊      | 200M/525M [02:32<03:36, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 107MB [02:32, 2.78MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 108MB [02:32, 2.76MB/s][A[A[Asift-128-euclidean.hdf5:  38%|███▊      | 201M/525M [02:32<03:36, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 109MB [02:32, 2.62MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 110MB [02:33, 2.83MB/s][A[A[Asift-128-euclidean.hdf5:  39%|███▊      | 202M/525M [02:33<03:37, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 111MB [02:33, 2.69MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 112MB [02:34, 2.84MB/s][A[A[Asift-128-euclidean.hdf5:  39%|███▊      | 203M/525M [02:34<03:33, 1.51MB/s]
+
+
+docword.nytimes.txt.gz: 113MB [02:34, 2.72MB/s][A[A[Asift-128-euclidean.hdf5:  39%|███▉      | 204M/525M [02:34<03:35, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 114MB [02:34, 2.70MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 115MB [02:35, 2.79MB/s][A[A[Asift-128-euclidean.hdf5:  39%|███▉      | 206M/525M [02:35<03:34, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 116MB [02:35, 2.73MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 117MB [02:35, 2.85MB/s][A[A[Asift-128-euclidean.hdf5:  39%|███▉      | 207M/525M [02:36<03:35, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 118MB [02:36, 2.75MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 120MB [02:36, 2.72MB/s][A[A[Asift-128-euclidean.hdf5:  40%|███▉      | 208M/525M [02:37<03:35, 1.47MB/s]
+
+
+docword.nytimes.txt.gz: 121MB [02:37, 2.82MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 122MB [02:37, 2.75MB/s][A[A[Asift-128-euclidean.hdf5:  40%|███▉      | 209M/525M [02:37<03:31, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 123MB [02:37, 2.88MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 124MB [02:38, 2.82MB/s][A[A[Asift-128-euclidean.hdf5:  40%|███▉      | 210M/525M [02:38<03:31, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 125MB [02:38, 2.91MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 126MB [02:38, 2.85MB/s][A[A[Asift-128-euclidean.hdf5:  40%|████      | 211M/525M [02:39<03:30, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 127MB [02:39, 2.92MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 128MB [02:39, 2.57MB/s][A[A[Asift-128-euclidean.hdf5:  40%|████      | 212M/525M [02:39<03:39, 1.43MB/s]
+
+
+docword.nytimes.txt.gz: 129MB [02:40, 2.54MB/s][A[A[Asift-128-euclidean.hdf5:  41%|████      | 213M/525M [02:40<03:37, 1.44MB/s]
+
+
+docword.nytimes.txt.gz: 130MB [02:40, 2.45MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 131MB [02:41, 2.43MB/s][A[A[Asift-128-euclidean.hdf5:  41%|████      | 214M/525M [02:41<03:35, 1.44MB/s]
+
+
+docword.nytimes.txt.gz: 132MB [02:41, 2.45MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 133MB [02:41, 2.62MB/s][A[A[Asift-128-euclidean.hdf5:  41%|████      | 215M/525M [02:42<03:33, 1.45MB/s]
+
+
+docword.nytimes.txt.gz: 134MB [02:42, 2.56MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 135MB [02:42, 2.56MB/s][A[A[Asift-128-euclidean.hdf5:  41%|████      | 216M/525M [02:42<03:31, 1.46MB/s]
+
+
+docword.nytimes.txt.gz: 136MB [02:43, 2.30MB/s][A[A[Asift-128-euclidean.hdf5:  41%|████▏     | 217M/525M [02:43<03:51, 1.33MB/s]
+
+
+docword.nytimes.txt.gz: 137MB [02:43, 2.24MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 138MB [02:44, 2.03MB/s][A[A[Asift-128-euclidean.hdf5:  42%|████▏     | 218M/525M [02:44<04:05, 1.25MB/s]
+
+
+docword.nytimes.txt.gz: 139MB [02:45, 1.83MB/s][A[A[Asift-128-euclidean.hdf5:  42%|████▏     | 219M/525M [02:45<03:57, 1.29MB/s]
+
+
+docword.nytimes.txt.gz: 141MB [02:45, 1.73MB/s][A[A[Asift-128-euclidean.hdf5:  42%|████▏     | 220M/525M [02:46<03:46, 1.35MB/s]
+
+
+docword.nytimes.txt.gz: 142MB [02:46, 1.74MB/s][A[A[Asift-128-euclidean.hdf5:  42%|████▏     | 221M/525M [02:46<03:40, 1.38MB/s]
+
+
+docword.nytimes.txt.gz: 143MB [02:47, 1.69MB/s][A[A[Asift-128-euclidean.hdf5:  42%|████▏     | 222M/525M [02:47<03:31, 1.43MB/s]
+
+
+docword.nytimes.txt.gz: 144MB [02:47, 1.66MB/s][A[A[Asift-128-euclidean.hdf5:  43%|████▎     | 223M/525M [02:48<03:29, 1.44MB/s]
+
+
+docword.nytimes.txt.gz: 145MB [02:48, 1.71MB/s][A[A[Asift-128-euclidean.hdf5:  43%|████▎     | 224M/525M [02:48<03:27, 1.45MB/s]
+
+
+docword.nytimes.txt.gz: 146MB [02:48, 1.67MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 147MB [02:49, 1.65MB/s][A[A[Asift-128-euclidean.hdf5:  43%|████▎     | 225M/525M [02:49<03:26, 1.45MB/s]
+
+
+docword.nytimes.txt.gz: 148MB [02:50, 1.69MB/s][A[A[Asift-128-euclidean.hdf5:  43%|████▎     | 226M/525M [02:50<03:19, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 149MB [02:50, 1.66MB/s][A[A[Asift-128-euclidean.hdf5:  43%|████▎     | 228M/525M [02:51<03:18, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 150MB [02:51, 1.64MB/s][A[A[Asift-128-euclidean.hdf5:  44%|████▎     | 229M/525M [02:51<03:18, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 151MB [02:52, 1.69MB/s][A[A[Asift-128-euclidean.hdf5:  44%|████▎     | 230M/525M [02:52<03:18, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 152MB [02:52, 1.68MB/s][A[A[Asift-128-euclidean.hdf5:  44%|████▍     | 231M/525M [02:53<03:17, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 153MB [02:53, 1.74MB/s][A[A[Asift-128-euclidean.hdf5:  44%|████▍     | 232M/525M [02:56<06:58, 701kB/s] 
+
+
+docword.nytimes.txt.gz: 158MB [02:54, 3.43MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 159MB [02:55, 2.15MB/s][A[A[Asift-128-euclidean.hdf5:  45%|████▍     | 236M/525M [02:56<02:48, 1.71MB/s]sift-128-euclidean.hdf5:  45%|████▌     | 237M/525M [02:57<02:59, 1.61MB/s]sift-128-euclidean.hdf5:  45%|████▌     | 238M/525M [02:58<03:15, 1.47MB/s]
+
+
+docword.nytimes.txt.gz: 160MB [02:59, 965kB/s] [A[A[Asift-128-euclidean.hdf5:  46%|████▌     | 239M/525M [02:59<03:27, 1.38MB/s]sift-128-euclidean.hdf5:  46%|████▌     | 240M/525M [03:00<03:49, 1.24MB/s]sift-128-euclidean.hdf5:  46%|████▌     | 241M/525M [03:01<04:00, 1.18MB/s]sift-128-euclidean.hdf5:  46%|████▌     | 242M/525M [03:02<03:56, 1.19MB/s]sift-128-euclidean.hdf5:  46%|████▋     | 243M/525M [03:03<04:03, 1.16MB/s]sift-128-euclidean.hdf5:  47%|████▋     | 244M/525M [03:04<04:04, 1.15MB/s]sift-128-euclidean.hdf5:  47%|████▋     | 245M/525M [03:05<04:01, 1.16MB/s]sift-128-euclidean.hdf5:  47%|████▋     | 246M/525M [03:06<03:53, 1.19MB/s]sift-128-euclidean.hdf5:  47%|████▋     | 247M/525M [03:07<03:59, 1.16MB/s]sift-128-euclidean.hdf5:  47%|████▋     | 249M/525M [03:08<04:02, 1.14MB/s]
+
+
+docword.nytimes.txt.gz: 161MB [03:08, 382kB/s][A[A[Asift-128-euclidean.hdf5:  48%|████▊     | 250M/525M [03:09<04:14, 1.08MB/s]sift-128-euclidean.hdf5:  48%|████▊     | 251M/525M [03:10<04:55, 930kB/s] sift-128-euclidean.hdf5:  48%|████▊     | 252M/525M [03:11<04:42, 967kB/s]sift-128-euclidean.hdf5:  48%|████▊     | 253M/525M [03:12<04:18, 1.05MB/s]sift-128-euclidean.hdf5:  48%|████▊     | 254M/525M [03:13<03:56, 1.15MB/s]sift-128-euclidean.hdf5:  49%|████▊     | 255M/525M [03:13<03:48, 1.19MB/s]sift-128-euclidean.hdf5:  49%|████▊     | 256M/525M [03:15<05:01, 892kB/s] sift-128-euclidean.hdf5:  49%|████▉     | 257M/525M [03:17<05:07, 873kB/s]sift-128-euclidean.hdf5:  49%|████▉     | 258M/525M [03:18<04:45, 936kB/s]sift-128-euclidean.hdf5:  49%|████▉     | 259M/525M [03:19<04:34, 968kB/s]sift-128-euclidean.hdf5:  50%|████▉     | 260M/525M [03:19<04:20, 1.02MB/s]sift-128-euclidean.hdf5:  50%|████▉     | 261M/525M [03:20<03:57, 1.11MB/s]sift-128-euclidean.hdf5:  50%|████▉     | 262M/525M [03:21<03:35, 1.22MB/s]sift-128-euclidean.hdf5:  50%|█████     | 263M/525M [03:22<04:09, 1.05MB/s]sift-128-euclidean.hdf5:  50%|█████     | 264M/525M [03:23<03:52, 1.12MB/s]
+
+
+docword.nytimes.txt.gz: 163MB [03:23, 182kB/s][A[A[Asift-128-euclidean.hdf5:  51%|█████     | 267M/525M [03:24<02:11, 1.95MB/s]sift-128-euclidean.hdf5:  51%|█████     | 268M/525M [03:25<02:30, 1.70MB/s]sift-128-euclidean.hdf5:  51%|█████▏    | 269M/525M [03:25<02:48, 1.51MB/s]sift-128-euclidean.hdf5:  52%|█████▏    | 271M/525M [03:27<03:18, 1.28MB/s]sift-128-euclidean.hdf5:  52%|█████▏    | 272M/525M [03:27<03:15, 1.30MB/s]sift-128-euclidean.hdf5:  52%|█████▏    | 273M/525M [03:28<03:21, 1.25MB/s]sift-128-euclidean.hdf5:  52%|█████▏    | 274M/525M [03:29<03:19, 1.26MB/s]sift-128-euclidean.hdf5:  52%|█████▏    | 275M/525M [03:30<03:23, 1.23MB/s]sift-128-euclidean.hdf5:  53%|█████▎    | 276M/525M [03:31<03:58, 1.05MB/s]sift-128-euclidean.hdf5:  53%|█████▎    | 277M/525M [03:32<03:45, 1.10MB/s]sift-128-euclidean.hdf5:  53%|█████▎    | 278M/525M [03:33<03:34, 1.15MB/s]
+
+
+docword.nytimes.txt.gz: 164MB [03:34, 151kB/s][A[A[Asift-128-euclidean.hdf5:  53%|█████▎    | 279M/525M [03:34<03:20, 1.23MB/s]sift-128-euclidean.hdf5:  53%|█████▎    | 280M/525M [03:34<03:07, 1.31MB/s]sift-128-euclidean.hdf5:  54%|█████▎    | 281M/525M [03:35<03:00, 1.35MB/s]sift-128-euclidean.hdf5:  54%|█████▎    | 282M/525M [03:36<02:54, 1.40MB/s]sift-128-euclidean.hdf5:  54%|█████▍    | 283M/525M [03:37<02:50, 1.42MB/s]sift-128-euclidean.hdf5:  54%|█████▍    | 284M/525M [03:37<02:47, 1.43MB/s]sift-128-euclidean.hdf5:  54%|█████▍    | 285M/525M [03:38<02:43, 1.47MB/s]sift-128-euclidean.hdf5:  55%|█████▍    | 286M/525M [03:39<02:41, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 165MB [03:39, 162kB/s][A[A[Asift-128-euclidean.hdf5:  55%|█████▍    | 287M/525M [03:39<02:43, 1.46MB/s]sift-128-euclidean.hdf5:  55%|█████▍    | 288M/525M [03:40<02:39, 1.49MB/s]sift-128-euclidean.hdf5:  55%|█████▌    | 289M/525M [03:41<02:39, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 166MB [03:41, 200kB/s][A[A[Asift-128-euclidean.hdf5:  55%|█████▌    | 290M/525M [03:42<02:38, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 167MB [03:42, 260kB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 168MB [03:42, 340kB/s][A[A[Asift-128-euclidean.hdf5:  56%|█████▌    | 292M/525M [03:43<03:05, 1.26MB/s]
+
+
+docword.nytimes.txt.gz: 169MB [03:43, 438kB/s][A[A[Asift-128-euclidean.hdf5:  56%|█████▌    | 293M/525M [03:43<02:53, 1.34MB/s]
+
+
+docword.nytimes.txt.gz: 170MB [03:44, 572kB/s][A[A[Asift-128-euclidean.hdf5:  56%|█████▌    | 294M/525M [03:44<02:48, 1.38MB/s]
+
+
+docword.nytimes.txt.gz: 171MB [03:44, 732kB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 172MB [03:45, 914kB/s][A[A[Asift-128-euclidean.hdf5:  56%|█████▌    | 295M/525M [03:45<02:43, 1.41MB/s]
+
+
+docword.nytimes.txt.gz: 173MB [03:45, 1.11MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 174MB [03:45, 1.42MB/s][A[A[Asift-128-euclidean.hdf5:  56%|█████▋    | 296M/525M [03:45<02:40, 1.43MB/s]
+
+
+docword.nytimes.txt.gz: 175MB [03:46, 1.60MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 176MB [03:46, 1.97MB/s][A[A[Asift-128-euclidean.hdf5:  57%|█████▋    | 297M/525M [03:46<02:38, 1.44MB/s]
+
+
+docword.nytimes.txt.gz: 177MB [03:46, 2.36MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 178MB [03:46, 2.74MB/s][A[A[Asift-128-euclidean.hdf5:  57%|█████▋    | 298M/525M [03:47<02:33, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 179MB [03:47, 3.09MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 180MB [03:47, 3.40MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 181MB [03:47, 3.65MB/s][A[A[Asift-128-euclidean.hdf5:  57%|█████▋    | 299M/525M [03:48<02:32, 1.49MB/s]
+
+
+docword.nytimes.txt.gz: 182MB [03:47, 3.86MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 184MB [03:48, 4.01MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 185MB [03:48, 4.13MB/s][A[A[Asift-128-euclidean.hdf5:  57%|█████▋    | 300M/525M [03:48<02:31, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 186MB [03:48, 4.25MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 188MB [03:48, 5.51MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 189MB [03:49, 5.22MB/s][A[A[Asift-128-euclidean.hdf5:  57%|█████▋    | 301M/525M [03:49<02:31, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 191MB [03:49, 6.24MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 192MB [03:49, 5.74MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 194MB [03:49, 6.61MB/s][A[A[Asift-128-euclidean.hdf5:  58%|█████▊    | 302M/525M [03:50<02:30, 1.48MB/s]
+
+
+docword.nytimes.txt.gz: 195MB [03:50, 6.04MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 197MB [03:50, 6.84MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 199MB [03:50, 7.41MB/s][A[A[Asift-128-euclidean.hdf5:  58%|█████▊    | 303M/525M [03:50<02:30, 1.47MB/s]
+
+
+docword.nytimes.txt.gz: 201MB [03:50, 7.81MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 202MB [03:51, 6.95MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 204MB [03:51, 7.51MB/s][A[A[Asift-128-euclidean.hdf5:  58%|█████▊    | 304M/525M [03:51<02:25, 1.52MB/s]
+
+
+docword.nytimes.txt.gz: 208MB [03:51, 9.00MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 210MB [03:51, 9.02MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 212MB [03:51, 9.04MB/s][A[A[Asift-128-euclidean.hdf5:  58%|█████▊    | 305M/525M [03:52<02:26, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 214MB [03:52, 9.06MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 217MB [03:52, 10.2MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 219MB [03:52, 9.91MB/s][A[A[Asift-128-euclidean.hdf5:  58%|█████▊    | 306M/525M [03:52<02:26, 1.50MB/s]
+
+
+docword.nytimes.txt.gz: 222MB [03:52, 10.8MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 224MB [03:53, 10.4MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 228MB [03:53, 11.1MB/s][A[A[A
+
+
+docword.nytimes.txt.gz: 231MB [03:56, 2.68MB/s][A[A[Adocword.nytimes.txt.gz: 234MB [03:51, 1.01MB/s]
+19:24:47   ok   nytimes
+sift-128-euclidean.hdf5:  59%|█████▉    | 310M/525M [03:53<01:02, 3.43MB/s]sift-128-euclidean.hdf5:  59%|█████▉    | 311M/525M [03:53<01:17, 2.77MB/s]sift-128-euclidean.hdf5:  60%|█████▉    | 312M/525M [03:54<01:30, 2.34MB/s]sift-128-euclidean.hdf5:  60%|█████▉    | 314M/525M [03:55<01:42, 2.06MB/s]sift-128-euclidean.hdf5:  60%|█████▉    | 315M/525M [03:56<02:17, 1.54MB/s]sift-128-euclidean.hdf5:  60%|██████    | 316M/525M [03:57<02:51, 1.22MB/s]sift-128-euclidean.hdf5:  60%|██████    | 317M/525M [03:58<02:46, 1.25MB/s]sift-128-euclidean.hdf5:  61%|██████    | 318M/525M [03:59<02:39, 1.30MB/s]sift-128-euclidean.hdf5:  61%|██████    | 319M/525M [04:00<02:33, 1.34MB/s]sift-128-euclidean.hdf5:  61%|██████    | 320M/525M [04:00<02:29, 1.37MB/s]sift-128-euclidean.hdf5:  61%|██████    | 321M/525M [04:01<02:26, 1.39MB/s]sift-128-euclidean.hdf5:  61%|██████▏   | 322M/525M [04:02<02:20, 1.44MB/s]sift-128-euclidean.hdf5:  62%|██████▏   | 323M/525M [04:02<02:20, 1.44MB/s]sift-128-euclidean.hdf5:  62%|██████▏   | 324M/525M [04:03<02:18, 1.45MB/s]sift-128-euclidean.hdf5:  62%|██████▏   | 325M/525M [04:04<02:37, 1.27MB/s]sift-128-euclidean.hdf5:  62%|██████▏   | 326M/525M [04:07<04:48, 689kB/s] sift-128-euclidean.hdf5:  62%|██████▏   | 327M/525M [04:09<05:01, 656kB/s]sift-128-euclidean.hdf5:  62%|██████▏   | 328M/525M [04:10<04:17, 766kB/s]sift-128-euclidean.hdf5:  63%|██████▎   | 329M/525M [04:11<03:37, 901kB/s]sift-128-euclidean.hdf5:  63%|██████▎   | 330M/525M [04:11<03:11, 1.02MB/s]sift-128-euclidean.hdf5:  63%|██████▎   | 331M/525M [04:12<02:52, 1.12MB/s]sift-128-euclidean.hdf5:  63%|██████▎   | 332M/525M [04:13<02:39, 1.21MB/s]sift-128-euclidean.hdf5:  63%|██████▎   | 333M/525M [04:14<02:27, 1.30MB/s]sift-128-euclidean.hdf5:  64%|██████▎   | 334M/525M [04:14<02:21, 1.34MB/s]sift-128-euclidean.hdf5:  64%|██████▍   | 336M/525M [04:15<02:17, 1.38MB/s]sift-128-euclidean.hdf5:  64%|██████▍   | 337M/525M [04:16<02:13, 1.42MB/s]sift-128-euclidean.hdf5:  64%|██████▍   | 338M/525M [04:17<02:31, 1.24MB/s]sift-128-euclidean.hdf5:  64%|██████▍   | 339M/525M [04:17<02:24, 1.29MB/s]sift-128-euclidean.hdf5:  65%|██████▍   | 340M/525M [04:18<02:18, 1.34MB/s]sift-128-euclidean.hdf5:  65%|██████▍   | 341M/525M [04:19<02:13, 1.38MB/s]sift-128-euclidean.hdf5:  65%|██████▌   | 342M/525M [04:20<02:10, 1.41MB/s]sift-128-euclidean.hdf5:  65%|██████▌   | 343M/525M [04:20<02:04, 1.46MB/s]sift-128-euclidean.hdf5:  65%|██████▌   | 344M/525M [04:22<02:37, 1.15MB/s]sift-128-euclidean.hdf5:  66%|██████▌   | 345M/525M [04:23<02:51, 1.05MB/s]sift-128-euclidean.hdf5:  66%|██████▋   | 349M/525M [04:23<01:12, 2.41MB/s]sift-128-euclidean.hdf5:  67%|██████▋   | 350M/525M [04:24<01:19, 2.19MB/s]sift-128-euclidean.hdf5:  67%|██████▋   | 351M/525M [04:25<01:27, 1.99MB/s]sift-128-euclidean.hdf5:  67%|██████▋   | 352M/525M [04:25<01:33, 1.86MB/s]sift-128-euclidean.hdf5:  67%|██████▋   | 353M/525M [04:26<01:36, 1.79MB/s]sift-128-euclidean.hdf5:  67%|██████▋   | 354M/525M [04:27<01:40, 1.70MB/s]sift-128-euclidean.hdf5:  68%|██████▊   | 355M/525M [04:27<01:43, 1.64MB/s]sift-128-euclidean.hdf5:  68%|██████▊   | 357M/525M [04:28<01:45, 1.60MB/s]sift-128-euclidean.hdf5:  68%|██████▊   | 358M/525M [04:29<01:46, 1.58MB/s]sift-128-euclidean.hdf5:  68%|██████▊   | 359M/525M [04:29<01:43, 1.61MB/s]sift-128-euclidean.hdf5:  68%|██████▊   | 360M/525M [04:30<01:45, 1.57MB/s]sift-128-euclidean.hdf5:  69%|██████▊   | 361M/525M [04:31<01:45, 1.55MB/s]sift-128-euclidean.hdf5:  69%|██████▉   | 362M/525M [04:32<01:52, 1.45MB/s]sift-128-euclidean.hdf5:  69%|██████▉   | 363M/525M [04:32<01:49, 1.49MB/s]sift-128-euclidean.hdf5:  69%|██████▉   | 364M/525M [04:33<02:08, 1.26MB/s]sift-128-euclidean.hdf5:  69%|██████▉   | 365M/525M [04:34<02:00, 1.33MB/s]sift-128-euclidean.hdf5:  70%|██████▉   | 366M/525M [04:35<01:55, 1.37MB/s]sift-128-euclidean.hdf5:  70%|██████▉   | 367M/525M [04:36<01:52, 1.41MB/s]sift-128-euclidean.hdf5:  70%|███████   | 368M/525M [04:36<01:46, 1.48MB/s]sift-128-euclidean.hdf5:  70%|███████   | 369M/525M [04:37<01:45, 1.48MB/s]sift-128-euclidean.hdf5:  70%|███████   | 370M/525M [04:38<01:43, 1.50MB/s]sift-128-euclidean.hdf5:  71%|███████   | 371M/525M [04:38<01:42, 1.51MB/s]sift-128-euclidean.hdf5:  71%|███████   | 372M/525M [04:39<01:38, 1.55MB/s]sift-128-euclidean.hdf5:  71%|███████   | 373M/525M [04:40<01:39, 1.53MB/s]sift-128-euclidean.hdf5:  71%|███████▏  | 374M/525M [04:40<01:39, 1.52MB/s]sift-128-euclidean.hdf5:  71%|███████▏  | 375M/525M [04:41<01:37, 1.54MB/s]sift-128-euclidean.hdf5:  72%|███████▏  | 376M/525M [04:42<01:36, 1.55MB/s]sift-128-euclidean.hdf5:  72%|███████▏  | 377M/525M [04:42<01:36, 1.53MB/s]sift-128-euclidean.hdf5:  72%|███████▏  | 379M/525M [04:43<01:36, 1.52MB/s]sift-128-euclidean.hdf5:  72%|███████▏  | 380M/525M [04:44<01:35, 1.52MB/s]sift-128-euclidean.hdf5:  72%|███████▏  | 381M/525M [04:44<01:32, 1.56MB/s]sift-128-euclidean.hdf5:  73%|███████▎  | 382M/525M [04:45<01:32, 1.55MB/s]sift-128-euclidean.hdf5:  73%|███████▎  | 383M/525M [04:46<01:32, 1.54MB/s]sift-128-euclidean.hdf5:  73%|███████▎  | 384M/525M [04:46<01:32, 1.53MB/s]sift-128-euclidean.hdf5:  73%|███████▎  | 385M/525M [04:47<01:29, 1.57MB/s]sift-128-euclidean.hdf5:  73%|███████▎  | 386M/525M [04:48<01:30, 1.55MB/s]sift-128-euclidean.hdf5:  74%|███████▎  | 387M/525M [04:48<01:30, 1.54MB/s]sift-128-euclidean.hdf5:  74%|███████▍  | 388M/525M [04:49<01:29, 1.53MB/s]sift-128-euclidean.hdf5:  74%|███████▍  | 389M/525M [04:50<01:29, 1.52MB/s]sift-128-euclidean.hdf5:  74%|███████▍  | 390M/525M [04:50<01:26, 1.57MB/s]sift-128-euclidean.hdf5:  74%|███████▍  | 391M/525M [04:51<01:26, 1.55MB/s]sift-128-euclidean.hdf5:  75%|███████▍  | 392M/525M [04:53<02:15, 985kB/s] sift-128-euclidean.hdf5:  75%|███████▌  | 396M/525M [04:54<00:57, 2.23MB/s]sift-128-euclidean.hdf5:  76%|███████▌  | 397M/525M [04:54<01:01, 2.07MB/s]sift-128-euclidean.hdf5:  76%|███████▌  | 398M/525M [04:55<01:06, 1.91MB/s]sift-128-euclidean.hdf5:  76%|███████▌  | 400M/525M [04:56<01:09, 1.80MB/s]sift-128-euclidean.hdf5:  76%|███████▋  | 401M/525M [04:56<01:13, 1.70MB/s]sift-128-euclidean.hdf5:  76%|███████▋  | 402M/525M [04:57<01:15, 1.64MB/s]sift-128-euclidean.hdf5:  77%|███████▋  | 403M/525M [04:58<01:19, 1.53MB/s]sift-128-euclidean.hdf5:  77%|███████▋  | 404M/525M [04:59<01:45, 1.15MB/s]sift-128-euclidean.hdf5:  77%|███████▋  | 405M/525M [05:00<01:46, 1.13MB/s]sift-128-euclidean.hdf5:  77%|███████▋  | 406M/525M [05:01<01:53, 1.05MB/s]sift-128-euclidean.hdf5:  77%|███████▋  | 407M/525M [05:02<01:43, 1.15MB/s]sift-128-euclidean.hdf5:  78%|███████▊  | 408M/525M [05:03<01:34, 1.25MB/s]sift-128-euclidean.hdf5:  78%|███████▊  | 409M/525M [05:04<01:29, 1.31MB/s]sift-128-euclidean.hdf5:  78%|███████▊  | 410M/525M [05:04<01:24, 1.36MB/s]sift-128-euclidean.hdf5:  78%|███████▊  | 411M/525M [05:05<01:22, 1.39MB/s]sift-128-euclidean.hdf5:  78%|███████▊  | 412M/525M [05:06<01:18, 1.44MB/s]sift-128-euclidean.hdf5:  79%|███████▊  | 413M/525M [05:06<01:17, 1.45MB/s]sift-128-euclidean.hdf5:  79%|███████▉  | 414M/525M [05:07<01:16, 1.46MB/s]sift-128-euclidean.hdf5:  79%|███████▉  | 415M/525M [05:08<01:14, 1.47MB/s]sift-128-euclidean.hdf5:  79%|███████▉  | 416M/525M [05:09<01:14, 1.47MB/s]sift-128-euclidean.hdf5:  79%|███████▉  | 417M/525M [05:09<01:11, 1.50MB/s]sift-128-euclidean.hdf5:  80%|███████▉  | 418M/525M [05:10<01:11, 1.49MB/s]sift-128-euclidean.hdf5:  80%|███████▉  | 419M/525M [05:11<01:11, 1.48MB/s]sift-128-euclidean.hdf5:  80%|████████  | 420M/525M [05:11<01:10, 1.48MB/s]sift-128-euclidean.hdf5:  80%|████████  | 422M/525M [05:12<01:10, 1.48MB/s]sift-128-euclidean.hdf5:  80%|████████  | 423M/525M [05:13<01:07, 1.51MB/s]sift-128-euclidean.hdf5:  81%|████████  | 424M/525M [05:14<01:12, 1.41MB/s]sift-128-euclidean.hdf5:  81%|████████  | 425M/525M [05:15<01:39, 1.01MB/s]sift-128-euclidean.hdf5:  81%|████████  | 426M/525M [05:16<01:34, 1.05MB/s]sift-128-euclidean.hdf5:  81%|████████▏ | 427M/525M [05:17<01:26, 1.13MB/s]sift-128-euclidean.hdf5:  81%|████████▏ | 428M/525M [05:18<01:19, 1.23MB/s]sift-128-euclidean.hdf5:  82%|████████▏ | 429M/525M [05:18<01:14, 1.29MB/s]sift-128-euclidean.hdf5:  82%|████████▏ | 430M/525M [05:19<01:11, 1.34MB/s]sift-128-euclidean.hdf5:  82%|████████▏ | 431M/525M [05:20<01:19, 1.19MB/s]sift-128-euclidean.hdf5:  82%|████████▏ | 432M/525M [05:21<01:12, 1.29MB/s]sift-128-euclidean.hdf5:  82%|████████▏ | 433M/525M [05:22<01:09, 1.33MB/s]sift-128-euclidean.hdf5:  83%|████████▎ | 434M/525M [05:22<01:05, 1.38MB/s]sift-128-euclidean.hdf5:  83%|████████▎ | 435M/525M [05:23<01:04, 1.39MB/s]sift-128-euclidean.hdf5:  84%|████████▎ | 439M/525M [05:23<00:26, 3.27MB/s]sift-128-euclidean.hdf5:  84%|████████▍ | 440M/525M [05:24<00:31, 2.67MB/s]sift-128-euclidean.hdf5:  84%|████████▍ | 441M/525M [05:25<00:35, 2.33MB/s]sift-128-euclidean.hdf5:  84%|████████▍ | 442M/525M [05:25<00:40, 2.06MB/s]sift-128-euclidean.hdf5:  84%|████████▍ | 444M/525M [05:26<00:43, 1.88MB/s]sift-128-euclidean.hdf5:  85%|████████▍ | 445M/525M [05:27<00:45, 1.76MB/s]sift-128-euclidean.hdf5:  85%|████████▍ | 446M/525M [05:27<00:46, 1.72MB/s]sift-128-euclidean.hdf5:  85%|████████▌ | 447M/525M [05:28<00:47, 1.65MB/s]sift-128-euclidean.hdf5:  85%|████████▌ | 448M/525M [05:29<00:48, 1.59MB/s]sift-128-euclidean.hdf5:  85%|████████▌ | 449M/525M [05:30<00:48, 1.56MB/s]sift-128-euclidean.hdf5:  86%|████████▌ | 450M/525M [05:30<00:49, 1.53MB/s]sift-128-euclidean.hdf5:  86%|████████▌ | 451M/525M [05:31<00:47, 1.56MB/s]sift-128-euclidean.hdf5:  86%|████████▌ | 452M/525M [05:32<00:47, 1.54MB/s]sift-128-euclidean.hdf5:  86%|████████▋ | 453M/525M [05:32<00:45, 1.57MB/s]sift-128-euclidean.hdf5:  86%|████████▋ | 454M/525M [05:33<00:39, 1.82MB/s]sift-128-euclidean.hdf5:  87%|████████▋ | 455M/525M [05:33<00:32, 2.17MB/s]sift-128-euclidean.hdf5:  87%|████████▋ | 456M/525M [05:33<00:26, 2.61MB/s]sift-128-euclidean.hdf5:  87%|████████▋ | 457M/525M [05:33<00:21, 3.15MB/s]sift-128-euclidean.hdf5:  87%|████████▋ | 458M/525M [05:33<00:17, 3.78MB/s]sift-128-euclidean.hdf5:  87%|████████▋ | 459M/525M [05:33<00:14, 4.51MB/s]sift-128-euclidean.hdf5:  88%|████████▊ | 460M/525M [05:34<00:12, 5.33MB/s]sift-128-euclidean.hdf5:  88%|████████▊ | 461M/525M [05:34<00:10, 6.23MB/s]sift-128-euclidean.hdf5:  88%|████████▊ | 463M/525M [05:34<00:07, 7.97MB/s]sift-128-euclidean.hdf5:  89%|████████▊ | 466M/525M [05:34<00:06, 9.61MB/s]sift-128-euclidean.hdf5:  89%|████████▉ | 468M/525M [05:34<00:05, 11.2MB/s]sift-128-euclidean.hdf5:  89%|████████▉ | 470M/525M [05:34<00:04, 12.9MB/s]sift-128-euclidean.hdf5:  90%|████████▉ | 472M/525M [05:34<00:03, 14.7MB/s]sift-128-euclidean.hdf5:  90%|█████████ | 475M/525M [05:35<00:02, 17.1MB/s]sift-128-euclidean.hdf5:  91%|█████████ | 478M/525M [05:35<00:02, 18.7MB/s]sift-128-euclidean.hdf5:  92%|█████████▏| 481M/525M [05:35<00:02, 19.9MB/s]sift-128-euclidean.hdf5:  92%|█████████▏| 484M/525M [05:35<00:01, 20.6MB/s]sift-128-euclidean.hdf5:  93%|█████████▎| 488M/525M [05:35<00:01, 21.1MB/s]sift-128-euclidean.hdf5:  93%|█████████▎| 491M/525M [05:35<00:01, 21.4MB/s]sift-128-euclidean.hdf5:  94%|█████████▍| 494M/525M [05:35<00:01, 21.7MB/s]sift-128-euclidean.hdf5:  95%|█████████▍| 497M/525M [05:36<00:01, 21.8MB/s]sift-128-euclidean.hdf5:  95%|█████████▌| 500M/525M [05:36<00:01, 22.0MB/s]sift-128-euclidean.hdf5:  96%|█████████▌| 503M/525M [05:36<00:00, 22.1MB/s]sift-128-euclidean.hdf5:  96%|█████████▋| 506M/525M [05:36<00:00, 22.1MB/s]sift-128-euclidean.hdf5:  97%|█████████▋| 510M/525M [05:36<00:00, 22.1MB/s]sift-128-euclidean.hdf5:  98%|█████████▊| 513M/525M [05:36<00:00, 22.2MB/s]sift-128-euclidean.hdf5:  98%|█████████▊| 516M/525M [05:36<00:00, 22.2MB/s]sift-128-euclidean.hdf5:  99%|█████████▉| 519M/525M [05:36<00:00, 22.2MB/s]sift-128-euclidean.hdf5:  99%|█████████▉| 522M/525M [05:37<00:00, 22.2MB/s]sift-128-euclidean.hdf5: 100%|██████████| 525M/525M [05:37<00:00, 22.6MB/s]sift-128-euclidean.hdf5: 100%|██████████| 525M/525M [05:37<00:00, 1.56MB/s]
+19:26:33   ok   sift1m
+
+
+
+
+
+Fetching 6 files: 100%|██████████| 6/6 [08:17<00:00, 114.84s/it][A[A[A[A[AFetching 6 files: 100%|██████████| 6/6 [08:17<00:00, 82.95s/it] 
+Fetching 30 files:   0%|          | 0/30 [00:00<?, ?it/s]Fetching 30 files:   3%|▎         | 1/30 [00:00<00:07,  3.85it/s]Fetching 30 files:  27%|██▋       | 8/30 [00:10<00:29,  1.33s/it]Fetching 30 files:  37%|███▋      | 11/30 [00:12<00:20,  1.10s/it]Fetching 30 files:  40%|████      | 12/30 [00:12<00:18,  1.03s/it]Fetching 30 files:  43%|████▎     | 13/30 [00:13<00:15,  1.09it/s]Fetching 30 files:  47%|████▋     | 14/30 [00:17<00:26,  1.65s/it]Fetching 30 files:  50%|█████     | 15/30 [00:22<00:35,  2.34s/it]Fetching 30 files:  53%|█████▎    | 16/30 [00:24<00:31,  2.25s/it]Fetching 30 files:  57%|█████▋    | 17/30 [00:25<00:23,  1.83s/it]Fetching 30 files:  60%|██████    | 18/30 [00:25<00:16,  1.41s/it]Fetching 30 files:  63%|██████▎   | 19/30 [00:31<00:28,  2.61s/it]Fetching 30 files:  67%|██████▋   | 20/30 [00:32<00:21,  2.12s/it]Fetching 30 files:  70%|███████   | 21/30 [00:32<00:14,  1.59s/it]Fetching 30 files:  73%|███████▎  | 22/30 [00:32<00:09,  1.21s/it]Fetching 30 files:  77%|███████▋  | 23/30 [00:33<00:07,  1.01s/it]Fetching 30 files:  80%|████████  | 24/30 [00:33<00:04,  1.27it/s]Fetching 30 files:  83%|████████▎ | 25/30 [00:35<00:05,  1.06s/it]Fetching 30 files:  87%|████████▋ | 26/30 [00:35<00:03,  1.20it/s]Fetching 30 files:  90%|█████████ | 27/30 [00:37<00:03,  1.09s/it]Fetching 30 files:  93%|█████████▎| 28/30 [00:37<00:01,  1.05it/s]Fetching 30 files:  97%|█████████▋| 29/30 [00:40<00:01,  1.29s/it]Fetching 30 files: 100%|██████████| 30/30 [00:41<00:00,  1.34s/it]Fetching 30 files: 100%|██████████| 30/30 [00:41<00:00,  1.38s/it]
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Fetching 14 files:   7%|▋         | 1/14 [00:00<00:03,  3.74it/s]Fetching 14 files:  50%|█████     | 7/14 [00:00<00:00, 13.16it/s]Fetching 14 files:  86%|████████▌ | 12/14 [00:10<00:02,  1.06s/it]Fetching 14 files:  93%|█████████▎| 13/14 [00:12<00:01,  1.16s/it]Fetching 14 files: 100%|██████████| 14/14 [00:15<00:00,  1.40s/it]Fetching 14 files: 100%|██████████| 14/14 [00:15<00:00,  1.08s/it]
+19:30:34   ok   hf_models
+19:30:34 2/3 embeddings on GPU
+19:30:34   device: cuda
+19:30:35   ok   sift1m_load: train (1000000, 128) test (10000, 128) (1s)
+Loading weights:   0%|          | 0/223 [00:00<?, ?it/s]Loading weights:  62%|██████▏   | 138/223 [00:00<00:00, 1369.99it/s]Loading weights: 100%|██████████| 223/223 [00:00<00:00, 1654.58it/s]
+dinov2_small:train:   0%|          | 0/196 [00:00<?, ?it/s]dinov2_small:train:   1%|          | 1/196 [00:00<02:06,  1.55it/s]dinov2_small:train:   1%|          | 2/196 [00:00<01:26,  2.26it/s]dinov2_small:train:   2%|▏         | 3/196 [00:01<01:03,  3.06it/s]dinov2_small:train:   2%|▏         | 4/196 [00:01<00:52,  3.66it/s]dinov2_small:train:   3%|▎         | 5/196 [00:01<00:47,  4.00it/s]dinov2_small:train:   3%|▎         | 6/196 [00:01<00:48,  3.93it/s]dinov2_small:train:   4%|▎         | 7/196 [00:02<00:53,  3.51it/s]dinov2_small:train:   4%|▍         | 8/196 [00:02<00:48,  3.90it/s]dinov2_small:train:   5%|▍         | 9/196 [00:02<00:45,  4.13it/s]dinov2_small:train:   5%|▌         | 10/196 [00:02<00:44,  4.17it/s]dinov2_small:train:   6%|▌         | 11/196 [00:03<00:44,  4.14it/s]dinov2_small:train:   6%|▌         | 12/196 [00:03<00:42,  4.36it/s]dinov2_small:train:   7%|▋         | 13/196 [00:03<00:39,  4.62it/s]dinov2_small:train:   7%|▋         | 14/196 [00:03<00:37,  4.85it/s]dinov2_small:train:   8%|▊         | 15/196 [00:03<00:38,  4.75it/s]dinov2_small:train:   8%|▊         | 16/196 [00:04<00:37,  4.86it/s]dinov2_small:train:  14%|█▍        | 28/196 [00:04<00:07, 23.41it/s]dinov2_small:train:  16%|█▋        | 32/196 [00:05<00:16,  9.84it/s]dinov2_small:train:  18%|█▊        | 35/196 [00:06<00:28,  5.70it/s]dinov2_small:train:  19%|█▉        | 37/196 [00:06<00:28,  5.62it/s]dinov2_small:train:  20%|█▉        | 39/196 [00:07<00:29,  5.29it/s]dinov2_small:train:  21%|██        | 41/196 [00:07<00:30,  5.03it/s]dinov2_small:train:  21%|██▏       | 42/196 [00:07<00:32,  4.78it/s]dinov2_small:train:  22%|██▏       | 43/196 [00:08<00:31,  4.87it/s]dinov2_small:train:  22%|██▏       | 44/196 [00:08<00:30,  4.96it/s]dinov2_small:train:  23%|██▎       | 45/196 [00:08<00:30,  4.90it/s]dinov2_small:train:  23%|██▎       | 46/196 [00:09<00:44,  3.40it/s]dinov2_small:train:  24%|██▍       | 47/196 [00:09<00:45,  3.25it/s]dinov2_small:train:  24%|██▍       | 48/196 [00:09<00:48,  3.04it/s]dinov2_small:train:  25%|██▌       | 49/196 [00:10<00:44,  3.34it/s]dinov2_small:train:  26%|██▌       | 50/196 [00:10<00:39,  3.71it/s]dinov2_small:train:  26%|██▌       | 51/196 [00:10<00:36,  4.02it/s]dinov2_small:train:  27%|██▋       | 52/196 [00:10<00:33,  4.26it/s]dinov2_small:train:  27%|██▋       | 53/196 [00:10<00:31,  4.56it/s]dinov2_small:train:  28%|██▊       | 54/196 [00:11<00:29,  4.80it/s]dinov2_small:train:  28%|██▊       | 55/196 [00:11<00:28,  4.95it/s]dinov2_small:train:  29%|██▊       | 56/196 [00:11<00:27,  5.17it/s]dinov2_small:train:  29%|██▉       | 57/196 [00:11<00:42,  3.31it/s]dinov2_small:train:  30%|██▉       | 58/196 [00:12<00:42,  3.22it/s]dinov2_small:train:  30%|███       | 59/196 [00:12<00:38,  3.53it/s]dinov2_small:train:  31%|███       | 60/196 [00:12<00:34,  3.92it/s]dinov2_small:train:  31%|███       | 61/196 [00:12<00:31,  4.25it/s]dinov2_small:train:  32%|███▏      | 62/196 [00:13<00:30,  4.43it/s]dinov2_small:train:  32%|███▏      | 63/196 [00:13<00:28,  4.69it/s]dinov2_small:train:  33%|███▎      | 64/196 [00:13<00:27,  4.82it/s]dinov2_small:train:  33%|███▎      | 65/196 [00:13<00:26,  4.92it/s]dinov2_small:train:  34%|███▎      | 66/196 [00:13<00:25,  5.09it/s]dinov2_small:train:  34%|███▍      | 67/196 [00:14<00:24,  5.21it/s]dinov2_small:train:  35%|███▍      | 68/196 [00:14<00:24,  5.25it/s]dinov2_small:train:  35%|███▌      | 69/196 [00:14<00:32,  3.86it/s]dinov2_small:train:  36%|███▌      | 70/196 [00:14<00:34,  3.65it/s]dinov2_small:train:  36%|███▌      | 71/196 [00:15<00:30,  4.03it/s]dinov2_small:train:  37%|███▋      | 72/196 [00:15<00:28,  4.29it/s]dinov2_small:train:  37%|███▋      | 73/196 [00:15<00:27,  4.54it/s]dinov2_small:train:  38%|███▊      | 74/196 [00:15<00:25,  4.74it/s]dinov2_small:train:  38%|███▊      | 75/196 [00:15<00:24,  4.88it/s]dinov2_small:train:  39%|███▉      | 76/196 [00:16<00:23,  5.01it/s]dinov2_small:train:  39%|███▉      | 77/196 [00:16<00:24,  4.94it/s]dinov2_small:train:  40%|███▉      | 78/196 [00:16<00:23,  5.04it/s]dinov2_small:train:  40%|████      | 79/196 [00:16<00:22,  5.18it/s]dinov2_small:train:  41%|████      | 80/196 [00:16<00:22,  5.27it/s]dinov2_small:train:  41%|████▏     | 81/196 [00:17<00:33,  3.45it/s]dinov2_small:train:  42%|████▏     | 82/196 [00:18<00:46,  2.43it/s]dinov2_small:train:  42%|████▏     | 83/196 [00:18<00:50,  2.26it/s]dinov2_small:train:  43%|████▎     | 84/196 [00:18<00:40,  2.75it/s]dinov2_small:train:  43%|████▎     | 85/196 [00:18<00:34,  3.23it/s]dinov2_small:train:  44%|████▍     | 86/196 [00:19<00:30,  3.55it/s]dinov2_small:train:  44%|████▍     | 87/196 [00:19<00:27,  3.98it/s]dinov2_small:train:  45%|████▍     | 88/196 [00:19<00:25,  4.31it/s]dinov2_small:train:  45%|████▌     | 89/196 [00:19<00:23,  4.48it/s]dinov2_small:train:  46%|████▌     | 90/196 [00:19<00:22,  4.63it/s]dinov2_small:train:  46%|████▋     | 91/196 [00:20<00:23,  4.52it/s]dinov2_small:train:  47%|████▋     | 92/196 [00:20<00:22,  4.70it/s]dinov2_small:train:  47%|████▋     | 93/196 [00:20<00:21,  4.70it/s]dinov2_small:train:  48%|████▊     | 94/196 [00:20<00:20,  4.92it/s]dinov2_small:train:  48%|████▊     | 95/196 [00:20<00:19,  5.15it/s]dinov2_small:train:  49%|████▉     | 96/196 [00:21<00:18,  5.28it/s]dinov2_small:train:  49%|████▉     | 97/196 [00:21<00:18,  5.23it/s]dinov2_small:train:  50%|█████     | 98/196 [00:21<00:18,  5.35it/s]dinov2_small:train:  51%|█████     | 99/196 [00:21<00:18,  5.30it/s]dinov2_small:train:  51%|█████     | 100/196 [00:21<00:17,  5.39it/s]dinov2_small:train:  52%|█████▏    | 101/196 [00:22<00:17,  5.48it/s]dinov2_small:train:  52%|█████▏    | 102/196 [00:22<00:16,  5.58it/s]dinov2_small:train:  53%|█████▎    | 103/196 [00:22<00:17,  5.30it/s]dinov2_small:train:  53%|█████▎    | 104/196 [00:22<00:17,  5.40it/s]dinov2_small:train:  54%|█████▎    | 105/196 [00:22<00:18,  4.82it/s]dinov2_small:train:  54%|█████▍    | 106/196 [00:23<00:18,  4.82it/s]dinov2_small:train:  55%|█████▍    | 107/196 [00:23<00:18,  4.89it/s]dinov2_small:train:  55%|█████▌    | 108/196 [00:23<00:18,  4.87it/s]dinov2_small:train:  56%|█████▌    | 109/196 [00:23<00:16,  5.13it/s]dinov2_small:train:  56%|█████▌    | 110/196 [00:23<00:16,  5.24it/s]dinov2_small:train:  57%|█████▋    | 111/196 [00:24<00:16,  5.15it/s]dinov2_small:train:  57%|█████▋    | 112/196 [00:24<00:16,  5.13it/s]dinov2_small:train:  58%|█████▊    | 113/196 [00:24<00:16,  5.17it/s]dinov2_small:train:  58%|█████▊    | 114/196 [00:24<00:16,  5.09it/s]dinov2_small:train:  59%|█████▊    | 115/196 [00:25<00:21,  3.83it/s]dinov2_small:train:  59%|█████▉    | 116/196 [00:25<00:19,  4.17it/s]dinov2_small:train:  60%|█████▉    | 117/196 [00:25<00:17,  4.48it/s]dinov2_small:train:  60%|██████    | 118/196 [00:25<00:21,  3.57it/s]dinov2_small:train:  61%|██████    | 119/196 [00:26<00:19,  3.95it/s]dinov2_small:train:  61%|██████    | 120/196 [00:26<00:18,  4.22it/s]dinov2_small:train:  62%|██████▏   | 121/196 [00:26<00:16,  4.56it/s]dinov2_small:train:  62%|██████▏   | 122/196 [00:26<00:15,  4.82it/s]dinov2_small:train:  63%|██████▎   | 123/196 [00:26<00:16,  4.48it/s]dinov2_small:train:  63%|██████▎   | 124/196 [00:27<00:24,  2.91it/s]dinov2_small:train:  64%|██████▍   | 125/196 [00:27<00:21,  3.25it/s]dinov2_small:train:  64%|██████▍   | 126/196 [00:27<00:20,  3.46it/s]dinov2_small:train:  65%|██████▍   | 127/196 [00:28<00:17,  3.91it/s]dinov2_small:train:  65%|██████▌   | 128/196 [00:28<00:18,  3.67it/s]dinov2_small:train:  66%|██████▌   | 129/196 [00:28<00:17,  3.74it/s]dinov2_small:train:  66%|██████▋   | 130/196 [00:28<00:16,  4.01it/s]dinov2_small:train:  67%|██████▋   | 131/196 [00:29<00:15,  4.26it/s]dinov2_small:train:  67%|██████▋   | 132/196 [00:29<00:14,  4.51it/s]dinov2_small:train:  68%|██████▊   | 133/196 [00:29<00:14,  4.48it/s]dinov2_small:train:  68%|██████▊   | 134/196 [00:29<00:13,  4.72it/s]dinov2_small:train:  69%|██████▉   | 135/196 [00:29<00:12,  4.96it/s]dinov2_small:train:  69%|██████▉   | 136/196 [00:30<00:12,  4.97it/s]dinov2_small:train:  70%|██████▉   | 137/196 [00:30<00:11,  5.03it/s]dinov2_small:train:  70%|███████   | 138/196 [00:30<00:11,  5.10it/s]dinov2_small:train:  71%|███████   | 139/196 [00:30<00:10,  5.22it/s]dinov2_small:train:  71%|███████▏  | 140/196 [00:30<00:10,  5.30it/s]dinov2_small:train:  72%|███████▏  | 141/196 [00:30<00:10,  5.19it/s]dinov2_small:train:  72%|███████▏  | 142/196 [00:31<00:10,  5.21it/s]dinov2_small:train:  73%|███████▎  | 143/196 [00:31<00:09,  5.30it/s]dinov2_small:train:  73%|███████▎  | 144/196 [00:31<00:10,  5.08it/s]dinov2_small:train:  74%|███████▍  | 145/196 [00:31<00:10,  5.01it/s]dinov2_small:train:  74%|███████▍  | 146/196 [00:31<00:09,  5.03it/s]dinov2_small:train:  75%|███████▌  | 147/196 [00:32<00:09,  5.07it/s]dinov2_small:train:  76%|███████▌  | 148/196 [00:32<00:09,  5.14it/s]dinov2_small:train:  76%|███████▌  | 149/196 [00:32<00:09,  5.20it/s]dinov2_small:train:  77%|███████▋  | 150/196 [00:32<00:08,  5.22it/s]dinov2_small:train:  77%|███████▋  | 151/196 [00:33<00:11,  3.96it/s]dinov2_small:train:  78%|███████▊  | 152/196 [00:33<00:13,  3.22it/s]dinov2_small:train:  78%|███████▊  | 153/196 [00:33<00:12,  3.48it/s]dinov2_small:train:  79%|███████▊  | 154/196 [00:34<00:11,  3.74it/s]dinov2_small:train:  80%|███████▉  | 156/196 [00:37<00:34,  1.17it/s]dinov2_small:train:  93%|█████████▎| 182/196 [00:37<00:01, 10.06it/s]dinov2_small:train:  94%|█████████▍| 185/196 [00:38<00:01,  8.54it/s]dinov2_small:train:  96%|█████████▌| 188/196 [00:38<00:01,  7.55it/s]dinov2_small:train:  97%|█████████▋| 190/196 [00:39<00:00,  7.11it/s]dinov2_small:train:  98%|█████████▊| 192/196 [00:39<00:00,  6.25it/s]dinov2_small:train:  99%|█████████▉| 194/196 [00:40<00:00,  5.95it/s]dinov2_small:train:  99%|█████████▉| 195/196 [00:40<00:00,  5.85it/s]dinov2_small:train: 100%|██████████| 196/196 [00:40<00:00,  4.86it/s]
+dinov2_small:test:   0%|          | 0/40 [00:00<?, ?it/s]dinov2_small:test:   2%|▎         | 1/40 [00:00<00:10,  3.83it/s]dinov2_small:test:   5%|▌         | 2/40 [00:00<00:08,  4.31it/s]dinov2_small:test:   8%|▊         | 3/40 [00:00<00:08,  4.50it/s]dinov2_small:test:  10%|█         | 4/40 [00:00<00:07,  4.77it/s]dinov2_small:test:  12%|█▎        | 5/40 [00:01<00:07,  4.80it/s]dinov2_small:test:  15%|█▌        | 6/40 [00:01<00:07,  4.74it/s]dinov2_small:test:  18%|█▊        | 7/40 [00:01<00:07,  4.40it/s]dinov2_small:test:  20%|██        | 8/40 [00:01<00:06,  4.65it/s]dinov2_small:test:  22%|██▎       | 9/40 [00:02<00:07,  4.25it/s]dinov2_small:test:  25%|██▌       | 10/40 [00:02<00:10,  2.73it/s]dinov2_small:test:  28%|██▊       | 11/40 [00:02<00:09,  3.16it/s]dinov2_small:test:  30%|███       | 12/40 [00:03<00:07,  3.54it/s]dinov2_small:test:  32%|███▎      | 13/40 [00:03<00:07,  3.75it/s]dinov2_small:test:  35%|███▌      | 14/40 [00:03<00:06,  4.16it/s]dinov2_small:test:  38%|███▊      | 15/40 [00:03<00:06,  4.03it/s]dinov2_small:test:  40%|████      | 16/40 [00:03<00:05,  4.30it/s]dinov2_small:test:  42%|████▎     | 17/40 [00:04<00:05,  4.51it/s]dinov2_small:test:  45%|████▌     | 18/40 [00:04<00:04,  4.44it/s]dinov2_small:test:  48%|████▊     | 19/40 [00:04<00:04,  4.65it/s]dinov2_small:test:  50%|█████     | 20/40 [00:04<00:04,  4.86it/s]dinov2_small:test:  52%|█████▎    | 21/40 [00:04<00:03,  5.02it/s]dinov2_small:test:  55%|█████▌    | 22/40 [00:05<00:03,  4.84it/s]dinov2_small:test:  57%|█████▊    | 23/40 [00:05<00:03,  4.88it/s]dinov2_small:test:  60%|██████    | 24/40 [00:05<00:03,  4.94it/s]dinov2_small:test:  62%|██████▎   | 25/40 [00:05<00:03,  4.97it/s]dinov2_small:test:  65%|██████▌   | 26/40 [00:05<00:02,  5.13it/s]dinov2_small:test:  68%|██████▊   | 27/40 [00:06<00:02,  5.23it/s]dinov2_small:test:  70%|███████   | 28/40 [00:06<00:03,  3.80it/s]dinov2_small:test:  72%|███████▎  | 29/40 [00:06<00:02,  4.04it/s]dinov2_small:test:  75%|███████▌  | 30/40 [00:06<00:02,  4.23it/s]dinov2_small:test:  78%|███████▊  | 31/40 [00:07<00:01,  4.51it/s]dinov2_small:test:  80%|████████  | 32/40 [00:07<00:01,  4.72it/s]dinov2_small:test:  82%|████████▎ | 33/40 [00:07<00:01,  4.70it/s]dinov2_small:test:  85%|████████▌ | 34/40 [00:07<00:01,  4.79it/s]dinov2_small:test:  88%|████████▊ | 35/40 [00:07<00:01,  4.84it/s]dinov2_small:test:  90%|█████████ | 36/40 [00:08<00:00,  4.75it/s]dinov2_small:test:  92%|█████████▎| 37/40 [00:08<00:00,  4.83it/s]dinov2_small:test:  95%|█████████▌| 38/40 [00:08<00:00,  4.94it/s]dinov2_small:test:  98%|█████████▊| 39/40 [00:08<00:00,  4.54it/s]dinov2_small:test: 100%|██████████| 40/40 [00:08<00:00,  4.48it/s]
+19:31:36   ok   dinov2_cifar100: train (50000, 384) test (10000, 384) (61s)
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 1735.59it/s]
+Batches:   0%|          | 0/391 [00:00<?, ?it/s]Batches:   0%|          | 1/391 [00:00<01:39,  3.94it/s]Batches:   1%|          | 2/391 [00:00<01:13,  5.32it/s]Batches:   1%|          | 4/391 [00:00<00:45,  8.56it/s]Batches:   2%|▏         | 6/391 [00:00<00:35, 10.80it/s]Batches:   2%|▏         | 8/391 [00:00<00:29, 12.81it/s]Batches:   3%|▎         | 10/391 [00:00<00:28, 13.50it/s]Batches:   3%|▎         | 12/391 [00:01<00:26, 14.10it/s]Batches:   4%|▎         | 14/391 [00:01<00:24, 15.27it/s]Batches:   4%|▍         | 16/391 [00:01<00:23, 16.15it/s]Batches:   5%|▍         | 18/391 [00:01<00:22, 16.64it/s]Batches:   5%|▌         | 21/391 [00:01<00:20, 17.77it/s]Batches:   6%|▌         | 23/391 [00:01<00:20, 17.77it/s]Batches:   6%|▋         | 25/391 [00:01<00:20, 17.95it/s]Batches:   7%|▋         | 28/391 [00:01<00:19, 18.66it/s]Batches:   8%|▊         | 31/391 [00:02<00:18, 19.47it/s]Batches:   9%|▊         | 34/391 [00:02<00:17, 20.20it/s]Batches:   9%|▉         | 37/391 [00:02<00:16, 21.19it/s]Batches:  10%|█         | 40/391 [00:02<00:15, 22.09it/s]Batches:  11%|█         | 43/391 [00:02<00:15, 22.39it/s]Batches:  12%|█▏        | 46/391 [00:02<00:15, 21.86it/s]Batches:  13%|█▎        | 49/391 [00:02<00:15, 22.31it/s]Batches:  13%|█▎        | 52/391 [00:02<00:14, 23.11it/s]Batches:  14%|█▍        | 55/391 [00:03<00:14, 22.76it/s]Batches:  15%|█▍        | 58/391 [00:03<00:14, 23.14it/s]Batches:  16%|█▌        | 61/391 [00:03<00:13, 24.12it/s]Batches:  16%|█▋        | 64/391 [00:03<00:13, 23.37it/s]Batches:  17%|█▋        | 67/391 [00:03<00:13, 23.32it/s]Batches:  18%|█▊        | 70/391 [00:03<00:13, 24.32it/s]Batches:  19%|█▊        | 73/391 [00:03<00:13, 23.09it/s]Batches:  19%|█▉        | 76/391 [00:03<00:13, 23.64it/s]Batches:  20%|██        | 79/391 [00:04<00:13, 23.66it/s]Batches:  21%|██        | 82/391 [00:04<00:12, 24.06it/s]Batches:  22%|██▏       | 85/391 [00:04<00:12, 24.07it/s]Batches:  23%|██▎       | 88/391 [00:04<00:12, 25.22it/s]Batches:  23%|██▎       | 91/391 [00:04<00:11, 25.46it/s]Batches:  24%|██▍       | 94/391 [00:04<00:11, 25.67it/s]Batches:  25%|██▍       | 97/391 [00:04<00:11, 25.55it/s]Batches:  26%|██▌       | 100/391 [00:04<00:11, 26.36it/s]Batches:  26%|██▋       | 103/391 [00:05<00:11, 25.51it/s]Batches:  27%|██▋       | 106/391 [00:05<00:11, 25.41it/s]Batches:  28%|██▊       | 109/391 [00:05<00:11, 23.69it/s]Batches:  29%|██▊       | 112/391 [00:05<00:11, 23.95it/s]Batches:  29%|██▉       | 115/391 [00:05<00:11, 23.93it/s]Batches:  30%|███       | 118/391 [00:05<00:11, 24.00it/s]Batches:  31%|███       | 121/391 [00:05<00:11, 24.50it/s]Batches:  32%|███▏      | 124/391 [00:05<00:10, 24.77it/s]Batches:  32%|███▏      | 127/391 [00:06<00:10, 25.44it/s]Batches:  33%|███▎      | 130/391 [00:06<00:10, 25.65it/s]Batches:  34%|███▍      | 133/391 [00:06<00:10, 25.34it/s]Batches:  35%|███▍      | 136/391 [00:06<00:10, 25.44it/s]Batches:  36%|███▌      | 139/391 [00:06<00:09, 25.29it/s]Batches:  36%|███▋      | 142/391 [00:06<00:09, 25.96it/s]Batches:  37%|███▋      | 145/391 [00:06<00:09, 26.59it/s]Batches:  38%|███▊      | 148/391 [00:06<00:09, 26.00it/s]Batches:  39%|███▊      | 151/391 [00:06<00:09, 25.89it/s]Batches:  39%|███▉      | 154/391 [00:07<00:08, 26.44it/s]Batches:  40%|████      | 157/391 [00:07<00:08, 26.52it/s]Batches:  41%|████      | 160/391 [00:07<00:08, 27.38it/s]Batches:  42%|████▏     | 163/391 [00:07<00:08, 27.88it/s]Batches:  42%|████▏     | 166/391 [00:07<00:08, 27.39it/s]Batches:  43%|████▎     | 169/391 [00:07<00:08, 27.32it/s]Batches:  44%|████▍     | 172/391 [00:07<00:07, 27.66it/s]Batches:  45%|████▍     | 175/391 [00:07<00:07, 27.32it/s]Batches:  46%|████▌     | 178/391 [00:07<00:07, 27.59it/s]Batches:  46%|████▋     | 181/391 [00:08<00:07, 27.19it/s]Batches:  47%|████▋     | 184/391 [00:08<00:07, 26.74it/s]Batches:  48%|████▊     | 187/391 [00:08<00:07, 27.12it/s]Batches:  49%|████▊     | 190/391 [00:08<00:07, 27.24it/s]Batches:  49%|████▉     | 193/391 [00:11<01:00,  3.27it/s]Batches:  50%|█████     | 196/391 [00:11<00:43,  4.44it/s]Batches:  91%|█████████ | 355/391 [00:11<00:00, 97.96it/s]Batches: 100%|██████████| 391/391 [00:12<00:00, 31.79it/s]
+Batches:   0%|          | 0/30 [00:00<?, ?it/s]Batches:   7%|▋         | 2/30 [00:00<00:01, 14.92it/s]Batches:  17%|█▋        | 5/30 [00:00<00:01, 21.05it/s]Batches:  27%|██▋       | 8/30 [00:00<00:00, 23.05it/s]Batches:  37%|███▋      | 11/30 [00:00<00:00, 24.85it/s]Batches:  47%|████▋     | 14/30 [00:00<00:00, 25.62it/s]Batches:  57%|█████▋    | 17/30 [00:00<00:00, 25.15it/s]Batches:  70%|███████   | 21/30 [00:00<00:00, 27.47it/s]Batches:  83%|████████▎ | 25/30 [00:00<00:00, 28.99it/s]Batches:  97%|█████████▋| 29/30 [00:01<00:00, 31.35it/s]Batches: 100%|██████████| 30/30 [00:01<00:00, 27.56it/s]
+19:31:56   ok   agnews_minilm: train (100000, 384) test (7600, 384) (20s)
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:  69%|██████▉   | 138/199 [00:00<00:00, 1373.39it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 1867.73it/s]
+Batches:   0%|          | 0/391 [00:00<?, ?it/s]Batches:   0%|          | 1/391 [00:00<01:42,  3.81it/s]Batches:   1%|          | 2/391 [00:00<01:14,  5.24it/s]Batches:   1%|          | 3/391 [00:00<01:00,  6.41it/s]Batches:   1%|▏         | 5/391 [00:00<00:47,  8.07it/s]Batches:   2%|▏         | 7/391 [00:00<00:41,  9.20it/s]Batches:   2%|▏         | 9/391 [00:01<00:38,  9.98it/s]Batches:   3%|▎         | 11/391 [00:01<00:37, 10.17it/s]Batches:   3%|▎         | 13/391 [00:01<00:34, 10.83it/s]Batches:   4%|▍         | 15/391 [00:01<00:33, 11.22it/s]Batches:   4%|▍         | 17/391 [00:01<00:32, 11.50it/s]Batches:   5%|▍         | 19/391 [00:01<00:31, 11.68it/s]Batches:   5%|▌         | 21/391 [00:02<00:30, 12.20it/s]Batches:   6%|▌         | 23/391 [00:02<00:30, 12.14it/s]Batches:   6%|▋         | 25/391 [00:02<00:29, 12.50it/s]Batches:   7%|▋         | 27/391 [00:02<00:27, 13.05it/s]Batches:   7%|▋         | 29/391 [00:02<00:27, 13.37it/s]Batches:   8%|▊         | 31/391 [00:02<00:26, 13.60it/s]Batches:   8%|▊         | 33/391 [00:02<00:26, 13.63it/s]Batches:   9%|▉         | 35/391 [00:03<00:24, 14.65it/s]Batches:   9%|▉         | 37/391 [00:03<00:23, 15.31it/s]Batches:  10%|▉         | 39/391 [00:03<00:22, 15.91it/s]Batches:  10%|█         | 41/391 [00:03<00:22, 15.80it/s]Batches:  11%|█         | 43/391 [00:03<00:21, 15.88it/s]Batches:  12%|█▏        | 45/391 [00:03<00:21, 16.20it/s]Batches:  12%|█▏        | 47/391 [00:03<00:20, 16.56it/s]Batches:  13%|█▎        | 49/391 [00:03<00:20, 16.50it/s]Batches:  13%|█▎        | 51/391 [00:04<00:20, 16.78it/s]Batches:  14%|█▎        | 53/391 [00:04<00:19, 16.95it/s]Batches:  14%|█▍        | 55/391 [00:04<00:19, 17.36it/s]Batches:  15%|█▍        | 57/391 [00:04<00:18, 17.68it/s]Batches:  15%|█▌        | 59/391 [00:04<00:18, 18.11it/s]Batches:  16%|█▌        | 61/391 [00:04<00:18, 18.04it/s]Batches:  16%|█▌        | 63/391 [00:04<00:18, 17.75it/s]Batches:  17%|█▋        | 65/391 [00:04<00:18, 17.28it/s]Batches:  17%|█▋        | 67/391 [00:04<00:18, 17.50it/s]Batches:  18%|█▊        | 69/391 [00:05<00:17, 17.94it/s]Batches:  18%|█▊        | 71/391 [00:05<00:17, 17.83it/s]Batches:  19%|█▊        | 73/391 [00:05<00:18, 17.15it/s]Batches:  19%|█▉        | 75/391 [00:05<00:18, 17.32it/s]Batches:  20%|█▉        | 77/391 [00:05<00:17, 17.46it/s]Batches:  20%|██        | 79/391 [00:05<00:17, 17.92it/s]Batches:  21%|██        | 81/391 [00:05<00:17, 17.56it/s]Batches:  21%|██        | 83/391 [00:05<00:18, 17.06it/s]Batches:  22%|██▏       | 85/391 [00:05<00:17, 17.09it/s]Batches:  22%|██▏       | 87/391 [00:06<00:17, 17.47it/s]Batches:  23%|██▎       | 89/391 [00:06<00:16, 18.04it/s]Batches:  23%|██▎       | 91/391 [00:06<00:16, 18.42it/s]Batches:  24%|██▍       | 93/391 [00:06<00:16, 18.43it/s]Batches:  24%|██▍       | 95/391 [00:06<00:15, 18.72it/s]Batches:  25%|██▍       | 97/391 [00:06<00:16, 18.23it/s]Batches:  25%|██▌       | 99/391 [00:06<00:16, 18.18it/s]Batches:  26%|██▌       | 102/391 [00:06<00:15, 18.79it/s]Batches:  27%|██▋       | 104/391 [00:06<00:15, 18.49it/s]Batches:  27%|██▋       | 107/391 [00:07<00:15, 18.67it/s]Batches:  28%|██▊       | 109/391 [00:07<00:15, 18.74it/s]Batches:  28%|██▊       | 111/391 [00:07<00:15, 17.90it/s]Batches:  29%|██▉       | 113/391 [00:07<00:15, 17.85it/s]Batches:  29%|██▉       | 115/391 [00:07<00:15, 17.48it/s]Batches:  30%|██▉       | 117/391 [00:07<00:15, 17.29it/s]Batches:  30%|███       | 119/391 [00:07<00:15, 17.97it/s]Batches:  31%|███       | 121/391 [00:07<00:15, 17.76it/s]Batches:  31%|███▏      | 123/391 [00:08<00:25, 10.59it/s]Batches:  32%|███▏      | 126/391 [00:08<00:20, 13.07it/s]Batches:  33%|███▎      | 128/391 [00:08<00:18, 14.13it/s]Batches:  33%|███▎      | 130/391 [00:08<00:17, 15.04it/s]Batches:  34%|███▍      | 132/391 [00:08<00:16, 16.08it/s]Batches:  34%|███▍      | 134/391 [00:08<00:15, 16.67it/s]Batches:  35%|███▍      | 136/391 [00:08<00:14, 17.01it/s]Batches:  35%|███▌      | 138/391 [00:09<00:14, 17.46it/s]Batches:  36%|███▌      | 140/391 [00:09<00:13, 18.07it/s]Batches:  36%|███▋      | 142/391 [00:09<00:13, 18.51it/s]Batches:  37%|███▋      | 144/391 [00:09<00:13, 18.70it/s]Batches:  38%|███▊      | 147/391 [00:09<00:12, 19.24it/s]Batches:  38%|███▊      | 149/391 [00:09<00:12, 18.94it/s]Batches:  39%|███▉      | 152/391 [00:09<00:12, 19.22it/s]Batches:  39%|███▉      | 154/391 [00:09<00:12, 19.25it/s]Batches:  40%|███▉      | 156/391 [00:10<00:12, 19.41it/s]Batches:  41%|████      | 159/391 [00:10<00:11, 19.86it/s]Batches:  41%|████      | 161/391 [00:10<00:11, 19.45it/s]Batches:  42%|████▏     | 164/391 [00:10<00:11, 19.86it/s]Batches:  42%|████▏     | 166/391 [00:10<00:11, 19.22it/s]Batches:  43%|████▎     | 168/391 [00:10<00:11, 19.20it/s]Batches:  43%|████▎     | 170/391 [00:10<00:11, 19.40it/s]Batches:  44%|████▍     | 172/391 [00:10<00:11, 19.44it/s]Batches:  45%|████▍     | 174/391 [00:10<00:11, 19.46it/s]Batches:  45%|████▌     | 176/391 [00:11<00:10, 19.59it/s]Batches:  46%|████▌     | 178/391 [00:11<00:10, 19.52it/s]Batches:  46%|████▌     | 180/391 [00:11<00:11, 18.90it/s]Batches:  47%|████▋     | 182/391 [00:11<00:11, 18.78it/s]Batches:  47%|████▋     | 184/391 [00:11<00:11, 18.64it/s]Batches:  48%|████▊     | 186/391 [00:11<00:11, 18.47it/s]Batches:  48%|████▊     | 188/391 [00:11<00:10, 18.52it/s]Batches:  49%|████▊     | 190/391 [00:11<00:11, 18.26it/s]Batches:  49%|████▉     | 192/391 [00:11<00:11, 18.04it/s]Batches:  50%|████▉     | 194/391 [00:12<00:10, 18.16it/s]Batches:  50%|█████     | 196/391 [00:12<00:11, 17.41it/s]Batches:  51%|█████     | 198/391 [00:12<00:10, 17.83it/s]Batches:  51%|█████     | 200/391 [00:12<00:10, 18.06it/s]Batches:  52%|█████▏    | 203/391 [00:12<00:09, 18.82it/s]Batches:  52%|█████▏    | 205/391 [00:12<00:09, 18.87it/s]Batches:  53%|█████▎    | 208/391 [00:12<00:09, 19.41it/s]Batches:  54%|█████▎    | 210/391 [00:12<00:09, 19.11it/s]Batches:  54%|█████▍    | 213/391 [00:13<00:08, 19.81it/s]Batches:  55%|█████▍    | 215/391 [00:13<00:08, 19.75it/s]Batches:  55%|█████▌    | 217/391 [00:13<00:08, 19.60it/s]Batches:  56%|█████▋    | 220/391 [00:13<00:08, 19.86it/s]Batches:  57%|█████▋    | 222/391 [00:13<00:08, 19.31it/s]Batches:  58%|█████▊    | 225/391 [00:13<00:08, 19.63it/s]Batches:  58%|█████▊    | 227/391 [00:13<00:08, 19.06it/s]Batches:  59%|█████▉    | 230/391 [00:13<00:08, 19.24it/s]Batches:  60%|█████▉    | 233/391 [00:14<00:07, 19.79it/s]Batches:  60%|██████    | 235/391 [00:14<00:07, 19.52it/s]Batches:  61%|██████    | 237/391 [00:14<00:07, 19.61it/s]Batches:  61%|██████▏   | 240/391 [00:14<00:07, 19.89it/s]Batches:  62%|██████▏   | 243/391 [00:14<00:07, 20.91it/s]Batches:  63%|██████▎   | 246/391 [00:14<00:07, 20.56it/s]Batches:  64%|██████▎   | 249/391 [00:14<00:06, 20.61it/s]Batches:  64%|██████▍   | 252/391 [00:14<00:06, 21.13it/s]Batches:  65%|██████▌   | 255/391 [00:15<00:06, 20.89it/s]Batches:  66%|██████▌   | 258/391 [00:15<00:06, 20.29it/s]Batches:  67%|██████▋   | 261/391 [00:15<00:06, 19.98it/s]Batches:  68%|██████▊   | 264/391 [00:15<00:06, 19.88it/s]Batches:  68%|██████▊   | 266/391 [00:15<00:06, 19.86it/s]Batches:  69%|██████▊   | 268/391 [00:15<00:06, 19.87it/s]Batches:  69%|██████▉   | 271/391 [00:15<00:06, 19.93it/s]Batches:  70%|██████▉   | 273/391 [00:16<00:06, 19.15it/s]Batches:  71%|███████   | 276/391 [00:16<00:05, 19.61it/s]Batches:  71%|███████   | 278/391 [00:16<00:05, 19.60it/s]Batches:  72%|███████▏  | 280/391 [00:16<00:05, 19.13it/s]Batches:  72%|███████▏  | 282/391 [00:16<00:05, 19.02it/s]Batches:  73%|███████▎  | 285/391 [00:16<00:05, 20.11it/s]Batches:  74%|███████▎  | 288/391 [00:16<00:04, 21.04it/s]Batches:  74%|███████▍  | 291/391 [00:16<00:04, 21.83it/s]Batches:  75%|███████▌  | 294/391 [00:17<00:04, 22.41it/s]Batches:  76%|███████▌  | 297/391 [00:17<00:04, 22.46it/s]Batches:  77%|███████▋  | 300/391 [00:17<00:04, 21.86it/s]Batches:  77%|███████▋  | 303/391 [00:17<00:04, 21.85it/s]Batches:  78%|███████▊  | 306/391 [00:17<00:03, 21.64it/s]Batches:  79%|███████▉  | 309/391 [00:17<00:03, 22.79it/s]Batches:  80%|███████▉  | 312/391 [00:18<00:05, 14.44it/s]Batches:  81%|████████  | 315/391 [00:18<00:04, 16.55it/s]Batches:  81%|████████▏ | 318/391 [00:18<00:03, 18.67it/s]Batches:  82%|████████▏ | 321/391 [00:18<00:03, 20.73it/s]Batches:  83%|████████▎ | 324/391 [00:18<00:02, 22.84it/s]Batches:  84%|████████▎ | 327/391 [00:18<00:02, 23.39it/s]Batches:  84%|████████▍ | 330/391 [00:18<00:02, 23.73it/s]Batches:  85%|████████▌ | 333/391 [00:18<00:02, 24.56it/s]Batches:  86%|████████▌ | 336/391 [00:18<00:02, 24.28it/s]Batches:  87%|████████▋ | 339/391 [00:19<00:02, 24.28it/s]Batches:  87%|████████▋ | 342/391 [00:19<00:02, 23.56it/s]Batches:  88%|████████▊ | 345/391 [00:19<00:01, 24.51it/s]Batches:  89%|████████▉ | 348/391 [00:19<00:01, 25.53it/s]Batches:  90%|████████▉ | 351/391 [00:19<00:01, 23.84it/s]Batches:  91%|█████████ | 354/391 [00:22<00:11,  3.21it/s]Batches:  91%|█████████▏| 357/391 [00:22<00:07,  4.38it/s]Batches: 100%|██████████| 391/391 [00:18<00:00, 21.14it/s]
+Batches:   0%|          | 0/30 [00:00<?, ?it/s]Batches:   3%|▎         | 1/30 [00:00<00:04,  6.80it/s]Batches:  10%|█         | 3/30 [00:00<00:02, 11.85it/s]Batches:  17%|█▋        | 5/30 [00:00<00:01, 14.52it/s]Batches:  23%|██▎       | 7/30 [00:00<00:01, 15.43it/s]Batches:  30%|███       | 9/30 [00:00<00:01, 15.37it/s]Batches:  37%|███▋      | 11/30 [00:00<00:01, 16.49it/s]Batches:  43%|████▎     | 13/30 [00:00<00:01, 16.92it/s]Batches:  50%|█████     | 15/30 [00:00<00:00, 17.62it/s]Batches:  57%|█████▋    | 17/30 [00:01<00:00, 17.68it/s]Batches:  67%|██████▋   | 20/30 [00:01<00:00, 18.97it/s]Batches:  77%|███████▋  | 23/30 [00:01<00:00, 19.94it/s]Batches:  87%|████████▋ | 26/30 [00:01<00:00, 20.56it/s]Batches:  97%|█████████▋| 29/30 [00:01<00:00, 22.88it/s]Batches: 100%|██████████| 30/30 [00:01<00:00, 18.64it/s]
+19:32:21   ok   agnews_bge: train (100000, 384) test (7600, 384) (25s)
+19:32:21 3/3 processed caches (parallel processes)
+19:32:24   ok   lda_enron
+19:32:26   ok   lda_20ng
+19:32:26   ok   dl_nmf_20ng
+19:32:28   ok   ml1m_split
+19:32:29   ok   dl_cifar_p8
+19:32:29   ok   dl_cifar_p12
+19:32:29   ok   uci_har_vq
+19:32:34   ok   lda_nytimes
+19:32:36   ok   brown_check
+19:32:40   ok   ml10m_split
+19:32:40 done in 11.7 min; failed: none
+19:32:40 touched /home/dummi/clasic_evolution/data/.ready: data-dependent queue jobs start on the scheduler's next poll

@@ -1,0 +1,5 @@
+gmm-ema: archived 63 (kept 42); timing archived 45 (kept 48)
+dictlearn-scaling: archived 36 (kept 9); timing archived 18 (kept 9)
+lda-scaling: archived 45 (kept 18); timing archived 18 (kept 9)
+als-ema: archived 18 (kept 6); timing archived 12 (kept 6)
+hmm-ema: archived 27 (kept 18); timing archived 18 (kept 18)

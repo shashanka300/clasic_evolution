@@ -1,0 +1,8 @@
+
+##### enron D=35518 V=20000 K=50
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+  [lda-scaling] enron n=35518 k=50 B=256 T=10.0 a0=0.0027 s=4 val=2549.7 test=2426.9 (216.5s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=10.0 a0=0.0052 s=4 val=2428.6 test=2319.8 (200.8s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=10.0 a0=0.0100 s=4 val=2414.3 test=2278.8 (177.0s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=10.0 a0=0.0193 s=4 val=2492.5 test=2315.9 (176.9s)

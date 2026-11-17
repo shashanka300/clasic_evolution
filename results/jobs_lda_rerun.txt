@@ -1,0 +1,4 @@
+# T05 rerun after the E-step aliasing fix (results before it: results/lda-scaling/superseded_estep_alias_bug/).
+# The law-sweep and cosine-law stages are in results/jobs_5090.txt (they had not started; they run the fixed CPU kernel).
+# Run as a second scheduler instance:  python3 scripts/pqueue.py --jobs results/jobs_lda_rerun.txt --done results/pqueue_lda_done.txt --budget 4
+id=lda_all threads=4 needs=data :: CLASSIC_ALGOS_GPU_PORTS=lda .venv/bin/python -u tracks/lda-scaling/run_v2.py --stage all >> results/lda-scaling/console.log 2>&1

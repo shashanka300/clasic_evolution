@@ -1,0 +1,6 @@
+
+##### cifar_p12 n=100000 d=144 K=192
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=10.0 a0=0.0373 s=3 val=0.21513 test=0.21407 (946.2s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=10.0 a0=0.0720 s=3 val=0.21498 test=0.21393 (1047.3s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=10.0 a0=0.1389 s=3 val=0.21491 test=0.21378 (1001.1s)
+  [dictlearn-scaling] cifar_p12 n=100000 k=192 B=256 T=10.0 a0=0.2683 s=3 val=0.21508 test=0.21397 (973.9s)

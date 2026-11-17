@@ -1,0 +1,945 @@
+[blobs_k8_d16 s=0] ema_xmeans         k=8 (true 8) ARI=1.000 (0.2s)
+[blobs_k8_d16 s=0] xmeans             k=8 (true 8) ARI=1.000 (0.5s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k8_d16 s=0] gmeans             k=8 (true 8) ARI=1.000 (0.2s)
+[blobs_k8_d16 s=0] silhouette_sweep   k=4 (true 8) ARI=0.579 (5.9s)
+[blobs_k8_d16 s=1] ema_xmeans         k=8 (true 8) ARI=1.000 (0.1s)
+[blobs_k8_d16 s=1] xmeans             k=8 (true 8) ARI=1.000 (0.2s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k8_d16 s=1] gmeans             k=8 (true 8) ARI=1.000 (0.2s)
+[blobs_k8_d16 s=1] silhouette_sweep   k=16 (true 8) ARI=0.657 (6.1s)
+[blobs_k8_d16 s=2] ema_xmeans         k=8 (true 8) ARI=1.000 (0.2s)
+[blobs_k8_d16 s=2] xmeans             k=8 (true 8) ARI=1.000 (0.2s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k8_d16 s=2] gmeans             k=8 (true 8) ARI=1.000 (0.2s)
+[blobs_k8_d16 s=2] silhouette_sweep   k=4 (true 8) ARI=0.654 (6.2s)
+[blobs_k8_d16 s=3] ema_xmeans         k=8 (true 8) ARI=1.000 (0.2s)
+[blobs_k8_d16 s=3] xmeans             k=8 (true 8) ARI=1.000 (0.2s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k8_d16 s=3] gmeans             k=8 (true 8) ARI=1.000 (0.3s)
+[blobs_k8_d16 s=3] silhouette_sweep   k=8 (true 8) ARI=0.956 (6.6s)
+[blobs_k8_d16 s=4] ema_xmeans         k=8 (true 8) ARI=1.000 (0.1s)
+[blobs_k8_d16 s=4] xmeans             k=8 (true 8) ARI=1.000 (0.3s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k8_d16 s=4] gmeans             k=8 (true 8) ARI=1.000 (0.2s)
+[blobs_k8_d16 s=4] silhouette_sweep   k=4 (true 8) ARI=0.679 (7.2s)
+[blobs_k25_d32 s=0] ema_xmeans         k=25 (true 25) ARI=1.000 (0.4s)
+[blobs_k25_d32 s=0] xmeans             k=25 (true 25) ARI=1.000 (0.9s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k25_d32 s=0] gmeans             k=25 (true 25) ARI=1.000 (1.0s)
+[blobs_k25_d32 s=0] silhouette_sweep   k=25 (true 25) ARI=0.782 (8.8s)
+[blobs_k25_d32 s=1] ema_xmeans         k=25 (true 25) ARI=1.000 (0.3s)
+[blobs_k25_d32 s=1] xmeans             k=25 (true 25) ARI=1.000 (0.9s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k25_d32 s=1] gmeans             k=25 (true 25) ARI=1.000 (0.8s)
+[blobs_k25_d32 s=1] silhouette_sweep   k=25 (true 25) ARI=0.856 (8.4s)
+[blobs_k25_d32 s=2] ema_xmeans         k=25 (true 25) ARI=1.000 (0.4s)
+[blobs_k25_d32 s=2] xmeans             k=25 (true 25) ARI=1.000 (0.9s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k25_d32 s=2] gmeans             k=27 (true 25) ARI=0.969 (1.3s)
+[blobs_k25_d32 s=2] silhouette_sweep   k=25 (true 25) ARI=0.704 (8.6s)
+[blobs_k25_d32 s=3] ema_xmeans         k=25 (true 25) ARI=1.000 (0.3s)
+[blobs_k25_d32 s=3] xmeans             k=25 (true 25) ARI=1.000 (1.1s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k25_d32 s=3] gmeans             k=25 (true 25) ARI=1.000 (1.0s)
+[blobs_k25_d32 s=3] silhouette_sweep   k=25 (true 25) ARI=0.840 (8.7s)
+[blobs_k25_d32 s=4] ema_xmeans         k=25 (true 25) ARI=1.000 (0.3s)
+[blobs_k25_d32 s=4] xmeans             k=25 (true 25) ARI=1.000 (0.8s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k25_d32 s=4] gmeans             k=25 (true 25) ARI=1.000 (1.2s)
+[blobs_k25_d32 s=4] silhouette_sweep   k=25 (true 25) ARI=0.798 (8.3s)
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+[blobs_k50_d32 s=0] ema_xmeans         k=51 (true 50) ARI=0.995 (0.6s)
+[blobs_k50_d32 s=0] xmeans             k=50 (true 50) ARI=1.000 (1.7s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k50_d32 s=0] gmeans             k=56 (true 50) ARI=0.999 (2.3s)
+[blobs_k50_d32 s=0] silhouette_sweep   k=50 (true 50) ARI=0.837 (8.4s)
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+[blobs_k50_d32 s=1] ema_xmeans         k=50 (true 50) ARI=0.990 (0.5s)
+[blobs_k50_d32 s=1] xmeans             k=50 (true 50) ARI=1.000 (1.4s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k50_d32 s=1] gmeans             k=63 (true 50) ARI=0.986 (2.1s)
+[blobs_k50_d32 s=1] silhouette_sweep   k=32 (true 50) ARI=0.700 (7.5s)
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+[blobs_k50_d32 s=2] ema_xmeans         k=50 (true 50) ARI=0.996 (0.5s)
+[blobs_k50_d32 s=2] xmeans             k=50 (true 50) ARI=1.000 (1.4s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k50_d32 s=2] gmeans             k=54 (true 50) ARI=0.974 (1.7s)
+[blobs_k50_d32 s=2] silhouette_sweep   k=32 (true 50) ARI=0.686 (6.9s)
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+[blobs_k50_d32 s=3] ema_xmeans         k=50 (true 50) ARI=0.995 (0.4s)
+[blobs_k50_d32 s=3] xmeans             k=50 (true 50) ARI=1.000 (1.6s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k50_d32 s=3] gmeans             k=52 (true 50) ARI=0.999 (1.6s)
+[blobs_k50_d32 s=3] silhouette_sweep   k=50 (true 50) ARI=0.841 (8.0s)
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+[blobs_k50_d32 s=4] ema_xmeans         k=50 (true 50) ARI=1.000 (0.5s)
+[blobs_k50_d32 s=4] xmeans             k=50 (true 50) ARI=1.000 (1.3s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[blobs_k50_d32 s=4] gmeans             k=73 (true 50) ARI=0.985 (2.6s)
+[blobs_k50_d32 s=4] silhouette_sweep   k=64 (true 50) ARI=0.857 (7.7s)
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+[aniso_k30_d32 s=0] ema_xmeans         k=71 (true 30) ARI=0.790 (0.5s)
+[aniso_k30_d32 s=0] xmeans             k=106 (true 30) ARI=0.788 (3.0s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[aniso_k30_d32 s=0] gmeans             k=32 (true 30) ARI=0.979 (1.8s)
+[aniso_k30_d32 s=0] silhouette_sweep   k=25 (true 30) ARI=0.786 (7.8s)
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+[aniso_k30_d32 s=1] ema_xmeans         k=74 (true 30) ARI=0.798 (0.5s)
+[aniso_k30_d32 s=1] xmeans             k=114 (true 30) ARI=0.786 (3.2s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[aniso_k30_d32 s=1] gmeans             k=30 (true 30) ARI=0.997 (1.3s)
+[aniso_k30_d32 s=1] silhouette_sweep   k=25 (true 30) ARI=0.899 (7.6s)
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+[aniso_k30_d32 s=2] ema_xmeans         k=75 (true 30) ARI=0.717 (0.6s)
+[aniso_k30_d32 s=2] xmeans             k=101 (true 30) ARI=0.848 (2.1s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[aniso_k30_d32 s=2] gmeans             k=31 (true 30) ARI=0.984 (1.1s)
+[aniso_k30_d32 s=2] silhouette_sweep   k=25 (true 30) ARI=0.850 (6.4s)
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+[aniso_k30_d32 s=3] ema_xmeans         k=74 (true 30) ARI=0.696 (0.5s)
+[aniso_k30_d32 s=3] xmeans             k=108 (true 30) ARI=0.812 (3.0s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[aniso_k30_d32 s=3] gmeans             k=30 (true 30) ARI=0.997 (1.0s)
+[aniso_k30_d32 s=3] silhouette_sweep   k=16 (true 30) ARI=0.579 (6.3s)
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 70 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 73 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 67 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 68 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 77 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 71 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 72 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 74 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 69 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 65 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 64 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 75 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 76 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+WARNING clustering 66 points to 2 centroids: please provide at least 78 training points
+[aniso_k30_d32 s=4] ema_xmeans         k=73 (true 30) ARI=0.770 (0.5s)
+[aniso_k30_d32 s=4] xmeans             k=99 (true 30) ARI=0.818 (2.2s)
+/home/dummi/clasic_evolution/tracks/adaptive-k/run_v2.py:182: FutureWarning: As of SciPy 1.17, users must choose a p-value calculation method by providing the `method` parameter. `method='interpolate'` interpolates the p-value from pre-calculated tables; `method` may also be an instance of `MonteCarloMethod` to approximate the p-value via Monte Carlo simulation. When `method` is specified, the result object will include a `pvalue` attribute and not attributes `critical_value`, `significance_level`, or `fit_result`. Beginning in 1.19.0, these other attributes will no longer be available, and a p-value will always be computed according to one of the available `method` options.
+  ad = sps.anderson((proj - proj.mean()) / max(proj.std(), 1e-12))
+[aniso_k30_d32 s=4] gmeans             k=30 (true 30) ARI=0.997 (1.0s)
+[aniso_k30_d32 s=4] silhouette_sweep   k=32 (true 30) ARI=0.917 (6.6s)

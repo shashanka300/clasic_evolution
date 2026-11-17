@@ -1,0 +1,10 @@
+2026-11-14 15:07:22 manual: killed hung fin_kmlaw_gmm_agnews_pca64_diag (seed 4 stalled >8h; seeds 0-3 written); seed 4 rerun alone via scratch kml4.py
+2026-11-15 06:27:33 manual: WSL restarted (Windows memory starvation, no job ended 00:10-06:25 UTC); WSL cap 56->44 GB; relaunch budget 32 max-jobs 16; LDA _budget_curve now resumes per seed
+2026-11-15 06:30:51 manual: added fill_lda_enron/nytimes (extension alphas on seeds 3-4) and v3_reemit before timing; scheduler restarted (adopt)
+2026-11-15 06:32:33 manual: pqueue adoption bug (one pid adopted by several ids) found; 73 falsely-done ids + 10 dependent finals re-queued; tuned rows for 5 groups moved to superseded_adopt_bug.jsonl; pqueue.find_pid now matches env and never reuses a pid
+2026-11-15 07:08:39 manual: timing pass restricted to T<=5 (CLASSIC_ALGOS_BUDGETS on time3 jobs); scheduler restarted (adopt, fixed matcher)
+2026-11-16 00:52:55 manual: 17 HMM jobs crashed with CUDA_ERROR_UNKNOWN 2026-11-15 ~18:00; rerun queue results/jobs_hmm_fix_v3.txt started
+2026-11-16 01:11:25 manual: ALS ml10m T=10 a=0.518 seed 2 fill queue results/jobs_als_fix_v3.txt started
+2026-11-16 03:29:11 manual: schedule-vs-revival ablation queue results/jobs_rev_v3.txt started (budget 32 / max 16)
+2026-11-16 17:31:44 manual: LDA eps=0.01 cosine-floor diagnostic launched (18 procs, tracks/lda-scaling/eps_diag.py)
+2026-11-17 09:31:30 manual: revival_rare ablation (Weiss 2026 distance-aware revival vs count vs off), 5 datasets

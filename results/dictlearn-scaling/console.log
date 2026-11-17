@@ -174,3 +174,9 @@
   [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=5.0 a0=1.0000 s=0 val=0.18762 test=0.18769 (72.8s)
   [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=5.0 a0=1.0000 s=1 val=0.18749 test=0.18765 (71.5s)
   [dictlearn-scaling] cifar_p8 n=200000 k=128 B=256 T=5.0 a0=1.0000 s=2 val=0.18756 test=0.18768 (70.9s)
+
+##### cifar_p8 n=200000 d=64 K=128
+Terminated
+
+##### cifar_p8 n=200000 d=64 K=128
+Terminated

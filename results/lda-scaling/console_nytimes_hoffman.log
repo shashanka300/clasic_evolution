@@ -1,0 +1,5 @@
+
+##### nytimes D=95543 V=20000 K=50
+[hoffman_default] nytimes s=0 T1=3617.6 T2=3557.2 T3=3556.3 T5=3567.4
+[hoffman_default] nytimes s=1 T1=3680.2 T2=3624.5 T3=3620.4 T5=3627.8
+[hoffman_default] nytimes s=2 T1=3650.9 T2=3595.7 T3=3579.8 T5=3575.4

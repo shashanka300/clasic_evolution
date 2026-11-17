@@ -16,6 +16,7 @@ from __future__ import annotations
 import numba
 import numpy as np
 
+from core.device import gpu_port
 from core.plugin import ClassicAlgoPlugin
 from core.revival import RevivalEvent
 from core.stats import BatchStats, EMAStats
@@ -32,8 +33,102 @@ class CSR:
         self.n_rows = n_rows
 
 
-@numba.njit(cache=True, parallel=True)
+# CUDA port (CLASSIC_ALGOS_GPU_PORTS=als) for calls this big (rows solved / users): 5090 bench vs 4 CPU threads, ml10m:
+# row solves x2.3, 2048-user batch x3.4; solving items from EMA stats breaks even (x0.9-1.2), so it stays in numba
+ALS_GPU_MIN_ROWS = 1024
+
+
 def solve_rows(row_ids, indptr, indices, data, other, lam):
+    """Ridge solve for each row r: (sum v v^T + lam n_r I) x = sum r v."""
+    if gpu_port("als") and len(row_ids) >= ALS_GPU_MIN_ROWS:
+        return _solve_rows_torch(row_ids, indptr, indices, data, other, lam)
+    return _solve_rows_numba(row_ids, indptr, indices, data, other, lam)
+
+
+def item_batch_stats(user_ids, U_batch, indptr, indices, data, n_items):
+    if gpu_port("als") and len(user_ids) >= ALS_GPU_MIN_ROWS:
+        return _item_batch_stats_torch(user_ids, U_batch, indptr, indices, data, n_items)
+    return _item_batch_stats_numba(user_ids, U_batch, indptr, indices, data, n_items)
+
+
+def solve_from_stats(cnt, b, A, lam, fallback):
+    return _solve_from_stats_numba(cnt, b, A, lam, fallback)
+
+
+def _gather_ratings(row_ids, indptr):
+    """Flat rating positions of the given rows and the local row index of each."""
+    row_ids = np.asarray(row_ids, dtype=np.int64)
+    lens = indptr[row_ids + 1] - indptr[row_ids]
+    pos = np.concatenate([np.arange(indptr[r], indptr[r + 1]) for r in row_ids]) if lens.sum() else np.zeros(0, np.int64)
+    return pos, np.repeat(np.arange(len(row_ids)), lens), lens
+
+
+def _scatter_gram(seg, vecs, vals, n_out, f, dev):
+    """sum over ratings of v v^T and r v into (n_out, f, f) / (n_out, f), chunked so (P, f, f) stays ~<= 256 MB."""
+    import torch
+
+    A = torch.zeros((n_out, f, f), dtype=torch.float64, device=dev)
+    b = torch.zeros((n_out, f), dtype=torch.float64, device=dev)
+    step = max(1, int(256e6 // (8 * f * f)))
+    for p0 in range(0, len(seg), step):
+        sg, v = seg[p0:p0 + step], vecs[p0:p0 + step]
+        A.index_add_(0, sg, v[:, :, None] * v[:, None, :])
+        b.index_add_(0, sg, vals[p0:p0 + step, None] * v)
+    return A, b
+
+
+def _solve_rows_torch(row_ids, indptr, indices, data, other, lam):
+    import torch
+
+    dev = "cuda"
+    f = other.shape[1]
+    pos, seg, lens = _gather_ratings(row_ids, indptr)
+    O = torch.as_tensor(np.asarray(other, dtype=np.float64), device=dev)
+    sg = torch.as_tensor(seg, device=dev)
+    A, b = _scatter_gram(sg, O[torch.as_tensor(indices[pos], device=dev)],
+                         torch.as_tensor(data[pos], dtype=torch.float64, device=dev), len(lens), f, dev)
+    n = torch.as_tensor(lens, dtype=torch.float64, device=dev)
+    has = n > 0
+    eye = torch.eye(f, dtype=torch.float64, device=dev)
+    A = A + (lam * n)[:, None, None] * eye
+    A[~has] = eye  # rows without ratings stay 0, as in the numba kernel
+    x = torch.linalg.solve(A, b)
+    x[~has] = 0.0
+    return x.cpu().numpy()
+
+
+def _item_batch_stats_torch(user_ids, U_batch, indptr, indices, data, n_items):
+    import torch
+
+    dev = "cuda"
+    f = U_batch.shape[1]
+    pos, seg, _ = _gather_ratings(user_ids, indptr)
+    items = torch.as_tensor(indices[pos], device=dev)
+    Ub = torch.as_tensor(np.asarray(U_batch, dtype=np.float64), device=dev)
+    A, b = _scatter_gram(items, Ub[torch.as_tensor(seg, device=dev)],
+                         torch.as_tensor(data[pos], dtype=torch.float64, device=dev), n_items, f, dev)
+    cnt = torch.zeros(n_items, dtype=torch.float64, device=dev).index_add_(
+        0, items, torch.ones(len(pos), dtype=torch.float64, device=dev))
+    return cnt.cpu().numpy(), b.cpu().numpy(), A.cpu().numpy()
+
+
+def _solve_from_stats_torch(cnt, b, A, lam, fallback):
+    import torch
+
+    dev = "cuda"
+    keep = np.flatnonzero(cnt >= 1e-8)
+    out = np.array(fallback, dtype=np.float64, copy=True)
+    if len(keep) == 0:
+        return out
+    f = b.shape[1]
+    M = torch.as_tensor(np.asarray(A[keep], dtype=np.float64), device=dev)
+    M = M + (torch.as_tensor(lam * cnt[keep] + 1e-10, device=dev))[:, None, None] * torch.eye(f, dtype=torch.float64, device=dev)
+    out[keep] = torch.linalg.solve(M, torch.as_tensor(np.asarray(b[keep], dtype=np.float64), device=dev)).cpu().numpy()
+    return out
+
+
+@numba.njit(cache=True, parallel=True)
+def _solve_rows_numba(row_ids, indptr, indices, data, other, lam):
     """Ridge solve for each row r: (sum v v^T + lam n_r I) x = sum r v."""
     f = other.shape[1]
     out = np.zeros((len(row_ids), f))
@@ -56,7 +151,7 @@ def solve_rows(row_ids, indptr, indices, data, other, lam):
 
 
 @numba.njit(cache=True)
-def item_batch_stats(user_ids, U_batch, indptr, indices, data, n_items):
+def _item_batch_stats_numba(user_ids, U_batch, indptr, indices, data, n_items):
     f = U_batch.shape[1]
     A = np.zeros((n_items, f, f))
     b = np.zeros((n_items, f))
@@ -75,7 +170,7 @@ def item_batch_stats(user_ids, U_batch, indptr, indices, data, n_items):
 
 
 @numba.njit(cache=True, parallel=True)
-def solve_from_stats(cnt, b, A, lam, fallback):
+def _solve_from_stats_numba(cnt, b, A, lam, fallback):
     n, f = b.shape
     out = fallback.copy()
     for i in numba.prange(n):

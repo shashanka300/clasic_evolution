@@ -332,3 +332,29 @@ def test_faiss_ivf_benchmark(synthetic_skewed_dataset) -> None:
     assert len(eval_res) == 2
     assert 0.0 <= eval_res[0]["recall_at_10"] <= 1.0
     assert eval_res[0]["p50_latency_ms"] >= 0.0
+
+
+def test_measure_recall_independent_of_threads():
+    """T03 computes recall@10 multi-threaded and times queries single-threaded: recall must not depend on threads."""
+    import importlib.util
+
+    import faiss
+
+    spec = importlib.util.spec_from_file_location("t03_run_v2_measure", TRACK_DIR / "run_v2.py")
+    rv = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rv)
+    rng = np.random.default_rng(0)
+    xb = rng.normal(size=(20_000, 32)).astype(np.float32)
+    xq = rng.normal(size=(300, 32)).astype(np.float32)
+    flat = faiss.IndexFlatL2(32)
+    flat.add(xb)
+    gt = flat.search(xq, 10)[1]
+    q = faiss.IndexFlatL2(32)
+    idx = faiss.IndexIVFFlat(q, 32, 64)
+    idx.train(xb)
+    idx.add(xb)
+    one = rv.measure(idx, xq, gt, nq_lat=5, recall_threads=1)
+    many = rv.measure(idx, xq, gt, nq_lat=5, recall_threads=8)
+    assert [o["recall10"] for o in one] == [m["recall10"] for m in many]
+    assert [o["ndis_p50"] for o in one] == [m["ndis_p50"] for m in many]
+    assert faiss.omp_get_max_threads() == 8  # measure() restores the build thread count

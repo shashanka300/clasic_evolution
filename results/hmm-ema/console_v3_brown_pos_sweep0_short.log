@@ -1,0 +1,58 @@
+
+##### brown_pos n=47340 S=12 V=5000
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=0.0100 s=0 val=5.7511 test=5.7285 (83.5s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=0.0193 s=0 val=5.7494 test=5.7268 (1.6s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=0.0373 s=0 val=5.7464 test=5.7237 (1.4s)
+Traceback (most recent call last):
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 192, in <module>
+    main()
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 186, in main
+    run_all(p, RUNS, SWEEP, seeds, ref_method="baum_welch_full_batch", ema_method="hmm_ema",
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 167, in run_all
+    stage_head_sweep(p, sweep_path, seeds, ema_method, head_B)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 86, in stage_head_sweep
+    stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in short])
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 76, in stage_sweep
+    run_sweep(track=p.track, method=method, dataset=p.dataset, data={"train": np.arange(p.n)}, k=k or p.k, d=p.d,
+  File "/home/dummi/clasic_evolution/core/sweep.py", line 68, in run_sweep
+    out = fit_eval(x_tr, k, float(a), T, B, s)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 73, in fit_eval
+    m = p.fit(a0, T, B, s, n=len(x), k=kk)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 123, in fit
+    res = run_ema_engine(plug, x, epochs=T, batch_size=B, schedule=sched, revival_every=5 if revival else 0,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/plugin.py", line 108, in run_ema_engine
+    bstats = plugin.assign(batch)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 254, in assign
+    occ, emis, trans, init, _ = _fb_batch(seqs, self.log_pi, self.A, self.B)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 35, in _fb_batch
+    return _fb_torch(seqs, log_pi, A, B, want_stats=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 84, in _fb_torch
+    emis.index_add_(0, O[m], g[m])
+                       ~^^^
+torch.AcceleratorError: CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+The CUDA driver logged these messages, which may provide useful details:
+Returning 999 (CUDA_ERROR_UNKNOWN) from cuStreamSynchronize
+
+
+
+##### brown_pos n=47340 S=12 V=5000
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=0.0720 s=0 val=5.7411 test=5.7184 (4.5s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=0.1389 s=0 val=5.7316 test=5.709 (3.0s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=0.2683 s=0 val=5.7084 test=5.6862 (4.2s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=0.5179 s=0 val=5.5815 test=5.5557 (3.9s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.25 a0=1.0000 s=0 val=5.4472 test=5.4173 (3.9s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=0.0100 s=0 val=5.731 test=5.709 (7.3s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=0.0193 s=0 val=5.728 test=5.706 (6.5s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=0.0373 s=0 val=5.7221 test=5.7002 (6.0s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=0.0720 s=0 val=5.7091 test=5.6874 (5.1s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=0.1389 s=0 val=5.6687 test=5.6471 (7.3s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=0.2683 s=0 val=5.4703 test=5.4457 (8.3s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=0.5179 s=0 val=5.3464 test=5.3229 (8.1s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=0.5 a0=1.0000 s=0 val=5.3339 test=5.312 (7.8s)

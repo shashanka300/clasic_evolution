@@ -1,0 +1,6 @@
+
+##### agnews_pca64 cov=full n=90000 k=64
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=10.0 a0=0.0193 s=3 val=70.108 test=70.573 (77.6s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=10.0 a0=0.0373 s=3 val=69.872 test=70.404 (65.8s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=10.0 a0=0.0720 s=3 val=69.993 test=70.394 (65.7s)
+  [gmm-ema] agnews_pca64 n=90000 k=64 B=1024 T=10.0 a0=0.1389 s=3 val=69.865 test=70.367 (65.3s)

@@ -1,0 +1,469 @@
+{
+ "alpha|gmm_ema_diag|agnews_pca64|n=90000|k=64|B=1024|diag": {
+  "alphas": [
+   0.072,
+   0.1389,
+   0.2683,
+   0.5179
+  ],
+  "anchor_alpha": 0.2683,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|gmm_ema_diag|dinov2_pca64|n=45000|k=64|B=1024|diag": {
+  "alphas": [
+   0.1389,
+   0.2683,
+   0.5179,
+   1.0
+  ],
+  "anchor_alpha": 0.5179,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|gmm_ema_diag|sift1m_pca64|n=200000|k=64|B=1024|diag": {
+  "alphas": [
+   0.072,
+   0.1389,
+   0.2683,
+   0.5179
+  ],
+  "anchor_alpha": 0.2683,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|gmm_ema_diag|synthetic|n=200000|k=32|B=1024|diag": {
+  "alphas": [
+   0.2683,
+   0.5179,
+   1.0
+  ],
+  "anchor_alpha": 1.0,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|gmm_ema_full|agnews_pca64|n=90000|k=64|B=1024|full": {
+  "alphas": [
+   0.0193,
+   0.0373,
+   0.072,
+   0.1389
+  ],
+  "anchor_alpha": 0.072,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|gmm_ema_full|dinov2_pca64|n=45000|k=64|B=1024|full": {
+  "alphas": [
+   0.0373,
+   0.072,
+   0.1389,
+   0.2683
+  ],
+  "anchor_alpha": 0.1389,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|gmm_ema_full|sift1m_pca64|n=200000|k=64|B=1024|full": {
+  "alphas": [
+   0.01,
+   0.0193,
+   0.0373,
+   0.072
+  ],
+  "anchor_alpha": 0.0373,
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ]
+ },
+ "alpha|gmm_ema_full|synthetic|n=200000|k=32|B=1024|full": {
+  "alphas": [
+   0.072,
+   0.1389,
+   0.2683,
+   0.5179
+  ],
+  "anchor_alpha": 0.2683,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "stepwise|oem_rev|agnews_pca64|k=64|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    100.0,
+    0.5
+   ],
+   [
+    1.0,
+    0.6
+   ],
+   [
+    10.0,
+    0.6
+   ]
+  ]
+ },
+ "stepwise|oem_rev|agnews_pca64|k=64|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    10.0,
+    0.7
+   ],
+   [
+    1.0,
+    0.7
+   ],
+   [
+    100.0,
+    0.7
+   ]
+  ]
+ },
+ "stepwise|oem_rev|dinov2_pca64|k=64|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    1.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    1.0,
+    0.6
+   ]
+  ]
+ },
+ "stepwise|oem_rev|dinov2_pca64|k=64|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    10.0,
+    0.7
+   ],
+   [
+    100.0,
+    0.6
+   ],
+   [
+    10.0,
+    0.6
+   ]
+  ]
+ },
+ "stepwise|oem_rev|sift1m_pca64|k=64|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    10.0,
+    0.5
+   ],
+   [
+    1.0,
+    0.6
+   ],
+   [
+    1.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|oem_rev|sift1m_pca64|k=64|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    1.0,
+    0.7
+   ],
+   [
+    10.0,
+    0.7
+   ],
+   [
+    100.0,
+    0.6
+   ]
+  ]
+ },
+ "stepwise|oem_rev|synthetic|k=32|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    1000.0,
+    0.6
+   ],
+   [
+    1000.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.7
+   ]
+  ]
+ },
+ "stepwise|oem_rev|synthetic|k=32|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    1.0,
+    0.8
+   ],
+   [
+    10.0,
+    0.6
+   ],
+   [
+    1.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|oem|agnews_pca64|k=64|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    1000.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.6
+   ],
+   [
+    100.0,
+    0.7
+   ]
+  ]
+ },
+ "stepwise|oem|agnews_pca64|k=64|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    1000.0,
+    0.6
+   ],
+   [
+    1000.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.7
+   ]
+  ]
+ },
+ "stepwise|oem|dinov2_pca64|k=64|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    100.0,
+    0.6
+   ],
+   [
+    1000.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|oem|dinov2_pca64|k=64|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    10.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.6
+   ],
+   [
+    100.0,
+    0.6
+   ]
+  ]
+ },
+ "stepwise|oem|sift1m_pca64|k=64|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    1000.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.6
+   ],
+   [
+    1000.0,
+    0.6
+   ]
+  ]
+ },
+ "stepwise|oem|sift1m_pca64|k=64|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    1000.0,
+    0.6
+   ],
+   [
+    1000.0,
+    0.7
+   ],
+   [
+    100.0,
+    0.8
+   ]
+  ]
+ },
+ "stepwise|oem|synthetic|k=32|diag": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    100.0,
+    0.8
+   ],
+   [
+    1000.0,
+    0.7
+   ],
+   [
+    100.0,
+    0.7
+   ]
+  ]
+ },
+ "stepwise|oem|synthetic|k=32|full": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    100.0,
+    0.8
+   ],
+   [
+    1000.0,
+    0.7
+   ],
+   [
+    1000.0,
+    0.6
+   ]
+  ]
+ }
+}

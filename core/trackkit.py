@@ -10,18 +10,19 @@ A track supplies a :class:`Problem`; the stages produce, per comparison group:
 
 from __future__ import annotations
 
+import os
 import time
 from dataclasses import dataclass, field
 from typing import Any, Callable
 
 import numpy as np
 
+from core.budgets import BUDGETS, LONG_BUDGETS, active, anchor_rows, long_alphas, long_stepwise
 from core.harness import config_hash, done_hashes, make_run, read_runs, write_run
 from core.scaling import emeans_alpha0, emeans_batch_size
 from core.schedule import InverseTimeSchedule
 from core.sweep import emit_swept_curves, run_sweep, sweep_group
 
-BUDGETS = (1.0, 2.0, 3.0, 5.0)
 STEPWISE_GRID = tuple((t0, kp) for t0 in (2.0, 10.0, 100.0) for kp in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0))
 
 
@@ -67,29 +68,48 @@ def stage_reference(p: Problem, runs, seeds, ref_method: str, sanity: Callable[[
                       note="library sanity check of the reference; final point only"))
 
 
-def stage_sweep(p: Problem, sweep_path, seeds, method: str, configs: list[dict], k: int | None = None):
+def stage_sweep(p: Problem, sweep_path, seeds, method: str, configs: list[dict], k: int | None = None, alphas=None):
     def fit_eval(x, kk, a0, T, B, s):
         m = p.fit(a0, T, B, s, n=len(x), k=kk)
         return {"val": p.loss(m, "val"), "test": p.loss(m, "test"), **p.extras(m)}
 
     run_sweep(track=p.track, method=method, dataset=p.dataset, data={"train": np.arange(p.n)}, k=k or p.k, d=p.d,
               fit_eval=fit_eval, configs=configs, seeds=seeds, path=sweep_path, metric=p.metric, tag=p.tag,
-              extra_config=p.config)
+              extra_config=p.config, **({"alphas": alphas} if alphas is not None else {}))
 
 
-def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, grid=STEPWISE_GRID):
-    """Robbins-Monro / stepwise-EM step (tau0 + t)^-kappa, (tau0, kappa) chosen on val per T. No revival."""
+def stage_head_sweep(p: Problem, sweep_path, seeds, method: str, head_B: int, budgets=BUDGETS):
+    """Head-group sweep: full alpha0 grid at the short budgets, frozen restricted grid at the long ones."""
+    budgets = active(budgets)
+    short = [T for T in budgets if T not in LONG_BUDGETS]
+    if short:
+        stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in short])
+    long_ = [T for T in budgets if T in LONG_BUDGETS]
+    if long_:
+        al = long_alphas(sweep_path, method, sweep_group(p.dataset, p.n, p.k, head_B, p.tag))
+        stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in long_], alphas=al)
+
+
+def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, grid=STEPWISE_GRID, revival=False):
+    """Robbins-Monro / stepwise-EM step (tau0 + t)^-kappa, (tau0, kappa) chosen on val per T.
+
+    revival=False: the prior-art baseline as published (no dead-unit handling) -> ``<method>_tuned``.
+    revival=True (added 2026-11-16, PAPER_LOG §2): the same tuned schedule plus the recipe's revival rule ->
+    ``<method>_rev_tuned``; separates the effect of the cosine schedule from that of revival. Its long-budget grid is
+    frozen from its own T=5 cells (job deps: after all short-budget seeds)."""
+    method = f"{method}_rev" if revival else method
     done = done_hashes(sweep_path)
-    sg = f"stepwise|{p.group}"
-    for T in BUDGETS:
-        for t0, kp in grid:
+    sg = f"stepwise{'_rev' if revival else ''}|{p.group}"
+    for T in active(BUDGETS):
+        tgrid = long_stepwise(sweep_path, sg, anchor_rows(sweep_path, sg, "sweep_stepwise")) if T in LONG_BUDGETS else grid
+        for t0, kp in tgrid:
             cfg = dict(p.config, method=method, dataset=p.dataset, T=T, B=B, tau0=t0, kappa=kp, n=p.n)
             h = config_hash(cfg)
             for s in seeds:
                 if (h, s) in done:
                     continue
                 tic = time.perf_counter()
-                m = p.fit(1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=False)
+                m = p.fit(1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=revival)
                 w = time.perf_counter() - tic
                 rec = make_run(track=p.track, method=method, dataset=p.dataset, n=p.n, d=p.d, k_or_units=p.k, epochs=T,
                                batch=B, alpha0=None, seed=s, train_loss=None, test_loss=p.loss(m, "test"), wall_s=w,
@@ -97,6 +117,10 @@ def stage_stepwise(p: Problem, runs, sweep_path, seeds, B: int, method: str, gri
                                val_loss=p.loss(m, "val"), tau0=t0, kappa=kp, sweep_stepwise=True)
                 rec["extra"]["config_hash"] = h
                 write_run(sweep_path, rec)
+    if os.environ.get("CLASSIC_ALGOS_STEPWISE_CELLS_ONLY") or os.environ.get("CLASSIC_ALGOS_BUDGETS"):
+        # per-seed worker of a split online stage: the (tau0, kappa) choice below averages val over ALL seeds, so it
+        # is left to one final full-seed run of this stage once every worker's cells are in
+        return
     out = f"{method}_tuned"
     if any(r["method"] == out and r["extra"]["group"] == p.group for r in read_runs(runs)):
         return
@@ -123,14 +147,14 @@ def stage_kmlaw(p: Problem, runs, seeds, method: str, n_for_law: int | None = No
     nl = n_for_law or p.n
     for s in seeds:
         curve = []
-        for T in BUDGETS:
+        for T in active(BUDGETS):  # all budgets unless CLASSIC_ALGOS_BUDGETS restricts them (v3 timing pass: T <= 5)
             B = emeans_batch_size(nl, p.k, T)
             a0 = emeans_alpha0(nl, p.k, T, B)
             tic = time.perf_counter()
             m = p.fit(a0, T, B, s)
             curve.append({"epoch": T, "test_loss": p.loss(m, "test"), "wall_s": time.perf_counter() - tic, "alpha0": a0, "B": B})
         write_run(runs, make_run(track=p.track, method=method, dataset=p.dataset, n=p.n, d=p.d, k_or_units=p.k,
-                  epochs=BUDGETS[-1], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
+                  epochs=curve[-1]["epoch"], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
                   test_loss=curve[-1]["test_loss"], wall_s=curve[-1]["wall_s"], role="ours", alpha0_source="law",
                   group=p.group, metric=p.metric, curve=curve, curve_kind="budget", config=p.config))
 
@@ -146,9 +170,19 @@ def run_all(p: Problem, runs, sweep_path, seeds, *, ref_method, ema_method, step
     if stage in ("all", "reference"):
         stage_reference(p, runs, seeds, ref_method, sanity, sanity_method)
     if stage in ("all", "sweep"):
-        stage_sweep(p, sweep_path, seeds, ema_method, [{"n": p.n, "B": head_B, "T": T} for T in BUDGETS])
+        stage_head_sweep(p, sweep_path, seeds, ema_method, head_B)
+    if stage == "plan":  # freeze the restricted long-budget grids (run once, after the T=5 cells are complete)
+        sg = sweep_group(p.dataset, p.n, p.k, head_B, p.tag)
+        try:
+            print(f"[plan] {sg} alphas={long_alphas(sweep_path, ema_method, sg)} stepwise="
+                  f"{long_stepwise(sweep_path, f'stepwise|{p.group}', anchor_rows(sweep_path, f'stepwise|{p.group}', 'sweep_stepwise'))}",
+                  flush=True)
+        except RuntimeError as e:  # no T=5 cells yet: frozen lazily by the first long-budget worker (job deps)
+            print(f"[plan] {sg} deferred: {e}", flush=True)
     if stage in ("all", "online"):
         stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method)
+    if stage == "online_rev":  # tuned stepwise + the recipe's revival (ablation baseline, 2026-11-16)
+        stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method, revival=True)
     if stage in ("all", "kmlaw"):
         stage_kmlaw(p, runs, seeds, f"{ema_method}_kmlaw")
     if stage in ("all", "emit"):

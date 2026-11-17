@@ -1,0 +1,17 @@
+[extend] enron: 4 cells at their lowest alpha (next step ~17 min at alpha=0.01 cost): enron|n=35518|k=20|B=64@T=1<= 0.01, enron|n=35518|k=50|B=256@T=3<= 0.01, enron|n=35518|k=50|B=64@T=2<= 0.01, enron|n=35518|k=50|B=256@T=5<= 0.01
+/home/dummi/clasic_evolution/tracks/lda-scaling/lda_v2.py:115: NumbaWarning: Cannot cache compiled function "_e_step_numba" as it uses dynamic globals (such as ctypes pointers and large global arrays)
+  @numba.njit(cache=True, parallel=True)
+  [lda-scaling] enron n=35518 k=20 B=64 T=1.0 a0=0.0052 s=0 val=2871 test=2714.1 (13.3s)
+  [lda-scaling] enron n=35518 k=20 B=64 T=1.0 a0=0.0052 s=1 val=2807.3 test=2687.4 (7.4s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=3.0 a0=0.0052 s=0 val=2585.8 test=2431.8 (24.0s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=3.0 a0=0.0052 s=1 val=2561.1 test=2415.2 (23.0s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=3.0 a0=0.0052 s=2 val=2564.2 test=2408.1 (22.3s)
+  [lda-scaling] enron n=35518 k=50 B=64 T=2.0 a0=0.0052 s=0 val=2601.3 test=2454.9 (28.6s)
+  [lda-scaling] enron n=35518 k=50 B=64 T=2.0 a0=0.0052 s=1 val=2541.3 test=2418.9 (26.2s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=5.0 a0=0.0052 s=0 val=2454.4 test=2293.8 (33.6s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=5.0 a0=0.0052 s=1 val=2482.6 test=2325.3 (34.1s)
+  [lda-scaling] enron n=35518 k=50 B=256 T=5.0 a0=0.0052 s=2 val=2486.1 test=2315.1 (32.8s)
+[extend] enron: 1 cells at their lowest alpha (next step ~3 min at alpha=0.01 cost): enron|n=35518|k=50|B=64@T=2<= 0.00518
+  [lda-scaling] enron n=35518 k=50 B=64 T=2.0 a0=0.0027 s=0 val=2619.1 test=2540.7 (29.3s)
+  [lda-scaling] enron n=35518 k=50 B=64 T=2.0 a0=0.0027 s=1 val=2565.7 test=2417 (25.6s)
+[extend] enron: no cell at its lowest alpha; done

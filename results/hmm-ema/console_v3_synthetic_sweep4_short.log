@@ -1,0 +1,90 @@
+
+##### synthetic n=20000 S=12 V=200
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0100 s=4 val=4.6449 test=4.6477 (84.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0193 s=4 val=4.6448 test=4.6476 (0.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0373 s=4 val=4.6447 test=4.6475 (1.0s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.0720 s=4 val=4.6445 test=4.6473 (0.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.1389 s=4 val=4.6441 test=4.6469 (0.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.2683 s=4 val=4.6429 test=4.6458 (0.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=0.5179 s=4 val=4.6361 test=4.6392 (11.1s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.25 a0=1.0000 s=4 val=4.5072 test=4.5119 (1.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0100 s=4 val=4.6438 test=4.6467 (1.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0193 s=4 val=4.6437 test=4.6466 (1.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0373 s=4 val=4.6434 test=4.6463 (0.8s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.0720 s=4 val=4.6427 test=4.6457 (1.9s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.1389 s=4 val=4.6407 test=4.6437 (0.6s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.2683 s=4 val=4.6285 test=4.6315 (0.6s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=0.5179 s=4 val=4.4207 test=4.4253 (1.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=0.5 a0=1.0000 s=4 val=4.1731 test=4.1779 (9.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=0.0100 s=4 val=4.6424 test=4.6453 (1.7s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=0.0193 s=4 val=4.642 test=4.6449 (1.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=0.0373 s=4 val=4.6409 test=4.6438 (2.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=0.0720 s=4 val=4.6373 test=4.6402 (1.8s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=0.1389 s=4 val=4.6118 test=4.6149 (9.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=0.2683 s=4 val=4.3051 test=4.3098 (1.9s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=0.5179 s=4 val=4.1669 test=4.1726 (2.0s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=1.0 a0=1.0000 s=4 val=4.0957 test=4.0984 (2.0s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=0.0100 s=4 val=4.64 test=4.6429 (12.5s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=0.0193 s=4 val=4.6382 test=4.6412 (4.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=0.0373 s=4 val=4.6317 test=4.6347 (4.1s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=0.0720 s=4 val=4.5778 test=4.5812 (14.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=0.1389 s=4 val=4.2386 test=4.2426 (3.7s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=0.2683 s=4 val=4.1633 test=4.169 (11.6s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=0.5179 s=4 val=4.0499 test=4.0525 (9.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=2.0 a0=1.0000 s=4 val=4.0221 test=4.0229 (17.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=0.0100 s=4 val=4.6373 test=4.6403 (6.6s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=0.0193 s=4 val=4.6323 test=4.6353 (15.9s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=0.0373 s=4 val=4.6032 test=4.6065 (16.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=0.0720 s=4 val=4.3444 test=4.3491 (5.7s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=0.1389 s=4 val=4.1701 test=4.1754 (15.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=0.2683 s=4 val=4.1007 test=4.1031 (16.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=0.5179 s=4 val=4.011 test=4.0122 (7.1s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=3.0 a0=1.0000 s=4 val=4.0177 test=4.0178 (14.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=0.0100 s=4 val=4.6294 test=4.6324 (10.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=0.0193 s=4 val=4.6022 test=4.6054 (27.5s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=0.0373 s=4 val=4.3908 test=4.3955 (20.1s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=0.0720 s=4 val=4.1754 test=4.1804 (19.4s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=0.1389 s=4 val=4.119 test=4.1227 (19.0s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=0.2683 s=4 val=4.0109 test=4.0125 (28.8s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=0.5179 s=4 val=3.9239 test=3.9249 (19.6s)
+Traceback (most recent call last):
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 192, in <module>
+    main()
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 186, in main
+    run_all(p, RUNS, SWEEP, seeds, ref_method="baum_welch_full_batch", ema_method="hmm_ema",
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 167, in run_all
+    stage_head_sweep(p, sweep_path, seeds, ema_method, head_B)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 86, in stage_head_sweep
+    stage_sweep(p, sweep_path, seeds, method, [{"n": p.n, "B": head_B, "T": T} for T in short])
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 76, in stage_sweep
+    run_sweep(track=p.track, method=method, dataset=p.dataset, data={"train": np.arange(p.n)}, k=k or p.k, d=p.d,
+  File "/home/dummi/clasic_evolution/core/sweep.py", line 68, in run_sweep
+    out = fit_eval(x_tr, k, float(a), T, B, s)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 73, in fit_eval
+    m = p.fit(a0, T, B, s, n=len(x), k=kk)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/run_v2.py", line 123, in fit
+    res = run_ema_engine(plug, x, epochs=T, batch_size=B, schedule=sched, revival_every=5 if revival else 0,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/core/plugin.py", line 108, in run_ema_engine
+    bstats = plugin.assign(batch)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 254, in assign
+    occ, emis, trans, init, _ = _fb_batch(seqs, self.log_pi, self.A, self.B)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 35, in _fb_batch
+    return _fb_torch(seqs, log_pi, A, B, want_stats=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/hmm-ema/hmm_v2.py", line 84, in _fb_torch
+    emis.index_add_(0, O[m], g[m])
+                       ~^^^
+torch.AcceleratorError: CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+The CUDA driver logged these messages, which may provide useful details:
+Returning 999 (CUDA_ERROR_UNKNOWN) from cuStreamSynchronize
+
+
+
+##### synthetic n=20000 S=12 V=200
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=5.0 a0=1.0000 s=4 val=3.9297 test=3.929 (25.4s)

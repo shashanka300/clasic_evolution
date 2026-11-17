@@ -13,6 +13,7 @@ Comparisons (per dataset x covariance type, same k-means++ init for every method
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 import time
 from pathlib import Path
@@ -26,6 +27,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from core.budgets import BUDGETS, LONG_BUDGETS, active, anchor_rows, long_alphas, long_stepwise  # noqa: E402
 from core.bench import load_dinov2_cifar100, load_sift1m, load_text_embeddings  # noqa: E402
 from core.harness import done_hashes, config_hash, make_run, read_runs, results_path, write_run  # noqa: E402
 from core.scaling import emeans_alpha0, emeans_batch_size  # noqa: E402
@@ -39,7 +41,6 @@ TRACK = "gmm-ema"
 RUNS = results_path(TRACK)
 SWEEP = results_path(TRACK, "sweep.jsonl")
 EPS_COV_REL = 1e-6
-BUDGETS = (1.0, 2.0, 3.0, 5.0)
 
 
 # ------------------------------------------------------------------ data
@@ -168,7 +169,7 @@ def stage_reference(name, data, meta, k, cov, seeds):
                       note="sanity check of em_full_batch; final point only"))
 
 
-def stage_sweep(name, data, meta, k, cov, seeds, configs):
+def stage_sweep(name, data, meta, k, cov, seeds, configs, alphas=None):
     n_all, d = data["train"].shape
 
     def fit_eval(x, kk, a0, T, B, s):
@@ -177,36 +178,46 @@ def stage_sweep(name, data, meta, k, cov, seeds, configs):
                 "revivals": res.revivals, "collapsed": collapsed(p), "param_error": param_error(p, meta)}
 
     run_sweep(track=TRACK, method=f"gmm_ema_{cov}", dataset=name, data=data, k=k, d=d, fit_eval=fit_eval,
-              configs=configs, seeds=seeds, path=SWEEP, metric="test_nll", tag=cov, extra_config={"cov": cov})
+              configs=configs, seeds=seeds, path=SWEEP, metric="test_nll", tag=cov, extra_config={"cov": cov},
+              **({"alphas": alphas} if alphas is not None else {}))
 
 
-def stage_online_em(name, data, k, cov, seeds, B):
-    """Online EM tuned on val per T over a (tau0, kappa) grid: the closest prior-art baseline."""
+def stage_online_em(name, data, k, cov, seeds, B, revival=False):
+    """Online EM tuned on val per T over a (tau0, kappa) grid: the closest prior-art baseline.
+
+    revival=True (2026-11-16, PAPER_LOG §2): same tuned schedule plus the recipe's revival -> ``online_em_rev_tuned``
+    (schedule-vs-revival ablation; without revival online EM loses most full-covariance components)."""
     group = f"{name}|k={k}|{cov}"
     x = data["train"]
     n, d = x.shape
     done = done_hashes(SWEEP)
+    meth = "online_em_rev" if revival else "online_em"
+    og = f"oem{'_rev' if revival else ''}|{group}"
     grid = [(t0, kp) for t0 in (1.0, 10.0, 100.0, 1000.0) for kp in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0)]
-    for T in BUDGETS:
-        for t0, kp in grid:
-            cfg = {"method": "online_em", "dataset": name, "cov": cov, "T": T, "B": B, "tau0": t0, "kappa": kp, "n": n}
+    for T in active(BUDGETS):
+        tgrid = (long_stepwise(SWEEP, og, anchor_rows(SWEEP, og, "sweep_oem"))
+                 if T in LONG_BUDGETS else grid)
+        for t0, kp in tgrid:
+            cfg = {"method": meth, "dataset": name, "cov": cov, "T": T, "B": B, "tau0": t0, "kappa": kp, "n": n}
             h = config_hash(cfg)
             for s in seeds:
                 if (h, s) in done:
                     continue
                 tic = time.perf_counter()
-                p, _ = gmm_ema(x, k, cov, 1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=False)
+                p, _ = gmm_ema(x, k, cov, 1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=revival)
                 w = time.perf_counter() - tic
-                rec = make_run(track=TRACK, method="online_em", dataset=name, n=n, d=d, k_or_units=k, epochs=T, batch=B,
+                rec = make_run(track=TRACK, method=meth, dataset=name, n=n, d=d, k_or_units=k, epochs=T, batch=B,
                                alpha0=None, seed=s, train_loss=None, test_loss=evaluate_gmm_nll(data["test"], p), wall_s=w,
-                               role="baseline", alpha0_source="na", group=f"oem|{group}", metric="test_nll",
+                               role="baseline", alpha0_source="na", group=og, metric="test_nll",
                                config={k2: v for k2, v in cfg.items() if k2 not in ("method", "dataset", "n")},
                                val_loss=evaluate_gmm_nll(data["val"], p), tau0=t0, kappa=kp, sweep_oem=True)
                 rec["extra"]["config_hash"] = h
                 write_run(SWEEP, rec)
+    if os.environ.get("CLASSIC_ALGOS_STEPWISE_CELLS_ONLY") or os.environ.get("CLASSIC_ALGOS_BUDGETS"):  # per-seed worker: selection left to a full-seed run
+        return
     # pick (tau0, kappa) per T on val; emit one curve per seed
-    rows = [r for r in read_runs(SWEEP) if r["extra"].get("sweep_oem") and r["extra"]["group"] == f"oem|{group}"]
-    if any(r["method"] == "online_em_tuned" and r["extra"]["group"] == group for r in read_runs(RUNS)):
+    rows = [r for r in read_runs(SWEEP) if r["extra"].get("sweep_oem") and r["extra"]["group"] == og]
+    if any(r["method"] == f"{meth}_tuned" and r["extra"]["group"] == group for r in read_runs(RUNS)):
         return
     for s in seeds:
         curve = []
@@ -218,7 +229,7 @@ def stage_online_em(name, data, k, cov, seeds, B):
             best = min(cands, key=lambda key: np.mean([r["extra"]["val_loss"] for r in cands[key]]))
             r = next(r for r in cands[best] if r["seed"] == s)
             curve.append({"epoch": T, "test_loss": r["test_loss"], "wall_s": r["wall_s"], "tau0": best[0], "kappa": best[1]})
-        write_run(RUNS, make_run(track=TRACK, method="online_em_tuned", dataset=name, n=n, d=d, k_or_units=k,
+        write_run(RUNS, make_run(track=TRACK, method=f"{meth}_tuned", dataset=name, n=n, d=d, k_or_units=k,
                   epochs=BUDGETS[-1], batch=B, alpha0=None, seed=s, train_loss=None, test_loss=curve[-1]["test_loss"],
                   wall_s=curve[-1]["wall_s"], role="baseline", alpha0_source="swept", group=group, metric="test_nll",
                   curve=curve, curve_kind="budget", selected_on="val", config={"cov": cov}))
@@ -233,7 +244,7 @@ def stage_kmlaw(name, data, k, cov, seeds):
     n, d = x.shape
     for s in seeds:
         curve = []
-        for T in BUDGETS:
+        for T in active(BUDGETS):  # all budgets unless CLASSIC_ALGOS_BUDGETS restricts them (v3 timing pass: T <= 5)
             B = emeans_batch_size(n, k, T)
             a0 = emeans_alpha0(n, k, T, B)
             tic = time.perf_counter()
@@ -241,7 +252,7 @@ def stage_kmlaw(name, data, k, cov, seeds):
             curve.append({"epoch": T, "test_loss": evaluate_gmm_nll(data["test"], p), "wall_s": time.perf_counter() - tic,
                           "alpha0": a0, "B": B})
         write_run(RUNS, make_run(track=TRACK, method="gmm_ema_kmlaw", dataset=name, n=n, d=d, k_or_units=k,
-                  epochs=BUDGETS[-1], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
+                  epochs=curve[-1]["epoch"], batch=curve[-1]["B"], alpha0=curve[-1]["alpha0"], seed=s, train_loss=None,
                   test_loss=curve[-1]["test_loss"], wall_s=curve[-1]["wall_s"], role="ours", alpha0_source="law",
                   group=group, metric="test_nll", curve=curve, curve_kind="budget", config={"cov": cov}))
 
@@ -255,9 +266,10 @@ def main():
     ap.add_argument("--datasets", default="synthetic,sift1m_pca64,dinov2_pca64,agnews_pca64")
     ap.add_argument("--covs", default="diag,full")
     ap.add_argument("--seeds", type=int, default=3)
-    ap.add_argument("--stage", default="all", choices=("all", "reference", "sweep", "law-sweep", "online", "kmlaw", "emit"))
+    ap.add_argument("--seed-list", default=None, help="explicit seeds, e.g. 3,4")
+    ap.add_argument("--stage", default="all", choices=("all", "reference", "sweep", "law-sweep", "online", "online_rev", "kmlaw", "emit", "plan"))
     args = ap.parse_args()
-    seeds = list(range(args.seeds))
+    seeds = [int(x) for x in args.seed_list.split(",")] if args.seed_list else list(range(args.seeds))
     for name in args.datasets.split(","):
         data, meta = load(name)
         n = len(data["train"])
@@ -267,9 +279,24 @@ def main():
             if args.stage in ("all", "reference"):
                 stage_reference(name, data, meta, k, cov, seeds)
             if args.stage in ("all", "sweep"):
-                stage_sweep(name, data, meta, k, cov, seeds, [{"n": n, "B": HEAD_B, "T": T} for T in BUDGETS])
+                short = [T for T in active(BUDGETS) if T not in LONG_BUDGETS]
+                if short:
+                    stage_sweep(name, data, meta, k, cov, seeds, [{"n": n, "B": HEAD_B, "T": T} for T in short])
+                long_ = [T for T in active(BUDGETS) if T in LONG_BUDGETS]
+                if long_:
+                    al = long_alphas(SWEEP, f"gmm_ema_{cov}", sweep_group(name, n, k, HEAD_B, cov))
+                    stage_sweep(name, data, meta, k, cov, seeds, [{"n": n, "B": HEAD_B, "T": T} for T in long_], alphas=al)
+            if args.stage == "plan":
+                sg = sweep_group(name, n, k, HEAD_B, cov)
+                try:
+                    print(f"[plan] {sg} alphas={long_alphas(SWEEP, f'gmm_ema_{cov}', sg)} online_em="
+                          f"{long_stepwise(SWEEP, f'oem|{name}|k={k}|{cov}', anchor_rows(SWEEP, f'oem|{name}|k={k}|{cov}', 'sweep_oem'))}", flush=True)
+                except RuntimeError as e:  # no T=5 cells yet: frozen lazily by the first long-budget worker (job deps)
+                    print(f"[plan] {sg} deferred: {e}", flush=True)
             if args.stage in ("all", "online"):
                 stage_online_em(name, data, k, cov, seeds, HEAD_B)
+            if args.stage == "online_rev":
+                stage_online_em(name, data, k, cov, seeds, HEAD_B, revival=True)
             if args.stage in ("all", "kmlaw"):
                 stage_kmlaw(name, data, k, cov, seeds)
             if args.stage == "law-sweep" and cov == "diag":

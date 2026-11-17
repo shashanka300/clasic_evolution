@@ -1,0 +1,34 @@
+
+##### ml10m users=69878 items=10677 lambda=0.05
+
+##### ml10m users=69878 items=10677 lambda=0.05
+Traceback (most recent call last):
+  File "/home/dummi/clasic_evolution/tracks/als-ema/run_v2.py", line 142, in <module>
+    main()
+  File "/home/dummi/clasic_evolution/tracks/als-ema/run_v2.py", line 137, in main
+    run_all(p, RUNS, SWEEP, seeds, ref_method="als_wr_full_batch", ema_method="als_ema", stepwise_method="stepwise_als",
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 177, in run_all
+    stage_stepwise(p, runs, sweep_path, seeds, head_B, stepwise_method)
+  File "/home/dummi/clasic_evolution/core/trackkit.py", line 106, in stage_stepwise
+    m = p.fit(1.0, T, B, s, schedule=InverseTimeSchedule(1.0, tau0=t0, kappa=kp), revival=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/run_v2.py", line 100, in fit
+    run_ema_engine(plug, users, epochs=T_train, batch_size=B, schedule=schedule or CosineSchedule(alpha0, steps, eps=0.1),
+  File "/home/dummi/clasic_evolution/core/plugin.py", line 108, in run_ema_engine
+    bstats = plugin.assign(batch)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py", line 226, in assign
+    cnt, b, A = item_batch_stats(users, Ub, self.R_u.indptr, self.R_u.indices, self.R_u.data, self.n_items)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py", line 50, in item_batch_stats
+    return _item_batch_stats_torch(user_ids, U_batch, indptr, indices, data, n_items)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dummi/clasic_evolution/tracks/als-ema/als_v2.py", line 112, in _item_batch_stats_torch
+    return cnt.cpu().numpy(), b.cpu().numpy(), A.cpu().numpy()
+                                               ^^^^^^^
+torch.AcceleratorError: CUDA error: out of memory
+Search for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+The CUDA driver logged these messages, which may provide useful details:
+Returning 2 (CUDA_ERROR_OUT_OF_MEMORY) from cuMemcpyDtoHAsync_v2
+
+

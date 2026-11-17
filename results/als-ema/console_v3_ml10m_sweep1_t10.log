@@ -1,0 +1,8 @@
+
+##### ml10m users=69878 items=10677 lambda=0.05
+  [als-ema] ml10m n=69878 k=32 B=2048 T=10.0 a0=0.0720 s=1 val=0.79188 test=0.79314 (634.8s)
+
+##### ml10m users=69878 items=10677 lambda=0.05
+  [als-ema] ml10m n=69878 k=32 B=2048 T=10.0 a0=0.1389 s=1 val=0.79116 test=0.79231 (484.0s)
+  [als-ema] ml10m n=69878 k=32 B=2048 T=10.0 a0=0.2683 s=1 val=0.79103 test=0.79221 (9967.1s)
+  [als-ema] ml10m n=69878 k=32 B=2048 T=10.0 a0=0.5179 s=1 val=0.7917 test=0.7929 (11233.8s)

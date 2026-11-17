@@ -1,0 +1,6 @@
+
+##### synthetic n=20000 S=12 V=200
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=10.0 a0=0.0720 s=4 val=4.1029 test=4.1059 (116.2s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=10.0 a0=0.1389 s=4 val=4.0106 test=4.0122 (29.3s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=10.0 a0=0.2683 s=4 val=3.9199 test=3.9209 (34.8s)
+  [hmm-ema] synthetic n=20000 k=12 B=256 T=10.0 a0=0.5179 s=4 val=3.8589 test=3.8548 (51.1s)

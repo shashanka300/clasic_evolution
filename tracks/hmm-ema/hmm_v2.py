@@ -18,15 +18,79 @@ from __future__ import annotations
 import numba
 import numpy as np
 
+from core.device import gpu_port
 from core.plugin import ClassicAlgoPlugin
 from core.revival import RevivalEvent
 from core.stats import BatchStats, EMAStats
 
 SMOOTH = 1e-6
+# CUDA port (CLASSIC_ALGOS_GPU_PORTS=hmm), routed by 5090 bench vs 4 CPU threads: forward-backward wins from 64 sequences
+# (x1.3, x6-14 at V=5000); the forward-only log-likelihood is faster in numba at every size, so it never routes
+HMM_GPU_MIN_SEQS = 64
+
+
+def _fb_batch(seqs, log_pi, A, B):
+    """Scaled forward-backward over a padded batch. Returns stats and total log-lik."""
+    if gpu_port("hmm") and len(seqs) >= HMM_GPU_MIN_SEQS:
+        return _fb_torch(seqs, log_pi, A, B, want_stats=True)
+    return _fb_batch_numba(seqs, log_pi, A, B)
+
+
+def _ll_batch(seqs, log_pi, A, B):
+    return _ll_batch_numba(seqs, log_pi, A, B)
+
+
+def _fb_torch(seqs, log_pi, A, B, want_stats):
+    """torch CUDA port: all sequences advance one time step together (float64, padding masked).
+    Same scaled recursions as the numba kernels; returns their outputs."""
+    import torch
+
+    dev = "cuda"
+    seqs = np.asarray(seqs, dtype=np.int64)
+    n, L = seqs.shape
+    S, V = B.shape
+    O = torch.as_tensor(seqs, device=dev)
+    valid = O >= 0
+    # length = first padding position (padding is a suffix in the numba kernels' reading too)
+    Tq = torch.where(valid.all(1), torch.full((n,), L, device=dev), (~valid).int().argmax(1))
+    tpos = torch.arange(L, device=dev)
+    m = tpos[None, :] < Tq[:, None]  # (n, L)
+    At = torch.as_tensor(np.asarray(A, dtype=np.float64), device=dev)
+    Bt = torch.as_tensor(np.asarray(B, dtype=np.float64), device=dev)
+    pi = torch.exp(torch.as_tensor(np.asarray(log_pi, dtype=np.float64), device=dev))
+    Bo = Bt.T[torch.clamp(O, min=0)]  # (n, L, S) emission prob of each observed symbol
+    alpha = torch.zeros((n, L, S), dtype=torch.float64, device=dev)
+    c = torch.ones((n, L), dtype=torch.float64, device=dev)
+    a = pi[None, :] * Bo[:, 0]
+    c0 = a.sum(1)
+    c[:, 0] = torch.where(m[:, 0], c0, 1.0)
+    alpha[:, 0] = a / c[:, 0:1]
+    for t in range(1, L):
+        a = (alpha[:, t - 1] @ At) * Bo[:, t]
+        ct = torch.where(m[:, t], a.sum(1), 1.0)
+        c[:, t] = ct
+        alpha[:, t] = torch.where(m[:, t:t + 1], a / ct[:, None], alpha[:, t - 1])
+    ll = torch.where(m, torch.log(c), 0.0).sum()
+    if not want_stats:
+        return float(ll), float(m.sum())
+    beta = torch.ones((n, L, S), dtype=torch.float64, device=dev)
+    for t in range(L - 2, -1, -1):
+        nxt = m[:, t + 1:t + 2]  # beta_t uses step t+1 only if it exists for this sequence
+        b = ((Bo[:, t + 1] * beta[:, t + 1]) @ At.T) / c[:, t + 1:t + 2]
+        beta[:, t] = torch.where(nxt, b, 1.0)
+    g = alpha * beta * m[:, :, None]  # (n, L, S)
+    occ = g.sum((0, 1))
+    emis = torch.zeros((V, S), dtype=torch.float64, device=dev)
+    emis.index_add_(0, O[m], g[m])
+    init = g[:, 0].sum(0)
+    # xi_t(i, j) = alpha_t(i) A_ij B_j(o_t+1) beta_t+1(j) / c_t+1, for t+1 inside the sequence
+    q = Bo[:, 1:] * beta[:, 1:] / c[:, 1:, None] * m[:, 1:, None]
+    trans = At * torch.einsum("nti,ntj->ij", alpha[:, :-1], q)
+    return (occ.cpu().numpy(), emis.T.contiguous().cpu().numpy(), trans.cpu().numpy(), init.cpu().numpy(), float(ll))
 
 
 @numba.njit(cache=True, parallel=True)
-def _fb_batch(seqs, log_pi, A, B):
+def _fb_batch_numba(seqs, log_pi, A, B):
     """Scaled forward-backward over a padded batch. Returns stats and total log-lik."""
     n, L = seqs.shape
     S, V = B.shape
@@ -83,7 +147,7 @@ def _fb_batch(seqs, log_pi, A, B):
 
 
 @numba.njit(cache=True, parallel=True)
-def _ll_batch(seqs, log_pi, A, B):
+def _ll_batch_numba(seqs, log_pi, A, B):
     n, L = seqs.shape
     S = B.shape[0]
     pi = np.exp(log_pi)

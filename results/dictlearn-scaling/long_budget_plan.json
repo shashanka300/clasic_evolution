@@ -1,0 +1,176 @@
+{
+ "alpha|dl_ema|cifar_p12|n=100000|k=192|B=256": {
+  "alphas": [
+   0.0373,
+   0.072,
+   0.1389,
+   0.2683
+  ],
+  "anchor_alpha": 0.1389,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|dl_ema|cifar_p8|n=200000|k=128|B=256": {
+  "alphas": [
+   0.0373,
+   0.072,
+   0.1389,
+   0.2683
+  ],
+  "anchor_alpha": 0.1389,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "alpha|dl_ema|nmf_20ng|n=14200|k=32|B=256": {
+  "alphas": [
+   0.072,
+   0.1389,
+   0.2683,
+   0.5179
+  ],
+  "anchor_alpha": 0.2683,
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ]
+ },
+ "stepwise|stepwise_rev|cifar_p12|k=192": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|cifar_p8|k=128": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise_rev|nmf_20ng|k=32": {
+  "anchor_seeds": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "configs": [
+   [
+    2.0,
+    0.6
+   ],
+   [
+    10.0,
+    0.6
+   ],
+   [
+    2.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise|cifar_p12|k=192": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise|cifar_p8|k=128": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    2.0,
+    0.5
+   ],
+   [
+    100.0,
+    0.5
+   ],
+   [
+    10.0,
+    0.5
+   ]
+  ]
+ },
+ "stepwise|stepwise|nmf_20ng|k=32": {
+  "anchor_seeds": [
+   0,
+   1,
+   2
+  ],
+  "configs": [
+   [
+    10.0,
+    0.6
+   ],
+   [
+    2.0,
+    0.6
+   ],
+   [
+    2.0,
+    0.5
+   ]
+  ]
+ }
+}

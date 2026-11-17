@@ -1,0 +1,6 @@
+
+##### brown_pos n=47340 S=12 V=5000
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=10.0 a0=0.0720 s=4 val=5.2314 test=5.2128 (484.7s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=10.0 a0=0.1389 s=4 val=5.2337 test=5.215 (1406.4s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=10.0 a0=0.2683 s=4 val=5.2301 test=5.2104 (311.7s)
+  [hmm-ema] brown_pos n=47340 k=12 B=256 T=10.0 a0=0.5179 s=4 val=5.2441 test=5.2241 (353.7s)
