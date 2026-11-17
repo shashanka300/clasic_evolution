@@ -1,0 +1,5 @@
+
+##### sift1m_pca64 cov=full n=200000 k=64
+[ref] sift1m_pca64|k=64|full s=0 EM@25 test=40.6318 (12s)
+/home/dummi/clasic_evolution/.venv/lib/python3.12/site-packages/sklearn/mixture/_base.py:293: ConvergenceWarning: Best performing initialization did not converge. Try different init parameters, or increase max_iter, tol, or check for degenerate data.
+  warnings.warn(

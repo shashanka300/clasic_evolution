@@ -12,7 +12,8 @@ publisher page before submission (convert to BibTeX at the LaTeX stage).
   poster. **v**
 - Bloch, Gera, Orbach, Eytan, Toledo (2026). Flash-GMM: A memory-efficient kernel for scalable soft clustering.
   arXiv:2606.10896. **v**
-- Johnson, Douze, Jégou (2019). Billion-scale similarity search with GPUs. IEEE Trans. Big Data 7(3). (Faiss)
+- Johnson, Douze, Jégou (2019). Billion-scale similarity search with GPUs. IEEE Trans. Big Data 7(3):535–547.
+  doi:10.1109/TBDATA.2019.2921572. (Faiss) **v**
 - Douze, Guzhva, Deng, Johnson, Szilvasy, Mazaré, Lomeli, Hosseini, Jégou (2024). The Faiss library.
   arXiv:2401.08281.
 - Sculley (2010). Web-scale k-means clustering. WWW 2010.
@@ -22,20 +23,24 @@ publisher page before submission (convert to BibTeX at the LaTeX stage).
 - Neal, Hinton (1998). A view of the EM algorithm that justifies incremental, sparse, and other variants. In
   Learning in Graphical Models (Jordan, ed.), Kluwer.
 - Delyon, Lavielle, Moulines (1999). Convergence of a stochastic approximation version of the EM algorithm. Ann.
-  Stat. 27(1):94–128.
+  Stat. 27(1):94–128. doi:10.1214/aos/1018031103. **v**
 - Sato, Ishii (2000). On-line EM algorithm for the normalized Gaussian network. Neural Computation 12(2):407–432.
+  doi:10.1162/089976600300015853. **v** (includes unit production / deletion / division: prior art for revival)
 - Cappé, Moulines (2009). On-line expectation–maximization algorithm for latent data models. JRSS-B 71(3):593–613.
-- Liang, Klein (2009). Online EM for unsupervised models. NAACL-HLT 2009.
-- Hoffman, Blei, Bach (2010). Online learning for latent Dirichlet allocation. NeurIPS 2010.
-- Hoffman, Blei, Wang, Paisley (2013). Stochastic variational inference. JMLR 14:1303–1347.
-- Mairal, Bach, Ponce, Sapiro (2010). Online learning for matrix factorization and sparse coding. JMLR 11:19–60.
+  doi:10.1111/j.1467-9868.2009.00698.x. **v**
+- Liang, Klein (2009). Online EM for unsupervised models. NAACL-HLT 2009, pp. 611–619 (ACL N09-1069). **v**
+- Hoffman, Blei, Bach (2010). Online learning for latent Dirichlet allocation. NeurIPS 2010, pp. 856–864. **v** (proceedings list the
+  authors as Hoffman, Bach, Blei; check the order against the PDF at the BibTeX stage)
+- Hoffman, Blei, Wang, Paisley (2013). Stochastic variational inference. JMLR 14:1303–1347. **v**
+- Mairal, Bach, Ponce, Sapiro (2010). Online learning for matrix factorization and sparse coding. JMLR 11:19–60. **v**
 - Nguyen, Forbes, McLachlan (2020). Mini-batch learning of exponential family finite mixture models. Statistics and
   Computing 30:731–748. doi:10.1007/s11222-019-09919-4; arXiv:1902.03335. **v**
-- Ranganath, Wang, Blei, Xing (2013). An adaptive learning rate for stochastic variational inference. ICML 2013.
-- Hughes, Sudderth (2013). Memoized online variational inference for Dirichlet process mixture models. NeurIPS 2013.
-- Chen, Zhu, Teh, Zhang (2018). Stochastic expectation maximization with variance reduction. NeurIPS 2018.
+- Ranganath, Wang, Blei, Xing (2013). An adaptive learning rate for stochastic variational inference. ICML 2013,
+  PMLR 28(2):298–306. **v**
+- Hughes, Sudderth (2013). Memoized online variational inference for Dirichlet process mixture models. NeurIPS 2013, pp. 1133–1141. **v**
+- Chen, Zhu, Teh, Zhang (2018). Stochastic expectation maximization with variance reduction. NeurIPS 2018. **v**
 - Hosseini, Sra (2020). An alternative to EM for Gaussian mixture models: batch and stochastic Riemannian
-  optimization. Mathematical Programming 181:187–223.
+  optimization. Mathematical Programming 181:187–223 (2020). doi:10.1007/s10107-019-01381-4. **v**
 
 ## Schedules, scaling laws, hyperparameter transfer
 - Loshchilov, Hutter (2017). SGDR: Stochastic gradient descent with warm restarts. ICLR 2017. (cosine schedule)
@@ -44,7 +49,7 @@ publisher page before submission (convert to BibTeX at the LaTeX stage).
 - Kaplan et al. (2020). Scaling laws for neural language models. arXiv:2001.08361.
 - DeepSeek-AI (Bi et al.) (2024). DeepSeek LLM: Scaling open-source language models with longtermism.
   arXiv:2401.02954. (learning-rate / batch-size laws)
-- Busbridge, Ramapuram, Ablin, Likhomanenko, Dhekane, Suau, Webb (2023). How to scale your EMA. NeurIPS 2023.
+- Busbridge, Ramapuram, Ablin, Likhomanenko, Dhekane, Suau, Webb (2023). How to scale your EMA. NeurIPS 2023 (spotlight); arXiv:2307.13813. **v**
 
 ## Datasets and models
 - Jégou, Douze, Schmid (2011). Product quantization for nearest neighbor search. TPAMI 33(1). (SIFT1M)
@@ -63,7 +68,7 @@ publisher page before submission (convert to BibTeX at the LaTeX stage).
 - Anguita, Ghio, Oneto, Parra, Reyes-Ortiz (2013). A public domain dataset for human activity recognition using
   smartphones. ESANN 2013. (UCI HAR)
 - Zhou, Wilkinson, Schreiber, Pan (2008). Large-scale parallel collaborative
-  filtering for the Netflix prize. AAIM 2008.
+  filtering for the Netflix prize. AAIM 2008, pp. 337–348. **v**
 
 ## Libraries
 - Pedregosa et al. (2011). Scikit-learn. JMLR 12. — hmmlearn (software, v0.3.3). — Paszke et al. (2019). PyTorch.

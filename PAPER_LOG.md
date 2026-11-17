@@ -296,7 +296,7 @@ L = significantly higher. Script: `scripts/compare_rev.py`.
 | LDA (3) | 0 / 14 / 4 | −0.8% … +3.2% | L: 20NG T=1 (+3.2%), Enron T=1 (+0.6%) and T=25 (+2.5%), NYTimes T=25 (+1.4%) |
 
 Epochs to reach full-batch@25, rev_tuned (swept in brackets): GMM synth diag 3.94 (0.29), synth full 23.0 (1.98),
-SIFT1M diag 1.64 (0.88), SIFT1M full 11.8 (7.86), DINOv2 diag 11.8 (1.88), DINOv2 full 9.01 (8.78), AG News diag 4.49
+SIFT1M diag 1.64 (0.88), SIFT1M full 11.8 (7.86; 10.4 (7.24) after the 2026-11-17 reference fill), DINOv2 diag 11.8 (1.88), DINOv2 full 9.01 (8.78), AG News diag 4.49
 (2.54), AG News full 16.0 (9.63); LDA 20NG **0.89** (1.13), Enron 7.17 (4.44), NYTimes not reached (final **3198**
 vs swept 3242, ref 3167); HMM and DL unchanged from no-revival tuned (UCI HAR 6.73 vs 5.70; noise in the selection).
 Recipe sooner on 16/19 (ALS compared with no-revival stepwise ALS as before), slower on LDA 20NG, neither on
@@ -426,6 +426,18 @@ Reading:
   home path (~25k occurrences, 199 files) and must be scrubbed; JSONL is clean. Anonymised snapshot for review,
   public repo + Zenodo DOI at arXiv/camera-ready. Open author decisions: licence; same repo vs fresh one.
 - Appendix outline reordered (E before F).
+
+### SIFT1M full-covariance reference filled to 5 seeds (2026-11-17; deviation repaired)
+
+Found while checking Table 1 against `results/summary.json`: the GMM `sift1m_pca64 | full` reference
+(`em_full_batch`, and the `sklearn_em` check) had only seeds 3–4. v2 never ran this group's seeds 0–2 (§2,
+2026-11-14 note) and v3 only added seeds 3–4, as for every group. Every other group has 5 reference seeds.
+Ran seeds 0–2 with the same v3 command (`run_v2.py --stage reference`, GPU port for GMM, as seeds 3–4); logs
+`results/gmm-ema/console_v3_sift1m_pca64_full_ref{0,1,2}.log`, no errors. Effect (5 vs 2 seeds):
+- reference@25 40.671 ± 0.104 → 40.685 ± 0.076 nats;
+- epochs to match: swept 7.86 → 7.24, law 16.1 → 14.8, tuned + revival 11.8 → 10.4; tuned online EM still never;
+- no change to Table 2 (recipe vs rev_tuned, no reference involved), the law fits, or any count in the abstract.
+Draft Table 1 / Table 3, METADATA §4 updated; §5.1 now says real-data full-covariance GMMs take 7–10 epochs.
 
 ### Release snapshot (2026-11-17)
 

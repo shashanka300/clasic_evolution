@@ -91,8 +91,9 @@ estimating the step online; we instead predict the initial rate from problem coo
 (variance-reduced stochastic EM) uses a constant step with control variates and is complementary. Hosseini & Sra
 2020 (Riemannian batch and stochastic optimisation for GMMs) is an alternative to EM-style updates.
 
-**Dead components.** Hughes & Sudderth 2013 (memoized online VI with birth/merge moves) is the closest mechanism
-to revival in the online-EM literature. k-means codebooks commonly re-seed empty clusters (Faiss; e-means' donor
+**Dead components.** Sato & Ishii 2000 already add unit production, deletion and division to online EM for
+normalised Gaussian networks, to track changing environments. Hughes & Sudderth 2013 (memoized online VI with
+birth/merge moves) is the closest modern mechanism. k-means codebooks commonly re-seed empty clusters (Faiss; e-means' donor
 split). Weiss 2026 refines e-means' count-based rule for k-means: a small cluster is removed only if it is close
 to another centre, which protects rare isolated groups. We know of no single dead-component rule applied across EM
 families.
@@ -215,25 +216,25 @@ time, 3 seeds, after warm-up.
 
 | configuration | swept (ours) | law (ours, untuned) | tuned stepwise | tuned stepwise + revival |
 |---|---|---|---|---|
-| GMM synthetic diag | **0.29** | 17.2 | — | 3.94 | 9.2x |
-| GMM synthetic full | **1.98** | 2.88 | — | 23.0 | — |
-| GMM SIFT1M diag | **0.88** | 0.97 | — | 1.64 | 7.3x |
-| GMM SIFT1M full | **7.86** | 16.1 | — | 11.8 |
-| GMM DINOv2 diag | **1.88** | 2.04 | — | 11.8 | — |
+| GMM synthetic diag | **0.29** | 17.2 | — | 3.94 |
+| GMM synthetic full | **1.98** | 2.88 | — | 23.0 |
+| GMM SIFT1M diag | **0.88** | 0.97 | — | 1.64 |
+| GMM SIFT1M full | **7.24** | 14.8 | — | 10.4 |
+| GMM DINOv2 diag | **1.88** | 2.04 | — | 11.8 |
 | GMM DINOv2 full | **8.78** | 23.1 | — | 9.01 |
-| GMM AG News diag | 2.54 | **2.04** | — | 4.49 | 4.3x |
+| GMM AG News diag | 2.54 | **2.04** | — | 4.49 |
 | GMM AG News full | **9.63** | 12.0 | — | 16.0 |
-| DL CIFAR 8×8 | **≤ 0.25** | 1.68 | 0.54 | 0.54 | 36.4x |
-| DL CIFAR 12×12 | **0.83** | 2.83 | 1.66 | 1.66 | 15.4x |
-| DL 20NG NMF | **2.32** | 2.36 | 3.70 | 3.70 | 5.5x |
-| LDA 20NG | 1.13 | — | 1.60 | **0.89** | 9.5x |
+| DL CIFAR 8×8 | **≤ 0.25** | 1.68 | 0.54 | 0.54 |
+| DL CIFAR 12×12 | **0.83** | 2.83 | 1.66 | 1.66 |
+| DL 20NG NMF | **2.32** | 2.36 | 3.70 | 3.70 |
+| LDA 20NG | 1.13 | — | 1.60 | **0.89** |
 | LDA Enron | **4.44** | — | — | 7.17 |
 | LDA NYTimes | — (3242) | — | — (3317) | — (**3198**; ref 3167) |
 | ALS ML-10M | **5.84** | 8.88 | 20.1 | n/a |
 | ALS ML-1M | — (tie: 0.8656 = ref) | — | — | n/a |
-| HMM Brown POS | **0.64** | 0.95 | 1.33 | 1.33 | 16.6x |
-| HMM synthetic | **0.66** | 1.44 | 1.95 | 1.95 | 8.5x |
-| HMM UCI HAR | **1.72** | 2.21 | 5.70 | 6.73 | — (4.2x w/o revival) |
+| HMM Brown POS | **0.64** | 0.95 | 1.33 | 1.33 |
+| HMM synthetic | **0.66** | 1.44 | 1.95 | 1.95 |
+| HMM UCI HAR | **1.72** | 2.21 | 5.70 | 6.73 |
 
 The swept recipe reaches the reference within 3 epochs on 12 configurations:
 - all four diagonal GMMs and synthetic full;
@@ -242,7 +243,7 @@ The swept recipe reaches the reference within 3 epochs on 12 configurations:
 - all three HMMs.
 
 Configurations that take longer:
-- Full-covariance GMMs on real data take 8–10 epochs.
+- Full-covariance GMMs on real data take 7–10 epochs.
 - LDA Enron takes 4.4 epochs; on NYTimes no online method reaches batch VB@25 within 25 epochs.
 - ALS ML-10M takes 5.8 epochs. On ML-1M every online method ends within 0.0005 RMSE of an already-converged ALS-WR
   (a tie, not a loss).
@@ -276,10 +277,10 @@ p < 0.05).
 
 | configuration | tuned stepwise | + revival | swept (ours) | reference@25 |
 |---|---|---|---|---|
-| GMM SIFT1M full | 50.68 | 40.53 | 40.50 | 40.67 |
+| GMM SIFT1M full | 50.68 | 40.53 | 40.50 | 40.69 |
 | GMM DINOv2 full | 69.64 | 54.61 | 54.65 | 54.80 |
 | GMM AG News full | 78.81 | 70.37 | 70.20 | 70.42 |
-| LDA 20NG | 2410 | 2320 | 2334 | 2489 | None |
+| LDA 20NG | 2410 | 2320 | 2334 | 2489 |
 | LDA Enron | 2401 | 2240 | 2295 | 2267 |
 | LDA NYTimes | 3317 | 3198 | 3242 | 3167 |
 | HMM / DL | identical with and without revival (it never fires) | | | |
@@ -290,7 +291,7 @@ Three findings follow.
    the batch reference on all 8 GMM configurations. On LDA it lowers final perplexity on all three corpora and
    turns Enron from never matching into a match at 7.2 epochs.
 2. **With revival on both sides, the cosine schedule still helps on three of four families.** On GMM the margin is
-   modest (0.1–1.5%); on real-data full covariance it is significant only at T ≤ 2 and ties afterwards. On HMMs it is
+   modest (0.03–1.5%); on real-data full covariance it is significant only at T ≤ 2 and ties afterwards. On HMMs it is
    large and persists to 25 epochs on UCI HAR (−4.5%). On dictionary learning it is small but consistent.
 3. **On LDA, a tuned inverse-time schedule with revival is as good or better.** It matches the batch reference
    sooner on 20NG (0.89 vs 1.13 epochs) and ends lower on Enron and NYTimes at T = 25. The recipe's held-out
@@ -315,26 +316,26 @@ is stepwise / online EM with revival and the val-selected (τ0, κ) per budget, 
 
 | configuration | ref@25 (s) | swept | law | tuned + revival |
 |---|---|---|---|---|
-| DL CIFAR 8×8 | 184 | 82x (≤ 0.25 ep) | 16.4x | None |
-| DL CIFAR 12×12 | 161 | 30.8x | 10.1x | None |
-| DL 20NG NMF | 1.85 | 6.5x | 7.3x | None |
-| HMM Brown POS | 59.4 | 32.9x | 25.3x | None |
-| HMM synthetic | 1.55 | 24.7x | 13.9x | None |
-| HMM UCI HAR | 0.68 | 9.9x | 7.5x | None |
-| GMM synthetic diag | 8.8 | 17.6x | — | None |
-| GMM SIFT1M diag | 25.0 | 10.6x | 9.2x | None |
-| GMM DINOv2 diag | 5.4 | 8.7x | 6.6x | None |
-| GMM AG News diag | 10.7 | 6.1x | 7.5x | None |
-| GMM synthetic full | 20.9 | 5.4x | 6.2x | None |
-| LDA 20NG | 6.0 | 6.8x | — | None |
+| DL CIFAR 8×8 | 184 | **82x** (≤ 0.25 ep) | 16.4x | 36.4x |
+| DL CIFAR 12×12 | 161 | **30.8x** | 10.1x | 15.4x |
+| DL 20NG NMF | 1.85 | 6.5x | **7.3x** | 5.5x |
+| HMM Brown POS | 59.4 | **32.9x** | 25.3x | 16.6x |
+| HMM synthetic | 1.55 | **24.7x** | 13.9x | 8.5x |
+| HMM UCI HAR | 0.68 | **9.9x** | 7.5x | — |
+| GMM synthetic diag | 8.8 | **17.6x** | — | 9.2x |
+| GMM SIFT1M diag | 25.0 | **10.6x** | 9.2x | 7.3x |
+| GMM DINOv2 diag | 5.4 | **8.6x** | 6.6x | — |
+| GMM AG News diag | 10.7 | 6.1x | **7.5x** | 4.3x |
+| GMM synthetic full | 20.9 | 5.4x | **6.2x** | — |
+| LDA 20NG | 6.0 | 6.8x | — | **9.5x** |
 
-![Figure 5](figs/timing_speedup.png)
+![Figure 2](figs/timing_speedup.png)
 
-*Figure 5:* the same speed-ups on a log scale (`results/figures/timing_speedup.*`).
+*Figure 2:* the same speed-ups on a log scale (`results/figures/timing_speedup.*`).
 
 Wall-clock speed-ups are below epoch gains because a mini-batch epoch has extra per-step overhead (statistic
-updates, M-steps after every batch). TODO: time the T = 10/25 matches (GMM full, LDA Enron, ALS ML-10M) if
-reviewers want them.
+updates, M-steps after every batch). Matches that need more than 5 epochs (real-data full-covariance GMMs, LDA
+Enron, ALS ML-10M) were not timed (limitation 4); their per-epoch cost is the same as at T = 2.
 
 The tuned baselines cost the same per epoch as the recipe: at T = 2 their wall time is within 5% of the recipe's on
 every configuration, because both do one E-step and one M-step per mini-batch and the EMA of statistics adds no
@@ -355,9 +356,9 @@ The law fails on LDA. It predicts α0 ≈ 0.2–1, while the swept optimum is 0.
 rate, held-out perplexity *worsens* with more epochs, and the batch reference is never reached. The median swept α0*
 per family is ALS 0.21, DL 0.26, GMM 0.32, HMM 1.0, LDA 0.029.
 
-![Figure 2](figs/alpha0_sweeps.png)
+![Figure 3](figs/alpha0_sweeps.png)
 
-*Figure 2:* validation penalty against α0 divided by the global law's prediction (dashed line at 1), median over sweep cells in 0.25-decade bins, grouped by budget. The law is fitted in-sample here; out-of-sample penalties are in Figure 3 (`results/figures/alpha0_sweeps.*`).
+*Figure 3:* validation penalty against α0 divided by the global law's prediction (dashed line at 1), median over sweep cells in 0.25-decade bins, grouped by budget. The law is fitted in-sample here; out-of-sample penalties are in Figure 4 (`results/figures/alpha0_sweeps.*`).
 
 ### 5.5 One law across families (C5, C6)
 
@@ -392,13 +393,13 @@ missing information goes with a *larger* α0*, driven by HMMs. LDA's latents are
 (h ≈ 0.16–0.24 vs 0.04–0.47), yet LDA needs an α0 about 30x smaller. Whatever sets LDA's rate is specific to LDA
 (Appendix, PAPER_LOG §5).
 
-![Figure 3](figs/law_penalties.png)
+![Figure 4](figs/law_penalties.png)
 
-*Figure 3:* validation penalty of the predicted α0 for each law, leave-one-cell-out (left) and leave-one-algorithm-out (right), over all 422 cells; boxes are quartiles, whiskers the 5th–95th percentiles (`results/figures/law_penalties.*`).
+*Figure 4:* validation penalty of the predicted α0 for each law, leave-one-cell-out (left) and leave-one-algorithm-out (right), over all 422 cells; boxes are quartiles, whiskers the 5th–95th percentiles (`results/figures/law_penalties.*`).
 
-![Figure 4](figs/law_coords.png)
+![Figure 5](figs/law_coords.png)
 
-*Figure 4:* swept α0* vs observations per statistic cell per step (q_eff), all 422 cells. Each α0* is moved to a
+*Figure 5:* swept α0* vs observations per statistic cell per step (q_eff), all 422 cells. Each α0* is moved to a
 common n/B (94) and T = 1 along the fitted exponents; the line is the single global fit Qe0 (slope 0.43). Hollow =
 censored at the grid's lower edge, excluded from the fit. Two things stand out. LDA's low rates fall on the same
 trend as the other families once cells are counted per statistic. HMMs (squares) sit far above the line at α0* ≈ 1.
@@ -408,8 +409,9 @@ trend as the other families once cells are counted per statistic. HMMs (squares)
 
 **What transfers from e-means, and what does not.**
 - *The update and the revival rule transfer as they are.* The update was already known to work across families
-  (Liang & Klein). The revival rule is the ingredient with the least prior art in online EM, and it decides whether
-  online EM works at all on full-covariance mixtures and LDA.
+  (Liang & Klein). Revival has prior art in online EM (unit management in Sato & Ishii 2000; birth/merge moves in
+  Hughes & Sudderth 2013) but is absent from the standard stepwise-EM baselines, and it decides whether online EM
+  works at all on full-covariance mixtures and LDA.
 - *The cosine schedule transfers with a family-dependent benefit:* large on HMMs, modest on GMMs and dictionary
   learning, none on LDA.
 - *The rate law transfers in form but not in coordinates.* LDA shows that n/k is the wrong variable, and the
@@ -422,10 +424,9 @@ is already near convergence after a few passes (ALS ML-1M) or where the statisti
 **Limitations.**
 1. *Datasets.* They are narrower than planned: MovieLens 1M/10M instead of 25M/Netflix; Brown instead of Penn
    Treebank; no PubMed/Wikipedia LDA; no audio dictionary learning.
-2. *Reference.* The reference is batch EM at 25 iterations, not converged batch EM. It runs with a like-for-like
-   CPU implementation, not with fused GPU kernels such as Flash-KMeans / Flash-GMM (§2).
+2. *Reference.* The reference is batch EM at 25 iterations, not converged batch EM.
 3. *Long budgets.* They use a frozen 3–4-point local search for all methods.
-4. *Wall-clock.* It covers matches within 5 epochs only, on one CPU.
+4. *Wall-clock.* It covers matches within 5 epochs only (12 of the 17 configurations the recipe matches), on one CPU.
 5. *GPU kernels.* We did not combine either side with fused GPU kernels (Flash-KMeans / Flash-GMM); §2 explains
    why they are complementary rather than competing.
 6. *Post-hoc analyses.* The revival-equipped baseline and the per-cell law were added after seeing results.

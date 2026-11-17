@@ -1,12 +1,12 @@
 Plotted from:
-  results/gmm-ema/runs.jsonl (234 records), group agnews_pca64|k=64|diag
-  results/gmm-ema/runs.jsonl (234 records), group agnews_pca64|k=64|full
-  results/gmm-ema/runs.jsonl (234 records), group dinov2_pca64|k=64|diag
-  results/gmm-ema/runs.jsonl (234 records), group dinov2_pca64|k=64|full
-  results/gmm-ema/runs.jsonl (234 records), group sift1m_pca64|k=64|diag
-  results/gmm-ema/runs.jsonl (234 records), group sift1m_pca64|k=64|full
-  results/gmm-ema/runs.jsonl (234 records), group synthetic|k=32|diag
-  results/gmm-ema/runs.jsonl (234 records), group synthetic|k=32|full
+  results/gmm-ema/runs.jsonl (240 records), group agnews_pca64|k=64|diag
+  results/gmm-ema/runs.jsonl (240 records), group agnews_pca64|k=64|full
+  results/gmm-ema/runs.jsonl (240 records), group dinov2_pca64|k=64|diag
+  results/gmm-ema/runs.jsonl (240 records), group dinov2_pca64|k=64|full
+  results/gmm-ema/runs.jsonl (240 records), group sift1m_pca64|k=64|diag
+  results/gmm-ema/runs.jsonl (240 records), group sift1m_pca64|k=64|full
+  results/gmm-ema/runs.jsonl (240 records), group synthetic|k=32|diag
+  results/gmm-ema/runs.jsonl (240 records), group synthetic|k=32|full
   results/hmm-ema/runs.jsonl (90 records), group brown_pos|k=12
   results/hmm-ema/runs.jsonl (90 records), group synthetic|k=12
   results/hmm-ema/runs.jsonl (90 records), group uci_har_vq|k=12
