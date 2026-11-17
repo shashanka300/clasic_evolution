@@ -10,7 +10,7 @@ datasets, libraries, well-known preprints) whose details are from memory. BibTeX
   (2026-11-17; k-means only, keeps small isolated clusters that count-based revival removes)
 - Yang, Shuo; Xi, Haocheng; et al. (13 authors) (2026). Flash-KMeans: Fast and memory-efficient exact k-means. arXiv:2603.09229; NeurIPS 2026
   poster. **v**
-- Bloch (Gal), Gera (Ariel), Orbach (Matan), Eytan (Ohad), Toledo (Assaf) (2026; IBM Research). Flash-GMM: A memory-efficient kernel for scalable soft clustering.
+- Bloch (Gal), Gera (Ariel), Orbach (Matan), Eytan (Ohad), Toledo (Assaf) (2026). Flash-GMM: A memory-efficient kernel for scalable soft clustering.
   arXiv:2606.10896. **v**
 - Johnson, Douze, Jégou (2019). Billion-scale similarity search with GPUs. IEEE Trans. Big Data 7(3):535–547.
   doi:10.1109/TBDATA.2019.2921572. (Faiss) **v**
