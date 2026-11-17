@@ -218,6 +218,9 @@ no-revival one is the published prior art, the revival one is the fair ablation.
 - [x] (2026-11-17, `paper/RELEASE_PLAN.md`; licence and same-vs-fresh repo are author decisions) Code/data release
       plan (repo is private at `shashanka300/clasic_evolution`).
 
+**Submission target (2026-11-17): TMLR.** Manuscript `paper/tmlr/main.tex` (canonical from now on), checklist
+`paper/tmlr/SUBMISSION_CHECKLIST.md`, supplement built by `scripts/make_release.sh`.
+
 ## 9. Reproducibility
 
 - Code + results: commit `1398f74`, branch `desktop-5090` (release plan: `paper/RELEASE_PLAN.md`).

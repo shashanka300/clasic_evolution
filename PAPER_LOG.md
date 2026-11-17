@@ -438,6 +438,23 @@ Reading:
   Appendix B (grids) is still a TODO.
 - Checklist and likely reviewer questions: `paper/tmlr/SUBMISSION_CHECKLIST.md`.
 
+### TMLR package completed (2026-11-17)
+
+- Official TMLR style added (`tmlr.sty`, `tmlr.bst`, `fancyhdr.sty` from github.com/JmlrOrg/tmlr-style-file, Apache-2.0;
+  downloaded with author OK). Abstract merged into one paragraph (template rule). Builds with no undefined
+  references and no overfull boxes.
+- Appendix B written from the code: α0 grid (8 log-spaced on [0.01, 1], LDA extended by 5 values to 3.7e-4),
+  stepwise grids (κ 0.5–1.0; τ0 {2, 10, 100}, GMM {1, 10, 100, 1000}), head batch sizes, long-budget plan,
+  law-fitting cells, ALS λ.
+- References: author lists from arXiv for e-means (first author Swann Bessa), Weiss (Eyal Weiss), Flash-KMeans
+  (first author Shuo Yang; the old entry "Yang, Xi" was wrong), Flash-GMM; Hoffman 2010 order set to the
+  proceedings' (Hoffman, Bach, Blei); Sculley, ANN-Benchmarks, Faiss, DINOv2 checked. 24 entries verified online.
+- §5.5 now states that the unchanged k-means law's LOAO median (0.155%) is close to Qe0's (0.149%) and better on
+  HMMs; the per-cell law's gain is concentrated on LDA.
+- Supplementary ZIP (5.4 MB, 1,309 files) built from the release export; `make_release.sh` now also drops the
+  companion figures from `paper/figs`. Scanned: no user, machine, repo or employer names.
+- Left to the author: names / affiliation, OpenReview profiles, employer clearance, title, upload.
+
 ### SIFT1M full-covariance reference filled to 5 seeds (2026-11-17; deviation repaired)
 
 Found while checking Table 1 against `results/summary.json`: the GMM `sift1m_pca64 | full` reference
