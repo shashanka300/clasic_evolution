@@ -28,6 +28,6 @@ mv paper/README_release.md README.md
 grep -rIl -e "$HOME" -e "$REPO" -e "$OWNER" . | xargs -r sed -i -e "s#$HOME#\$HOME#g" \
   -e "s#$OWNER/$REPO#<repo>#g" -e "s#$REPO#<repo>#g" -e "s#$OWNER#<user>#g"
 
-left=$(grep -rl -e "$HOME" -e "$(whoami)" -e "$OWNER" -e "$REPO" -e "@gmail" . || true)
+left=$(grep -rl --exclude=make_release.sh -e "$HOME" -e "$(whoami)" -e "$OWNER" -e "$REPO" -e "@gmail" . || true)
 if [ -n "$left" ]; then echo "personal strings remain in:"; echo "$left"; exit 1; fi
 echo "release tree: $OUT ($(find . -type f | wc -l) files, $(du -sh . | cut -f1))"
