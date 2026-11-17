@@ -1,7 +1,6 @@
-# Scaling laws for stochastic-approximation EM
+# When Running Averages Are Enough: Few-Epoch EM for Mixtures, Sequences, Topics and Factorizations
 
-Code, job files and every run record for the paper *Scaling laws for stochastic-approximation EM: one recipe and
-one step-size rule across five model families* (draft in `paper/draft.md`).
+Code, job files and every run record for the paper *When Running Averages Are Enough: Few-Epoch EM for Mixtures, Sequences, Topics and Factorizations* (draft in `paper/draft.md`).
 
 The e-means recipe (an EMA of sufficient statistics, a cosine-annealed step, dead-unit revival and a step-size law)
 is applied to Gaussian mixtures, HMMs, LDA, online dictionary learning / NMF and ALS, and compared with full-batch

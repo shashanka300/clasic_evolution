@@ -11,7 +11,9 @@ the end and are not covered here.
 
 ## 1. Identity
 
-**Working titles** (pick one; the literature review argues against an "X-means for Y" title, PAPER_LOG §6):
+**Title (chosen 2026-11-17):** *When Running Averages Are Enough: Few-Epoch EM for Mixtures, Sequences, Topics and Factorizations*
+
+**Earlier working titles** (superseded):
 1. *Scaling laws for stochastic-approximation EM: one step-size rule across five model families*
 2. *When does an EMA of sufficient statistics beat batch EM? A cross-family time-to-baseline study*
 3. *From e-means to stochastic EM at scale: schedules, revival and a step-size law that (almost) transfers*

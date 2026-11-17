@@ -484,6 +484,17 @@ Draft Table 1 / Table 3, METADATA §4 updated; §5.1 now says real-data full-cov
 - Found while building: the working repo's verdict tables were stale (missing the `*_rev_tuned` rows); refreshed
   in the working repo (a7d4696). Paper numbers came from `compare_rev.py` and are unaffected.
 
+### Title chosen (2026-11-17; author decision)
+
+- Title: **"When Running Averages Are Enough: Few-Epoch EM for Mixtures, Sequences, Topics and Factorizations"**.
+  Supersedes the provisional "Scaling laws for stochastic-approximation EM: ..." (entry "Title, abstract and
+  release plan" above).
+- Reason: the headline result is matching full-batch EM in a few epochs, and the law adds little over the
+  unchanged k-means law (§5.5). "Scaling laws" would overclaim. "When" signals that the paper maps where the
+  recipe works, including the LDA exception.
+- Updated in `paper/tmlr/main.tex` (PDF rebuilt), `paper/draft.md`, `paper/METADATA.md` §1,
+  `paper/README_release.md`, `LICENSE`, and the TMLR checklist.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

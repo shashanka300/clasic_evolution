@@ -1,4 +1,4 @@
-# Scaling laws for stochastic-approximation EM: one recipe and one step-size rule across five model families
+# When Running Averages Are Enough: Few-Epoch EM for Mixtures, Sequences, Topics and Factorizations
 
 *Draft v0 (Markdown), 2026-11-16. Numbers from protocol v3 at commit 225a281; source of record `paper/METADATA.md`
 and `PAPER_LOG.md`. References in `paper/references.md`; `TODO` = open item. Authors: TBD.*
