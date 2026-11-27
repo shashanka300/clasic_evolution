@@ -793,6 +793,9 @@ review. The author chose Regular. Nothing was cut; content was moved to the appe
 All main-text references now point to the appendix. The references start on page 12, so the main text is about 11.4
 pages; the PDF is 21 pages. Both builds are clean, with no unresolved references, and the anonymous PDF is
 name-free. The submission sheet now says Regular.
+- Follow-up (author spotted it): page 6 was a float page holding only Tables 2 and 3 with its bottom third empty.
+  Both tables are now `[!t]`, so they sit at the top of page 6 and the text flows underneath. Pages 4–11 checked
+  visually, with no gaps. The PDF is 20 pages, and the references still start on page 12.
 
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
