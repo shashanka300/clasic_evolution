@@ -761,6 +761,25 @@ and the README now say 39,185.
     and the caption says so.
 - Back to 20 pages; references start on page 15. Both PDFs build cleanly and the anonymous one is name-free.
 
+### Final code-level pass (2026-11-27)
+
+- **Confirmed:**
+  - the k-means law formula and constants (`core/scaling.py`, as in Bessa et al.);
+  - the law variant takes B from the e-means batch law in every family (`stage_kmlaw`);
+  - the Appendix E setup (d = 16, 30 + 4 far clusters at radius 30 with 0.2% mass, k = 34, B = 1024, rare = < 2%
+    of training points; `revival_rare.py`);
+  - the embedding models (DINOv2-small, all-MiniLM-L6-v2).
+- **Fixed, splits:** §5 said splits are "fixed per seed"; in the code every family draws its split once with a
+  constant seed (0 or 123), shared by all run seeds, and the seeds change initialization and batch order. The text
+  now says so.
+- **Fixed, Appendix A:** data sizes and subsamplings were not disclosed. They are now:
+  - GMM PCA fitted on ≤ 50,000 training points and rescaled to unit average variance;
+  - SIFT1M 200k / 10k train/val from the first 300k base vectors, 10k queries as test;
+  - DINOv2 45k / 5k with CIFAR-100 test; AG News 90k / 10k with 7,600 test; synthetic 200k / 10k / 10k (d = 32,
+    k = 32);
+  - NYTimes restricted to the first 100,000 documents;
+  - the Brown vocabulary capped at 5,000 words.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

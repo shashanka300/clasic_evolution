@@ -370,7 +370,8 @@ scikit-learn's GaussianMixture and MiniBatchDictionaryLearning \citep{pedregosa2
 and the online-LDA defaults of \citet{hoffman2010online}.
 
 \paragraph{Budgets and seeds.} Budgets are $T \in \{0.25, 0.5, 1, 2, 3, 5, 10, 25\}$ epochs, with seeds 0--4 for
-every method and configuration. Train, validation and test splits are fixed per seed. At $T = 10$ and 25, every
+every method and configuration. Train, validation and test splits are drawn once and shared by all seeds; seeds change
+the initialization and the mini-batch order. At $T = 10$ and 25, every
 method searches only a 3--4-point neighborhood of its own $T = 5$ optimum; these neighborhoods were frozen before any
 long run.
 
@@ -771,8 +772,12 @@ CIFAR-100 \citep{krizhevsky2009learning}; all-MiniLM-L6-v2 embeddings \citep{rei
 News \citep{zhang2015character}; 20 Newsgroups \citep{lang1995newsweeder}; Enron and NYTimes from the UCI
 bag-of-words collection \citep{newman2008bow}; MovieLens \citep{harper2015movielens}; the Brown corpus
 \citep{francis1979brown} with the universal tagset \citep{petrov2012universal}; UCI HAR \citep{anguita2013har}. ALS
-follows ALS-WR \citep{zhou2008netflix}. Embeddings are reduced to 64 dimensions by PCA fitted on the training split.
-Datasets are not redistributed; the released download script fetches each from its provider. Licenses and required
+follows ALS-WR \citep{zhou2008netflix}. For the GMMs, embeddings are reduced to 64 dimensions by PCA fitted on up to
+50,000 training points and rescaled to unit average variance. GMM training / validation sizes are 200,000 / 10,000
+for SIFT1M (drawn from its first 300,000 base vectors; the 10,000 queries are the test set), 45,000 / 5,000 for
+DINOv2 (CIFAR-100 test images as the test set), 90,000 / 10,000 for AG News (7,600 test), and 200,000 / 10,000 /
+10,000 for the synthetic mixture ($d = 32$, $k = 32$ overlapping components). NYTimes is restricted to its first
+100,000 documents, and the Brown corpus to a 5,000-word vocabulary. Datasets are not redistributed; the released download script fetches each from its provider. Licenses and required
 citations are listed in the supplementary material.
 
 \section{Hyperparameter grids}\label{app:grids}
