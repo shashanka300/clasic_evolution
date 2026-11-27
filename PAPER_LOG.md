@@ -585,6 +585,57 @@ new runs):
 **Not yet done:** the supplementary ZIP and the private release repo still have the old manuscript; `draft.md` is
 superseded and not updated.
 
+### Literature cross-check before submission (2026-11-27)
+
+New or uncited work found since the TMLR package (searched alphaXiv, arXiv and the web). The manuscript is not yet
+changed.
+
+- **Fuzzy e-Means** (Tiwari & Rathore, arXiv 2611.29241, 2026-11-22). Transfers the e-means optimizer to fuzzy
+  c-means (soft weights, the closest relative of our GMM track). Findings:
+  - the moving average is essential;
+  - the k-means laws transfer without refitting on standard data, but not in low dimension;
+  - revival on soft masses must be removed: on KDD Cup 99 it costs 26–46%, and even a hard-count trigger does not
+    fix it;
+  - the cosine schedule barely matters.
+
+  This is concurrent and independent evidence for our transfer claim and our Appendix E rare-group finding (same
+  dataset, KDD99). It weakens the "e-means tested no other model" framing only if we imply nobody else has: we must
+  cite it as concurrent work.
+- **Two Counterexamples for e-means** (Assylbekov, arXiv 2611.22065, 2026-11-17). Proves that mass-based revival,
+  which is our rule, can destroy a global optimum, with a loss ratio to Lloyd that is unbounded even under
+  k-means++ seeding. It also gives an example where forgetting moves a boundary past an unseen point. It cites
+  Faiss issue #5907 / PR #5908 (Sahai, separation-based revival) and PR #5915 (Cabannes, cost-based revival).
+  It belongs in Related Work (dead components) and Limitation 7.
+- **anemone** (Liu, Shao & Van den Broeck, arXiv 2505.19982 v2, Oct 2025). A mini-batch EM for probabilistic
+  circuits, HMMs included, with a per-parameter adaptive step. It reports that plain mini-batch EM (Peharz et al.
+  2020) ends below full-batch EM at convergence. It is relevant to step-size adaptation and to our "converged
+  reference" limitation.
+- **Li & Song** (arXiv 2605.08864, May 2026). Online EM as equilibrium tracking, theory only (latent linear
+  Gaussian). An optional citation for the background.
+- **e-GMM** (GitHub kei-kochiya/egmm). Indexed by search engines as "EMA-EM for GMMs with a finite-horizon cosine
+  schedule and split-based revival", borrowing from e-means, "with Overleaf paper". It now returns 404 (gh: not
+  found), so its content and date are unverifiable and it cannot be cited. Risk: a reviewer may know it.
+- **Also new, complementary:** ez-means (2611.*, 2026-11-24, faster centroid search), eDIAR (2611.18529,
+  application), PISCES (HF model card, principal-axis revival split).
+- **No paper found** that applies the e-means recipe to HMMs, LDA, dictionary learning or ALS, or that compares
+  against tuned stepwise EM with revival. The cross-family study, the ablation and the law remain distinct.
+- **TMLR pages re-read 2026-11-27:**
+  - LLMs are allowed as assistive tools, with authors fully responsible;
+  - an author submission quota applies ("generalized harmonic quota rule");
+  - the author list is fixed at submission;
+  - arXiv posting is allowed at any time;
+  - the camera-ready must link the OpenReview page.
+- **Applied (same day, author OK).** Four BibTeX entries added (assylbekov2026counterexamples, tiwari2026fuzzy,
+  liu2025anemone, li2026equilibrium). New citations in `main.tex`:
+  - Introduction: a concurrent-work sentence on Fuzzy e-Means;
+  - Related Work: Li & Song (online EM), anemone (step-size adaptation), and both counterexamples and Fuzzy
+    e-Means (dead components);
+  - Limitation 7: the three revival papers;
+  - Appendix E: Fuzzy e-Means reports the same failure on KDD99;
+  - future work 1: anemone.
+
+  e-GMM is not cited (unverifiable). The PDF is 20 pages with no undefined citations.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

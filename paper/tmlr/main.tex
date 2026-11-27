@@ -82,7 +82,9 @@ are:
         batch size and epoch budget.
 \end{itemize}
 These three were proposed together for $k$-means by e-means \citep{bessa2026emeans}, which fitted the law on one
-dataset and tested no other model. We take them as a starting point and ask which parts belong to
+dataset and tested no other model. Concurrent work carries the e-means optimizer over to fuzzy $c$-means
+\citep{tiwari2026fuzzy}; we study EM itself, across five model families, against tuned stepwise EM. We take the
+three additions as a starting point and ask which parts belong to
 stochastic-approximation EM in general, which parts are specific to a model family, and whether one step-size law
 can serve all families. Our contributions are:
 \begin{enumerate}[nosep]
@@ -247,12 +249,16 @@ unit-free; the constants themselves are empirical.
 compared stepwise and incremental EM on four NLP models and found stepwise EM 2--10$\times$ faster than batch EM, with
 a task-dependent best step. Online LDA and SVI \citep{hoffman2010online,hoffman2013svi}, online dictionary learning
 and NMF \citep{mairal2010online}, and mini-batch EM for exponential-family mixtures \citep{nguyen2020minibatch}, which
-lists step and batch tuning as future work, apply the same update to single families. Our update is theirs. We
+lists step and batch tuning as future work, apply the same update to single families. \citet{li2026equilibrium} analyze
+online EM as tracking the batch optimum of the running statistic, for a latent linear Gaussian model. Our update is
+theirs. We
 differ in the budget-tied schedule, the revival rule, a time-to-batch protocol run across five families, and a
 fitted law for the initial step.
 
 \paragraph{Step-size adaptation.} \citet{ranganath2013adaptive} remove step tuning for SVI by estimating the step
-online; we instead predict the initial step from problem size, and the two could be combined. Variance-reduced
+online; we instead predict the initial step from problem size, and the two could be combined. For probabilistic
+circuits, including HMMs, \citet{liu2025anemone} find that plain mini-batch EM ends below full-batch EM at
+convergence and propose a per-parameter adaptive step that closes the gap. Variance-reduced
 stochastic EM \citep{chen2018sem} uses a constant step with control variates and is complementary. Riemannian batch
 and stochastic optimization \citep{hosseini2020alternative} is an alternative to EM-style updates for GMMs.
 
@@ -261,8 +267,11 @@ to track changing environments, and memoized online variational inference with b
 \citep{hughes2013memoized} is the closest modern mechanism. $k$-means codebooks commonly re-seed empty clusters
 \citep{johnson2019faiss,douze2024faiss}, and e-means splits a donor. \citet{weiss2026small} refine e-means'
 count-based rule for $k$-means: a small cluster is removed only if it is close to another center, which protects rare,
-isolated groups; we test this variant for GMMs in Appendix~\ref{app:rare}. We know of no dead-component rule that has
-been applied across EM families.
+isolated groups; we test this variant for GMMs in Appendix~\ref{app:rare}. \citet{assylbekov2026counterexamples}
+prove that the mass-based rule, which we also use, can destroy a globally optimal $k$-means solution, with a loss
+ratio to Lloyd's algorithm that is unbounded even under $k$-means++ seeding. For fuzzy $c$-means,
+\citet{tiwari2026fuzzy} find that revival on soft masses moves the centroids of rare groups on KDD Cup 99 and remove
+it after a first hard epoch. We know of no dead-component rule that has been applied across EM families.
 
 \paragraph{Scaling laws and hyperparameter transfer.} Empirical laws for learning rate and batch size are well
 established for neural network training: the gradient noise scale \citep{mccandlish2018empirical}, loss scaling laws
@@ -684,7 +693,8 @@ NYTimes).
   \item \emph{Analyses added after seeing results}: the revival-equipped baseline and the per-cell law. Operational
         repairs, none of which changes a method, are listed in Appendix~\ref{app:repairs}.
   \item \emph{Revival and rare groups.} Our rule judges a unit by its mass alone, as e-means does, so it can delete a
-        small component that covers a rare, isolated group \citep{weiss2026small}. In a GMM ablation
+        small component that covers a rare, isolated group
+        \citep{weiss2026small,assylbekov2026counterexamples,tiwari2026fuzzy}. In a GMM ablation
         (Appendix~\ref{app:rare}; exploratory, 3 seeds) this costs likelihood on rare classes, and a distance-aware
         variant recovers most of the loss. On our benchmark data the two rules give identical results; data with
         rare, isolated groups should use the distance-aware rule.
@@ -703,7 +713,7 @@ of magnitude lower than the law predicts.
 \paragraph{Future work.} Five directions follow from these results.
 \begin{enumerate}[nosep]
   \item \emph{Converged references.} Repeat the time-to-batch study against full-batch algorithms run to
-        convergence, and against their best iterate.
+        convergence, and compare with per-parameter adaptive steps \citep{liu2025anemone}.
   \item \emph{A theory of the step size.} Explain why LDA needs a step about ten times smaller than the other
         families, and why HMMs want the maximum step despite sparse cells; the missing-information fraction does not.
   \item \emph{Revival across families.} Test the distance-aware revival rule on HMMs, LDA and dictionary learning,
@@ -835,7 +845,8 @@ Where rare, isolated groups exist, count-based revival costs tail likelihood (Co
 classes; KDD Cup 99 by 3--40 nats; synthetic full covariance 2 nats), and on KDD Cup 99 at $T = 5$ it is worse
 overall than no revival. The distance-aware rule removes most of that cost while keeping revival's gains where they
 exist (Shuttle $-12.1$ vs $-9.2$ without revival). On SIFT1M the distance test never fires and results are identical,
-so the main results are unaffected. Tail sets are small (Shuttle 39 points, KDD Cup 99 367, Covertype 431), KDD Cup
+so the main results are unaffected. \citet{tiwari2026fuzzy} report the same failure on KDD Cup 99 for fuzzy
+$c$-means. Tail sets are small (Shuttle 39 points, KDD Cup 99 367, Covertype 431), KDD Cup
 99 tail variance is large, and only GMMs were tested.
 
 \section{Convergence curves for all configurations}\label{app:curves}
