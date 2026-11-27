@@ -17,7 +17,7 @@ with the manuscript, the manuscript and the generated files in `results/` are au
 | `tracks/gmm-ema`, `hmm-ema`, `lda-scaling`, `dictlearn-scaling`, `als-ema` | one model family each |
 | `tracks/universal-scaling-law` | law fits (`fit_v2.py`, `refit_coords.py`, `missing_info.py`) |
 | `scripts/` | data download, job generation, queue, evaluation, figures, timing |
-| `results/` | 44,203 JSONL records (runs, sweep cells, law-fit penalties), verdict tables, law fits, figures, logs |
+| `results/` | 39,185 JSONL records in 52 files (runs, sweep cells, law-fit penalties), verdict tables, law fits, figures, logs |
 | `RESEARCH_PLAN.md`, `scripts/kill_criteria.py` | pre-registered hypotheses and kill criteria |
 | `PAPER_LOG.md` | lab notebook (every result, decision and deviation) |
 | `paper/tmlr/` | manuscript source, bibliography and PDF; `paper/datasets.md` lists data sources and licences |

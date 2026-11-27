@@ -739,6 +739,13 @@ from memory" was removed from `references.bib`, since it ships in the supplement
 
 The manuscript is now 21 pages (the method details added half a page).
 
+**Correction, same day (found while refreshing the release repo).** The record count above is wrong. That recount ran
+in the working repo, not the export, so 44,203 records in 67 files is the working repo's total including the
+companion-paper tracks. The original 44,197 had the same problem. The supplementary and release tree hold **39,185
+JSONL records in 52 files**, counted in both `~/sa-em-release-tmlr` and the release checkout with a quoted
+`find -name '*.jsonl'`, and matching `git ls-files '*.jsonl'` minus companion tracks. The Reproducibility paragraph
+and the README now say 39,185.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
