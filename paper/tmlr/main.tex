@@ -61,8 +61,8 @@ attains after 25 iterations within 3 epochs, and where it matches within 5 epoch
 wall-clock time. Against stepwise EM tuned on the same validation grid and given the same revival rule, it gets there
 sooner on 16 of 19 configurations. An ablation shows that revival is what makes stochastic EM work where components
 die, and the annealed schedule is what helps where they do not. LDA is the consistent exception: tuned stepwise EM is
-as good there, and the best step size is about ten times smaller than the rule predicts. A step-size rule fitted for
-$k$-means transfers unchanged to the other four families, and a pre-registered test shows that one cross-family rule
+as good there, and the best step size is about five times smaller than the rule predicts. A step-size rule fitted for
+$k$-means transfers unchanged to the four families other than LDA, and a pre-registered test shows that one cross-family rule
 beats separate per-family constants. Code and all run records are released.
 \end{abstract}
 
@@ -225,8 +225,8 @@ overhead is why wall-clock gains are smaller than epoch gains (Section~\ref{sec:
 update with a different schedule, so they pay the same overhead.
 
 \subsection{Step-size laws}\label{sec:laws}
-A law predicts $\aopt$, the validation-best initial step, from the problem size. All laws are fitted by least squares
-on $\log\aopt$ over swept configurations (Section~\ref{sec:protocol}).
+A law predicts $\aopt$, the validation-best initial step, from the problem size. Apart from the $k$-means law, which we
+take unchanged, all laws are fitted by least squares on $\log\aopt$ over sweep cells (Table~\ref{tab:terms}).
 \begin{itemize}[nosep]
   \item \textbf{The $k$-means law} (from e-means, used unchanged): $\alpha_0 = \min(0.824\, k^{-0.46} B^{0.90}
         n^{-0.45} T^{-0.11}, 1)$, with $B$ set by the e-means batch-size law. We call our method with this
@@ -257,16 +257,15 @@ unit-free; the constants themselves are empirical.
 compared stepwise and incremental EM on four NLP models and found stepwise EM 2--10$\times$ faster than batch EM, with
 a task-dependent best step. Online LDA and SVI \citep{hoffman2010online,hoffman2013svi}, online dictionary learning
 and NMF \citep{mairal2010online}, and mini-batch EM for exponential-family mixtures \citep{nguyen2020minibatch}, which
-lists step and batch tuning as future work, apply the same update to single families. \citet{li2026equilibrium} analyze
-online EM as tracking the batch optimum of the running statistic, for a latent linear Gaussian model. Our update is
-theirs. We
+lists step and batch tuning as future work, apply the same update to single families. Our update is theirs. We
 differ in the budget-tied schedule, the revival rule, a time-to-batch protocol run across five families, and a
-fitted law for the initial step.
+fitted law for the initial step. On the theory side, \citet{li2026equilibrium} analyze online EM as tracking the batch
+optimum of the running statistic, for a latent linear Gaussian model.
 
 \paragraph{Step-size adaptation.} \citet{ranganath2013adaptive} remove step tuning for SVI by estimating the step
 online; we instead predict the initial step from problem size, and the two could be combined. For probabilistic
-circuits, including HMMs, \citet{liu2025anemone} find that plain mini-batch EM ends below full-batch EM at
-convergence and propose a per-parameter adaptive step that closes the gap. Variance-reduced
+circuits, including HMMs, \citet{liu2025anemone} find that plain mini-batch EM reaches a lower final likelihood
+than full-batch EM and propose a per-parameter adaptive step that closes the gap. Variance-reduced
 stochastic EM \citep{chen2018sem} uses a constant step with control variates and is complementary. Riemannian batch
 and stochastic optimization \citep{hosseini2020alternative} is an alternative to EM-style updates for GMMs.
 
@@ -372,10 +371,11 @@ Table~\ref{tab:terms} and taken for the better of our two variants.}\label{tab:h
 \toprule
 family & hypothesis (pass criterion) & outcome \\
 \midrule
-GMM & matches batch@25 within 8 epochs on at least 2 of 3 datasets & passes: within 2.5 epochs on all 4 datasets \\
+GMM & fewer than two-thirds of the datasets need more than 8 epochs to match batch@25 & passes: within 2.5 epochs
+on all 4 datasets \\
 Dictionary learning & median gain at least $2\times$ & passes: $30.1\times$ \\
-LDA & a cosine-schedule law fitted on LDA is not worse than default online LDA on 2 of 3 corpora & passes: worse
-on 0 of 3 \\
+LDA & a cosine-schedule law fitted on LDA is worse than default online LDA on fewer than 2 of 3 corpora & passes:
+worse on 0 of 3 \\
 ALS & median gain at least $2\times$ & passes narrowly: $2.14\times$ (ML-10M $4.28\times$; ML-1M a tie) \\
 HMM & median gain at least $2\times$, and no significantly worse final objective than Baum--Welch & passes:
 $38.0\times$, none worse \\
@@ -385,7 +385,8 @@ law (all families) & M1 beats M0: lower LOCO median with Wilcoxon $p < 0.05$, an
 \end{tabular}
 \end{table}
 
-\paragraph{Statistics.} We report 95\% confidence intervals for epochs-to-match by bootstrapping seeds. Methods are
+\paragraph{Statistics.} 95\% confidence intervals for epochs-to-match, from a seed bootstrap, are in the released
+per-family verdict tables. Methods are
 compared on each pair with a two-sided paired $t$-test across the 5 seeds (4 degrees of freedom). Because we run 102
 such tests, we also report Benjamini--Hochberg (false-discovery rate 5\%) and Holm (family-wise error 5\%)
 corrections, and the number of pairs in which all 5 seeds favor the same method. With 5 seeds no rank-based test can
@@ -405,7 +406,9 @@ separate isolated pass: CPU only, 12 threads, one job at a time, 3 seeds, after 
 \begin{table}[!htbp]
 \centering\small
 \caption{Epochs to reach batch@25 (seed means, 5 seeds; --- = not reached within 25 epochs, with the final test
-objective in brackets; NYTimes batch@25 is 3167). Best per row in bold.}
+objective in brackets; NYTimes batch@25 is 3167). Best per row in bold. The two tuned columns select
+$(\tau_0, \kappa)$ on validation separately, so for HMMs, where revival never fires, they differ only through that
+selection (UCI HAR).}
 \label{tab:epochs}
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{lcccc}
@@ -451,8 +454,10 @@ bound.
 every GMM, HMM, dictionary-learning and ALS configuration the full-batch objective is still improving or flat at
 iteration 25, so batch@25 is also its best iterate. On LDA, batch VB's held-out perplexity is lowest at iterations
 9--15 and then rises by 0.1--1.4\%, so batch@25 is an easier target there. Measured against batch VB's best iterate
-instead, our method needs 1.38 epochs on 20NG (instead of 1.13) and no longer matches on Enron within 25 epochs; no
-other number in Table~\ref{tab:epochs} changes (computed by \texttt{scripts/review\_stats.py}).
+instead, our method needs 1.38 epochs on 20NG (instead of 1.13) and no longer matches on Enron within 25 epochs;
+tuned stepwise EM needs 2.20 epochs on 20NG (instead of 1.60), and with revival 0.95 on 20NG and 15.0 on Enron
+(instead of 0.89 and 7.17). No GMM, HMM, dictionary-learning or ALS number changes (computed by
+\texttt{scripts/review\_stats.py}).
 
 \begin{figure}[tbp]
 \centering
@@ -506,7 +511,8 @@ GMM AG News full & 78.81 & 70.37 & 70.20 & 70.42 \\
 LDA 20NG & 2410 & 2320 & 2334 & 2489 \\
 LDA Enron & 2401 & 2240 & 2295 & 2267 \\
 LDA NYTimes & 3317 & 3198 & 3242 & 3167 \\
-HMM / DL & \multicolumn{4}{c}{identical with and without revival (revival never fires)} \\
+HMM / DL & \multicolumn{4}{p{9.5cm}}{revival never fires; any difference comes only from the separate validation
+selection of $(\tau_0, \kappa)$} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -560,10 +566,11 @@ LDA 20NG & 6.0 & 6.8$\times$ & --- & \best{9.5$\times$} \\
 \end{tabular}
 \end{table}
 
-The timing pass covers budgets up to 5 epochs. Twelve configurations match within that budget (Table~\ref{tab:timing},
-Figure~\ref{fig:timing}). Real-data full-covariance GMMs and ALS ML-10M need more than 5 epochs and were not timed. LDA
-Enron was timed, but on the 3 timing seeds our method does not reach batch@25 within 5 epochs (its 5-seed mean is
-4.44 epochs), so it has no entry. Speed-ups are smaller than epoch gains because of the per-step overhead described in
+The timing pass covers budgets up to 5 epochs. On the 5-seed means, thirteen configurations match within that
+budget; twelve of them also match on the 3 timing seeds and are timed (Table~\ref{tab:timing},
+Figure~\ref{fig:timing}). The thirteenth, LDA Enron, was timed, but on the 3 timing seeds our method does not reach
+batch@25 within 5 epochs (its 5-seed mean is 4.44 epochs), so it has no entry. Real-data full-covariance GMMs and ALS
+ML-10M need more than 5 epochs and were not timed. Speed-ups are smaller than epoch gains because of the per-step overhead described in
 Section~\ref{sec:method}.
 
 The tuned baselines cost the same per epoch as our method: at $T = 2$ their wall time is within 5\% of ours on every
@@ -715,8 +722,8 @@ Within the scope we tested, a few epochs of stochastic-approximation EM are enou
 schedule let a stepwise EM update reach the 25-iteration full-batch objective in a few epochs across mixtures, HMMs,
 dictionary learning, topic models and matrix factorization. The $k$-means step-size law carries over to four of five
 families, and a law in observations-per-statistic coordinates comes closer to one rule for all five. LDA is the
-exception throughout: there, a well-tuned inverse-time schedule with revival is as good, and the best step is an order
-of magnitude lower than the law predicts.
+exception throughout: there, a well-tuned inverse-time schedule with revival is as good, and the best step is about
+five times lower than the $k$-means law predicts and about ten times lower than in the other families.
 
 \paragraph{Future work.} Five directions follow from these results.
 \begin{enumerate}[nosep]
@@ -771,7 +778,7 @@ citations are listed in the supplementary material.
         problems: GMM $n \in \{n/4, n/2, n\}$, $B \in \{256, 2048\}$, $T \in \{1, 2, 5\}$; HMM $n \in \{n/4, n/2,
         n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; LDA $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1,
         2\}$; dictionary learning $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; ALS $B \in
-        \{B_h/4, B_h, 4B_h\}$, $T \in \{1, 2, 5\}$. Together with the headline cells this gives the 422 cells used
+        \{B_h/4, B_h, 4B_h\}$, where $B_h$ is the headline batch size, $T \in \{1, 2, 5\}$. Together with the headline cells this gives the 422 cells used
         in Section~\ref{sec:res-law}.
   \item \textbf{Fixed model settings.} The ALS regularization $\lambda$ is chosen once from $\{0.01, 0.03, 0.05,
         0.1, 0.2\}$ on validation (seed 0) and shared by every method. The cosine floor is $\varepsilon = 0.1$, and

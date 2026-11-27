@@ -651,6 +651,35 @@ changed.
 - `make_release.sh` removes `authors.tex`, `main_preprint.tex` and `main_preprint.pdf` before its personal-string
   check, so the supplementary stays anonymous.
 
+### Final pre-submission error check (2026-11-27)
+
+Read the full manuscript and checked numbers against `results/review_stats.json`, the verdict tables and this log.
+Fixed:
+- **LDA step ratio.** The abstract said LDA's best step is "about ten times smaller than the rule predicts", but
+  Table 9 gives 0.187 predicted vs 0.037 best (5×). Now "about five times" in the abstract. The conclusion says
+  5× below the k-means law and about 10× below the other families (median 0.029 vs 0.21–1.0).
+- **Best-iterate paragraph (§6.1).** It said no other number changes, but the tuned LDA baselines change too:
+  - tuned stepwise EM, 20NG 1.60 → 2.20;
+  - with revival, 20NG 0.89 → 0.95 and Enron 7.17 → 15.0.
+
+  These are now stated.
+- **Timing (§6.3).** "Twelve configurations match within 5 epochs" now reads: thirteen on the 5-seed means,
+  twelve also on the 3 timing seeds; Enron explained.
+- **Statistics paragraph.** It claimed bootstrap CIs are "reported"; they are only in the released verdict tables,
+  and it now says so.
+- **Table 4.** GMM and LDA criteria reworded to match `kill_criteria.py` (rejection at two-thirds of datasets or
+  corpora).
+- **Tables 5 and 7.** HMM UCI HAR differs with and without revival (5.70 vs 6.73) although revival never fires,
+  because each baseline selects (τ0, κ) separately. Table 5's caption explains this; Table 7 no longer says
+  "identical".
+- **Related Work.** "Our update is theirs" pointed at Li & Song after the citation insert; the sentence order is
+  fixed. "Mini-batch EM ends below full-batch EM" was ambiguous and now reads "reaches a lower final likelihood".
+- **Wording.** The abstract says "four families other than LDA"; §3.1 says the k-means law is not fitted by us; B_h
+  is defined in Appendix B.
+
+`main.pdf` (anonymous) and `main_preprint.pdf` (named) rebuilt: 20 pages each, no errors, no overfull boxes, no
+undefined citations.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
