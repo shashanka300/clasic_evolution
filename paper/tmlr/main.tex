@@ -116,7 +116,7 @@ can serve all families. Our contributions are:
         pre-registered cross-family law beats per-family constants; an exploratory refit in a different coordinate
         explains much of the LDA gap but is not universal.
 \end{enumerate}
-All hypotheses and their pass/fail criteria were fixed before the runs (Table~\ref{tab:hyp}); analyses added later are
+All hypotheses and their pass/fail criteria were fixed before the runs (Appendix~\ref{app:hyp}); analyses added later are
 labeled exploratory. We make no claim to a new update rule: the update is stepwise EM, and tuned stepwise EM is our main
 baseline throughout. The step-size laws are empirical fits checked on held-out data, not a theory.
 
@@ -375,31 +375,10 @@ the initialization and the mini-batch order. At $T = 10$ and 25, every
 method searches only a 3--4-point neighborhood of its own $T = 5$ optimum; these neighborhoods were frozen before any
 long run.
 
-\paragraph{Hypotheses.} Table~\ref{tab:hyp} lists the hypotheses and pass/fail criteria, as frozen before the runs.
+\paragraph{Hypotheses.} One hypothesis per family and one for the cross-family law were frozen before the runs, each
+with a pass/fail criterion; all six pass, ALS narrowly (Table~\ref{tab:hyp}, Appendix~\ref{app:hyp}).
 Amendments are logged in the released code. The revival-equipped baseline and the per-cell law refit were added after
 seeing results and are labeled as ablation and exploratory.
-
-\begin{table}[!htbp]
-\centering\small
-\caption{Pre-registered hypotheses. Each was to be rejected if its criterion failed; gain is defined in
-Table~\ref{tab:terms} and taken for the better of our two variants.}\label{tab:hyp}
-\begin{tabular}{p{1.7cm}p{6.6cm}p{6.0cm}}
-\toprule
-family & hypothesis (pass criterion) & outcome \\
-\midrule
-GMM & fewer than two-thirds of the datasets need more than 8 epochs to match batch@25 & passes: within 2.5 epochs
-on all 4 datasets \\
-Dictionary learning & median gain at least $2\times$ & passes: $30.1\times$ \\
-LDA & a cosine-schedule law fitted on LDA is worse than default online LDA on fewer than 2 of 3 corpora & passes:
-worse on 0 of 3 \\
-ALS & median gain at least $2\times$ & passes narrowly: $2.14\times$ (ML-10M $4.28\times$; ML-1M a tie) \\
-HMM & median gain at least $2\times$, and no significantly worse final objective than Baum--Welch & passes:
-$38.0\times$, none worse \\
-law (all families) & M1 beats M0: lower LOCO median with Wilcoxon $p < 0.05$, and lower LOFO median & passes
-(Section~\ref{sec:res-law}) \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \paragraph{Statistics.} 95\% confidence intervals for epochs-to-match, from a seed bootstrap, are in the released
 per-family verdict tables. Methods are
@@ -513,27 +492,7 @@ all (17, 102) & 51 / 47 / 4 & 42 / 58 / 2 & 3 / 99 / 0 & 56 / 5 & \\
 \end{tabular}
 \end{table}
 
-\begin{table}[!htbp]
-\centering\small
-\caption{Effect of revival on the tuned baseline (test objective at $T = 25$, seed means; lower is better).}
-\label{tab:revival}
-\begin{tabular}{lcccc}
-\toprule
-configuration & tuned stepwise EM & + revival & our method & batch@25 \\
-\midrule
-GMM SIFT1M full & 50.68 & 40.53 & 40.50 & 40.69 \\
-GMM DINOv2 full & 69.64 & 54.61 & 54.65 & 54.80 \\
-GMM AG News full & 78.81 & 70.37 & 70.20 & 70.42 \\
-LDA 20NG & 2410 & 2320 & 2334 & 2489 \\
-LDA Enron & 2401 & 2240 & 2295 & 2267 \\
-LDA NYTimes & 3317 & 3198 & 3242 & 3167 \\
-HMM / DL & \multicolumn{4}{p{9.5cm}}{revival never fires; any difference comes only from the separate validation
-selection of $(\tau_0, \kappa)$} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Tables~\ref{tab:wtl} and~\ref{tab:revival} support three findings.
+Table~\ref{tab:wtl} and Table~\ref{tab:revival} (Appendix~\ref{app:extra}) support three findings.
 \begin{enumerate}[nosep]
   \item \textbf{Revival is what makes stochastic EM viable where components can die.} With it, the tuned baseline
         reaches batch@25 on all 8 GMM configurations, its final objective on real-data full-covariance GMMs drops by
@@ -583,8 +542,8 @@ LDA 20NG & 6.0 & 6.8$\times$ & --- & \best{9.5$\times$} \\
 \end{table}
 
 The timing pass covers budgets up to 5 epochs. On the 5-seed means, thirteen configurations match within that
-budget; twelve of them also match on the 3 timing seeds and are timed (Table~\ref{tab:timing},
-Figure~\ref{fig:timing}). The thirteenth, LDA Enron, was timed, but on the 3 timing seeds our method does not reach
+budget; twelve of them also match on the 3 timing seeds and are timed (Table~\ref{tab:timing};
+Figure~\ref{fig:timing} in Appendix~\ref{app:extra}). The thirteenth, LDA Enron, was timed, but on the 3 timing seeds our method does not reach
 batch@25 within 5 epochs (its 5-seed mean is 4.44 epochs), so it has no entry. Real-data full-covariance GMMs and ALS
 ML-10M need more than 5 epochs and were not timed. Speed-ups are smaller than epoch gains because of the per-step overhead described in
 Section~\ref{sec:method}.
@@ -596,14 +555,6 @@ configurations; the exception is LDA 20NG, as in epochs. Most of the speed-up ov
 stochastic approximation with revival, and the schedule and step-size choice add a further 1.2--2.9$\times$ where
 both methods are timed (LDA 20NG excepted).
 
-\begin{figure}[!htbp]
-\centering
-\includegraphics[width=0.6\linewidth]{timing_speedup.pdf}
-\caption{Wall-clock speed-up to reach batch@25 (CPU, isolated timing pass, log scale), for our method with
-$\alpha_0$ tuned on validation and for the untuned law variant.}
-\label{fig:timing}
-\end{figure}
-
 \subsection{Does the $k$-means law transfer?}\label{sec:res-kmlaw}
 
 Applied unchanged, the $k$-means law costs a median validation penalty of at most 0.2\% relative to the best swept
@@ -614,16 +565,7 @@ The law fails on LDA. It predicts $\alpha_0 \approx 0.2$--1, while the best swep
 law's step, held-out perplexity \emph{worsens} with more epochs, and batch@25 is never reached. A cosine-schedule law
 refitted on LDA alone fixes this and passes the pre-registered LDA test (Table~\ref{tab:hyp}). The median best
 $\alpha_0$ per family is 0.21 (ALS), 0.26 (dictionary learning), 0.32 (GMM), 1.0 (HMM) and 0.029 (LDA)
-(Figure~\ref{fig:sweeps}).
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=\linewidth]{alpha0_sweeps.pdf}
-\caption{Validation penalty against $\alpha_0$ divided by the global law's prediction (dashed line at 1), median over
-sweep cells in 0.25-decade bins, grouped by budget. The law is fitted in-sample here; out-of-sample penalties are in
-Figure~\ref{fig:penalties}.}
-\label{fig:sweeps}
-\end{figure}
+(Figure~\ref{fig:sweeps}, Appendix~\ref{app:law}).
 
 \subsection{One law across families}\label{sec:res-law}
 
@@ -640,7 +582,7 @@ LDA and HMMs.
   \aopt = 0.419 \cdot \qeff^{0.427} \cdot (n/B)^{-0.282} \cdot T^{-0.326},
 \end{equation}
 explains 66\% of the variance of $\log\aopt$, against 20\% for the same global fit in $n/k$ coordinates
-(Table~\ref{tab:laws}, Figures~\ref{fig:penalties} and~\ref{fig:coords}). It cuts the penalty on held-out LDA from
+(Table~\ref{tab:laws}; Figures~\ref{fig:penalties} and~\ref{fig:coords} in Appendix~\ref{app:law}). It cuts the penalty on held-out LDA from
 27.7\% (M1) to 11.6\%. The gain is concentrated on LDA: on median leave-one-family-out penalty, the unchanged
 $k$-means law (0.155\%) is almost as good as Qe0 (0.149\%), and it predicts HMMs better.
 
@@ -672,25 +614,6 @@ observations per cell in its running average: at the peak step this number range
 step. In a further exploratory test, the fraction of missing information (proxied by the normalized posterior
 entropy of the latents) does not explain the residual: it raises $R^2$ only from 0.66 to 0.67, worsens the
 leave-one-family-out penalty, and has the opposite sign to the one theory suggests (Appendix~\ref{app:law}).
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=\linewidth]{law_penalties.pdf}
-\caption{Validation penalty of the predicted $\alpha_0$ for each law, leave-one-cell-out (left) and
-leave-one-family-out (right), over all 422 cells; boxes are quartiles, whiskers the 5th--95th percentiles.}
-\label{fig:penalties}
-\end{figure}
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.75\linewidth]{law_coords.pdf}
-\caption{Best swept $\aopt$ against observations per statistic cell per step ($\qeff$), all 422 cells. Each $\aopt$
-is moved to a common $n/B$ (94) and $T = 1$ along the fitted exponents; the line is the single global law Qe0 (slope
-0.43). Hollow markers are censored at the grid's lower edge and excluded from the fit. LDA's low steps fall on the
-same trend as the other families once cells are counted per statistic; HMMs (squares) sit far above the line at
-$\aopt \approx 1$.}
-\label{fig:coords}
-\end{figure}
 
 %======================================================================================================================
 \section{Discussion}
@@ -742,18 +665,12 @@ families, and a law in observations-per-statistic coordinates comes closer to on
 exception throughout: there, a well-tuned inverse-time schedule with revival is as good, and the best step is about
 five times lower than the $k$-means law predicts and about ten times lower than in the other families.
 
-\paragraph{Future work.} Five directions follow from these results.
-\begin{enumerate}[nosep]
-  \item \emph{Converged references.} Repeat the time-to-batch study against full-batch algorithms run to
-        convergence, and compare with per-parameter adaptive steps \citep{liu2025anemone}.
-  \item \emph{A theory of the step size.} Explain why LDA needs a step about ten times smaller than the other
-        families, and why HMMs want the maximum step despite sparse cells; the missing-information fraction does not.
-  \item \emph{Revival across families.} Test the distance-aware revival rule on HMMs, LDA and dictionary learning,
-        not only GMMs.
-  \item \emph{Adaptive and predicted steps together.} Use the law to initialize an online step-size estimator such
-        as that of \citet{ranganath2013adaptive}.
-  \item \emph{Scale.} Larger datasets (Netflix, PubMed, Wikipedia) and fused GPU kernels for the mini-batch E-step.
-\end{enumerate}
+\paragraph{Future work.} Five directions follow: (1) repeat the time-to-batch study against full-batch algorithms run
+to convergence, and compare with per-parameter adaptive steps \citep{liu2025anemone}; (2) explain why LDA needs a step
+about ten times smaller than the other families and why HMMs want the maximum step despite sparse cells, which the
+missing-information fraction does not; (3) test the distance-aware revival rule on HMMs, LDA and dictionary learning;
+(4) use the law to initialize an online step-size estimator such as that of \citet{ranganath2013adaptive}; and (5) scale
+to larger datasets (Netflix, PubMed, Wikipedia) with fused GPU kernels for the mini-batch E-step.
 
 \paragraph{Reproducibility.} Code, job files and every result record (39{,}185 JSONL records in 52 files: runs,
 sweep cells and law-fit penalties) are provided as anonymized supplementary material. Tables, figures and law fits are regenerated from the records without
@@ -765,6 +682,31 @@ were frozen before the runs, and amendments are logged.
 
 %======================================================================================================================
 \appendix
+
+\section{Pre-registered hypotheses}\label{app:hyp}
+Table~\ref{tab:hyp} lists the hypotheses and pass/fail criteria as frozen before the runs, with their outcomes.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Pre-registered hypotheses. Each was to be rejected if its criterion failed; gain is defined in
+Table~\ref{tab:terms} and taken for the better of our two variants.}\label{tab:hyp}
+\begin{tabular}{p{1.7cm}p{6.6cm}p{6.0cm}}
+\toprule
+family & hypothesis (pass criterion) & outcome \\
+\midrule
+GMM & fewer than two-thirds of the datasets need more than 8 epochs to match batch@25 & passes: within 2.5 epochs
+on all 4 datasets \\
+Dictionary learning & median gain at least $2\times$ & passes: $30.1\times$ \\
+LDA & a cosine-schedule law fitted on LDA is worse than default online LDA on fewer than 2 of 3 corpora & passes:
+worse on 0 of 3 \\
+ALS & median gain at least $2\times$ & passes narrowly: $2.14\times$ (ML-10M $4.28\times$; ML-1M a tie) \\
+HMM & median gain at least $2\times$, and no significantly worse final objective than Baum--Welch & passes:
+$38.0\times$, none worse \\
+law (all families) & M1 beats M0: lower LOCO median with Wilcoxon $p < 0.05$, and lower LOFO median & passes
+(Section~\ref{sec:res-law}) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Datasets}\label{app:data}
 SIFT1M \citep{jegou2011pq} via ANN-Benchmarks \citep{aumuller2020ann}; DINOv2-S features \citep{oquab2024dinov2} of
@@ -840,6 +782,36 @@ sign is opposite to the hypothesis: more missing information goes with a \emph{l
 latents are no more uncertain than the HMMs' ($h \approx 0.16$--0.24 vs 0.04--0.47), yet LDA needs an $\alpha_0$
 about 30$\times$ smaller.
 
+\paragraph{Diagnostic figures.} Figure~\ref{fig:sweeps} shows the validation penalty around each law's prediction, Figure~\ref{fig:penalties} the held-out penalties of every law, and Figure~\ref{fig:coords} the best step against the per-cell coordinate (Section~\ref{sec:res-law}).
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{alpha0_sweeps.pdf}
+\caption{Validation penalty against $\alpha_0$ divided by the global law's prediction (dashed line at 1), median over
+sweep cells in 0.25-decade bins, grouped by budget. The law is fitted in-sample here; out-of-sample penalties are in
+Figure~\ref{fig:penalties}.}
+\label{fig:sweeps}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{law_penalties.pdf}
+\caption{Validation penalty of the predicted $\alpha_0$ for each law, leave-one-cell-out (left) and
+leave-one-family-out (right), over all 422 cells; boxes are quartiles, whiskers the 5th--95th percentiles.}
+\label{fig:penalties}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.75\linewidth]{law_coords.pdf}
+\caption{Best swept $\aopt$ against observations per statistic cell per step ($\qeff$), all 422 cells. Each $\aopt$
+is moved to a common $n/B$ (94) and $T = 1$ along the fitted exponents; the line is the single global law Qe0 (slope
+0.43). Hollow markers are censored at the grid's lower edge and excluded from the fit. LDA's low steps fall on the
+same trend as the other families once cells are counted per statistic; HMMs (squares) sit far above the line at
+$\aopt \approx 1$.}
+\label{fig:coords}
+\end{figure}
+
 \section{Revival on rare groups}\label{app:rare}
 \textbf{Question.} \citet{weiss2026small} report, for $k$-means, that count-based revival deletes clusters covering
 rare, isolated groups. Does our rule do the same in EM?
@@ -886,6 +858,37 @@ exist (Shuttle $-12.1$ vs $-9.2$ without revival). On SIFT1M the distance test n
 so the main results are unaffected. \citet{tiwari2026fuzzy} report the same failure on KDD Cup 99 for fuzzy
 $c$-means. Tail sets are small (Shuttle 39 points, KDD Cup 99 367, Covertype 431), KDD Cup
 99 tail variance is large, and only GMMs were tested.
+
+\section{Additional results}\label{app:extra}
+Table~\ref{tab:revival} gives the effect of revival on the tuned baseline at $T = 25$ (Section~\ref{sec:res-ablation}); Figure~\ref{fig:timing} plots the wall-clock speed-ups of Table~\ref{tab:timing} (Section~\ref{sec:res-wall}).
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Effect of revival on the tuned baseline (test objective at $T = 25$, seed means; lower is better).}
+\label{tab:revival}
+\begin{tabular}{lcccc}
+\toprule
+configuration & tuned stepwise EM & + revival & our method & batch@25 \\
+\midrule
+GMM SIFT1M full & 50.68 & 40.53 & 40.50 & 40.69 \\
+GMM DINOv2 full & 69.64 & 54.61 & 54.65 & 54.80 \\
+GMM AG News full & 78.81 & 70.37 & 70.20 & 70.42 \\
+LDA 20NG & 2410 & 2320 & 2334 & 2489 \\
+LDA Enron & 2401 & 2240 & 2295 & 2267 \\
+LDA NYTimes & 3317 & 3198 & 3242 & 3167 \\
+HMM / DL & \multicolumn{4}{p{9.5cm}}{revival never fires; any difference comes only from the separate validation
+selection of $(\tau_0, \kappa)$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.6\linewidth]{timing_speedup.pdf}
+\caption{Wall-clock speed-up to reach batch@25 (CPU, isolated timing pass, log scale), for our method with
+$\alpha_0$ tuned on validation and for the untuned law variant.}
+\label{fig:timing}
+\end{figure}
 
 \section{Compute}\label{app:compute}
 About 575 job-hours for the main protocol plus 273 ablation jobs, on one desktop (Ryzen 9 9900X, RTX 5090); software

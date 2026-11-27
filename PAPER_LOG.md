@@ -780,6 +780,20 @@ and the README now say 39,185.
   - NYTimes restricted to the first 100,000 documents;
   - the Brown vocabulary capped at 5,000 words.
 
+### Regular-length submission (2026-11-27; author decision)
+
+TMLR asks whether the main content (pages before the references) is ≤ 12 pages; longer papers may take longer to
+review. The author chose Regular. Nothing was cut; content was moved to the appendix:
+- the hypotheses table → new Appendix A (the §5 paragraph summarizes it: all six pass, ALS narrowly);
+- the revival-effect table and the wall-clock figure → new appendix "Additional results";
+- the three law-diagnostic figures (α0 penalty curves, LOCO/LOFO boxplots, q_eff scatter) → the law-fits appendix,
+  with a lead-in paragraph;
+- the future-work list → one paragraph.
+
+All main-text references now point to the appendix. The references start on page 12, so the main text is about 11.4
+pages; the PDF is 21 pages. Both builds are clean, with no unresolved references, and the anonymous PDF is
+name-free. The submission sheet now says Regular.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
