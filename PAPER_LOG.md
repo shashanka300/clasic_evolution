@@ -635,6 +635,9 @@ changed.
   - future work 1: anemone.
 
   e-GMM is not cited (unverifiable). The PDF is 20 pages with no undefined citations.
+- **Supplementary ZIP rebuilt** from commit f398303 by `scripts/make_release.sh`: 1,314 files, 6.0 MB, written to
+  `paper/tmlr/supplementary.zip` (gitignored). The personal-string scan passed. The only "IBM" hits are journal
+  macros in the official `tmlr.bst`.
 
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
