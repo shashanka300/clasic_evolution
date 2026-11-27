@@ -254,8 +254,8 @@ unit-free; the constants themselves are empirical.
 \citet{neal1998view}. \citet{sato2000online} derived online EM for normalized Gaussian networks, and
 \citet{cappe2009online} proved convergence of online EM with Robbins--Monro steps \citep{robbins1951stochastic}; SAEM
 \citep{delyon1999saem} is the related stochastic-approximation scheme for intractable E-steps. \citet{liang2009online}
-compared stepwise and incremental EM on four NLP models and found stepwise EM 2--10$\times$ faster than batch EM, with
-a task-dependent best step. Online LDA and SVI \citep{hoffman2010online,hoffman2013svi}, online dictionary learning
+compared stepwise and incremental EM on four unsupervised NLP tasks and found stepwise EM 2--10$\times$ faster than
+batch EM, with a best step and batch size that depend on the task and dataset. Online LDA and SVI \citep{hoffman2010online,hoffman2013svi}, online dictionary learning
 and NMF \citep{mairal2010online}, and mini-batch EM for exponential-family mixtures \citep{nguyen2020minibatch}, which
 lists step and batch tuning as future work, apply the same update to single families. Our update is theirs. We
 differ in the budget-tied schedule, the revival rule, a time-to-batch protocol run across five families, and a
@@ -338,7 +338,8 @@ all epochs-to-match numbers \\
 epochs-to-match & first epoch, linearly interpolated, at which a method's seed-mean test curve reaches batch@25 \\
 gain & $25 /$ epochs-to-match \\
 configuration & one dataset with one model setting (19 in total) \\
-pair & one configuration at one budget $T$; the unit of the paired tests (102 pairs) \\
+pair & one configuration at one budget $T$; the unit of the paired tests (102 pairs: 17 configurations $\times$ 6
+budgets, ALS excluded because it has no revival baseline) \\
 sweep cell & one problem (a configuration, possibly sub-sampled, with a batch size and budget) on which
 $\alpha_0$ is swept; the unit of the law fits (422 cells) \\
 LOCO / LOFO & leave-one-cell-out / leave-one-family-out evaluation of a law \\
@@ -487,7 +488,7 @@ correction over all 102 tests. ``Seeds agree'' counts pairs in which all 5 seeds
 \toprule
 family (configurations, pairs) & uncorrected & BH & Holm & seeds agree & relative difference \\
 \midrule
-GMM (8, 48) & 26 / 22 / 0 & 19 / 29 / 0 & 0 / 48 / 0 & 30 / 0 & $-0.03\%$ to $-1.5\%$ \\
+GMM (8, 48) & 26 / 22 / 0 & 19 / 29 / 0 & 0 / 48 / 0 & 30 / 0 & $-1.5\%$ to $+0.09\%$ \\
 HMM (3, 18) & 14 / 4 / 0 & 13 / 5 / 0 & 1 / 17 / 0 & 16 / 0 & $-0.05\%$ to $-10.3\%$ \\
 Dictionary learning (3, 18) & 11 / 7 / 0 & 10 / 8 / 0 & 2 / 16 / 0 & 10 / 0 & $-0.03\%$ to $-0.30\%$ \\
 LDA (3, 18) & 0 / 14 / 4 & 0 / 16 / 2 & 0 / 18 / 0 & 0 / 5 & $-0.8\%$ to $+3.2\%$ \\
@@ -524,7 +525,7 @@ Tables~\ref{tab:wtl} and~\ref{tab:revival} support three findings.
         8--15 nats, and LDA Enron turns from never matching into a match at 7.2 epochs.
   \item \textbf{With revival on both sides, the cosine schedule still helps on three of four families.} On HMMs the
         advantage is large (up to 10\% lower held-out NLL at one epoch) and persists to 25 epochs on UCI HAR. On
-        GMMs it is modest (0.03--1.5\%); on real-data full covariance it is significant only at $T \le 2$. On
+        GMMs it is modest (at most 1.5\%); on real-data full covariance it is significant only at $T \le 2$. On
         dictionary learning it is small but consistent.
   \item \textbf{On LDA, a tuned inverse-time schedule with revival is as good or better.} It matches batch@25 sooner
         on 20NG and ends lower on Enron and NYTimes at $T = 25$. Our method's held-out perplexity rises between $T =
@@ -577,7 +578,8 @@ The tuned baselines cost the same per epoch as our method: at $T = 2$ their wall
 configuration, because both do one E-step and one M-step per mini-batch. Wall-clock therefore ranks the methods as
 epochs do. Against tuned stepwise EM with revival, our method reaches batch@25 sooner in wall time on 11 of 12 timed
 configurations; the exception is LDA 20NG, as in epochs. Most of the speed-up over full-batch EM therefore comes from
-stochastic approximation with revival, and the schedule and step-size choice add a further 1.2--2.9$\times$.
+stochastic approximation with revival, and the schedule and step-size choice add a further 1.2--2.9$\times$ where
+both methods are timed (LDA 20NG excepted).
 
 \begin{figure}[!htbp]
 \centering

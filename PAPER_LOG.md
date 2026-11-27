@@ -680,6 +680,17 @@ Fixed:
 `main.pdf` (anonymous) and `main_preprint.pdf` (named) rebuilt: 20 pages each, no errors, no overfull boxes, no
 undefined citations.
 
+**Second check, same day.** Every value in Tables 5, 7 and 8 was recomputed from `results/*/runs.jsonl`,
+`results/review_stats.json` and `results/_timing/timing_tuned_summary.json`, and all match. The §6.2 claims were
+checked per pair: HMM −10.25% at T = 1 on UCI HAR, significant through T = 25; real-data full covariance
+significant only at T ≤ 2. Liang & Klein (2009) were re-read from the ACL Anthology PDF. Fixed:
+- **Table 6, GMM range:** −1.5% to +0.09% (some non-significant pairs slightly favor the baseline); it was
+  "−0.03% to −1.5%". §6.2 now says "at most 1.5%".
+- **Liang & Klein:** "four NLP models" → "four unsupervised NLP tasks"; the best step and batch size depend on the
+  task and dataset (their wording).
+- **Table 3, "pair":** now explains 102 = 17 configurations × 6 budgets (ALS has no revival baseline).
+- **§6.3:** the extra 1.2–2.9× from the schedule now says "where both methods are timed (LDA 20NG excepted)".
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
