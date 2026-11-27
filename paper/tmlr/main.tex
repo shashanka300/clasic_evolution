@@ -28,6 +28,10 @@
 \usepackage{url}
 \usepackage[section]{placeins} % keep figures inside their section (they used to drift past the appendices)
 \graphicspath{{../../results/figures/}}
+% float placement only (no change to fonts, margins or layout): float pages start at the top, and captions placed
+% above tables get a small gap before the top rule
+\makeatletter\setlength{\@fptop}{0pt}\setlength{\@fpsep}{14pt}\setlength{\@fpbot}{0pt plus 1fil}\makeatother
+\setlength{\belowcaptionskip}{4pt}
 
 \newcommand{\aopt}{\alpha_0^{\star}}
 \newcommand{\qeff}{q_{\mathrm{eff}}}
@@ -786,11 +790,13 @@ citations are listed in the supplementary material.
         $\alpha_0$ grid values around our method's $T = 5$ optimum (two below, one above) and the three best
         $(\tau_0, \kappa)$ settings of the tuned baseline at $T = 5$. An optimum at the edge of a restricted grid is
         treated as censored in the law fits.
-  \item \textbf{Law-fitting cells.} Besides the headline cells, each family sweeps $\alpha_0$ over sub-sampled
-        problems: GMM $n \in \{n/4, n/2, n\}$, $B \in \{256, 2048\}$, $T \in \{1, 2, 5\}$; HMM $n \in \{n/4, n/2,
-        n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; LDA $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1,
-        2\}$; dictionary learning $n \in \{n/4, n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; ALS $B \in
-        \{B_h/4, B_h, 4B_h\}$, where $B_h$ is the headline batch size, $T \in \{1, 2, 5\}$. Together with the headline cells this gives the 422 cells used
+  \item \textbf{Law-fitting cells.} Besides the headline cells, each family sweeps $\alpha_0$ over problems that
+        vary the number of components and sub-sample the data: GMM (diagonal covariance only) $k \in \{16, 64\}$,
+        $n \in \{n/4, n/2, n\}$, $B \in \{256, 2048\}$, $T \in \{1, 2, 5\}$; HMM $k \in \{6, 12\}$, $n \in \{n/4,
+        n/2, n\}$, $B \in \{64, 512\}$, $T \in \{1, 2, 5\}$; LDA $k \in \{20, 50\}$, $n \in \{n/4, n\}$, $B \in
+        \{64, 512\}$, $T \in \{1, 2\}$; dictionary learning $k \in \{k_h/2, k_h\}$, $n \in \{n/4, n\}$, $B \in \{64,
+        512\}$, $T \in \{1, 2, 5\}$; ALS rank $\in \{16, 32\}$, $B \in \{B_h/4, B_h, 4B_h\}$, $T \in \{1, 2, 5\}$,
+        where $k_h$ and $B_h$ are the headline values. Together with the headline cells this gives the 422 cells used
         in Section~\ref{sec:res-law}.
   \item \textbf{Fixed model settings.} The ALS regularization $\lambda$ is chosen once from $\{0.01, 0.03, 0.05,
         0.1, 0.2\}$ on validation (seed 0) and shared by every method. The cosine floor is $\varepsilon = 0.1$, and
@@ -847,21 +853,21 @@ of 0.01 (standardized units) instead of our relative floor, because components o
 \begin{table}[h]
 \centering\small
 \caption{Test NLL (seed means, 3 seeds) at the validation-selected $\alpha_0$; tail NLL in brackets; lower is
-better.}\label{tab:rare}
+better. The lowest overall test NLL in each row is in bold.}\label{tab:rare}
 \begin{tabular}{llccc}
 \toprule
 dataset & $T$ & off & count (ours) & dist (Weiss) \\
 \midrule
-SIFT1M control & 2 & 60.02 & 59.30 & 59.30 (identical) \\
-SIFT1M control & 5 & 59.92 & 59.21 & 59.21 (identical) \\
-synthetic diag & 2 & 27.36 [61.5] & 27.00 [53.8] & 26.98 [53.8] \\
+SIFT1M control & 2 & 60.02 & \best{59.30} & \best{59.30} (identical) \\
+SIFT1M control & 5 & 59.92 & \best{59.21} & \best{59.21} (identical) \\
+synthetic diag & 2 & 27.36 [61.5] & 27.00 [53.8] & \best{26.98} [53.8] \\
 synthetic diag & 5 & 27.40 [62.0] & \best{26.32} [53.9] & 26.48 [53.9] \\
-synthetic full & 2 & 26.48 [34.3] & 26.56 [36.3] & 26.50 [34.7] \\
-synthetic full & 5 & 26.47 [34.4] & 26.54 [36.3] & 26.49 [34.8] \\
-Shuttle & 2 & $-8.35$ [19.7] & $-11.11$ [16.8] & $-10.99$ [21.8] \\
-Shuttle & 5 & $-9.18$ [16.8] & $-12.14$ [19.5] & $-12.11$ [14.9] \\
-KDD Cup 99 & 2 & $-45.82$ [2.4] & $-46.58$ [5.2] & \best{$-47.07$} [\best{$-12.0$}] \\
-KDD Cup 99 & 5 & \best{$-47.41$} [\best{$-24.9$}] & $-46.27$ [15.4] & $-46.93$ [$-6.9$] \\
+synthetic full & 2 & \best{26.48} [34.3] & 26.56 [36.3] & 26.50 [34.7] \\
+synthetic full & 5 & \best{26.47} [34.4] & 26.54 [36.3] & 26.49 [34.8] \\
+Shuttle & 2 & $-8.35$ [19.7] & \best{$-11.11$} [16.8] & $-10.99$ [21.8] \\
+Shuttle & 5 & $-9.18$ [16.8] & \best{$-12.14$} [19.5] & $-12.11$ [14.9] \\
+KDD Cup 99 & 2 & $-45.82$ [2.4] & $-46.58$ [5.2] & \best{$-47.07$} [$-12.0$] \\
+KDD Cup 99 & 5 & \best{$-47.41$} [$-24.9$] & $-46.27$ [15.4] & $-46.93$ [$-6.9$] \\
 Covertype & 2 & $-45.29$ [$-43.25$] & $-45.25$ [$-41.59$] & \best{$-45.57$} [$-43.05$] \\
 Covertype & 5 & $-45.24$ [$-43.25$] & $-45.20$ [$-41.44$] & \best{$-45.47$} [$-42.29$] \\
 \bottomrule
@@ -876,18 +882,19 @@ so the main results are unaffected. \citet{tiwari2026fuzzy} report the same fail
 $c$-means. Tail sets are small (Shuttle 39 points, KDD Cup 99 367, Covertype 431), KDD Cup
 99 tail variance is large, and only GMMs were tested.
 
+\section{Compute}\label{app:compute}
+About 575 job-hours for the main protocol plus 273 ablation jobs, on one desktop (Ryzen 9 9900X, RTX 5090); software
+versions are pinned in the released lock file.
+
+\clearpage
 \section{Convergence curves for all configurations}\label{app:curves}
 
-\begin{figure}[p]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=\linewidth]{convergence.pdf}
 \caption{Seed-mean test objective against epochs (log scale) for all 19 configurations. The black curve is the
 full-batch algorithm by iteration; the red dotted line is the target, batch@25.}
 \label{fig:convergence-all}
 \end{figure}
-
-\section{Compute}\label{app:compute}
-About 575 job-hours for the main protocol plus 273 ablation jobs, on one desktop (Ryzen 9 9900X, RTX 5090); software
-versions are pinned in the released lock file.
 
 \end{document}

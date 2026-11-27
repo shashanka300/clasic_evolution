@@ -746,6 +746,21 @@ JSONL records in 52 files**, counted in both `~/sa-em-release-tmlr` and the rele
 `find -name '*.jsonl'`, and matching `git ls-files '*.jsonl'` minus companion tracks. The Reproducibility paragraph
 and the README now say 39,185.
 
+### Last review pass (2026-11-27)
+
+- **Appendix B vs code:** batch sizes, the α0 grid and its LDA extension, the τ0/κ grids, the ALS λ grid and the
+  long-budget plan all match. The law-fitting cells were incomplete: every family also varies k (GMM diagonal only k
+  ∈ {16, 64}; HMM {6, 12}; LDA {20, 50}; DL {k_h/2, k_h}; ALS rank {16, 32}). This is now stated.
+- **Visual check of every page:**
+  - Captions above tables touched the top rule; `\belowcaptionskip` is now 4pt.
+  - Float pages spread their tables apart; they are now top-aligned with a fixed 14pt gap. Float placement only;
+    template fonts and margins are unchanged.
+  - The Appendix F heading was stranded under Table 10 with its figure alone on the next page. Compute is now
+    Appendix F and the curves Appendix G, starting on a fresh page with the figure.
+  - Table 10 bolded values inconsistently, with no stated meaning. It now bolds the lowest overall test NLL per row,
+    and the caption says so.
+- Back to 20 pages; references start on page 15. Both PDFs build cleanly and the anonymous one is name-free.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
