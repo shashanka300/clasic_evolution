@@ -797,6 +797,22 @@ name-free. The submission sheet now says Regular.
   Both tables are now `[!t]`, so they sit at the top of page 6 and the text flows underneath. Pages 4–11 checked
   visually, with no gaps. The PDF is 20 pages, and the references still start on page 12.
 
+### Read-through of the compiled PDF (2026-11-27)
+
+The final PDF text was read page by page, as a reviewer would. Fixed:
+- **Appendix F overgeneralized.** "Where rare groups exist, count-based revival costs tail likelihood" is contradicted
+  by Table 9: revival improves the tail on synthetic diagonal covariance (61.5 → 53.8) and on Shuttle at T = 2 (19.7
+  → 16.8). The text now lists where it costs (Covertype, KDD99, synthetic full, Shuttle T = 5) and where it helps.
+  "The distance-aware rule removes most of that cost" became "recovers between about half and all", since it is
+  about 47–55% on Covertype T = 5 and KDD99 T = 5. Limitation 7 was adjusted to match.
+- **The Discussion contradicted §6.5.** It said gains are largest where statistics are "dense relative to the
+  batch: HMMs…", but HMM cells get about one observation per step. It also gave an untested reason ("statistics
+  are sparse") for LDA. It now says gains are largest where the full-batch algorithm itself needs many passes
+  (visible in Figure 1), and smallest for ALS ML-1M and LDA, with the observed reasons.
+- **Grammar:** single-author citations now take singular verbs (Weiss refines/reports, Assylbekov proves).
+
+Still 20 pages, with the references on page 12 (Regular).
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

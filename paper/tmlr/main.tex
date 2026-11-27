@@ -285,10 +285,10 @@ and stochastic optimization \citep{hosseini2020alternative} is an alternative to
 \paragraph{Dead components.} \citet{sato2000online} already add unit production, deletion and division to online EM
 to track changing environments, and memoized online variational inference with birth and merge moves
 \citep{hughes2013memoized} is the closest modern mechanism. $k$-means codebooks commonly re-seed empty clusters
-\citep{johnson2019faiss,douze2024faiss}, and e-means splits a donor. \citet{weiss2026small} refine e-means'
+\citep{johnson2019faiss,douze2024faiss}, and e-means splits a donor. \citet{weiss2026small} refines e-means'
 count-based rule for $k$-means: a small cluster is removed only if it is close to another center, which protects rare,
 isolated groups; we test this variant for GMMs in Appendix~\ref{app:rare}. \citet{assylbekov2026counterexamples}
-prove that the mass-based rule, which we also use, can destroy a globally optimal $k$-means solution, with a loss
+proves that the mass-based rule, which we also use, can destroy a globally optimal $k$-means solution, with a loss
 ratio to Lloyd's algorithm that is unbounded even under $k$-means++ seeding. For fuzzy $c$-means,
 \citet{tiwari2026fuzzy} find that revival on soft masses moves the centroids of rare groups on KDD Cup 99 and remove
 it after a first hard epoch. We know of no dead-component rule that has been applied across EM families.
@@ -626,10 +626,10 @@ family-dependent benefit: large on HMMs, modest on GMMs and dictionary learning,
 over in form but not in its coordinates: LDA shows that $n/k$ is the wrong variable, and the per-cell coordinate is a
 partial fix.
 
-\paragraph{When is stochastic EM worth it?} Epoch gains are largest where the full-batch E-step is expensive and the
-statistics are dense relative to the batch: HMMs, dictionary learning and diagonal GMMs. They are smallest where the
-full-batch method is already near convergence after a few passes (ALS ML-1M) or where the statistics are sparse (LDA
-NYTimes).
+\paragraph{When is stochastic EM worth it?} Epoch gains are largest where the full-batch algorithm itself needs many
+passes to converge, as for the HMMs, dictionary learning and diagonal GMMs (Figure~\ref{fig:convergence}). They are
+smallest where the full-batch method is already near convergence after a few passes (ALS ML-1M), and on LDA, where
+batch VB reaches its best held-out perplexity early and no online method matches it on NYTimes.
 
 \paragraph{Limitations.}
 \begin{enumerate}[nosep]
@@ -650,8 +650,8 @@ NYTimes).
   \item \emph{Revival and rare groups.} Our rule judges a unit by its mass alone, as e-means does, so it can delete a
         small component that covers a rare, isolated group
         \citep{weiss2026small,assylbekov2026counterexamples,tiwari2026fuzzy}. In a GMM ablation
-        (Appendix~\ref{app:rare}; exploratory, 3 seeds) this costs likelihood on rare classes, and a distance-aware
-        variant recovers most of the loss. On our benchmark data the two rules give identical results; data with
+        (Appendix~\ref{app:rare}; exploratory, 3 seeds) this costs tail likelihood in most of the settings with rare
+        groups, though not all, and a distance-aware variant recovers about half or more of the loss. On our benchmark data the two rules give identical results; data with
         rare, isolated groups should use the distance-aware rule.
 \end{enumerate}
 
@@ -813,7 +813,7 @@ $\aopt \approx 1$.}
 \end{figure}
 
 \section{Revival on rare groups}\label{app:rare}
-\textbf{Question.} \citet{weiss2026small} report, for $k$-means, that count-based revival deletes clusters covering
+\textbf{Question.} \citet{weiss2026small} reports, for $k$-means, that count-based revival deletes clusters covering
 rare, isolated groups. Does our rule do the same in EM?
 
 \textbf{Setup.} The GMM version of our method ($B = 1024$, $\varepsilon = 0.1$) with three revival modes:
@@ -851,10 +851,12 @@ Covertype & 5 & $-45.24$ [$-43.25$] & $-45.20$ [$-41.44$] & \best{$-45.47$} [$-4
 \end{tabular}
 \end{table}
 
-Where rare, isolated groups exist, count-based revival costs tail likelihood (Covertype 1.7--1.8 nats on rare
-classes; KDD Cup 99 by 3--40 nats; synthetic full covariance 2 nats), and on KDD Cup 99 at $T = 5$ it is worse
-overall than no revival. The distance-aware rule removes most of that cost while keeping revival's gains where they
-exist (Shuttle $-12.1$ vs $-9.2$ without revival). On SIFT1M the distance test never fires and results are identical,
+The effect of count-based revival on rare groups depends on the data. It costs tail likelihood on Covertype
+(1.7--1.8 nats), KDD Cup 99 (3--40 nats), synthetic full covariance (2 nats) and Shuttle at $T = 5$ (2.7 nats), and
+on KDD Cup 99 at $T = 5$ it is also worse overall than no revival; it improves the tail on synthetic diagonal
+covariance (by about 8 nats) and on Shuttle at $T = 2$. Where it costs, the distance-aware rule recovers between
+about half and all of the loss, while keeping revival's overall gains where they exist (Shuttle $-12.1$ vs $-9.2$
+without revival). On SIFT1M the distance test never fires and results are identical,
 so the main results are unaffected. \citet{tiwari2026fuzzy} report the same failure on KDD Cup 99 for fuzzy
 $c$-means. Tail sets are small (Shuttle 39 points, KDD Cup 99 367, Covertype 431), KDD Cup
 99 tail variance is large, and only GMMs were tested.
