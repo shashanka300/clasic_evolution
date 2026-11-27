@@ -70,7 +70,7 @@ beats separate per-family constants. Code and all run records are released.
 \section{Introduction}
 
 Expectation--maximization (EM) is the standard way to fit latent-variable models such as mixtures, hidden Markov
-models and topic models. For models in the exponential family, EM touches the data only through \emph{expected
+models (HMMs) and topic models. For models in the exponential family, EM touches the data only through \emph{expected
 sufficient statistics}: a fixed set of sums, such as soft counts and soft sums of the data, from which the parameters
 follow in closed form (Section~\ref{sec:background}). Each EM iteration recomputes these sums over the whole dataset.
 Replacing the full-data sums with a running average over mini-batches gives stochastic-approximation EM, known as
@@ -147,7 +147,8 @@ stepwise EM \citep{liang2009online}, and the constants $\tau_0$ and $\kappa$ are
 variational inference (SVI) applies the same update to the parameters of a variational posterior, which is how
 online LDA works \citep{hoffman2013svi}.
 
-\paragraph{Notation.} $n$ training points (documents for LDA, sequences for HMMs, users for ALS), $k$ components
+\paragraph{Notation.} $n$ training points (documents for LDA, sequences for HMMs, users for matrix factorization by
+alternating least squares, ALS), $k$ components
 (clusters, states, topics, atoms or rank), $d$ data dimension, $B$ batch size, $T$ epoch budget, $M = \lceil Tn / B
 \rceil$ total steps, and $\alpha_0$ the initial step size. A star, as in $\aopt$, marks the value that is best on
 validation.
@@ -185,7 +186,8 @@ initial step $\alpha_0$ (tuned on validation, or from a law in Section~\ref{sec:
 
 \begin{table}[!htbp]
 \centering\small
-\caption{Running-average statistics and M-step per family.}\label{tab:stats}
+\caption{Running-average statistics and M-step per family. NMF is non-negative matrix factorization, run as dictionary
+learning with non-negative codes and atoms.}\label{tab:stats}
 \begin{tabular}{p{2.6cm}p{6.6cm}p{4.6cm}}
 \toprule
 family & statistics averaged in $\hat S$ & M-step \\
@@ -304,7 +306,8 @@ full-batch algorithm run for 25 iterations. Sources, licenses and preprocessing 
 \begin{table}[!htbp]
 \centering\small
 \caption{Families, data and full-batch references. NLL is negative log-likelihood in nats (natural-log units);
-VB is batch variational Bayes; ALS-WR is ALS with weighted regularization.}
+DL is dictionary learning; VB is batch variational Bayes; ALS-WR is ALS with weighted regularization; PCA64 means
+reduced to 64 dimensions by principal component analysis.}
 \label{tab:data}
 \begin{tabular}{p{2.9cm}p{5.8cm}p{1.7cm}p{2.3cm}p{1.6cm}}
 \toprule

@@ -691,6 +691,15 @@ significant only at T ≤ 2. Liang & Klein (2009) were re-read from the ACL Anth
 - **Table 3, "pair":** now explains 102 = 17 configurations × 6 budgets (ALS has no revival baseline).
 - **§6.3:** the extra 1.2–2.9× from the schedule now says "where both methods are timed (LDA 20NG excepted)".
 
+**Third check, same day.** An automated scan of the PDF text found:
+- no unresolved references;
+- no leftover old terms (LOAO, recipe, C1–C6, EM@25);
+- no British spellings, and the abstract and body counts agree;
+- the repeated-word hits were table and math artifacts.
+
+Undefined abbreviations were fixed: HMM is now defined in the introduction, ALS in the Notation paragraph (it was used
+before §5), NMF in Table 1's caption, and DL and PCA64 in Table 2's caption.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**
