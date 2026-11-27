@@ -1,10 +1,14 @@
 % TMLR submission (anonymized). Build: tectonic main.tex   (or latexmk -pdf main.tex)
 % Uses the official TMLR style (tmlr.sty, tmlr.bst from github.com/JmlrOrg/tmlr-style-file) when present in this
 % folder; otherwise falls back to article + natbib so the draft still compiles.
+% main.tex builds the ANONYMOUS submission. main_preprint.tex sets \namedversion to 1 and builds the named
+% preprint / camera-ready version with the authors from authors.tex (both files are excluded from the
+% supplementary material by scripts/make_release.sh).
+\providecommand{\namedversion}{0}
 \documentclass[10pt]{article}
 
 \IfFileExists{tmlr.sty}{%
-  \usepackage{tmlr}            % anonymous submission; use [accepted] or [preprint] later
+  \ifnum\namedversion=1 \usepackage[preprint]{tmlr}\else \usepackage{tmlr}\fi
   \newcommand{\bibstylename}{tmlr}%
 }{%
   \usepackage[margin=1in]{geometry}
@@ -31,7 +35,11 @@
 
 \title{When Running Averages Are Enough:\\ Few-Epoch EM for Mixtures, Sequences,\\ Topics and Factorizations}
 
-\author{\name Anonymous authors \addr Paper under double-blind review}
+\ifnum\namedversion=1
+  \input{authors}
+\else
+  \author{\name Anonymous authors \addr Paper under double-blind review}
+\fi
 
 \IfFileExists{tmlr.sty}{%
   \def\month{MM}%

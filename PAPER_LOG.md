@@ -639,6 +639,18 @@ changed.
   `paper/tmlr/supplementary.zip` (gitignored). The personal-string scan passed. The only "IBM" hits are journal
   macros in the official `tmlr.bst`.
 
+### Author block and named build (2026-11-27; author decision)
+
+- The author supplied the name and contact for the paper (single author, "Independent Researcher"). They are kept
+  only in `paper/tmlr/authors.tex`.
+- `main.tex` now has a `\namedversion` switch, default 0 (anonymous, as submitted). `main_preprint.tex` sets it to
+  1, loads `tmlr` with `[preprint]` and inputs `authors.tex`. It produces `main_preprint.pdf` for arXiv and the
+  camera-ready version, and must **not** be uploaded to the double-blind submission.
+- Checked by text extraction: `main.pdf` contains no name or email and shows "Anonymous authors" and "Under review
+  as submission to TMLR"; `main_preprint.pdf` shows the author block. Both are 20 pages with no errors.
+- `make_release.sh` removes `authors.tex`, `main_preprint.tex` and `main_preprint.pdf` before its personal-string
+  check, so the supplementary stays anonymous.
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

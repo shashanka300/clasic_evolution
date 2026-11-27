@@ -28,7 +28,8 @@
 | Appendix A–F (data, grids, repairs, law fits, rare-group revival, compute) | done |
 | Bibliography `references.bib` | done; author lists checked on arXiv for e-means, Weiss, Flash-KMeans, Flash-GMM; 24 entries checked online, the rest are standard references |
 | Supplementary ZIP `supplementary.zip` (code, job files, 44,197 run records, figures, paper sources) | done, 5.4 MB (1,309 files), built by `scripts/make_release.sh` from the current commit; scanned for user, machine, repo and employer names. Not committed (gitignored); rebuild before upload if anything changes |
-| **Authors, affiliations ("Independent Researcher"), OpenReview profiles** | **you** (your profile should still list your current employer for conflicts) |
+| Author block | done (2026-11-27) in `authors.tex`, used only by `main_preprint.tex` (named preprint / camera-ready build, TMLR `[preprint]` option); `main.pdf` stays anonymous; both files are stripped from the supplementary by `make_release.sh` |
+| **OpenReview profiles** | **you** (your profile should still list your current employer for conflicts) |
 | **Employer IP / publication clearance** | **you**, before submitting |
 | Title | done (2026-11-17): "When Running Averages Are Enough: Few-Epoch EM for Mixtures, Sequences, Topics and Factorizations" |
 | Upload on OpenReview | **you** |

@@ -24,6 +24,9 @@ for f in results/jobs_*.txt results/pqueue_done*.txt results/pqueue*.log results
   if [ -f "$f" ]; then sed -i "/$pat/d" "$f"; fi
 done
 
+# the named (non-anonymous) preprint build stays out of the anonymized release
+rm -f paper/tmlr/authors.tex paper/tmlr/main_preprint.tex paper/tmlr/main_preprint.pdf
+
 mv paper/README_release.md README.md
 # scrub local paths (this machine and older macOS checkouts), the hostname and the private repo name
 HOST=$(hostname); STEM=${OWNER%%[0-9]*}
