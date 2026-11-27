@@ -26,6 +26,8 @@ done
 
 # the named (non-anonymous) preprint build stays out of the anonymized release
 rm -f paper/tmlr/authors.tex paper/tmlr/main_preprint.tex paper/tmlr/main_preprint.pdf paper/tmlr/OPENREVIEW_SUBMISSION.md
+# planning notes and the superseded Markdown draft would contradict the manuscript: keep them out of the release
+rm -f paper/draft.md paper/METADATA.md paper/RELEASE_PLAN.md paper/references.md
 
 mv paper/README_release.md README.md
 # scrub local paths (this machine and older macOS checkouts), the hostname and the private repo name

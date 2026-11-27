@@ -700,6 +700,45 @@ significant only at T ≤ 2. Liang & Klein (2009) were re-read from the ACL Anth
 Undefined abbreviations were fixed: HMM is now defined in the introduction, ALS in the Notation paragraph (it was used
 before §5), NMF in Table 1's caption, and DL and PCA64 in Table 2's caption.
 
+### Full sweep: method vs code, numbers, references, supplementary (2026-11-27)
+
+Systematic pass after the author asked for a thorough sweep.
+
+**Method vs code** (`core/plugin.py`, `core/schedule.py`, `core/revival.py`, `tracks/*/`). The text described one
+idealized recipe; the code differs in three places, now stated in §2–3:
+- **Steps.** `steps_per_epoch = n // B`: each epoch reshuffles and drops the last partial batch, and M =
+  round(T⌊n/B⌋), not ⌈Tn/B⌉. The schedule index runs t = 0…M−1, and revival runs when (t+1) mod 5 = 0 (Algorithm 1
+  updated).
+- **Revival.** GMMs split a donor along its principal covariance axis (δ√λ1, δ = 1/128). HMMs and LDA split a donor
+  drawn ∝ mass with a relative ±0.05 perturbation. Dictionary learning re-seeds a dead atom from the residual of the
+  worst-reconstructed point of the last batch and resets its statistics to the live-atom mean. It never fires for HMMs
+  or DL.
+- **Initialization.** Masses start at 1e-10 except LDA (random λ init, n0 = 1).
+
+Confirmed as described: all five families run with `finalize_mode="none"` (no last-epoch averaging), threshold 0.1 ×
+mean mass, revival every 5 batches, cosine floor 0.1, baseline α = min(1, (τ0 + t)^−κ).
+
+**Numbers vs source files:**
+- Table 9 matches `refit_coords.log` exactly; the missing-information feature matches `refit_coords_mi.log` (R²
+  0.673, LOFO 0.167%); Table 10 matches `revival_rare.summary.json`.
+- Pre-registered test: M0's LOFO median is **0.439%** (verdict file), not 0.440%; fixed.
+- Record count: the supplementary holds **44,203** JSONL records in 67 files. 44,197 was before the SIFT1M
+  reference fill (+6). The Reproducibility paragraph and README now say 44,203 and that the records cover runs, sweep
+  cells and law-fit penalties.
+
+**References:** all 46 entries re-read. The hmmlearn version (0.3.3) matches `uv.lock`. The internal comment "details
+from memory" was removed from `references.bib`, since it ships in the supplementary.
+
+**PDF:** the metadata has no author or title fields and the PDF has no embedded links.
+
+**Supplementary:**
+- `paper/draft.md`, `paper/METADATA.md`, `paper/RELEASE_PLAN.md` and `paper/references.md` contradicted the
+  manuscript (old title, "51 of 102", LOAO, 44,197). `make_release.sh` now drops them.
+- The README now points to `paper/tmlr/main.tex` / `main.pdf`, lists `review_stats.py`, and says PAPER_LOG is an
+  append-only notebook in which the manuscript and the generated files are authoritative.
+
+The manuscript is now 21 pages (the method details added half a page).
+
 ## 5. Exploratory analyses (not pre-registered — label as such in the paper)
 
 **2026-11-14 — refit of the alpha0 law in "observations per statistic cell" coordinates**

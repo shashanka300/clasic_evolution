@@ -149,8 +149,9 @@ online LDA works \citep{hoffman2013svi}.
 
 \paragraph{Notation.} $n$ training points (documents for LDA, sequences for HMMs, users for matrix factorization by
 alternating least squares, ALS), $k$ components
-(clusters, states, topics, atoms or rank), $d$ data dimension, $B$ batch size, $T$ epoch budget, $M = \lceil Tn / B
-\rceil$ total steps, and $\alpha_0$ the initial step size. A star, as in $\aopt$, marks the value that is best on
+(clusters, states, topics, atoms or rank), $d$ data dimension, $B$ batch size, $T$ epoch budget, and $\alpha_0$ the
+initial step size. Each epoch reshuffles the data and takes $\lfloor n/B \rfloor$ full mini-batches (a final partial
+batch is dropped), so a budget of $T$ epochs has $M = \mathrm{round}(T \lfloor n/B \rfloor)$ steps. A star, as in $\aopt$, marks the value that is best on
 validation.
 
 %======================================================================================================================
@@ -165,17 +166,18 @@ M-step (Table~\ref{tab:stats}).
 \begin{algorithmic}[1]
 \Require data $x_{1:n}$; a model with statistics $s$ and closed-form M-step $m$; budget $T$ epochs; batch size $B$;
 initial step $\alpha_0$ (tuned on validation, or from a law in Section~\ref{sec:laws}); floor $\varepsilon = 0.1$
-\State $M \gets \lceil Tn/B \rceil$; initialize $\theta_0$; set every unit's mass $N_j$ in $\hat S_0$ to $10^{-10}$
-\For{$t = 1, \dots, M$}
-  \State take the next mini-batch $b_t$ of $B$ points
+\State $M \gets \mathrm{round}(T \lfloor n/B \rfloor)$; initialize $\theta_0$ and $\hat S_0$ (masses $N_j =
+10^{-10}$; see text)
+\For{$t = 0, \dots, M - 1$}
+  \State take the next mini-batch $b_t$ of $B$ points (reshuffled every epoch)
   \State $\bar S_t \gets \frac{1}{B}\sum_{i \in b_t} \mathbb{E}[s(x_i, z_i) \mid x_i, \theta_{t-1}]$
          \Comment{E-step on the batch}
   \State $\alpha_t \gets \alpha_0 \big(\varepsilon + (1 - \varepsilon)\tfrac12(1 + \cos(\pi t / M))\big)$
          \Comment{cosine schedule}
   \State $\hat S_t \gets (1 - \alpha_t)\,\hat S_{t-1} + \alpha_t\, \bar S_t$ \Comment{running average}
-  \If{$t \bmod 5 = 0$} \Comment{revival}
+  \If{$(t + 1) \bmod 5 = 0$} \Comment{revival}
     \For{each unit $j$ with $N_j < 0.1 \cdot \mathrm{mean}(N)$}
-      \State draw a donor $j'$ with probability $\propto N_{j'}$; give $j$ a perturbed share of $j'$'s statistics
+      \State re-seed $j$ (family-specific; see the Revival paragraph)
     \EndFor
   \EndIf
   \State $\theta_t \gets m(\hat S_t)$ \Comment{closed-form M-step}
@@ -213,10 +215,15 @@ the budget. The floor $\varepsilon = 0.1$ is the same for every family.
 
 \paragraph{Revival.} When a component stops receiving data, its statistics decay towards zero and it is wasted for
 the rest of the run. Every 5 batches, any unit (mixture component, HMM state, topic or dictionary atom) whose mass
-$N_j$ in $\hat S$ is below a tenth of the mean is re-seeded by splitting a live donor, drawn with probability
-proportional to its mass: the donor's statistics are shared between the two and slightly perturbed. ALS has no
-per-component mass and does not use revival. Because all masses start at $10^{-10}$, the first batch effectively
-initializes the statistics.
+$N_j$ in $\hat S$ is below a tenth of the mean is re-seeded. For GMMs, HMMs and LDA it takes half of a live donor,
+drawn with probability proportional to its mass: the donor's statistics are split between the two and perturbed in
+opposite directions (for GMMs along the donor's principal covariance axis, by $\delta\sqrt{\lambda_1}$ with $\delta =
+1/128$; for HMMs and LDA by a relative $\pm 0.05$). For dictionary learning a dead atom is re-seeded from the residual of the
+worst-reconstructed point of the last batch, with its statistics reset to the mean of the live atoms. ALS has no per-component mass and does not use revival. In our runs revival never fires for HMMs
+or dictionary learning (Section~\ref{sec:res-ablation}).
+
+\paragraph{Initialization.} All masses start at $10^{-10}$, so the first batch effectively initializes the statistics.
+The exception is LDA, whose topic--word statistics start from a random initialization with unit weight.
 
 \paragraph{Cost per step.}\label{sec:cost} A step costs one E-step on $B$ points, one update of the statistics
 (proportional to their size $|S|$), one M-step, and a revival check linear in $k$ every 5 steps. Per epoch, the E-step
@@ -617,7 +624,7 @@ Figure~\ref{fig:penalties}.}
 
 \paragraph{Pre-registered test.} On 422 sweep cells, M1 beats the per-family-constant null M0. Its leave-one-cell-out
 median penalty is 0.108\% against M0's 0.319\% (one-sided Wilcoxon $p = 1.05 \times 10^{-18}$), and its
-leave-one-family-out median is 0.338\% against 0.440\%. These numbers come from the pre-registered fitting script.
+leave-one-family-out median is 0.338\% against 0.439\%. These numbers come from the pre-registered fitting script.
 The refit in Table~\ref{tab:laws}, which uses the same cells and also fits the exploratory laws, gives slightly
 different values for M1 (0.103\% and 0.290\%); the conclusion is the same. Held-out-family penalties remain large for
 LDA and HMMs.
@@ -743,8 +750,8 @@ five times lower than the $k$-means law predicts and about ten times lower than 
   \item \emph{Scale.} Larger datasets (Netflix, PubMed, Wikipedia) and fused GPU kernels for the mini-batch E-step.
 \end{enumerate}
 
-\paragraph{Reproducibility.} Code, job files and every result record (one JSONL line per run, 44{,}197 runs) are
-provided as anonymized supplementary material. Tables, figures and law fits are regenerated from the records without
+\paragraph{Reproducibility.} Code, job files and every result record (44{,}203 JSONL records in 67 files: runs,
+sweep cells and law-fit penalties) are provided as anonymized supplementary material. Tables, figures and law fits are regenerated from the records without
 re-running any experiment; the full protocol is about 575 job-hours on one desktop. Hypotheses and pass/fail criteria
 were frozen before the runs, and amendments are logged.
 

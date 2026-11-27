@@ -7,8 +7,8 @@ Submit). Field names on the live form may differ slightly; fill what it asks for
 
 | field | file |
 |---|---|
-| PDF (must be anonymous) | `paper/tmlr/main.pdf` (20 pages; "Anonymous authors"; checked: no name or email) |
-| Supplementary material (ZIP, ≤ 100 MB) | `paper/tmlr/supplementary.zip` (6.0 MB, 1,314 files, anonymized) |
+| PDF (must be anonymous) | `paper/tmlr/main.pdf` (21 pages; "Anonymous authors"; checked: no name or email) |
+| Supplementary material (ZIP, ≤ 100 MB) | `paper/tmlr/supplementary.zip` (about 6 MB, anonymized) |
 | **Do not upload** | `paper/tmlr/main_preprint.pdf` (named version, for arXiv / camera-ready only) |
 
 ## Title
@@ -31,7 +31,7 @@ EM within a few epochs on four of five latent-variable families; LDA is the exce
 
 ## Submission length (if asked)
 
-Long submission: the main text runs past 12 pages (it ends on page 14, before references and appendices).
+Long submission: the main text runs past 12 pages (references start on page 15; appendices follow).
 
 ## Declarations (author must confirm each)
 
